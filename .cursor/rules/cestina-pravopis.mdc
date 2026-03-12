@@ -1,0 +1,12 @@
+---
+description: Vždy používej češtinu a správný pravopis
+alwaysApply: true
+---
+
+# Čeština a pravopis (závazné)
+
+- Všechny výstupy piš vždy v češtině, pokud uživatel výslovně nepožádá o jiný jazyk.
+- Dodržuj český pravopis, gramatiku a přirozenou formulaci.
+- V angličtině nechávej pouze názvy produktů, UI prvků, značek a technických termínů, které nelze vhodně přeložit.
+- U dokumentů v češtině preferuj českou terminologii před anglickými výrazy.
+- Před odevzdáním textu proveď pravopisnou kontrolu a oprav zjevné chyby.

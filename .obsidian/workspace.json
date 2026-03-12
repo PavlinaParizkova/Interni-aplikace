@@ -1,0 +1,212 @@
+{
+  "main": {
+    "id": "72690f292b0b8e70",
+    "type": "split",
+    "children": [
+      {
+        "id": "8449142b629080d9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b41ba02fca64cc04",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Marketing-operations-mapping/PROCESY_A_POSTUPY.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "PROCESY_A_POSTUPY"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "fcc5f0094c6057a8",
+    "type": "split",
+    "children": [
+      {
+        "id": "3f6c74831eb0d060",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d34d4ec48885c497",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Průzkumník souborů"
+            }
+          },
+          {
+            "id": "5f92ebcda45e1d6a",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Hledat"
+            }
+          },
+          {
+            "id": "73a59984de1c4441",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Záložky"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "2482e7f30f824348",
+    "type": "split",
+    "children": [
+      {
+        "id": "a26be56db0dbdbd0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2f5ff22a9f252179",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Zpětné odkazy"
+            }
+          },
+          {
+            "id": "ddc914772f03bb80",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Odchozí odkazy"
+            }
+          },
+          {
+            "id": "982fdab0b04c7372",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Štítky"
+            }
+          },
+          {
+            "id": "da71aa2874c36c16",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Všechny vlastnosti"
+            }
+          },
+          {
+            "id": "e44d25f87a022655",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Přehled"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Otevřít rychlé přepínání": false,
+      "graph:Otevřít graf": false,
+      "canvas:Vytvořit nový canvas": false,
+      "daily-notes:Otevřít dnešní poznámku": false,
+      "templates:Vložit šablonu": false,
+      "command-palette:Otevřít paletu příkazů": false,
+      "bases:Vytvořit novou základnu": false
+    }
+  },
+  "active": "b41ba02fca64cc04",
+  "lastOpenFiles": [
+    "Marketing-operations-mapping/dokumenty/aero-friedrichshafen-2026-event-brief.md",
+    "Growth-master-strategy/Wiki/2Q-2026-AIRTEAM-KPI-baseline-and-targets.md",
+    "Growth-master-strategy/Posts/2q-2026-4week-social-copy-by-network.md",
+    "Growth-master-strategy/Posts/2q-2026-2week-daily-ready-copy.md",
+    "Marketing-operations-mapping/MARKETING_STRUCTURE.md",
+    "Marketing-operations-mapping/README.md",
+    "Marketing-operations-mapping/sablony/brozura-reference-t182t-turbo-skylane-EN.md",
+    "Marketing-operations-mapping/sablony/brozura-reference-t303-crusader-EN.md",
+    "Marketing-operations-mapping/sablony/brozura-reference-pa46-31-malibu-EN.md",
+    "Marketing-operations-mapping/sablony/brozura-reference-pa28-180-cherokee-EN.md",
+    "Marketing-operations-mapping/sablony/brozura-reference-mooney-m20j-EN.md",
+    "Marketing-operations-mapping/sablony/brozura-reference-cessna-421-EN.md",
+    "Marketing-operations-mapping/sablony/brozura-reference-bonanza-f33a-EN.md",
+    "Marketing-operations-mapping/sablony/brozura-reference-cessna-340a-EN.md",
+    "Marketing-operations-mapping/sablony/brozura-reference-cessna-172s-EN.md",
+    "Marketing-operations-mapping/sablony/brozura-reference-piper-pa28-181-EN.md",
+    "Marketing-operations-mapping/sablony/brozura-reference-cessna-340a-ii-EN.md",
+    "Marketing-operations-mapping/sablony/brozura-reference-index-EN.md",
+    "Marketing-operations-mapping/sablony/brozura-reference-template-EN.md",
+    "Marketing-operations-mapping/sablony/brozura-reference-seneca-EN.md",
+    "Marketing-operations-mapping/sablony/faq-benefit-program-web.md",
+    "Marketing-operations-mapping/dokumenty/manual-vernostni-program-2026.md",
+    "Marketing-operations-mapping/OTAZKY_PRO_VEDENI.md",
+    "Marketing-operations-mapping/sablony/faq-benefit-program-support.md",
+    "Marketing-operations-mapping/TONE_OF_VOICE_HRDINA_AIR_TEAM.md",
+    "ai-prompt-library-processes/processes/Weekly-report-manual.md"
+  ]
+}
