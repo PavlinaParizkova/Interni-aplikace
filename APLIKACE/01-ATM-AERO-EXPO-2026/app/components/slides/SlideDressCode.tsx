@@ -55,7 +55,7 @@ export default function SlideDressCode() {
       <div className="mb-4 sm:mb-6">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
-          style={{ color: "var(--color-at-red)" }}
+          style={{ color: "var(--color-at-white)" }}
         >
           Příprava veletrhu
         </p>
@@ -129,7 +129,7 @@ export default function SlideDressCode() {
                   className="text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0 mt-0.5"
                   style={{
                     background: "rgba(213,28,23,0.15)",
-                    color: "var(--color-at-red)",
+                    color: "var(--color-at-white)",
                     border: "1px solid var(--color-at-red)",
                   }}
                 >
@@ -219,7 +219,7 @@ export default function SlideDressCode() {
                 className="text-sm font-bold px-3 py-1 rounded-full flex-shrink-0"
                 style={{
                   background: "rgba(213,28,23,0.15)",
-                  color: "var(--color-at-red)",
+                  color: "var(--color-at-white)",
                   border: "1px solid var(--color-at-red)",
                 }}
               >

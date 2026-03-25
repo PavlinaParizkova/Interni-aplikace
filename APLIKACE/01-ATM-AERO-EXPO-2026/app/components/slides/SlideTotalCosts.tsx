@@ -66,7 +66,7 @@ export default function SlideTotalCosts() {
       <div className="mb-4 sm:mb-5">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
-          style={{ color: "var(--color-at-red)" }}
+          style={{ color: "var(--color-at-white)" }}
         >
           Souhrn · Celkové náklady
         </p>
@@ -79,9 +79,51 @@ export default function SlideTotalCosts() {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-5">
-        {/* Table */}
+        {/* Mobile card view */}
+        <div className="md:hidden flex flex-col gap-3">
+          {CATEGORIES.map((cat) => (
+            <div key={cat.label} className="rounded-xl overflow-hidden" style={{ border: "1px solid var(--color-at-blue-v4)" }}>
+              <div
+                className="px-4 py-2 text-xs font-bold uppercase tracking-widest"
+                style={{ background: "var(--color-at-blue-v2)", color: "var(--color-at-blue-v5)" }}
+              >
+                {cat.label}
+              </div>
+              {cat.items.map((item) => {
+                const sc = STATUS_CONFIG[item.status];
+                return (
+                  <div
+                    key={item.name}
+                    className="px-4 py-3"
+                    style={{ background: "var(--color-at-blue-v1)", borderBottom: "1px solid var(--color-at-blue-v3)" }}
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="text-sm" style={{ color: "var(--color-at-white)" }}>{item.name}</span>
+                      <span
+                        className="text-xs font-bold px-2 py-0.5 rounded flex-shrink-0"
+                        style={{ background: sc.bg, color: sc.color }}
+                      >
+                        {sc.label}
+                      </span>
+                    </div>
+                    {item.note && (
+                      <p className="mt-0.5 text-xs" style={{ color: "var(--color-at-blue-v5)" }}>({item.note})</p>
+                    )}
+                    {item.amount > 0 && (
+                      <div className="mt-1 text-right font-black text-base" style={{ color: "var(--color-at-white)" }}>
+                        {item.amount.toLocaleString("cs-CZ")} Kč
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop table */}
         <div
-          className="overflow-x-auto rounded-xl"
+          className="hidden md:block overflow-x-auto rounded-xl"
           style={{ border: "1px solid var(--color-at-blue-v4)" }}
         >
           {/* Table header */}

@@ -1,4 +1,4 @@
-﻿type OfferRow = {
+type OfferRow = {
   no: string;
   name: string;
   desc: string;
@@ -105,7 +105,7 @@ export default function SlideExponexOffer() {
       <div className="mb-4">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
-          style={{ color: "var(--color-at-red)" }}
+          style={{ color: "var(--color-at-white)" }}
         >
           Stánek · Exponex s.r.o.
         </p>
@@ -119,9 +119,50 @@ export default function SlideExponexOffer() {
 
       {/* Main layout */}
       <div className="flex flex-col lg:flex-row gap-5">
-        {/* Scrollable table */}
+        {/* Mobile card view */}
+        <div className="md:hidden flex flex-col gap-3">
+          {allSections.map((sec) => (
+            <div key={sec.title} className="rounded-xl overflow-hidden" style={{ border: "1px solid var(--color-at-blue-v4)" }}>
+              <div
+                className="px-4 py-2 text-xs font-bold uppercase tracking-widest"
+                style={{ background: "var(--color-at-blue-v2)", color: "var(--color-at-blue-v5)" }}
+              >
+                {sec.title}
+              </div>
+              {sec.rows.map((row) => (
+                <div
+                  key={row.no}
+                  className="px-4 py-3"
+                  style={{
+                    background: row.isOption ? "rgba(245,158,11,0.06)" : "var(--color-at-blue-v1)",
+                    borderBottom: "1px solid var(--color-at-blue-v3)",
+                  }}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <span
+                      className="font-semibold text-sm"
+                      style={{ color: row.isOption ? "#f59e0b" : "var(--color-at-white)" }}
+                    >
+                      <span className="text-xs mr-1.5" style={{ color: "var(--color-at-blue-v5)" }}>{row.no}</span>
+                      {row.name}
+                    </span>
+                    <TypeBadge type={row.type} />
+                  </div>
+                  {row.desc && (
+                    <p className="mt-1 text-xs" style={{ color: "var(--color-at-blue-v5)" }}>{row.desc}</p>
+                  )}
+                  <div className="mt-1.5 text-right font-black text-base" style={{ color: row.price === null ? "var(--color-at-blue-v4)" : "var(--color-at-white)" }}>
+                    {row.price === null ? "Klient" : `${row.price.toLocaleString("cs-CZ")} Kč`}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop scrollable table */}
         <div
-          className="overflow-x-auto rounded-xl"
+          className="hidden md:block overflow-x-auto rounded-xl"
           style={{ border: "1px solid var(--color-at-blue-v4)" }}
         >
           {/* Table header */}

@@ -1,0 +1,45 @@
+---
+description: Zakázané barevné kombinace v aplikacích AIR TEAM – nikdy červená na modrém pozadí
+globs: APLIKACE/**/*.tsx,APLIKACE/**/*.ts,APLIKACE/**/*.css
+alwaysApply: false
+---
+
+# AIR TEAM – Zakázané barevné kombinace
+
+## ❌ ZAKÁZÁNO: červená jako barva textu na modrém pozadí
+
+Nikdy nepoužívej `color: var(--color-at-red)` jako barvu **textu** na tmavém modrém pozadí (blue-v1, blue-v2, blue-v3, blue).
+
+```tsx
+// ❌ ZAKÁZÁNO – červený text na tmavě modré ploše
+<p style={{ color: "var(--color-at-red)" }}>Nadpis sekce</p>
+
+// ✅ SPRÁVNĚ – bílý text na tmavě modré
+<p style={{ color: "var(--color-at-white)" }}>Nadpis sekce</p>
+
+// ✅ SPRÁVNĚ – světle modrý sekundární text
+<p style={{ color: "var(--color-at-blue-a5)" }}>Podnázev sekce</p>
+```
+
+## ✅ Povolené použití červené
+
+Červená smí být použita jako:
+- `background: "var(--color-at-red)"` – červené pozadí s bílým textem
+- `border: "... var(--color-at-red)"` – červený rámeček/ohraničení
+- Chybové stavy na **světlém** pozadí (login stránka, formuláře)
+- Barevné tečky / indikátory (width/height, ne text)
+
+## Pravidlo pro sekční nadpisy v slidech
+
+Každý sekční label (`.text-xs .uppercase .tracking-[0.2em]`) musí mít bílou barvu:
+```tsx
+// ✅ SPRÁVNĚ
+<p className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
+   style={{ color: "var(--color-at-white)" }}>
+  Název sekce
+</p>
+```
+
+## Zdroj
+
+Pravidlo zavedeno 2026-03-25 na základě brand review – červená (#d51c17) má nedostatečný kontrast na modrých plochách AIR TEAM (WCAG fail).

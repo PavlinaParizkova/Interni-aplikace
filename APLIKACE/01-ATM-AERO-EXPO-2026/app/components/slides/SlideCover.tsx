@@ -52,7 +52,7 @@
         style={{ color: "var(--color-at-white)", fontSize: "clamp(2.8rem, 6vw, 4.5rem)" }}
       >
         AIR TEAM
-        <span style={{ color: "var(--color-at-red)" }}> ×</span>
+        <span style={{ color: "var(--color-at-white)" }}> ×</span>
       </h1>
       <h2
         className="font-black tracking-tight leading-none mb-2"
@@ -62,7 +62,7 @@
       </h2>
       <h3
         className="font-black tracking-tight leading-none mb-8"
-        style={{ color: "var(--color-at-red)", fontSize: "clamp(3rem, 6.5vw, 5rem)" }}
+        style={{ color: "var(--color-at-white)", fontSize: "clamp(3rem, 6.5vw, 5rem)" }}
       >
         2026
       </h3>

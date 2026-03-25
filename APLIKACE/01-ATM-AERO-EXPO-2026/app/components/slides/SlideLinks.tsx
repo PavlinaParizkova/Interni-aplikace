@@ -7,7 +7,7 @@ export default function SlideLinks() {
       <div className="mb-5 sm:mb-8">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
-          style={{ color: "var(--color-at-red)" }}
+          style={{ color: "var(--color-at-white)" }}
         >
           Zdroje
         </p>

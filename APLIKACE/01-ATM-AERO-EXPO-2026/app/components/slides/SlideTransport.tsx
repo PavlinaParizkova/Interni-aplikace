@@ -16,7 +16,7 @@ export default function SlideTransport() {
       <div className="mb-4 sm:mb-6">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
-          style={{ color: "var(--color-at-red)" }}
+          style={{ color: "var(--color-at-white)" }}
         >
           Logistika
         </p>
@@ -56,7 +56,7 @@ export default function SlideTransport() {
           className="px-5 py-3 rounded-lg flex items-center gap-3"
           style={{ background: "var(--color-at-blue-a5)", border: "1px solid var(--color-at-blue-v5)" }}
         >
-          <span className="text-2xl font-black" style={{ color: "var(--color-at-red)" }}>
+          <span className="text-2xl font-black" style={{ color: "var(--color-at-white)" }}>
             21. 4.
           </span>
           <span className="text-sm" style={{ color: "var(--color-at-blue-v2)" }}>
@@ -67,7 +67,7 @@ export default function SlideTransport() {
           className="px-5 py-3 rounded-lg flex items-center gap-3"
           style={{ background: "var(--color-at-blue-a5)", border: "1px solid var(--color-at-blue-v5)" }}
         >
-          <span className="text-2xl font-black" style={{ color: "var(--color-at-red)" }}>
+          <span className="text-2xl font-black" style={{ color: "var(--color-at-white)" }}>
             26. 4.
           </span>
           <span className="text-sm" style={{ color: "var(--color-at-blue-v2)" }}>

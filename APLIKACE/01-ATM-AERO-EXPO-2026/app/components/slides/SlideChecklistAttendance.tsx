@@ -40,7 +40,7 @@ export default function SlideChecklistAttendance() {
         <div>
           <p
             className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
-            style={{ color: "var(--color-at-red)" }}
+            style={{ color: "var(--color-at-white)" }}
           >
             Checklist
           </p>
@@ -137,7 +137,7 @@ export default function SlideChecklistAttendance() {
       {allDone && mounted && (
         <div
           className="mt-3 px-5 py-3 rounded-lg text-center text-sm font-semibold"
-          style={{ background: "rgba(213,28,23,0.15)", color: "var(--color-at-red)", border: "1px solid rgba(213,28,23,0.3)" }}
+          style={{ background: "rgba(213,28,23,0.15)", color: "var(--color-at-white)", border: "1px solid rgba(213,28,23,0.3)" }}
         >
           Tým je plně připraven na AERO EXPO 2026. Letíme!
         </div>

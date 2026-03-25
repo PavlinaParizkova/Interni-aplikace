@@ -1,4 +1,4 @@
-﻿type CompRow = {
+type CompRow = {
   category: string;
   mlt: number;
   exponex: number;
@@ -89,7 +89,7 @@ export default function SlideBoothComparison() {
       <div className="mb-4">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
-          style={{ color: "var(--color-at-red)" }}
+          style={{ color: "var(--color-at-white)" }}
         >
           Stánek · Porovnání nabídek
         </p>
@@ -142,9 +142,81 @@ export default function SlideBoothComparison() {
         </div>
       </div>
 
-      {/* Comparison table */}
+      {/* Mobile card view */}
+      <div className="md:hidden flex flex-col gap-2 mb-3">
+        <div className="rounded-xl overflow-hidden" style={{ border: "1px solid var(--color-at-blue-v4)" }}>
+          {ROWS.map((row) => {
+            const diff = row.exponex - row.mlt;
+            const ratio = (row.exponex / row.mlt).toFixed(1);
+            return (
+              <div
+                key={row.category}
+                className="px-4 py-3"
+                style={{ background: "var(--color-at-blue-v1)", borderBottom: "1px solid var(--color-at-blue-v3)" }}
+              >
+                <span className="font-semibold text-sm" style={{ color: "var(--color-at-white)" }}>
+                  {row.category}
+                </span>
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  <div>
+                    <p className="text-xs font-bold uppercase" style={{ color: "#93cfb3" }}>MLT expo</p>
+                    <p className="font-black tabular-nums" style={{ color: "#93cfb3" }}>
+                      {row.mlt.toLocaleString("cs-CZ")} Kč
+                    </p>
+                    <Bar value={row.mlt} color="#93cfb3" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase" style={{ color: "#cf9393" }}>Exponex</p>
+                    <p className="font-black tabular-nums" style={{ color: "#cf9393" }}>
+                      {row.exponex.toLocaleString("cs-CZ")} Kč
+                    </p>
+                    <Bar value={row.exponex} color="#cf9393" />
+                  </div>
+                </div>
+                <div className="flex items-center justify-between mt-2">
+                  <span
+                    className="text-xs font-bold px-2 py-1 rounded"
+                    style={{ background: "rgba(213,28,23,0.12)", color: "var(--color-at-red)" }}
+                  >
+                    +{diff.toLocaleString("cs-CZ")} Kč ({ratio}×)
+                  </span>
+                </div>
+                <p className="mt-1.5 text-xs" style={{ color: "var(--color-at-blue-v5)" }}>{row.note}</p>
+              </div>
+            );
+          })}
+          <div
+            className="px-4 py-3 flex flex-col gap-1"
+            style={{ background: "var(--color-at-blue)", borderTop: "2px solid var(--color-at-blue-v4)" }}
+          >
+            <span className="font-black text-sm" style={{ color: "var(--color-at-white)" }}>CELKEM bez DPH</span>
+            <div className="grid grid-cols-2 gap-2 mt-1">
+              <div>
+                <p className="text-xs" style={{ color: "#93cfb3" }}>MLT expo</p>
+                <p className="font-black tabular-nums" style={{ color: "#93cfb3" }}>
+                  {MLT_TOTAL_NO_VAT.toLocaleString("cs-CZ")} Kč
+                </p>
+              </div>
+              <div>
+                <p className="text-xs" style={{ color: "#cf9393" }}>Exponex</p>
+                <p className="font-black tabular-nums" style={{ color: "#cf9393" }}>
+                  {EXP_TOTAL_13B.toLocaleString("cs-CZ")} Kč
+                </p>
+              </div>
+            </div>
+            <span
+              className="text-sm font-black px-2 py-1 rounded mt-1 self-start"
+              style={{ background: "rgba(213,28,23,0.18)", color: "var(--color-at-red)" }}
+            >
+              +{(EXP_TOTAL_13B - MLT_TOTAL_NO_VAT).toLocaleString("cs-CZ")} Kč
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop comparison table */}
       <div
-        className="overflow-x-auto rounded-xl"
+        className="hidden md:block overflow-x-auto rounded-xl"
         style={{ border: "1px solid var(--color-at-blue-v4)" }}
       >
         {/* Table header */}
@@ -196,7 +268,7 @@ export default function SlideBoothComparison() {
                   className="text-xs font-bold px-2 py-1 rounded"
                   style={{
                     background: "rgba(213,28,23,0.12)",
-                    color: "var(--color-at-red)",
+                    color: "var(--color-at-white)",
                   }}
                 >
                   +{diff.toLocaleString("cs-CZ")} Kč
@@ -232,7 +304,7 @@ export default function SlideBoothComparison() {
           <span className="text-right">
             <span
               className="text-sm font-black px-2 py-1 rounded"
-              style={{ background: "rgba(213,28,23,0.18)", color: "var(--color-at-red)" }}
+              style={{ background: "rgba(213,28,23,0.18)", color: "var(--color-at-white)" }}
             >
               +{(EXP_TOTAL_13B - MLT_TOTAL_NO_VAT).toLocaleString("cs-CZ")} Kč
             </span>

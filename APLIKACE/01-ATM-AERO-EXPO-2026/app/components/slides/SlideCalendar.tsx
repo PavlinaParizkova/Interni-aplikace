@@ -1,4 +1,4 @@
-/* Color tokens used:
+﻿/* Color tokens used:
    Light table:
      thead bg  → var(--color-at-blue)      #153151  white text
      row odd   → #ffffff                    dark blue text
@@ -94,7 +94,7 @@ export default function SlideCalendar() {
       <div className="mb-4 sm:mb-5">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
-          style={{ color: "var(--color-at-red)" }}
+          style={{ color: "var(--color-at-white)" }}
         >
           Logistika · Google Kalendář
         </p>
@@ -206,7 +206,7 @@ export default function SlideCalendar() {
           >
             <p
               className="text-xs font-bold tracking-[0.18em] uppercase mb-2"
-              style={{ color: "var(--color-at-red)" }}
+              style={{ color: "var(--color-at-white)" }}
             >
               Formát názvu události
             </p>
@@ -253,7 +253,7 @@ export default function SlideCalendar() {
           >
             <p
               className="text-xs font-bold tracking-[0.18em] uppercase mb-2"
-              style={{ color: "var(--color-at-red)" }}
+              style={{ color: "var(--color-at-white)" }}
             >
               Povinná pole v popisu
             </p>
@@ -298,7 +298,7 @@ export default function SlideCalendar() {
           >
             <p
               className="text-xs font-bold tracking-[0.18em] uppercase mb-2"
-              style={{ color: "#ff6b6b" }}
+              style={{ color: "var(--color-at-white)" }}
             >
               CEO schůzky – Petr Polák
             </p>
@@ -320,7 +320,7 @@ export default function SlideCalendar() {
       >
         <p
           className="text-xs font-bold tracking-[0.18em] uppercase mb-3"
-          style={{ color: "var(--color-at-red)" }}
+          style={{ color: "var(--color-at-white)" }}
         >
           Checklist před přidáním schůzky do kalendáře
         </p>

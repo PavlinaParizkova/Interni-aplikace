@@ -95,7 +95,7 @@ export default function SlideGifts() {
       <div className="mb-4 sm:mb-5">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
-          style={{ color: "var(--color-at-red)" }}
+          style={{ color: "var(--color-at-white)" }}
         >
           Příprava veletrhu
         </p>
@@ -140,7 +140,7 @@ export default function SlideGifts() {
                   className="text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0"
                   style={{
                     background: "rgba(213,28,23,0.18)",
-                    color: "var(--color-at-red)",
+                    color: "var(--color-at-white)",
                     border: "1px solid var(--color-at-red)",
                   }}
                 >

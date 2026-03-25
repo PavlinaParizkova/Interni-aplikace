@@ -44,7 +44,7 @@ export default function SlideWhatWePresent() {
       <div className="mb-5 sm:mb-8">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
-          style={{ color: "var(--color-at-red)" }}
+          style={{ color: "var(--color-at-white)" }}
         >
           Co prezentujeme
         </p>
@@ -75,7 +75,7 @@ export default function SlideWhatWePresent() {
               >
                 {p.number}
               </span>
-              <span className="text-2xl" style={{ color: "var(--color-at-red)" }}>
+              <span className="text-2xl" style={{ color: "var(--color-at-white)" }}>
                 {p.icon}
               </span>
             </div>

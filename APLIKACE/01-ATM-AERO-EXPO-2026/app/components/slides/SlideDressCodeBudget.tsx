@@ -32,7 +32,7 @@ export default function SlideDressCodeBudget() {
       <div className="mb-4 sm:mb-5">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
-          style={{ color: "var(--color-at-red)" }}
+          style={{ color: "var(--color-at-white)" }}
         >
           Dress Code · Rozpočet
         </p>
@@ -46,9 +46,55 @@ export default function SlideDressCodeBudget() {
 
       {/* Main layout */}
       <div className="flex flex-col lg:flex-row gap-5">
-        {/* Table */}
+        {/* Mobile card view */}
+        <div className="md:hidden flex flex-col gap-2">
+          <div className="rounded-xl overflow-hidden" style={{ border: "1px solid var(--color-at-blue-v4)" }}>
+            {ROWS.map((row) => {
+              const badge = GENDER_BADGE[row.gender];
+              return (
+                <div
+                  key={`${row.model}-${row.gender}`}
+                  className="px-4 py-3"
+                  style={{ background: "var(--color-at-blue-v1)", borderBottom: "1px solid var(--color-at-blue-v3)" }}
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <span className="font-semibold text-sm" style={{ color: "var(--color-at-white)" }}>
+                      {row.item}
+                    </span>
+                    <span
+                      className="text-xs font-bold px-2 py-0.5 rounded flex-shrink-0"
+                      style={{ background: badge.bg, color: badge.color }}
+                    >
+                      {row.gender}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs" style={{ color: "var(--color-at-blue-v5)" }}>{row.model}</p>
+                  <div className="flex justify-between mt-1.5 text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
+                    <span>{row.qty} ks · {row.unitPrice.toLocaleString("cs-CZ")} Kč / ks</span>
+                    <span className="font-black text-sm" style={{ color: "var(--color-at-white)" }}>
+                      {(row.qty * row.unitPrice).toLocaleString("cs-CZ")} Kč
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+            <div
+              className="flex justify-between px-4 py-2.5 text-sm"
+              style={{ background: "var(--color-at-blue)", borderTop: "2px solid var(--color-at-blue-v4)" }}
+            >
+              <span className="font-black" style={{ color: "var(--color-at-white)" }}>
+                CELKEM · {ROWS.reduce((s, r) => s + r.qty, 0)} ks
+              </span>
+              <span className="font-black" style={{ color: "var(--color-at-white)" }}>
+                {totalAll.toLocaleString("cs-CZ")} Kč
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop table */}
         <div
-          className="rounded-xl overflow-x-auto"
+          className="hidden md:block rounded-xl overflow-x-auto"
           style={{ border: "1px solid var(--color-at-blue-v4)" }}
         >
           {/* Header */}
