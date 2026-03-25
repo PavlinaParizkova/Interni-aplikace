@@ -7,8 +7,8 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 dní
 export async function POST(request: Request) {
   const { password } = await request.json();
 
-  const correctPassword = process.env.AUTH_PASSWORD;
-  const authToken       = process.env.AUTH_TOKEN;
+  const correctPassword = process.env.AUTH_PASSWORD?.trim();
+  const authToken       = process.env.AUTH_TOKEN?.trim();
 
   if (!correctPassword || !authToken) {
     return NextResponse.json(

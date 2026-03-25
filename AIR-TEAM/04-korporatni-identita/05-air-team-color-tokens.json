@@ -1,0 +1,132 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "name": "air-team-color-tokens",
+  "version": "1.1.0",
+  "source": "https://live.airteam.eu/system/atm-styleguide",
+  "color": {
+    "core": {
+      "red": { "value": "#d51c17", "type": "color" },
+      "blue": { "value": "#153151", "type": "color" },
+      "white": { "value": "#ffffff", "type": "color" },
+      "black": { "value": "#1d1d1b", "type": "color" }
+    },
+    "blueVariants": {
+      "v1": { "value": "#10253e", "type": "color" },
+      "v2": { "value": "#1b3f67", "type": "color" },
+      "v3": { "value": "#23517c", "type": "color" },
+      "v4": { "value": "#507499", "type": "color" },
+      "v5": { "value": "#93b3cf", "type": "color" }
+    },
+    "blueAlternates": {
+      "a1": { "value": "#302f2e", "type": "color" },
+      "a2": { "value": "#2b4156", "type": "color" },
+      "a3": { "value": "#323e49", "type": "color" },
+      "a4": { "value": "#4d606f", "type": "color" },
+      "a5": { "value": "#cddce8", "type": "color" }
+    },
+    "blackVariants": {
+      "v1": { "value": "#4a4a49", "type": "color" },
+      "v2": { "value": "#878787", "type": "color" },
+      "v3": { "value": "#d0d0d0", "type": "color" },
+      "v4": { "value": "#e3e3e3", "type": "color" }
+    },
+    "semantic": {
+      "brandPrimary": { "value": "{color.core.blue.value}", "type": "color" },
+      "brandAccent": { "value": "{color.core.red.value}", "type": "color" },
+      "textPrimary": { "value": "{color.core.black.value}", "type": "color" },
+      "textOnDark": { "value": "{color.core.white.value}", "type": "color" },
+      "surfaceMuted": { "value": "{color.blackVariants.v4.value}", "type": "color" },
+      "borderDefault": { "value": "{color.blackVariants.v3.value}", "type": "color" },
+      "linkDefault": { "value": "{color.blueVariants.v3.value}", "type": "color" },
+      "linkHover": { "value": "{color.blueVariants.v2.value}", "type": "color" }
+    },
+    "applicationMatrix": {
+      "id": "2.4",
+      "title": "Aplikační matice barev (Color Application Matrix)",
+      "purpose": "Pravidla pro kombinaci podkladových barev a korporátních prvků pro čitelnost a konzistenci v tisku, digitálu a polepech.",
+      "variants": [
+        {
+          "id": "primary-light",
+          "name": "Primární varianta (světlý podklad)",
+          "usage": "Výchozí pro veškerou úřední korespondenci a bílé tiskoviny.",
+          "background": {
+            "label": "AIR TEAM White",
+            "tokenRef": "color.core.white",
+            "hex": "#ffffff"
+          },
+          "elements": {
+            "description": "Plnobarevné logo a text: AIR TEAM Blue + AIR TEAM Red.",
+            "logoText": [
+              { "label": "AIR TEAM Blue", "tokenRef": "color.core.blue", "hex": "#153151" },
+              { "label": "AIR TEAM Red", "tokenRef": "color.core.red", "hex": "#d51c17" }
+            ]
+          }
+        },
+        {
+          "id": "inverse-red-accent",
+          "name": "Inverzní varianta s červeným akcentem (kombinovaný podklad)",
+          "usage": "Marketingové materiály, letáky, digitální bannery s červenou na tmavém pozadí.",
+          "background": {
+            "label": "AIR TEAM Blue V1",
+            "tokenRef": "color.blueVariants.v1",
+            "hex": "#10253e",
+            "restriction": "Výhradně tento podklad – ne obecná tmavě modrá bez V1."
+          },
+          "elements": {
+            "description": "Červené části loga (křídla) nebo zvýrazněný text – standardní AIR TEAM Red.",
+            "accent": { "label": "AIR TEAM Red", "tokenRef": "color.core.red", "hex": "#d51c17" },
+            "rationale": "Odstín V1 (CMYK 100/80/40/57) dává dostatečný jasový kontrast, aby červená nezanikla; u základní tmavě modré to nelze spolehlivě zajistit."
+          }
+        },
+        {
+          "id": "high-contrast-blue-white",
+          "name": "High-contrast varianta (pouze modrá a bílá)",
+          "usage": "Technická dokumentace, certifikace (Part 21J, 21G, 145), kde není žádoucí červený akcent.",
+          "background": {
+            "label": "Nejtmavší AIR TEAM Blue",
+            "tokenRef": "color.core.blue",
+            "hex": "#153151"
+          },
+          "elements": {
+            "description": "Texty a loga v bílé nebo ve světlých odstínech šedé Black V3 / V4.",
+            "allowed": [
+              { "label": "AIR TEAM White", "tokenRef": "color.core.white", "hex": "#ffffff" },
+              { "label": "Black V3", "tokenRef": "color.blackVariants.v3", "hex": "#d0d0d0" },
+              { "label": "Black V4", "tokenRef": "color.blackVariants.v4", "hex": "#e3e3e3" }
+            ],
+            "restriction": "V této konfiguraci je zakázáno používat korporátní červenou (nízký kontrast)."
+          }
+        }
+      ]
+    },
+    "productionSpecs": {
+      "title": "Shrnutí technických hodnot pro výrobu (tisk / digitál)",
+      "rows": [
+        {
+          "prvek": "Základní modrá",
+          "hex": "#153151",
+          "cmyk": { "c": 100, "m": 80, "y": 40, "k": 37 },
+          "cmykString": "100 / 80 / 40 / 37",
+          "rgb": { "r": 21, "g": 49, "b": 81 },
+          "tokenRef": "color.core.blue"
+        },
+        {
+          "prvek": "Podkladová V1",
+          "hex": "#10253e",
+          "cmyk": { "c": 100, "m": 80, "y": 40, "k": 57 },
+          "cmykString": "100 / 80 / 40 / 57",
+          "rgb": { "r": 16, "g": 37, "b": 62 },
+          "tokenRef": "color.blueVariants.v1"
+        },
+        {
+          "prvek": "Korporátní červená",
+          "hex": "#d51c17",
+          "cmyk": { "c": 9, "m": 98, "y": 100, "k": 1 },
+          "cmykString": "9 / 98 / 100 / 1",
+          "rgb": { "r": 213, "g": 28, "b": 23 },
+          "tokenRef": "color.core.red"
+        }
+      ]
+    }
+  }
+}

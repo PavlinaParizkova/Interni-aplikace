@@ -11,6 +11,8 @@ import SlideChecklistTransport from "./components/slides/SlideChecklistTransport
 import SlideChecklistAttendance from "./components/slides/SlideChecklistAttendance";
 import SlideMarketingKit from "./components/slides/SlideMarketingKit";
 import SlideGifts from "./components/slides/SlideGifts";
+import SlideGiftsBudget from "./components/slides/SlideGiftsBudget";
+import SlideDressCode from "./components/slides/SlideDressCode";
 
 const SLIDES = [
   { component: <SlideCover />,                  label: "Úvod",           section: "Úvod" },
@@ -21,7 +23,9 @@ const SLIDES = [
   { component: <SlideChecklistTransport />,      label: "✓ Doprava",      section: "Logistika" },
   { component: <SlideChecklistAttendance />,     label: "✓ Účast",        section: "Logistika" },
   { component: <SlideMarketingKit />,            label: "MKT materiály",  section: "MKT materiály" },
+  { component: <SlideDressCode />,               label: "Dress Code",     section: "Dress Code" },
   { component: <SlideGifts />,                   label: "Dárky",          section: "Dárky" },
+  { component: <SlideGiftsBudget />,             label: "Rozpočet dárků", section: "Dárky" },
 ];
 
 const SECTIONS = [
@@ -30,7 +34,8 @@ const SECTIONS = [
   { label: "Tým",           slideIndex: 2 },
   { label: "Logistika",     slideIndex: 4 },
   { label: "MKT materiály", slideIndex: 7 },
-  { label: "Dárky",         slideIndex: 8 },
+  { label: "Dress Code",    slideIndex: 8 },
+  { label: "Dárky",         slideIndex: 9 },
 ];
 
 type Direction = "forward" | "backward" | null;

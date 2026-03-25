@@ -1,0 +1,128 @@
+---
+description: Pravidla pro strukturu repozitáře AIR TEAM Github – povinné pro všechnu tvorbu dokumentů
+globs:
+  - "**/*.md"
+  - "**/*.mdx"
+alwaysApply: true
+---
+
+# Struktura repozitáře AIR TEAM
+
+Repozitář má 6 hlavních složek. Každý nový dokument MUSÍ být uložen do správné složky.
+
+## 1. AIR-TEAM/
+Vše co se týká společnosti AIR TEAM jako celku. Tato složka slouží jako **základna znalostí** a OVLIVŇUJE tvorbu všech ostatních dokumentů.
+
+Podsložky:
+- `01-strategie/` – marketingová strategie, growth strategie, content mapy, KPI
+- `02-znacky/PilotStyle/` – strategie, messaging, tone of voice značky PilotStyle
+- `02-znacky/Aerospec/` – strategie, messaging, tone of voice značky Aerospec
+- `03-procesy-sop/` – SOPy a pracovní postupy (sociální sítě, eventy, PPC, grafika...)
+- `04-korporatni-identita/` – loga, barvy, vizuální styl, brand guidelines
+- `05-firemni-hodnoty-a-etika/` – firemní hodnoty, etický kodex
+- `06-tone-of-voice/` – master tone of voice, archetyp hrdina, komunikační principy
+- `07-divize/` – znalostní báze každé divize. Podsložky **nemají číselný prefix** (E-shop, Holding, HR, Intel, JetConcept, Service, Upgrade). Čísla divizí jsou rezervována pro `PROJEKTY/`.
+- `08-partneri/` – klíčoví partneři (Garmin apod.)
+
+## 2. TEMPLATE/
+Šablony pro nástroje. **NEOVLIVŇUJÍ** tvorbu dokumentů – jsou jen prázdné vzory k vyplnění.
+
+Podsložky:
+- `ClickUp/` – šablony tasků, veletrhů, custom fields
+- `HubSpot/` – šablony e-mailů, workflows
+- `Gmail/` – šablony e-mailů
+- `AI-prompty/` – AI prompt library pro procesy
+
+## 3. PROJEKTY/
+Výstupní dokumenty per divize. Tyto dokumenty jsou **finální výstupy** (posty, newslettery, briefy, brožury, kampaně).
+**NEPŘEBÍRAJÍ a NEOVLIVŇUJÍ** obsah složky AIR-TEAM – jsou izolované.
+
+Podsložky odpovídají číslování divizí:
+- `01-AIR-TEAM/`
+- `02-Smart-Suply/`
+- `03-Upgrade/`
+- `04-ATS-Servis/`
+- `05-Intel/`
+- `06-PilotStyle/`
+- `07-Aerospec/`
+- `08-AIR-TEAM-holding/`
+- `09-HR/`
+- `10-Jet-Concept/`
+
+### Povinné pojmenování souborů v PROJEKTY/:
+```
+[číslo-divize]_[číslo] [zkratka-divize]-[kategorie]-[popis]-[YYYY-MM-DD].md
+```
+- `číslo-divize` – dvouciferné číslo divize (01–10)
+- `číslo` – číslo dokumentu zadané uživatelem (libovolné, vždy ručně)
+- `zkratka-divize` – viz tabulka zkratek níže
+- `kategorie` – typ obsahu (např. Reklamni-predmety, Socialni-site, Event-brief…)
+- `popis` – stručný popis obsahu (bez diakritiky, slova oddělená pomlčkou)
+- `YYYY-MM-DD` – datum vytvoření
+
+Příklady:
+- `01_38 ATM-Reklamni-predmety-filozofie-navrh-balicku-2026-03-12.md`
+- `06_12 PS-Newsletter-bose-kampan-2026-03-21.md`
+- `07_05 ARS-Brozura-cessna-172s-EN-2026-03-15.md`
+
+Pro složky projektů (kampaně s více soubory):
+```
+[číslo-divize]_[číslo] [zkratka-divize]-[kategorie]-[popis]-[YYYY-MM-DD]/
+```
+Příklad: `06_21 PS-Promoakce-bose-reproduktor-2026-03-21/`
+
+### Zkratky divizí (závazné)
+
+| Číslo | Složka | Zkratka |
+|---|---|---|
+| 01 | AIR-TEAM | `ATM` |
+| 02 | Smart-Suply | `SS` |
+| 03 | Upgrade | `UPG` |
+| 04 | ATS-Servis | `ATS` |
+| 05 | Intel | `ATI` |
+| 06 | PilotStyle | `PS` |
+| 07 | Aerospec | `ARS` |
+| 08 | AIR-TEAM-holding | `ATH` |
+| 09 | HR | `HR` |
+| 10 | Jet-Concept | `JC` |
+
+## 4. APLIKACE/
+Kódové aplikace označené číslem divize. (Zatím prázdné – připraveno pro budoucí aplikace.)
+
+## 5. REPORTING/
+Výstupy a reporty určené pro vedení společnosti.
+- `vedeni/` – měsíční marketingové reporty, KPI reporty, struktury týmu
+
+### Povinné pojmenování souborů v REPORTING/:
+```
+[YYYY-MM-DD]-[popis-reportu].md
+```
+Příklady:
+- `2026-03-21-report-marketing-brezen.md`
+- `2026-02-01-report-marketing.md`
+- `2026-03-21-kpi-baseline-targets.md`
+
+## 6. MARKETING-TEAM/
+Vše týkající se marketingového týmu – podřízení, hodnocení výkonu, weekly reports, interní komunikace, HR pozice.
+
+---
+
+## Pravidla pro AI při tvorbě dokumentů
+
+1. **Vždy se ptej** do které divize (01–10) dokument patří, pokud to není zřejmé z kontextu.
+2. **Nikdy neukládej** výstupní dokumenty (posty, briefy, kampaně) do AIR-TEAM/ – ty patří do PROJEKTY/.
+3. **Nikdy neukládej** šablony do PROJEKTY/ – ty patří do TEMPLATE/.
+4. **Při pojmenování** souborů v PROJEKTY/ vždy použij formát `[číslo-divize]_[číslo] [zkratka-divize]-[kategorie]-[popis]-[YYYY-MM-DD].md`. Číslo dokumentu vždy zadá uživatel. V REPORTING/ použij formát `[YYYY-MM-DD]-[název].md`.
+5. **Obsah AIR-TEAM/** slouží jako kontext pro tvorbu – čerpej z něj při generování obsahu.
+6. Při nejistotě ohledně zařazení dokumentu se **zastav a zeptej**.
+
+## Disambiguace: divize vs. projekty
+
+| Vlastnost | `AIR-TEAM/07-divize/Intel/` | `PROJEKTY/05-Intel/` |
+|---|---|---|
+| Účel | Znalostní báze – strategie, popis divize | Výstupní dokumenty – posty, briefy, kampaně |
+| Název složky | Bez čísla (`Intel`, `Service`, `E-shop`…) | S číslem (`05-Intel`, `04-ATS-Servis`…) |
+| Název souboru | Popisný (`01-master-division-strategy-2026.md`) | Formát `[číslo]-[datum]-[název].md` |
+| Ovlivňuje ostatní? | Ano – je zdrojem pravdy pro obsah | Ne – je izolovaný výstup |
+
+> Pokud uživatel řekne „ulož to do Intel", vždy se zeptej: je to strategický dokument (→ `AIR-TEAM/07-divize/Intel/`) nebo výstupní obsah (→ `PROJEKTY/05-Intel/`)?

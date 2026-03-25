@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Marketing-operations-mapping/PROCESY_A_POSTUPY.md",
+                "file": "MARKETING-TEAM/Team/2026-03-21-marketing-team-map.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PROCESY_A_POSTUPY"
+              "title": "2026-03-21-marketing-team-map"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 593.5
   },
   "right": {
     "id": "2482e7f30f824348",
@@ -182,31 +182,34 @@
   },
   "active": "b41ba02fca64cc04",
   "lastOpenFiles": [
-    "Marketing-operations-mapping/dokumenty/aero-friedrichshafen-2026-event-brief.md",
-    "Growth-master-strategy/Wiki/2Q-2026-AIRTEAM-KPI-baseline-and-targets.md",
-    "Growth-master-strategy/Posts/2q-2026-4week-social-copy-by-network.md",
-    "Growth-master-strategy/Posts/2q-2026-2week-daily-ready-copy.md",
-    "Marketing-operations-mapping/MARKETING_STRUCTURE.md",
-    "Marketing-operations-mapping/README.md",
-    "Marketing-operations-mapping/sablony/brozura-reference-t182t-turbo-skylane-EN.md",
-    "Marketing-operations-mapping/sablony/brozura-reference-t303-crusader-EN.md",
-    "Marketing-operations-mapping/sablony/brozura-reference-pa46-31-malibu-EN.md",
-    "Marketing-operations-mapping/sablony/brozura-reference-pa28-180-cherokee-EN.md",
-    "Marketing-operations-mapping/sablony/brozura-reference-mooney-m20j-EN.md",
-    "Marketing-operations-mapping/sablony/brozura-reference-cessna-421-EN.md",
-    "Marketing-operations-mapping/sablony/brozura-reference-bonanza-f33a-EN.md",
-    "Marketing-operations-mapping/sablony/brozura-reference-cessna-340a-EN.md",
-    "Marketing-operations-mapping/sablony/brozura-reference-cessna-172s-EN.md",
-    "Marketing-operations-mapping/sablony/brozura-reference-piper-pa28-181-EN.md",
-    "Marketing-operations-mapping/sablony/brozura-reference-cessna-340a-ii-EN.md",
-    "Marketing-operations-mapping/sablony/brozura-reference-index-EN.md",
-    "Marketing-operations-mapping/sablony/brozura-reference-template-EN.md",
-    "Marketing-operations-mapping/sablony/brozura-reference-seneca-EN.md",
-    "Marketing-operations-mapping/sablony/faq-benefit-program-web.md",
-    "Marketing-operations-mapping/dokumenty/manual-vernostni-program-2026.md",
-    "Marketing-operations-mapping/OTAZKY_PRO_VEDENI.md",
-    "Marketing-operations-mapping/sablony/faq-benefit-program-support.md",
-    "Marketing-operations-mapping/TONE_OF_VOICE_HRDINA_AIR_TEAM.md",
-    "ai-prompt-library-processes/processes/Weekly-report-manual.md"
+    "ARCHIV/Marketing-strategy-2026/README.md",
+    "APLIKACE/01-ATM-AERO-EXPO-2026/app/components/slides/SlideMarketingKit.tsx",
+    "PROJEKTY/01-AIR-TEAM/01_38 ATM-AERO-EXPO-2026/01_38_02-pudorys-stanku-aero-expo-2026.png",
+    "PROJEKTY/01-AIR-TEAM/01_38 ATM-AERO-EXPO-2026/01_38_02 ATM-Event-AERO-EXPO-pudorys-stanku-2026-03-24.md",
+    "AIR-TEAM/09-organizacni-chart/01-organizacni-chart-air-team-2026.md",
+    "AIR-TEAM/09-organizacni-chart",
+    "PROJEKTY/01-AIR-TEAM/01_38 ATM-AERO-EXPO-2026/01_38 ATM-Event-AERO-EXPO-meeting-2-logistika-2026-03-24.md",
+    "ZDROJE/02-2026-03-24-slovnicek-letecke-terminologie.md",
+    "ARCHIV/Marketing-operations-mapping/README.md",
+    "TEMPLATE/HubSpot/hubspot-template-newsletter-promo-akce.md",
+    "TEMPLATE/ClickUp/clickup-vyhodnoceni-socialnich-siti-2026.md",
+    "TEMPLATE/ClickUp/clickup-vyhodnoceni-veletrhu-2026.md",
+    "TEMPLATE/ClickUp/clickup-vyhodnoceni-veletrhu.md",
+    "TEMPLATE/ClickUp/clickup-vyhodnoceni-socialnich-siti.md",
+    "TEMPLATE/vyhodnoceni-veletrhu.md",
+    "TEMPLATE/ClickUp/vyhodnoceni-veletrhu.md",
+    "TEMPLATE/ClickUp/vyhodnoceni-socialnich-siti.md",
+    "TEMPLATE/vyhodnoceni-socialnich-siti.md",
+    "AIR-TEAM/03-procesy-sop/01-socialni-site-PROCES-2026.md",
+    "AIR-TEAM/01-strategie/01-brand-a-vize/01-strategie-albatros-air-team-2026.md",
+    "APLIKACE/01-AIR-TEAM-marketing-dashboard/node_modules/ms/license.md",
+    "TEMPLATE/faq-benefit-program.md",
+    "AIR-TEAM/03-procesy-sop/10-eventy.md",
+    "TEMPLATE/faq-benefit-program-web.md",
+    "TEMPLATE/ClickUp/template-10-eventy-clickup-sop.md",
+    "TEMPLATE/faq-benefit-program-support.md",
+    "TEMPLATE/template-interni-zprava-chat-cz-en.md",
+    "2026-03-21.md",
+    "export-main-2026-03-21.md"
   ]
 }

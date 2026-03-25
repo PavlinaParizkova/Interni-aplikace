@@ -20,7 +20,7 @@ export function proxy(request: NextRequest) {
   }
 
   const token = request.cookies.get(COOKIE_NAME)?.value;
-  const expected = process.env.AUTH_TOKEN;
+  const expected = process.env.AUTH_TOKEN?.trim();
 
   if (!expected || token !== expected) {
     const loginUrl = request.nextUrl.clone();

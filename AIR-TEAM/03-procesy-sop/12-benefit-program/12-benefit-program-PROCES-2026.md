@@ -1,14 +1,8 @@
----
-description: Komunikace Benefit programu AIR TEAM – Partner Rates / Elite Rates
-globs: Marketing-operations-mapping/**/*benefit*, Marketing-operations-mapping/**/*vernost*
-alwaysApply: false
----
-
 # Benefit program – správná komunikace
 
 ## Zakázáno
 - **Nikde nezobrazovat** informace o marži a slevách z marže (ani procenta, ani technické detaily).
-- Nepoužívat formulace jako: „sleva z marže 20 %“, „sleva z marže 40 %“, „marže“, „produkty třetích stran“ v kontextu slev.
+- Nepoužívat formulace jako: „sleva z marže 20 %", „sleva z marže 40 %", „marže", „produkty třetích stran" v kontextu slev.
 
 ## Správná formulace podle úrovně
 

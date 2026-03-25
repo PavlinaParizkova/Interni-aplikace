@@ -64,7 +64,7 @@ export const TEAM: TeamMember[] = [
   },
   {
     name: "Lucie Kysučanová",
-    role: "HR Manager",
+    role: "HR Business Partner",
     dates: "23.4.–24.4.",
     days: 2,
     responsibility:

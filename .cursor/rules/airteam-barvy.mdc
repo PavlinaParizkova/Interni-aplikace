@@ -1,0 +1,56 @@
+---
+description: Barvy AIR TEAM – vždy používej hodnoty z brand standardu 02-standard-barev-air-team-2026.md
+globs: **/*.tsx,**/*.css,**/*.ts
+alwaysApply: false
+---
+
+# Barvy AIR TEAM – závazné hodnoty
+
+Zdroj pravdy: `AIR-TEAM/04-korporatni-identita/02-standard-barev-air-team-2026.md`
+
+**Nikdy nepoužívej jiné hodnoty než níže.** Při nejistotě otevři zdrojový dokument.
+
+## Primární barvy (Core)
+
+| Token | HEX | Použití |
+|---|---|---|
+| `--at-red` | `#d51c17` | CTA, akcenty, zvýraznění |
+| `--at-blue` | `#153151` | Brand, header, hlavní plochy |
+| `--at-white` | `#ffffff` | Světlé pozadí, text na tmavém |
+| `--at-black` | `#1d1d1b` | Hlavní text, tmavé UI prvky |
+
+## Blue variants
+
+| Token | HEX |
+|---|---|
+| `--at-blue-v1` | `#10253e` |
+| `--at-blue-v2` | `#1b3f67` |
+| `--at-blue-v3` | `#23517c` |
+| `--at-blue-v4` | `#507499` |
+| `--at-blue-v5` | `#93b3cf` |
+
+## Blue alternates
+
+| Token | HEX |
+|---|---|
+| `--at-blue-a1` | `#302f2e` |
+| `--at-blue-a2` | `#2b4156` |
+| `--at-blue-a3` | `#323e49` |
+| `--at-blue-a4` | `#4d606f` |
+| `--at-blue-a5` | `#cddce8` |
+
+## Black variants
+
+| Token | HEX |
+|---|---|
+| `--at-black-v1` | `#4a4a49` |
+| `--at-black-v2` | `#878787` |
+| `--at-black-v3` | `#d0d0d0` |
+| `--at-black-v4` | `#e3e3e3` |
+
+## Aplikační pravidla (§3.2)
+
+- **Světlý podklad:** pozadí `#ffffff`, prvky `#153151` + `#d51c17`
+- **Inverzní (tmavý podklad):** pozadí `#10253e` (Blue V1), červené akcenty `#d51c17`
+- **High-contrast:** pozadí `#153151`, text `#ffffff` – červená ZAKÁZÁNA
+- Červenou (`#d51c17`) **nikdy** nepoužívej jako jediný nosič informace – doplň ikonou nebo textem

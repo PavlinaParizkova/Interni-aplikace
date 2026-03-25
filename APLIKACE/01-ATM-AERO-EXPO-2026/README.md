@@ -1,4 +1,4 @@
-﻿# AERO EXPO 2026 – Interní briefing
+# AERO EXPO 2026 – Interní briefing
 
 Next.js 16 prezentační aplikace pro tým AIR TEAM na veletrhu AERO EXPO 2026 (Friedrichshafen, 22.–25. 4. 2026).
 
@@ -38,10 +38,12 @@ Vercel se zeptá na pár otázek (projekt, organizace) – potvrď výchozí hod
 
 Po prvním deploy jdi do **Vercel Dashboard → projekt → Settings → Environment Variables** a přidej:
 
-| Name | Value | Environment |
-|------|-------|-------------|
-| `AUTH_PASSWORD` | `AerOAirteam2026` | Production, Preview |
-| `AUTH_TOKEN` | tajný token (libovolný náhodný řetězec) | Production, Preview |
+
+| Name            | Value                                   | Environment         |
+| --------------- | --------------------------------------- | ------------------- |
+| `AUTH_PASSWORD` | `AerOAirteam2026`                       | Production, Preview |
+| `AUTH_TOKEN`    | tajný token (libovolný náhodný řetězec) | Production, Preview |
+
 
 ⚠️ **Nikdy nepoužívej stejné hodnoty jako v `.env.local` na produkci.**
 Vygeneruj silné heslo, např. `openssl rand -base64 24`.
@@ -81,3 +83,4 @@ app/
 proxy.ts                       # Auth middleware (běží na Edge Runtime)
 vercel.json                    # Vercel konfigurace
 ```
+
