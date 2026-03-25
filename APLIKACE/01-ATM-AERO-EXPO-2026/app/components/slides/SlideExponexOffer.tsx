@@ -100,7 +100,7 @@ export default function SlideExponexOffer() {
   const allSections = [...SECTIONS_A, ...SECTIONS_B];
 
   return (
-    <div className="flex flex-col h-full px-10 py-8">
+    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Header */}
       <div className="mb-4">
         <p
@@ -109,7 +109,7 @@ export default function SlideExponexOffer() {
         >
           Stánek · Exponex s.r.o.
         </p>
-        <h2 className="text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
+        <h2 className="text-xl sm:text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
           Nabídka Exponex s.r.o.
         </h2>
         <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
@@ -118,15 +118,15 @@ export default function SlideExponexOffer() {
       </div>
 
       {/* Main layout */}
-      <div className="flex gap-5 flex-1 min-h-0">
+      <div className="flex flex-col lg:flex-row gap-5 flex-1 min-h-0">
         {/* Scrollable table */}
         <div
-          className="flex-1 min-h-0 overflow-y-auto rounded-xl slide-scroll"
+          className="flex-1 min-h-0 overflow-y-auto overflow-x-auto rounded-xl slide-scroll"
           style={{ border: "1px solid var(--color-at-blue-v4)" }}
         >
           {/* Table header */}
           <div
-            className="grid grid-cols-[0.6fr_2fr_2.5fr_0.7fr_1fr] px-4 py-2.5 text-xs font-bold uppercase tracking-widest sticky top-0"
+            className="grid grid-cols-[0.6fr_2fr_2.5fr_0.7fr_1fr] px-4 py-2.5 text-xs font-bold uppercase tracking-widest sticky top-0 min-w-[520px]"
             style={{
               background: "var(--color-at-blue)",
               color: "var(--color-at-white)",
@@ -157,7 +157,7 @@ export default function SlideExponexOffer() {
               {sec.rows.map((row, i) => (
                 <div
                   key={row.no}
-                  className="grid grid-cols-[0.6fr_2fr_2.5fr_0.7fr_1fr] px-4 py-2 text-sm items-center"
+                  className="grid grid-cols-[0.6fr_2fr_2.5fr_0.7fr_1fr] px-4 py-2 text-sm items-center min-w-[520px]"
                   style={{
                     background: row.isOption
                       ? "rgba(245,158,11,0.06)"
@@ -195,7 +195,7 @@ export default function SlideExponexOffer() {
         </div>
 
         {/* Right panel */}
-        <div className="flex flex-col gap-3 w-56 overflow-y-auto slide-scroll">
+        <div className="flex flex-col gap-3 w-full lg:w-56 flex-shrink-0 overflow-y-auto slide-scroll">
           {/* Total cards */}
           <div
             className="rounded-xl p-4 flex flex-col gap-1"

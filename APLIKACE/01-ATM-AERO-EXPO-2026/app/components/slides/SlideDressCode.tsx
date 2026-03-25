@@ -50,16 +50,16 @@ export default function SlideDressCode() {
   const [lightbox, setLightbox] = useState<DressItem | null>(null);
 
   return (
-    <div className="flex flex-col h-full px-10 py-8">
+    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Header */}
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
           style={{ color: "var(--color-at-red)" }}
         >
           Příprava veletrhu
         </p>
-        <h2 className="text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
+        <h2 className="text-xl sm:text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
           Dress Code – oblečení na veletrh
         </h2>
         <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
@@ -68,7 +68,7 @@ export default function SlideDressCode() {
       </div>
 
       {/* Photo grid 2×2 */}
-      <div className="grid grid-cols-4 gap-5 flex-1 min-h-0">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5 flex-1 min-h-0">
         {ITEMS.map((item) => (
           <button
             key={item.image}

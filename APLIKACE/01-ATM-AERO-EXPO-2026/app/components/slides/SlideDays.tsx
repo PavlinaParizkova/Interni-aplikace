@@ -19,16 +19,16 @@ export default function SlideDays() {
   const totalPeople = TEAM.length;
 
   return (
-    <div className="flex flex-col h-full px-10 py-8">
+    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Slide header */}
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
           style={{ color: "var(--color-at-red)" }}
         >
           Harmonogram
         </p>
-        <h2 className="text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
+        <h2 className="text-xl sm:text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
           Přehled pokrytí po dnech
         </h2>
         <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
@@ -37,7 +37,7 @@ export default function SlideDays() {
       </div>
 
       {/* Days grid */}
-      <div className="grid grid-cols-4 gap-4 flex-1">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 flex-1">
         {DAYS.map((day) => {
           const coverage = Math.round((day.people.length / totalPeople) * 100);
           return (

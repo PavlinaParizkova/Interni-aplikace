@@ -70,15 +70,15 @@ export default function SlideAccommodation() {
   const nextPhoto = () => setLightboxIdx((i) => (i !== null && i < PHOTOS.length - 1 ? i + 1 : i));
 
   return (
-    <div className="flex flex-col h-full px-10 py-8">
+    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Header */}
       <div className="mb-4">
         <p className="text-xs font-bold tracking-[0.2em] uppercase mb-2" style={{ color: "var(--color-at-red)" }}>
           Logistika · Ubytování
         </p>
-        <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
           <div>
-            <h2 className="text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
+            <h2 className="text-xl sm:text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
               Exclusive Wood-World Apartment
             </h2>
             <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
@@ -117,11 +117,11 @@ export default function SlideAccommodation() {
         </div>
       </div>
 
-      <div className="flex gap-5 flex-1 min-h-0">
+      <div className="flex flex-col lg:flex-row gap-5 flex-1 min-h-0">
         {/* Left – gallery or highlights */}
         <div className="flex flex-col gap-4 flex-1 min-h-0">
           {/* Highlights grid */}
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
             {HIGHLIGHTS.map((h) => (
               <div
                 key={h.label}
@@ -198,7 +198,7 @@ export default function SlideAccommodation() {
             )}
 
             {/* Map panel */}
-            <div className="flex flex-col gap-2 w-56 flex-shrink-0">
+            <div className="hidden sm:flex flex-col gap-2 w-56 flex-shrink-0">
               <div
                 className="rounded-xl overflow-hidden flex-1"
                 style={{ border: "1px solid var(--color-at-blue-v3)", minHeight: 0 }}
@@ -234,7 +234,7 @@ export default function SlideAccommodation() {
         </div>
 
         {/* Right – bedrooms + perks */}
-        <div className="flex flex-col gap-4 w-64">
+        <div className="hidden lg:flex flex-col gap-4 w-64 flex-shrink-0">
           {/* Bedrooms */}
           <div
             className="rounded-xl px-4 py-3 flex flex-col gap-2"

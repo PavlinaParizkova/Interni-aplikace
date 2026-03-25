@@ -39,7 +39,7 @@
 }
 
 html {
-  font-size: 18px;
+  font-size: clamp(14px, 1.5vw, 18px);
 }
 
 html, body {
@@ -60,6 +60,14 @@ html, body {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
+}
+
+/* Hide scrollbar utility (used for nav tab strip) */
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
 
 /* Custom scrollbar for slide content */

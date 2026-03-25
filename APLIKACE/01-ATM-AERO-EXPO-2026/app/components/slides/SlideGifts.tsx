@@ -90,16 +90,16 @@ export default function SlideGifts() {
   }, [lightbox, closeLightbox]);
 
   return (
-    <div className="flex flex-col h-full px-10 py-8">
+    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Header */}
-      <div className="mb-5">
+      <div className="mb-4 sm:mb-5">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
           style={{ color: "var(--color-at-red)" }}
         >
           Příprava veletrhu
         </p>
-        <h2 className="text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
+        <h2 className="text-xl sm:text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
           Dárkové balíčky pro zákazníky
         </h2>
         <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
@@ -108,7 +108,7 @@ export default function SlideGifts() {
       </div>
 
       {/* Categories – stacked columns */}
-      <div className="flex gap-5 flex-1 min-h-0">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 flex-1 min-h-0">
         {CATEGORIES.map((cat) => (
           <div
             key={cat.label}

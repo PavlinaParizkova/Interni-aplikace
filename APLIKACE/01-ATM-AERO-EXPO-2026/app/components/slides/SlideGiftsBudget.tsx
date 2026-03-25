@@ -91,16 +91,16 @@ export default function SlideGiftsBudget() {
   }));
 
   return (
-    <div className="flex flex-col h-full px-10 py-8">
+    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Header */}
-      <div className="mb-5">
+      <div className="mb-4 sm:mb-5">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
           style={{ color: "var(--color-at-red)" }}
         >
           Dárky · Rozpočet
         </p>
-        <h2 className="text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
+        <h2 className="text-xl sm:text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
           Sumarizace nákladů na dárky
         </h2>
         <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
@@ -109,12 +109,12 @@ export default function SlideGiftsBudget() {
       </div>
 
       {/* Main layout: table + summary side panel */}
-      <div className="flex gap-5 flex-1 min-h-0">
+      <div className="flex flex-col lg:flex-row gap-5 flex-1 min-h-0">
         {/* Table */}
-        <div className="flex-1 flex flex-col min-h-0 overflow-y-auto rounded-xl" style={{ border: "1px solid var(--color-at-blue-v4)" }}>
+        <div className="flex-1 flex flex-col min-h-0 overflow-y-auto overflow-x-auto rounded-xl" style={{ border: "1px solid var(--color-at-blue-v4)" }}>
           {/* Table header */}
           <div
-            className="grid grid-cols-[2fr_1fr_3fr_1fr_1fr_1fr] px-4 py-2.5 text-sm font-bold uppercase tracking-widest sticky top-0"
+            className="grid grid-cols-[2fr_1fr_3fr_1fr_1fr_1fr] px-4 py-2.5 text-sm font-bold uppercase tracking-widest sticky top-0 min-w-[600px]"
             style={{
               background: "var(--color-at-blue)",
               color: "var(--color-at-white)",
@@ -137,7 +137,7 @@ export default function SlideGiftsBudget() {
                 return (
                   <div
                     key={line.item}
-                    className="grid grid-cols-[2fr_1fr_3fr_1fr_1fr_1fr] px-4 py-3 text-sm items-center"
+                    className="grid grid-cols-[2fr_1fr_3fr_1fr_1fr_1fr] px-4 py-3 text-sm items-center min-w-[600px]"
                     style={{
                       background:
                         i % 2 === 0 ? "var(--color-at-blue-v1)" : "var(--color-at-blue-v2)",
@@ -177,8 +177,8 @@ export default function SlideGiftsBudget() {
 
               {/* Category subtotal */}
               {subtotal > 0 && (
-                <div
-                  className="grid grid-cols-[2fr_1fr_3fr_1fr_1fr_1fr] px-4 py-2 text-sm"
+                  <div
+                    className="grid grid-cols-[2fr_1fr_3fr_1fr_1fr_1fr] px-4 py-2 text-sm min-w-[600px]"
                   style={{
                     background: "var(--color-at-blue-v1)",
                     borderBottom: "2px solid var(--color-at-blue-v4)",
@@ -206,7 +206,7 @@ export default function SlideGiftsBudget() {
         </div>
 
         {/* Right summary panel */}
-        <div className="flex flex-col gap-4 w-56">
+        <div className="flex flex-col gap-4 w-full lg:w-56 flex-shrink-0">
           {/* Confirmed total – inverzní varianta: Blue V1 + bílý text, červený rámeček */}
           <div
             className="rounded-xl p-5 flex flex-col gap-1"

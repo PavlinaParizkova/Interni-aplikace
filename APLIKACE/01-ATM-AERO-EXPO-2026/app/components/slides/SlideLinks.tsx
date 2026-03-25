@@ -2,16 +2,16 @@ import { LINKS } from "../../data/slides-data";
 
 export default function SlideLinks() {
   return (
-    <div className="flex flex-col h-full px-10 py-8">
+    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Slide header */}
-      <div className="mb-8">
+      <div className="mb-5 sm:mb-8">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
           style={{ color: "var(--color-at-red)" }}
         >
           Zdroje
         </p>
-        <h2 className="text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
+        <h2 className="text-xl sm:text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
           Odkazy a dokumenty
         </h2>
         <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
@@ -20,7 +20,7 @@ export default function SlideLinks() {
       </div>
 
       {/* Links grid */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         {LINKS.map((link) => (
           <a
             key={link.label}

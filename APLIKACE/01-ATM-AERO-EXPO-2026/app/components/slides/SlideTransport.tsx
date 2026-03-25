@@ -11,16 +11,16 @@ export default function SlideTransport() {
   const carCount   = TRANSPORT.filter((t) => t.type.startsWith("Auto")).length;
 
   return (
-    <div className="flex flex-col h-full px-10 py-8">
+    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Slide header */}
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
           style={{ color: "var(--color-at-red)" }}
         >
           Logistika
         </p>
-        <h2 className="text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
+        <h2 className="text-xl sm:text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
           Doprava na veletrh
         </h2>
         <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
@@ -29,7 +29,7 @@ export default function SlideTransport() {
       </div>
 
       {/* Stats row */}
-      <div className="flex gap-4 mb-6">
+      <div className="flex flex-wrap gap-3 sm:gap-4 mb-4 sm:mb-6">
         <div
           className="px-5 py-3 rounded-lg flex items-center gap-3"
           style={{ background: "var(--color-at-blue-a5)", border: "1px solid var(--color-at-blue-v5)" }}

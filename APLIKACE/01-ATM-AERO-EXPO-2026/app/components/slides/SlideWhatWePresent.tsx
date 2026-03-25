@@ -39,9 +39,9 @@ const PILLARS = [
 
 export default function SlideWhatWePresent() {
   return (
-    <div className="flex flex-col h-full px-10 py-8">
+    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Slide header */}
-      <div className="mb-8">
+      <div className="mb-5 sm:mb-8">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
           style={{ color: "var(--color-at-red)" }}
@@ -49,7 +49,7 @@ export default function SlideWhatWePresent() {
           Co prezentujeme
         </p>
         <h2
-          className="text-3xl font-black"
+          className="text-xl sm:text-3xl font-black"
           style={{ color: "var(--color-at-white)" }}
         >
           3 hlavní pilíře prezentace
@@ -60,7 +60,7 @@ export default function SlideWhatWePresent() {
       </div>
 
       {/* Pillars grid */}
-      <div className="grid grid-cols-3 gap-5 flex-1">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 flex-1">
         {PILLARS.map((p) => (
           <div
             key={p.number}

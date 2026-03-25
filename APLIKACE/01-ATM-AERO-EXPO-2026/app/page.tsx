@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import SlideNav from "./components/SlideNav";
 import SlideCover from "./components/slides/SlideCover";
 import SlideWhatWePresent from "./components/slides/SlideWhatWePresent";
@@ -58,6 +58,8 @@ export default function Home() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState<Direction>(null);
   const [animating, setAnimating] = useState(false);
+  const touchStartX = useRef<number>(0);
+  const touchStartY = useRef<number>(0);
 
   const goTo = useCallback(
     (index: number) => {
@@ -78,6 +80,7 @@ export default function Home() {
   const next = useCallback(() => goTo(Math.min(current + 1, SLIDES.length - 1)), [current, goTo]);
   const prev = useCallback(() => goTo(Math.max(current - 1, 0)), [current, goTo]);
 
+  // Keyboard navigation
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === " ") {
@@ -97,6 +100,24 @@ export default function Home() {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [next, prev, goTo]);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  }, []);
+
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      const dx = e.changedTouches[0].clientX - touchStartX.current;
+      const dy = e.changedTouches[0].clientY - touchStartY.current;
+      // Only trigger on predominantly horizontal swipes
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+        if (dx < 0) next();
+        else prev();
+      }
+    },
+    [next, prev]
+  );
 
   const exitStyle: React.CSSProperties = animating
     ? {
@@ -133,15 +154,17 @@ export default function Home() {
           overflow: "hidden",
           position: "relative",
         }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
-        {/* Slide counter dot rail at bottom */}
+        {/* Dot rail – hidden on mobile, visible on sm+ */}
         <div
+          className="hidden sm:flex"
           style={{
             position: "absolute",
             bottom: 16,
             left: "50%",
             transform: "translateX(-50%)",
-            display: "flex",
             gap: 6,
             zIndex: 10,
           }}
@@ -163,6 +186,27 @@ export default function Home() {
               }}
             />
           ))}
+        </div>
+
+        {/* Mobile slide counter (replaces dot rail on small screens) */}
+        <div
+          className="sm:hidden"
+          style={{
+            position: "absolute",
+            bottom: 12,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 10,
+          }}
+        >
+          <span
+            className="text-xs font-mono"
+            style={{ color: "var(--color-at-blue-v4)" }}
+          >
+            {String(current + 1).padStart(2, "0")}{" "}
+            <span style={{ color: "var(--color-at-blue-v2)" }}>/</span>{" "}
+            {String(SLIDES.length).padStart(2, "0")}
+          </span>
         </div>
 
         {/* Slide content */}

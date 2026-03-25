@@ -84,7 +84,7 @@ function Bar({ value, color }: { value: number; color: string }) {
 
 export default function SlideBoothComparison() {
   return (
-    <div className="flex flex-col h-full px-10 py-8">
+    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Header */}
       <div className="mb-4">
         <p
@@ -93,7 +93,7 @@ export default function SlideBoothComparison() {
         >
           Stánek · Porovnání nabídek
         </p>
-        <h2 className="text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
+        <h2 className="text-xl sm:text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
           MLT expo vs Exponex s.r.o.
         </h2>
         <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
@@ -102,7 +102,7 @@ export default function SlideBoothComparison() {
       </div>
 
       {/* Supplier totals */}
-      <div className="grid grid-cols-2 gap-4 mb-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 sm:mb-5">
         {/* MLT expo */}
         <div
           className="rounded-xl px-5 py-4 flex flex-col gap-0.5"
@@ -144,12 +144,12 @@ export default function SlideBoothComparison() {
 
       {/* Comparison table */}
       <div
-        className="flex-1 min-h-0 overflow-y-auto rounded-xl"
+        className="flex-1 min-h-0 overflow-y-auto overflow-x-auto rounded-xl"
         style={{ border: "1px solid var(--color-at-blue-v4)" }}
       >
         {/* Table header */}
         <div
-          className="grid grid-cols-[2fr_1fr_1fr_1fr_2.5fr] px-4 py-2.5 text-xs font-bold uppercase tracking-widest sticky top-0"
+          className="grid grid-cols-[2fr_1fr_1fr_1fr_2.5fr] px-4 py-2.5 text-xs font-bold uppercase tracking-widest sticky top-0 min-w-[560px]"
           style={{
             background: "var(--color-at-blue)",
             color: "var(--color-at-white)",
@@ -170,7 +170,7 @@ export default function SlideBoothComparison() {
           return (
             <div
               key={row.category}
-              className="grid grid-cols-[2fr_1fr_1fr_1fr_2.5fr] px-4 py-3 text-sm items-start"
+              className="grid grid-cols-[2fr_1fr_1fr_1fr_2.5fr] px-4 py-3 text-sm items-start min-w-[560px]"
               style={{
                 background: i % 2 === 0 ? "var(--color-at-blue-v1)" : "var(--color-at-blue-v2)",
                 borderBottom: "1px solid var(--color-at-blue-v3)",
@@ -214,7 +214,7 @@ export default function SlideBoothComparison() {
 
         {/* Total row */}
         <div
-          className="grid grid-cols-[2fr_1fr_1fr_1fr_2.5fr] px-4 py-3 text-sm"
+          className="grid grid-cols-[2fr_1fr_1fr_1fr_2.5fr] px-4 py-3 text-sm min-w-[560px]"
           style={{
             background: "var(--color-at-blue)",
             borderTop: "2px solid var(--color-at-blue-v4)",

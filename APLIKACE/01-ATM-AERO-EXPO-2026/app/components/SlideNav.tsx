@@ -32,7 +32,7 @@ export default function SlideNav({
 
   return (
     <nav
-      className="flex items-center justify-between px-8 py-0 flex-shrink-0"
+      className="flex items-center justify-between px-4 md:px-8 py-0 flex-shrink-0"
       style={{
         background: "var(--color-at-blue-v1)",
         borderBottom: "1px solid var(--color-at-blue-v2)",
@@ -40,7 +40,7 @@ export default function SlideNav({
       }}
     >
       {/* Left: AIR TEAM wordmark */}
-      <div className="flex items-center gap-2.5 flex-shrink-0">
+      <div className="flex items-center gap-2 flex-shrink-0">
         <div
           className="w-1 h-5 rounded-sm"
           style={{ background: "var(--color-at-red)" }}
@@ -51,37 +51,48 @@ export default function SlideNav({
         >
           AIR TEAM
         </span>
-        <span style={{ color: "var(--color-at-blue-v2)" }}>·</span>
+        <span className="hidden sm:inline" style={{ color: "var(--color-at-blue-v2)" }}>·</span>
         <span
-          className="text-xs font-bold tracking-wider uppercase"
+          className="hidden sm:inline text-xs font-bold tracking-wider uppercase"
           style={{ color: "var(--color-at-blue-v4)" }}
         >
           AERO EXPO 2026
         </span>
       </div>
 
-      {/* Center: Section tabs */}
-      <div className="flex items-center gap-1">
-        {sections.map((section, i) => {
-          const isActive = i === activeSection;
-          return (
-            <button
-              key={section.label}
-              onClick={() => onGoTo(section.slideIndex)}
-              className={`px-3 py-1.5 rounded text-xs font-semibold tracking-wide ${
-                isActive ? "btn-secondary" : "btn-nav-ghost"
-              }`}
-            >
-              {String(i + 1).padStart(2, "0")} {section.label}
-            </button>
-          );
-        })}
+      {/* Center: Mobile – current section name | Tablet+ – scrollable tabs */}
+      <div className="flex-1 flex items-center justify-center min-w-0 px-2 md:px-4">
+        {/* Mobile: only active section label */}
+        <span
+          className="md:hidden text-xs font-semibold tracking-wide truncate"
+          style={{ color: "var(--color-at-blue-a5)" }}
+        >
+          {String(activeSection + 1).padStart(2, "0")} {sections[activeSection].label}
+        </span>
+
+        {/* Tablet+: horizontally scrollable tabs */}
+        <div className="hidden md:flex items-center gap-1 overflow-x-auto scrollbar-none">
+          {sections.map((section, i) => {
+            const isActive = i === activeSection;
+            return (
+              <button
+                key={section.label}
+                onClick={() => onGoTo(section.slideIndex)}
+                className={`px-3 py-1.5 rounded text-xs font-semibold tracking-wide flex-shrink-0 ${
+                  isActive ? "btn-secondary" : "btn-nav-ghost"
+                }`}
+              >
+                {String(i + 1).padStart(2, "0")} {section.label}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Right: counter + arrows */}
-      <div className="flex items-center gap-3 flex-shrink-0">
+      <div className="flex items-center gap-2 md:gap-3 flex-shrink-0">
         <span
-          className="text-xs font-mono"
+          className="hidden sm:inline text-xs font-mono"
           style={{ color: "var(--color-at-blue-v4)" }}
         >
           {String(current + 1).padStart(2, "0")}{" "}

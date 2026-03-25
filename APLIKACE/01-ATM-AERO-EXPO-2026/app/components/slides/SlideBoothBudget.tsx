@@ -44,16 +44,16 @@ export default function SlideBoothBudget() {
   const confirmedTotal = ROWS.filter((r) => r.status === "confirmed").reduce((s, r) => s + r.amount, 0);
 
   return (
-    <div className="flex flex-col h-full px-10 py-8">
+    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Header */}
-      <div className="mb-5">
+      <div className="mb-4 sm:mb-5">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
           style={{ color: "var(--color-at-red)" }}
         >
           Stánek · Rozpočet
         </p>
-        <h2 className="text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
+        <h2 className="text-xl sm:text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
           Nabídka MLT expo – realizace stánku
         </h2>
         <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
@@ -62,15 +62,15 @@ export default function SlideBoothBudget() {
       </div>
 
       {/* Main layout */}
-      <div className="flex gap-5 flex-1 min-h-0">
+      <div className="flex flex-col lg:flex-row gap-5 flex-1 min-h-0">
         {/* Table */}
         <div
-          className="flex-1 flex flex-col min-h-0 overflow-y-auto rounded-xl"
+          className="flex-1 flex flex-col min-h-0 overflow-y-auto overflow-x-auto rounded-xl"
           style={{ border: "1px solid var(--color-at-blue-v4)" }}
         >
           {/* Table header */}
           <div
-            className="grid grid-cols-[2.5fr_1fr_3fr_1fr] px-4 py-2.5 text-xs font-bold uppercase tracking-widest sticky top-0"
+            className="grid grid-cols-[2.5fr_1fr_3fr_1fr] px-4 py-2.5 text-xs font-bold uppercase tracking-widest sticky top-0 min-w-[560px]"
             style={{
               background: "var(--color-at-blue)",
               color: "var(--color-at-white)",
@@ -89,7 +89,7 @@ export default function SlideBoothBudget() {
             return (
               <div
                 key={row.name}
-                className="grid grid-cols-[2.5fr_1fr_3fr_1fr] px-4 py-2.5 text-sm items-center"
+                className="grid grid-cols-[2.5fr_1fr_3fr_1fr] px-4 py-2.5 text-sm items-center min-w-[560px]"
                 style={{
                   background: i % 2 === 0 ? "var(--color-at-blue-v1)" : "var(--color-at-blue-v2)",
                   borderBottom: "1px solid var(--color-at-blue-v3)",
@@ -121,7 +121,7 @@ export default function SlideBoothBudget() {
 
           {/* Subtotal row */}
           <div
-            className="grid grid-cols-[2.5fr_1fr_3fr_1fr] px-4 py-2.5 text-sm"
+            className="grid grid-cols-[2.5fr_1fr_3fr_1fr] px-4 py-2.5 text-sm min-w-[560px]"
             style={{
               background: "var(--color-at-blue-v1)",
               borderTop: "2px solid var(--color-at-blue-v4)",
@@ -142,7 +142,7 @@ export default function SlideBoothBudget() {
         </div>
 
         {/* Right summary panel */}
-        <div className="flex flex-col gap-4 w-56">
+        <div className="flex flex-col gap-4 w-full lg:w-56 flex-shrink-0">
           {/* Total bez DPH */}
           <div
             className="rounded-xl p-5 flex flex-col gap-1"
