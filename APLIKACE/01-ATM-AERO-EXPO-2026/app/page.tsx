@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import SlideNav from "./components/SlideNav";
 import SlideDrawer from "./components/SlideDrawer";
+import ScrollToTop from "./components/ScrollToTop";
 import SlideCover from "./components/slides/SlideCover";
 import SlideWhatWePresent from "./components/slides/SlideWhatWePresent";
 import SlideTeam from "./components/slides/SlideTeam";
@@ -194,6 +195,9 @@ export default function Home() {
           </span>
         </div>
       </main>
+
+      {/* Scroll to top */}
+      <ScrollToTop />
 
       {/* Slide drawer */}
       <SlideDrawer
