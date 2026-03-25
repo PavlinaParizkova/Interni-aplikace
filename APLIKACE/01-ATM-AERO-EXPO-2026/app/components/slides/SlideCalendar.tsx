@@ -1,10 +1,20 @@
+/* Color tokens used:
+   Light table:
+     thead bg  → var(--color-at-blue)      #153151  white text
+     row odd   → #ffffff                    dark blue text
+     row even  → var(--color-at-blue-a5)   #cddce8  dark blue text
+   Text hierarchy on dark panels:
+     primary   → var(--color-at-white)     #ffffff
+     secondary → var(--color-at-blue-a5)   #cddce8  (replaces blue-v5 / blue-v4)
+*/
+
 const COLORS = [
   {
     dot: "#D50000",
     gcal: "Tomato",
     prefix: "[CEO]",
     label: "CEO – Petr Polák",
-    desc: "Vyžaduje přítomnost CEO. Nelze přesunout bez jeho souhlasu. Petr Polák přítomen 22.–24. 4.",
+    desc: "Vyžaduje přítomnost CEO. Nelze přesunout bez jeho souhlasu. Přítomen 22.–24. 4.",
     labelEn: "Requires CEO presence. Cannot be moved without approval. On-site 22–24 Apr.",
   },
   {
@@ -62,7 +72,7 @@ const CHECKLIST = [
   "Název obsahuje správný prefix v [ ] závorkách?",
   "V názvu je stručný účel (za druhou pomlčkou)?",
   "Pole Účel schůzky vyplněno v popisu (1–2 věty)?",
-  "Vyplněna všechna povinná pole v popisu (zákazník, kontakt, účastníci, místo)?",
+  "Vyplněna všechna povinná pole (zákazník, kontakt, účastníci, místo)?",
   "Pole Dárek vyplněno (Ano / Ne)?",
   "CEO schůzka → potvrdil Jakub Dryska?",
   "Off-site → adresa + kdo zůstává na stánku?",
@@ -70,9 +80,16 @@ const CHECKLIST = [
   "Schůzka v rámci doby přítomnosti všech účastníků?",
 ];
 
+/* Colours for the light table — dark text on white / air-blue-a5 rows */
+const ROW_ODD  = "#ffffff";
+const ROW_EVEN = "#cddce8";   /* --color-at-blue-a5 */
+const TEXT_MAIN = "#153151";  /* --color-at-blue — high contrast on light bg */
+const TEXT_SUB  = "#23517c";  /* --color-at-blue-v3 — readable secondary on light bg */
+
 export default function SlideCalendar() {
   return (
     <div className="flex flex-col flex-1 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
+
       {/* Header */}
       <div className="mb-4 sm:mb-5">
         <p
@@ -84,28 +101,29 @@ export default function SlideCalendar() {
         <h2 className="text-xl sm:text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
           Metodika schůzek na veletrhu
         </h2>
-        <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
+        <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-a5)" }}>
           Závazná pravidla pro Google Kalendář · Owner: Jakub Dryska (Kuba) · AERO EXPO 2026, Friedrichshafen 22.–25. 4. 2026
         </p>
       </div>
 
-      {/* Main layout: 3 columns on lg */}
+      {/* Main layout */}
       <div className="flex flex-col lg:flex-row gap-5">
 
-        {/* Color coding table */}
+        {/* ── Color coding table (light style) ───────────────────────── */}
         <div
-          className="flex flex-col rounded-xl overflow-x-auto"
+          className="rounded-xl overflow-x-auto"
           style={{ border: "1px solid var(--color-at-blue-v4)", flex: "1 1 0" }}
         >
-          {/* Table head */}
+          {/* thead */}
           <div
-            className="grid px-4 py-2.5 text-xs font-bold uppercase tracking-widest sticky top-0 min-w-[540px]"
+            className="grid px-4 py-2.5 text-xs font-bold uppercase tracking-widest min-w-[560px]"
             style={{
-              gridTemplateColumns: "24px 110px 120px 1fr",
-              gap: "12px",
+              gridTemplateColumns: "20px 100px 120px 1fr",
+              gap: "14px",
               background: "var(--color-at-blue)",
               color: "var(--color-at-white)",
-              borderBottom: "2px solid var(--color-at-blue-v4)",
+              borderBottom: "2px solid var(--color-at-blue-v3)",
+              borderRadius: "12px 12px 0 0",
             }}
           >
             <span />
@@ -114,18 +132,20 @@ export default function SlideCalendar() {
             <span>Popis · Description</span>
           </div>
 
+          {/* rows */}
           {COLORS.map((c, i) => (
             <div
               key={c.gcal}
-              className="grid px-4 py-3 text-sm items-start min-w-[540px]"
+              className="grid px-4 py-3 text-sm items-start min-w-[560px]"
               style={{
-                gridTemplateColumns: "24px 110px 120px 1fr",
-                gap: "12px",
-                background: i % 2 === 0 ? "var(--color-at-blue-v1)" : "var(--color-at-blue-v2)",
-                borderBottom: "1px solid var(--color-at-blue-v3)",
+                gridTemplateColumns: "20px 100px 120px 1fr",
+                gap: "14px",
+                background: i % 2 === 0 ? ROW_ODD : ROW_EVEN,
+                borderBottom: i < COLORS.length - 1 ? "1px solid #c0d0e0" : "none",
+                borderRadius: i === COLORS.length - 1 ? "0 0 12px 12px" : undefined,
               }}
             >
-              {/* Color dot */}
+              {/* color dot */}
               <span
                 style={{
                   width: 14,
@@ -133,35 +153,42 @@ export default function SlideCalendar() {
                   borderRadius: "50%",
                   background: c.dot,
                   display: "inline-block",
-                  marginTop: 2,
+                  marginTop: 3,
                   flexShrink: 0,
                   boxShadow: `0 0 6px ${c.dot}80`,
                 }}
               />
+
               {/* GCal name */}
-              <span className="font-semibold text-xs" style={{ color: "var(--color-at-white)" }}>
+              <span className="font-bold text-xs" style={{ color: TEXT_MAIN }}>
                 {c.gcal}
               </span>
-              {/* Prefix */}
+
+              {/* prefix badge – btn-secondary style (air-blue bg, white text) */}
               <span
-                className="text-xs font-mono font-bold px-1.5 py-0.5 rounded self-start"
+                className="text-xs font-mono font-bold self-start"
                 style={{
-                  background: "var(--color-at-blue-v3)",
-                  color: "var(--color-at-blue-a5)",
+                  display: "inline-block",
+                  padding: "2px 8px",
+                  borderRadius: 4,
+                  background: "var(--color-at-blue)",
+                  color: "#ffffff",
                   whiteSpace: "nowrap",
+                  letterSpacing: "0.02em",
                 }}
               >
                 {c.prefix}
               </span>
-              {/* Description */}
+
+              {/* description */}
               <div>
-                <span className="font-semibold text-xs" style={{ color: "var(--color-at-white)" }}>
+                <span className="font-bold text-xs" style={{ color: TEXT_MAIN }}>
                   {c.label}
                 </span>
-                <p className="text-xs mt-0.5" style={{ color: "var(--color-at-blue-v5)", lineHeight: 1.4 }}>
+                <p className="text-xs mt-0.5" style={{ color: TEXT_SUB, lineHeight: 1.45 }}>
                   {c.desc}
                 </p>
-                <p className="text-xs mt-0.5 italic" style={{ color: "var(--color-at-blue-v4)", lineHeight: 1.4 }}>
+                <p className="text-xs mt-0.5 italic" style={{ color: TEXT_SUB, opacity: 0.75, lineHeight: 1.4 }}>
                   {c.labelEn}
                 </p>
               </div>
@@ -169,13 +196,13 @@ export default function SlideCalendar() {
           ))}
         </div>
 
-        {/* Right column: naming + fields + CEO + checklist */}
+        {/* ── Right column ───────────────────────────────────────────── */}
         <div className="flex flex-col gap-4 w-full lg:w-80 flex-shrink-0">
 
           {/* Naming convention */}
           <div
             className="rounded-xl p-4"
-            style={{ background: "var(--color-at-blue-v2)", border: "1px solid var(--color-at-blue-v4)" }}
+            style={{ background: "var(--color-at-blue-v2)", border: "1px solid var(--color-at-blue-v3)" }}
           >
             <p
               className="text-xs font-bold tracking-[0.18em] uppercase mb-2"
@@ -184,21 +211,21 @@ export default function SlideCalendar() {
               Formát názvu události
             </p>
             <code
-              className="block text-xs rounded px-3 py-2 mb-3 leading-relaxed"
-              style={{ background: "var(--color-at-blue-v3)", color: "var(--color-at-blue-a5)" }}
+              className="block text-xs rounded px-3 py-2 mb-3 leading-relaxed font-mono font-bold"
+              style={{ background: "var(--color-at-blue-v3)", color: "var(--color-at-white)" }}
             >
               [PREFIX] Firma – Účel – Zodpovídá
             </code>
-            <p className="text-xs mb-1" style={{ color: "var(--color-at-blue-v5)" }}>
-              Příklady · Examples:
+            <p className="text-xs font-semibold mb-1.5" style={{ color: "var(--color-at-blue-a5)" }}>
+              Příklady · Examples
             </p>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1.5">
               {[
                 { color: "#D50000", text: "[CEO] Lufthansa Technik – Avionika – Petr P. + Kuba" },
                 { color: "#1565C0", text: "[STÁNEK] AviaTech GmbH – Panely – Vratko" },
                 { color: "#0097A7", text: "[ZÁKAZNÍK] Garmin EMEA – Partner update – Magdaléna" },
                 { color: "#EF6C00", text: "[OFF-SITE] Dinner Zeppelin – Networking – Jan" },
-                { color: "#2E7D32", text: "[INTERNÍ] Ranní debriefing – Koordinace tým 08:00" },
+                { color: "#2E7D32", text: "[INTERNÍ] Ranní debriefing – Koordinace 08:00" },
               ].map((ex) => (
                 <div key={ex.text} className="flex items-start gap-2">
                   <span
@@ -211,7 +238,7 @@ export default function SlideCalendar() {
                       marginTop: 4,
                     }}
                   />
-                  <span className="text-xs font-mono" style={{ color: "var(--color-at-blue-v5)", lineHeight: 1.5 }}>
+                  <span className="text-xs font-mono" style={{ color: "var(--color-at-white)", lineHeight: 1.5 }}>
                     {ex.text}
                   </span>
                 </div>
@@ -222,7 +249,7 @@ export default function SlideCalendar() {
           {/* Required description fields */}
           <div
             className="rounded-xl p-4"
-            style={{ background: "var(--color-at-blue-v2)", border: "1px solid var(--color-at-blue-v4)" }}
+            style={{ background: "var(--color-at-blue-v2)", border: "1px solid var(--color-at-blue-v3)" }}
           >
             <p
               className="text-xs font-bold tracking-[0.18em] uppercase mb-2"
@@ -230,7 +257,7 @@ export default function SlideCalendar() {
             >
               Povinná pole v popisu
             </p>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1.5">
               {[
                 { field: "Zákazník / firma", required: true },
                 { field: "Kontaktní osoba", required: true },
@@ -245,7 +272,7 @@ export default function SlideCalendar() {
                   <span
                     style={{
                       fontSize: 10,
-                      fontWeight: 700,
+                      fontWeight: 900,
                       color: f.required ? "var(--color-at-red)" : "var(--color-at-blue-v4)",
                       flexShrink: 0,
                       minWidth: 12,
@@ -253,7 +280,10 @@ export default function SlideCalendar() {
                   >
                     {f.required ? "✱" : "○"}
                   </span>
-                  <span className="text-xs" style={{ color: f.required ? "var(--color-at-white)" : "var(--color-at-blue-v5)" }}>
+                  <span
+                    className="text-xs"
+                    style={{ color: f.required ? "var(--color-at-white)" : "var(--color-at-blue-a5)" }}
+                  >
                     {f.field}
                   </span>
                 </div>
@@ -264,29 +294,29 @@ export default function SlideCalendar() {
           {/* CEO rules */}
           <div
             className="rounded-xl p-4"
-            style={{ background: "rgba(213,0,0,0.08)", border: "1px solid rgba(213,0,0,0.3)" }}
+            style={{ background: "rgba(213,0,0,0.1)", border: "1px solid rgba(213,0,0,0.35)" }}
           >
             <p
               className="text-xs font-bold tracking-[0.18em] uppercase mb-2"
-              style={{ color: "#D50000" }}
+              style={{ color: "#ff6b6b" }}
             >
               CEO schůzky – Petr Polák
             </p>
-            <div className="flex flex-col gap-1.5 text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
-              <span>📅 Přítomnost: <strong style={{ color: "var(--color-at-white)" }}>22. 4. – 24. 4.</strong></span>
-              <span>⏱ Slot min.: <strong style={{ color: "var(--color-at-white)" }}>30 min + 15 min buffer</strong></span>
-              <span>📊 Max: <strong style={{ color: "var(--color-at-white)" }}>2 dop. + 2 odp. = 4/den</strong></span>
-              <span>✅ Schválení: <strong style={{ color: "var(--color-at-white)" }}>vždy Jakub Dryska</strong></span>
-              <span>⚡ Priorita: <strong style={{ color: "var(--color-at-white)" }}>nejvyšší – nikdy nepřesouvat</strong></span>
+            <div className="flex flex-col gap-1.5 text-xs" style={{ color: "var(--color-at-white)" }}>
+              <span>📅 Přítomnost: <strong>22. 4. – 24. 4.</strong></span>
+              <span>⏱ Slot min.: <strong>30 min + 15 min buffer</strong></span>
+              <span>📊 Max: <strong>2 dop. + 2 odp. = 4/den</strong></span>
+              <span>✅ Schválení: <strong>vždy Jakub Dryska</strong></span>
+              <span>⚡ Priorita: <strong>nejvyšší – nikdy nepřesouvat</strong></span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Checklist strip */}
+      {/* ── Checklist strip ──────────────────────────────────────────── */}
       <div
         className="mt-4 rounded-xl p-4"
-        style={{ background: "var(--color-at-blue-v2)", border: "1px solid var(--color-at-blue-v4)" }}
+        style={{ background: "var(--color-at-blue-v2)", border: "1px solid var(--color-at-blue-v3)" }}
       >
         <p
           className="text-xs font-bold tracking-[0.18em] uppercase mb-3"
@@ -299,11 +329,11 @@ export default function SlideCalendar() {
             <div key={i} className="flex items-start gap-2">
               <span
                 className="text-xs font-mono font-bold flex-shrink-0"
-                style={{ color: "var(--color-at-blue-v4)", marginTop: 1 }}
+                style={{ color: "var(--color-at-blue-a5)", marginTop: 1 }}
               >
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <span className="text-xs" style={{ color: "var(--color-at-blue-v5)", lineHeight: 1.4 }}>
+              <span className="text-xs" style={{ color: "var(--color-at-white)", lineHeight: 1.4 }}>
                 {item}
               </span>
             </div>
@@ -311,17 +341,17 @@ export default function SlideCalendar() {
         </div>
       </div>
 
-      {/* HubSpot footer note */}
+      {/* ── HubSpot footer note ──────────────────────────────────────── */}
       <div className="mt-3 flex items-center gap-3">
         <div
           className="flex-shrink-0 rounded px-2 py-1 text-xs font-bold tracking-wide uppercase"
-          style={{ background: "rgba(255,122,0,0.15)", color: "#FF7A00" }}
+          style={{ background: "rgba(255,122,0,0.2)", color: "#FF7A00" }}
         >
           HubSpot
         </div>
-        <p className="text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
-          Každá schůzka z GCal → HubSpot záznam do 48 h · Tentýž den do 20:00 zalogovat výsledek a A / B / C lead · Jakub kontroluje záznamy každý večer.
-          <span className="italic ml-1" style={{ color: "var(--color-at-blue-v3)" }}>
+        <p className="text-xs" style={{ color: "var(--color-at-blue-a5)" }}>
+          Každá schůzka z GCal → HubSpot záznam do 48 h · Výsledek + A/B/C lead zalogovat tentýž den do 20:00 · Jakub kontroluje záznamy každý večer.{" "}
+          <span className="italic" style={{ color: "var(--color-at-blue-v5)" }}>
             Every GCal meeting → HubSpot record within 48 h.
           </span>
         </p>
