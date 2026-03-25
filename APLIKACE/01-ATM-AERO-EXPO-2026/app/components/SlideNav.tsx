@@ -68,12 +68,9 @@ export default function SlideNav({
             <button
               key={section.label}
               onClick={() => onGoTo(section.slideIndex)}
-              className="px-3 py-1.5 rounded text-xs font-semibold tracking-wide transition-all duration-150"
-              style={{
-                background: isActive ? "var(--color-at-blue)" : "transparent",
-                color: isActive ? "var(--color-at-white)" : "var(--color-at-blue-v4)",
-                border: isActive ? "1px solid var(--color-at-blue-v3)" : "1px solid transparent",
-              }}
+              className={`px-3 py-1.5 rounded text-xs font-semibold tracking-wide ${
+                isActive ? "btn-secondary" : "btn-nav-ghost"
+              }`}
             >
               {String(i + 1).padStart(2, "0")} {section.label}
             </button>
@@ -95,12 +92,7 @@ export default function SlideNav({
         <button
           onClick={onPrev}
           disabled={current === 0}
-          className="w-8 h-8 rounded flex items-center justify-center transition-all duration-150 disabled:opacity-30 disabled:cursor-not-allowed"
-          style={{
-            background: "var(--color-at-blue)",
-            border: "1px solid var(--color-at-blue-v2)",
-            color: "var(--color-at-blue-a5)",
-          }}
+          className="btn-secondary w-8 h-8 rounded flex items-center justify-center"
           aria-label="Předchozí slide"
         >
           ←
@@ -108,12 +100,7 @@ export default function SlideNav({
         <button
           onClick={onNext}
           disabled={current === total - 1}
-          className="w-8 h-8 rounded flex items-center justify-center transition-all duration-150 disabled:opacity-30 disabled:cursor-not-allowed"
-          style={{
-            background: "var(--color-at-blue)",
-            border: "1px solid var(--color-at-blue-v2)",
-            color: "var(--color-at-blue-a5)",
-          }}
+          className="btn-secondary w-8 h-8 rounded flex items-center justify-center"
           aria-label="Další slide"
         >
           →

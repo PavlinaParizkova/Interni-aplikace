@@ -63,21 +63,7 @@ export default function SlideDressCode() {
           <button
             key={item.image}
             onClick={() => setLightbox(item)}
-            className="group rounded-xl overflow-hidden flex flex-col cursor-zoom-in focus:outline-none"
-            style={{
-              background: "var(--color-at-blue-v2)",
-              border: "1px solid var(--color-at-blue-v3)",
-              transition: "border-color 200ms, box-shadow 200ms",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.borderColor = "var(--color-at-red)";
-              (e.currentTarget as HTMLElement).style.boxShadow =
-                "0 0 0 2px rgba(213,28,23,0.25)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.borderColor = "var(--color-at-blue-v3)";
-              (e.currentTarget as HTMLElement).style.boxShadow = "none";
-            }}
+            className="btn-card group rounded-xl overflow-hidden flex flex-col cursor-zoom-in focus:outline-none"
           >
             {/* Square photo */}
             <div
@@ -166,15 +152,8 @@ export default function SlideDressCode() {
             <button
               onClick={() => setLightbox(null)}
               aria-label="Zavřít"
-              className="absolute top-3 right-3 z-10 flex items-center justify-center rounded-full"
-              style={{
-                width: 32,
-                height: 32,
-                background: "rgba(16,37,62,0.7)",
-                border: "1px solid var(--color-at-blue-v3)",
-                color: "var(--color-at-white)",
-                cursor: "pointer",
-              }}
+              className="btn-transparent absolute top-3 right-3 z-10 rounded-full"
+              style={{ width: 32, height: 32 }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                 <line x1="18" y1="6" x2="6" y2="18" />

@@ -94,6 +94,102 @@ h1, h2, h3, h4, h5, h6 {
   transition: opacity 280ms ease, transform 280ms ease;
 }
 
+/* === BUTTONS – AIR TEAM Style Guide §5.2 === */
+
+/* Primary – červené CTA (--primary-color: #d51c17) */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-at-red);
+  border: 1px solid var(--color-at-red);
+  color: var(--color-at-white);
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 200ms, border-color 200ms, opacity 200ms;
+}
+.btn-primary:hover:not(:disabled) {
+  background: #b81814;
+  border-color: #b81814;
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Secondary – modrá brand (--secondary-color: #153151) */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-at-blue);
+  border: 1px solid var(--color-at-blue);
+  color: var(--color-at-white);
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 200ms, border-color 200ms;
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--color-at-blue-v1);
+  border-color: var(--color-at-blue-v1);
+}
+.btn-secondary:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Ghost – neaktivní nav záložky */
+.btn-nav-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--color-at-blue-v4);
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 150ms, color 150ms, border-color 150ms;
+}
+.btn-nav-ghost:hover {
+  background: var(--color-at-blue-v2);
+  color: var(--color-at-white);
+  border-color: var(--color-at-blue-v2);
+}
+
+/* Transparent – zavírací tlačítka na tmavých překrytech */
+.btn-transparent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: var(--color-at-white);
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 150ms;
+}
+.btn-transparent:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Card – interaktivní fotokarta s hover akcentem */
+.btn-card {
+  background: var(--color-at-blue-v2);
+  border: 1px solid var(--color-at-blue-v3);
+  transition: border-color 200ms, box-shadow 200ms;
+}
+.btn-card:hover {
+  border-color: var(--color-at-red);
+  box-shadow: 0 0 0 2px rgba(213, 28, 23, 0.25);
+}
+.btn-card:focus-visible {
+  outline: none;
+  border-color: var(--color-at-red);
+  box-shadow: 0 0 0 2px rgba(213, 28, 23, 0.25);
+}
+
 /* Checkbox custom style */
 .atm-checkbox {
   appearance: none;

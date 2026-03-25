@@ -176,19 +176,18 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading || !password.trim()}
+              className="btn-primary"
               style={{
                 width: "100%",
                 padding: "12px 16px",
-                background: loading ? "var(--color-at-blue-v2)" : "var(--color-at-red)",
-                border: "none",
-                borderRadius: 6,
-                color: "var(--color-at-white)",
                 fontSize: 14,
                 fontWeight: 700,
-                cursor: loading || !password.trim() ? "not-allowed" : "pointer",
-                opacity: !password.trim() ? 0.5 : 1,
-                transition: "background 200ms, opacity 200ms",
                 letterSpacing: "0.04em",
+                borderRadius: 6,
+                ...(loading && {
+                  background: "var(--color-at-blue-v2)",
+                  borderColor: "var(--color-at-blue-v2)",
+                }),
               }}
             >
               {loading ? "Ověřuji…" : "Otevřít prezentaci"}

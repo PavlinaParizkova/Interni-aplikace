@@ -252,30 +252,17 @@ export default function SlideGifts() {
           <button
             onClick={closeLightbox}
             aria-label="Zavřít náhled"
+            className="btn-transparent"
             style={{
               position: "absolute",
               top: 20,
               right: 24,
-              background: "rgba(255,255,255,0.1)",
-              border: "1px solid rgba(255,255,255,0.25)",
               borderRadius: "50%",
               width: 40,
               height: 40,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              color: "#fff",
               fontSize: 20,
               lineHeight: 1,
-              transition: "background 150ms",
             }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.background = "rgba(213,28,23,0.5)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.background = "rgba(255,255,255,0.1)")
-            }
           >
             ×
           </button>
