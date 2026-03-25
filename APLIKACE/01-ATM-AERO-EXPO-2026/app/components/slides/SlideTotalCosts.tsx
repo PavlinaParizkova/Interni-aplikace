@@ -1,0 +1,226 @@
+type CostCategory = {
+  label: string;
+  items: { name: string; amount: number; note?: string; status: "confirmed" | "tbd" }[];
+};
+
+const CATEGORIES: CostCategory[] = [
+  {
+    label: "Stánek – MLT expo",
+    items: [
+      { name: "Realizace stánku (podlaha, stěny, grafika, AV, elektro)", amount: 181_650, note: "Potvrzeno bez TBD", status: "confirmed" },
+      { name: "Náklady v místě (montáž, demontáž, cesta, produkce)",     amount:  54_250, status: "confirmed" },
+      { name: "Hotel + diety (montážní tým)",                             amount:  14_661, status: "confirmed" },
+      { name: "Doprava a spedice",                                        amount:  24_600, status: "confirmed" },
+      { name: "Grafika",                                                  amount:   1_480, status: "confirmed" },
+      { name: "Vybavení kuchynky",                                        amount:   5_000, note: "Čeká na potvrzení", status: "tbd" },
+      { name: "Technické služby (elektro, voda, úklid)",                  amount:       0, note: "Zajišťuje klient", status: "tbd" },
+    ],
+  },
+  {
+    label: "Dárky pro zákazníky",
+    items: [
+      { name: "Energetický nápoj PilotStyle (100 ks × 36 Kč)", amount:  3_600, status: "confirmed" },
+      { name: "Energetický nápoj ATM (100 ks × 36 Kč)",        amount:  3_600, status: "confirmed" },
+      { name: "Balíček 1 – hrněk + káva (60 sad × 291 Kč)",    amount: 17_460, status: "confirmed" },
+      { name: "Karamelky, tužky",                               amount:      0, note: "Ceny TBD", status: "tbd" },
+      { name: "Bloky A5",                                       amount:      0, note: "Objednat", status: "tbd" },
+      { name: "Tašky (70 ks)",                                  amount:      0, note: "Nutno zajistit", status: "tbd" },
+    ],
+  },
+  {
+    label: "Firemní oblečení",
+    items: [
+      { name: "Collar Up 257 – muži (6 ks × 434 Kč)", amount: 2_604, status: "confirmed" },
+      { name: "Bomber 454 Black – muži (6 ks × 650 Kč)", amount: 3_900, status: "confirmed" },
+      { name: "Collar Up 257 – ženy (2 ks × 434 Kč)", amount:   868, status: "confirmed" },
+      { name: "Bomber 454 Black – ženy (2 ks × 650 Kč)", amount: 1_300, status: "confirmed" },
+    ],
+  },
+  {
+    label: "Ubytování týmu AIR TEAM",
+    items: [
+      { name: "Airbnb – Markdorf (21.–26. 4. 2026)", amount: 0, note: "Cena bude doplněna", status: "tbd" },
+    ],
+  },
+];
+
+const STATUS_CONFIG = {
+  confirmed: { label: "Zahrnuto",  color: "var(--color-at-blue-v1)", bg: "var(--color-at-blue-a5)" },
+  tbd:       { label: "TBD",       color: "var(--color-at-blue-v1)", bg: "#f59e0b" },
+};
+
+export default function SlideTotalCosts() {
+  const confirmedTotal = CATEGORIES.flatMap((c) => c.items)
+    .filter((i) => i.status === "confirmed")
+    .reduce((s, i) => s + i.amount, 0);
+
+  const categoryTotals = CATEGORIES.map((cat) => ({
+    label: cat.label,
+    confirmed: cat.items.filter((i) => i.status === "confirmed").reduce((s, i) => s + i.amount, 0),
+    hasTbd: cat.items.some((i) => i.status === "tbd"),
+  }));
+
+  return (
+    <div className="flex flex-col h-full px-10 py-8">
+      {/* Header */}
+      <div className="mb-5">
+        <p
+          className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
+          style={{ color: "var(--color-at-red)" }}
+        >
+          Souhrn · Celkové náklady
+        </p>
+        <h2 className="text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
+          Kompletní náklady na veletrh
+        </h2>
+        <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
+          AERO EXPO 2026, Friedrichshafen · 22.–25. 4. 2026 · Všechny potvrzené i otevřené položky
+        </p>
+      </div>
+
+      <div className="flex gap-5 flex-1 min-h-0">
+        {/* Table */}
+        <div
+          className="flex-1 min-h-0 overflow-y-auto rounded-xl slide-scroll"
+          style={{ border: "1px solid var(--color-at-blue-v4)" }}
+        >
+          {/* Table header */}
+          <div
+            className="grid grid-cols-[2.5fr_3fr_1fr_1fr] px-4 py-2.5 text-xs font-bold uppercase tracking-widest sticky top-0"
+            style={{
+              background: "var(--color-at-blue)",
+              color: "var(--color-at-white)",
+              borderBottom: "2px solid var(--color-at-blue-v4)",
+            }}
+          >
+            <span>Kategorie</span>
+            <span>Položka</span>
+            <span className="text-right">Částka</span>
+            <span className="text-center">Stav</span>
+          </div>
+
+          {CATEGORIES.map((cat) => (
+            <div key={cat.label}>
+              {/* Category heading */}
+              <div
+                className="px-4 py-2 text-xs font-bold uppercase tracking-widest"
+                style={{
+                  background: "var(--color-at-blue-v2)",
+                  color: "var(--color-at-blue-v5)",
+                  borderBottom: "1px solid var(--color-at-blue-v3)",
+                }}
+              >
+                {cat.label}
+              </div>
+
+              {cat.items.map((item, i) => {
+                const sc = STATUS_CONFIG[item.status];
+                return (
+                  <div
+                    key={item.name}
+                    className="grid grid-cols-[2.5fr_3fr_1fr_1fr] px-4 py-2.5 text-sm items-center"
+                    style={{
+                      background: i % 2 === 0 ? "var(--color-at-blue-v1)" : "rgba(27,63,103,0.5)",
+                      borderBottom: "1px solid var(--color-at-blue-v3)",
+                    }}
+                  >
+                    <span />
+                    <div>
+                      <span style={{ color: "var(--color-at-white)" }}>{item.name}</span>
+                      {item.note && (
+                        <span className="text-xs ml-2" style={{ color: "var(--color-at-blue-v5)" }}>
+                          ({item.note})
+                        </span>
+                      )}
+                    </div>
+                    <span
+                      className="text-right font-bold tabular-nums"
+                      style={{ color: item.amount > 0 ? "var(--color-at-white)" : "var(--color-at-blue-v4)" }}
+                    >
+                      {item.amount > 0 ? `${item.amount.toLocaleString("cs-CZ")} Kč` : "–"}
+                    </span>
+                    <span className="flex justify-center">
+                      <span
+                        className="text-xs font-bold px-2 py-0.5 rounded"
+                        style={{ background: sc.bg, color: sc.color }}
+                      >
+                        {sc.label}
+                      </span>
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+
+        {/* Right summary panel */}
+        <div className="flex flex-col gap-4 w-64">
+          {/* Grand total */}
+          <div
+            className="rounded-xl p-5 flex flex-col gap-1"
+            style={{ background: "var(--color-at-blue-v1)", border: "2px solid var(--color-at-red)" }}
+          >
+            <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--color-at-blue-v5)" }}>
+              Celkem potvrzeno
+            </p>
+            <p className="text-3xl font-black mt-1" style={{ color: "var(--color-at-white)" }}>
+              {confirmedTotal.toLocaleString("cs-CZ")} Kč
+            </p>
+            <p className="text-xs mt-1" style={{ color: "var(--color-at-blue-v5)" }}>
+              Bez DPH · bez TBD položek a ubytování
+            </p>
+          </div>
+
+          {/* By category */}
+          <div
+            className="rounded-xl px-4 py-4 flex flex-col gap-3"
+            style={{ background: "var(--color-at-blue-v1)", border: "1px solid var(--color-at-blue-v3)" }}
+          >
+            <p className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--color-at-blue-v5)" }}>
+              Dle kategorie
+            </p>
+            {categoryTotals.map((ct) => (
+              <div key={ct.label}>
+                <div className="flex items-start justify-between gap-2">
+                  <span className="text-xs leading-snug" style={{ color: "var(--color-at-blue-v5)" }}>
+                    {ct.label}
+                  </span>
+                  <span className="text-sm font-black tabular-nums whitespace-nowrap" style={{ color: "var(--color-at-white)" }}>
+                    {ct.confirmed > 0 ? `${ct.confirmed.toLocaleString("cs-CZ")} Kč` : "TBD"}
+                  </span>
+                </div>
+                {ct.hasTbd && (
+                  <p className="text-xs mt-0.5" style={{ color: "#f59e0b" }}>+ TBD položky</p>
+                )}
+              </div>
+            ))}
+            <div
+              className="flex justify-between pt-3 mt-1"
+              style={{ borderTop: "1px solid var(--color-at-blue-v3)" }}
+            >
+              <span className="text-sm font-black" style={{ color: "var(--color-at-white)" }}>CELKEM</span>
+              <span className="text-sm font-black tabular-nums" style={{ color: "var(--color-at-white)" }}>
+                {confirmedTotal.toLocaleString("cs-CZ")} Kč
+              </span>
+            </div>
+          </div>
+
+          {/* Warning TBD */}
+          <div
+            className="rounded-lg px-4 py-3 flex flex-col gap-1"
+            style={{ background: "rgba(245,158,11,0.08)", border: "1px solid #f59e0b" }}
+          >
+            <p className="text-sm font-bold" style={{ color: "#f59e0b" }}>⚠ Nezahrnuto (TBD)</p>
+            <ul className="text-xs flex flex-col gap-1 mt-1" style={{ color: "#f59e0b" }}>
+              <li>· Ubytování AIR TEAM (Airbnb Markdorf)</li>
+              <li>· Kuchynka stánku (5 000 Kč)</li>
+              <li>· Technické služby stánku</li>
+              <li>· Tašky, bloky A5, karamelky, tužky</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

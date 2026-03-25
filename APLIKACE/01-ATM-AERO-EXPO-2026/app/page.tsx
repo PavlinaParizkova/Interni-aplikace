@@ -17,6 +17,8 @@ import SlideBoothBudget from "./components/slides/SlideBoothBudget";
 import SlideBoothComparison from "./components/slides/SlideBoothComparison";
 import SlideExponexOffer from "./components/slides/SlideExponexOffer";
 import SlideAccommodation from "./components/slides/SlideAccommodation";
+import SlideDressCodeBudget from "./components/slides/SlideDressCodeBudget";
+import SlideTotalCosts from "./components/slides/SlideTotalCosts";
 
 const SLIDES = [
   { component: <SlideCover />,                  label: "Úvod",           section: "Úvod" },
@@ -29,11 +31,13 @@ const SLIDES = [
   { component: <SlideAccommodation />,           label: "Ubytování",      section: "Logistika" },
   { component: <SlideMarketingKit />,            label: "MKT materiály",  section: "MKT materiály" },
   { component: <SlideDressCode />,               label: "Dress Code",     section: "Dress Code" },
+  { component: <SlideDressCodeBudget />,         label: "Rozpočet oblečení", section: "Dress Code" },
   { component: <SlideGifts />,                   label: "Dárky",          section: "Dárky" },
   { component: <SlideGiftsBudget />,             label: "Rozpočet dárků", section: "Dárky" },
   { component: <SlideBoothBudget />,             label: "Stánek MLT",     section: "Stánek" },
   { component: <SlideExponexOffer />,            label: "Exponex nabídka",section: "Stánek" },
   { component: <SlideBoothComparison />,         label: "Porovnání",      section: "Stánek" },
+  { component: <SlideTotalCosts />,              label: "Celkové náklady",section: "Souhrn" },
 ];
 
 const SECTIONS = [
@@ -43,8 +47,9 @@ const SECTIONS = [
   { label: "Logistika",     slideIndex: 4 },
   { label: "MKT materiály", slideIndex: 8 },
   { label: "Dress Code",    slideIndex: 9 },
-  { label: "Dárky",         slideIndex: 10 },
-  { label: "Stánek",        slideIndex: 12 },
+  { label: "Dárky",         slideIndex: 11 },
+  { label: "Stánek",        slideIndex: 13 },
+  { label: "Souhrn",        slideIndex: 16 },
 ];
 
 type Direction = "forward" | "backward" | null;

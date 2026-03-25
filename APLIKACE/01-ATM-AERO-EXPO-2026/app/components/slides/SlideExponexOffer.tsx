@@ -195,7 +195,7 @@ export default function SlideExponexOffer() {
         </div>
 
         {/* Right panel */}
-        <div className="flex flex-col gap-4 w-56">
+        <div className="flex flex-col gap-3 w-56 overflow-y-auto slide-scroll">
           {/* Total cards */}
           <div
             className="rounded-xl p-4 flex flex-col gap-1"
@@ -252,7 +252,7 @@ export default function SlideExponexOffer() {
 
           {/* Option warning */}
           <div
-            className="rounded-lg px-3 py-3 flex flex-col gap-1 mt-auto"
+            className="rounded-lg px-3 py-3 flex flex-col gap-1"
             style={{ background: "rgba(245,158,11,0.08)", border: "1px solid #f59e0b" }}
           >
             <p className="text-xs font-bold" style={{ color: "#f59e0b" }}>⚠ Volba OPCE</p>

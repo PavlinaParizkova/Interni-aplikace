@@ -49,14 +49,20 @@ const CATEGORIES: GiftCategory[] = [
     items: [
       {
         name: "Keramický pohárek 330 ml Qeram",
-        note: "Keramický · 118 Kč / ks · 30 ks",
-        image: "/darky-hrnek.png",
+        note: "Keramický · 118 Kč / ks · 60 ks",
+        image: "/darky-hrnek-01.png",
+        status: "todo",
+      },
+      {
+        name: "Keramický pohárek – detail",
+        note: "Gravírovaný motiv · prémiové provedení",
+        image: "/darky-hrnek-02.png",
         status: "todo",
       },
       {
         name: "Káva Barahona",
-        note: "Dom. republika · černý doypack · 173 Kč · 30 ks",
-        image: "/darky-kava.png",
+        note: "Dom. republika · černý doypack · 173 Kč · 60 ks",
+        image: "/darky-kava-new.png",
         status: "todo",
       },
     ],

@@ -51,14 +51,14 @@ const LINES: BudgetLine[] = [
   {
     category: "Balíček 1",
     item: "Keramický pohárek Qeram + káva Barahona",
-    qty: "30 sad",
+    qty: "60 sad",
     unitPrice: "291 Kč",
-    total: 8730,
+    total: 17460,
     status: "confirmed",
   },
 ];
 
-const CONFIRMED_TOTAL = 15930;
+const CONFIRMED_TOTAL = 24660;
 
 const STATUS_CONFIG = {
   confirmed: {
@@ -225,7 +225,7 @@ export default function SlideGiftsBudget() {
               {CONFIRMED_TOTAL.toLocaleString("cs-CZ")} Kč
             </p>
             <p className="text-xs mt-1" style={{ color: "var(--color-at-blue-v5)" }}>
-              Bez TBD položek (tašky, bloky A5, karamelky, tužky) a bez objednaného Balíčku 1
+              Včetně Balíčku 1 (60 sad). TBD: tašky, bloky A5, karamelky, tužky.
             </p>
           </div>
 
@@ -252,19 +252,19 @@ export default function SlideGiftsBudget() {
           <div
             className="rounded-lg px-4 py-3 flex flex-col gap-1 mt-auto"
             style={{
-              background: "rgba(213,28,23,0.08)",
-              border: "1px solid var(--color-at-red)",
+              background: "rgba(245,158,11,0.08)",
+              border: "1px solid #f59e0b",
             }}
           >
-            <p className="text-sm font-bold" style={{ color: "var(--color-at-red)" }}>
+            <p className="text-sm font-bold" style={{ color: "#f59e0b" }}>
               ⚠ Otevřené body
             </p>
-            <ul className="text-xs flex flex-col gap-0.5 mt-0.5" style={{ color: "var(--color-at-black-v1)" }}>
-              <li>Tašky (70 ks) – zajistit dodavatele</li>
-              <li>Bloky A5 – objednat</li>
-              <li>Karamelky, tužky – ceny TBD</li>
-              <li>Balíček 1 (30 sad) – objednat</li>
-              <li>Potvrdit celkový rozpočet s vedením</li>
+            <ul className="text-xs flex flex-col gap-1 mt-1" style={{ color: "#f59e0b" }}>
+              <li>· Tašky (70 ks) – zajistit dodavatele</li>
+              <li>· Bloky A5 – objednat</li>
+              <li>· Karamelky, tužky – ceny TBD</li>
+              <li>· Balíček 1 (60 sad) – objednat</li>
+              <li>· Potvrdit celkový rozpočet s vedením</li>
             </ul>
           </div>
         </div>
