@@ -1,4 +1,4 @@
-﻿/* Color tokens used:
+/* Color tokens used:
    Light table:
      thead bg  → var(--color-at-blue)      #153151  white text
      row odd   → #ffffff                    dark blue text
@@ -74,7 +74,7 @@ const CHECKLIST = [
   "Pole Účel schůzky vyplněno v popisu (1–2 věty)?",
   "Vyplněna všechna povinná pole (zákazník, kontakt, účastníci, místo)?",
   "Pole Dárek vyplněno (Ano / Ne)?",
-  "CEO schůzka → potvrdil Jakub Dryska?",
+  "CEO schůzka → potvrdila Lucie Kysučanová?",
   "Off-site → adresa + kdo zůstává na stánku?",
   "Pozváni všichni relevantní účastníci?",
   "Schůzka v rámci doby přítomnosti všech účastníků?",
@@ -102,7 +102,7 @@ export default function SlideCalendar() {
           Metodika schůzek na veletrhu
         </h2>
         <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-a5)" }}>
-          Závazná pravidla pro Google Kalendář · Owner: Jakub Dryska (Kuba) · AERO EXPO 2026, Friedrichshafen 22.–25. 4. 2026
+          Závazná pravidla pro Google Kalendář · Owner: Lucie Kysučanová · AERO EXPO 2026, Friedrichshafen 22.–25. 4. 2026
         </p>
       </div>
 
@@ -306,7 +306,7 @@ export default function SlideCalendar() {
               <span>📅 Přítomnost: <strong>22. 4. – 24. 4.</strong></span>
               <span>⏱ Slot min.: <strong>30 min + 15 min buffer</strong></span>
               <span>📊 Max: <strong>2 dop. + 2 odp. = 4/den</strong></span>
-              <span>✅ Schválení: <strong>vždy Jakub Dryska</strong></span>
+              <span>✅ Schválení: <strong>vždy Lucie Kysučanová</strong></span>
               <span>⚡ Priorita: <strong>nejvyšší – nikdy nepřesouvat</strong></span>
             </div>
           </div>
@@ -350,7 +350,7 @@ export default function SlideCalendar() {
           HubSpot
         </div>
         <p className="text-xs" style={{ color: "var(--color-at-blue-a5)" }}>
-          Každá schůzka z GCal → HubSpot záznam do 48 h · Výsledek + A/B/C lead zalogovat tentýž den do 20:00 · Jakub kontroluje záznamy každý večer.{" "}
+          Každá schůzka z GCal → HubSpot záznam do 48 h · Výsledek + A/B/C lead zalogovat tentýž den do 20:00 · Lucie kontroluje záznamy každý večer.{" "}
           <span className="italic" style={{ color: "var(--color-at-blue-v5)" }}>
             Every GCal meeting → HubSpot record within 48 h.
           </span>
