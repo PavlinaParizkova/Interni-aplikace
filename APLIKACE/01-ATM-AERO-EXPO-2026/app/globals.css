@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@theme {
+  /* Core */
+  --color-at-red:      #d51c17;
+  --color-at-blue:     #153151;
+  --color-at-white:    #ffffff;
+  --color-at-black:    #1d1d1b;
+
+  /* Blue variants */
+  --color-at-blue-v1:  #10253e;
+  --color-at-blue-v2:  #1b3f67;
+  --color-at-blue-v3:  #23517c;
+  --color-at-blue-v4:  #507499;
+  --color-at-blue-v5:  #93b3cf;
+
+  /* Blue alternates */
+  --color-at-blue-a1:  #302f2e;
+  --color-at-blue-a2:  #2b4156;
+  --color-at-blue-a3:  #323e49;
+  --color-at-blue-a4:  #4d606f;
+  --color-at-blue-a5:  #cddce8;
+
+  /* Black variants */
+  --color-at-black-v1: #4a4a49;
+  --color-at-black-v2: #878787;
+  --color-at-black-v3: #d0d0d0;
+  --color-at-black-v4: #e3e3e3;
+
+  /* Semantic aliases */
+  --color-brand-primary:   var(--color-at-blue);
+  --color-brand-accent:    var(--color-at-red);
+  --color-text-primary:    var(--color-at-black);
+  --color-text-on-dark:    var(--color-at-white);
+  --color-surface-muted:   var(--color-at-black-v4);
+  --color-border-default:  var(--color-at-black-v3);
+
+  --font-sans: var(--font-poppins), "Poppins", system-ui, sans-serif;
+}
+
+html {
+  font-size: 18px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--color-at-blue-v1);
+  color: var(--color-at-white);
+  font-family: var(--font-poppins), "Poppins", system-ui, sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+#__next, main {
+  height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+/* Custom scrollbar for slide content */
+.slide-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.slide-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.slide-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-at-blue-v4);
+  border-radius: 2px;
+}
+
+/* Slide transition */
+.slide-enter {
+  opacity: 0;
+  transform: translateX(32px);
+}
+.slide-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 280ms ease, transform 280ms ease;
+}
+.slide-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.slide-exit-active {
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity 280ms ease, transform 280ms ease;
+}
+
+/* Checkbox custom style */
+.atm-checkbox {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border: 2px solid var(--color-at-blue-v4);
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: background 150ms, border-color 150ms;
+}
+.atm-checkbox:checked {
+  background: var(--color-at-red);
+  border-color: var(--color-at-red);
+}
+.atm-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 0px;
+  width: 6px;
+  height: 10px;
+  border: 2px solid var(--color-at-white);
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
