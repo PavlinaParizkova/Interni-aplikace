@@ -50,31 +50,15 @@ const LINES: BudgetLine[] = [
   },
   {
     category: "Balíček 1",
-    item: "Hrnek + podšálek + káva Barahona",
+    item: "Keramický pohárek Qeram + káva Barahona",
     qty: "30 sad",
-    unitPrice: "389 Kč",
-    total: 11790,
-    status: "confirmed",
-  },
-  {
-    category: "Balíček 2 – VIP",
-    item: "Kravata (tmavě modrá, výšivka křídla AIR TEAM)",
-    qty: "30 ks",
-    unitPrice: "565 Kč",
-    total: 16950,
-    status: "confirmed",
-  },
-  {
-    category: "Balíček 2 – VIP",
-    item: "Spona na kravatu (letadlo, stříbrná)",
-    qty: "30 ks",
-    unitPrice: "64 Kč",
-    total: 1920,
+    unitPrice: "291 Kč",
+    total: 8730,
     status: "confirmed",
   },
 ];
 
-const CONFIRMED_TOTAL = 37860;
+const CONFIRMED_TOTAL = 15930;
 
 const STATUS_CONFIG = {
   confirmed: {
@@ -94,7 +78,7 @@ const STATUS_CONFIG = {
   },
 };
 
-const CATEGORY_ORDER = ["Rozdávačky", "Balíček 1", "Balíček 2 – VIP"];
+const CATEGORY_ORDER = ["Rozdávačky", "Balíček 1"];
 
 export default function SlideGiftsBudget() {
   const grouped = CATEGORY_ORDER.map((cat) => ({
@@ -241,7 +225,7 @@ export default function SlideGiftsBudget() {
               {CONFIRMED_TOTAL.toLocaleString("cs-CZ")} Kč
             </p>
             <p className="text-xs mt-1" style={{ color: "var(--color-at-blue-v5)" }}>
-              Bez TBD položek (tašky, bloky A5, karamelky, tužky)
+              Bez TBD položek (tašky, bloky A5, karamelky, tužky) a bez objednaného Balíčku 1
             </p>
           </div>
 
@@ -276,10 +260,11 @@ export default function SlideGiftsBudget() {
               ⚠ Otevřené body
             </p>
             <ul className="text-xs flex flex-col gap-0.5 mt-0.5" style={{ color: "var(--color-at-black-v1)" }}>
-              <li>Tašky – zajistit dodavatele</li>
+              <li>Tašky (70 ks) – zajistit dodavatele</li>
               <li>Bloky A5 – objednat</li>
               <li>Karamelky, tužky – ceny TBD</li>
-              <li>Potvrdit rozpočet s vedením</li>
+              <li>Balíček 1 (30 sad) – objednat</li>
+              <li>Potvrdit celkový rozpočet s vedením</li>
             </ul>
           </div>
         </div>

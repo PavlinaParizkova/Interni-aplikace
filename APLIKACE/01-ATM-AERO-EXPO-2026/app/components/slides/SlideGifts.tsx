@@ -45,11 +45,11 @@ const CATEGORIES: GiftCategory[] = [
   {
     label: "Balíček 1",
     target: "Kvalitnější kontakt / schůzka",
-    price: "~389 Kč / sada",
+    price: "~291 Kč / sada",
     items: [
       {
-        name: "Hrnek + podšálek",
-        note: "Gravírovaný · 108 Kč / ks · 30 ks",
+        name: "Keramický pohárek 330 ml Qeram",
+        note: "Keramický · 118 Kč / ks · 30 ks",
         image: "/darky-hrnek.png",
         status: "todo",
       },
@@ -57,25 +57,6 @@ const CATEGORIES: GiftCategory[] = [
         name: "Káva Barahona",
         note: "Dom. republika · černý doypack · 173 Kč · 30 ks",
         image: "/darky-kava.png",
-        status: "todo",
-      },
-    ],
-  },
-  {
-    label: "Balíček 2 – VIP",
-    target: "Klíčoví partneři · rozhodovatelé",
-    price: "~629 Kč / sada",
-    items: [
-      {
-        name: "Kravata",
-        note: "Tmavě modrá · výšivka křídla AIR TEAM · červená · 565 Kč / ks · 30 ks",
-        image: "/darky-kravata.png",
-        status: "todo",
-      },
-      {
-        name: "Spona na kravatu",
-        note: "Letadlo · stříbrná · 64 Kč / ks · 30 ks",
-        image: "/darky-spona.png",
         status: "todo",
       },
     ],
@@ -116,7 +97,7 @@ export default function SlideGifts() {
           Dárkové balíčky pro zákazníky
         </h2>
         <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
-          Přehled dárků pro AERO EXPO 2026 · celkový potvrzený náklad 37 860 Kč
+          Přehled dárků pro AERO EXPO 2026 · celkový potvrzený náklad 15 930 Kč
         </p>
       </div>
 
