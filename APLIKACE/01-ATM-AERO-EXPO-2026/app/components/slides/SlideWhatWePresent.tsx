@@ -1,4 +1,4 @@
-﻿const PILLARS = [
+const PILLARS = [
   {
     number: "01",
     title: "Komplexní upgrade avioniky",
@@ -82,13 +82,13 @@ export default function SlideWhatWePresent() {
 
             {/* Title */}
             <h3
-              className="text-lg font-bold leading-tight mb-1"
+              className="text-xl font-bold leading-tight mb-1"
               style={{ color: "var(--color-at-blue)" }}
             >
               {p.title}
             </h3>
             <p
-              className="text-xs font-medium mb-4 pb-4"
+              className="text-sm font-medium mb-4 pb-4"
               style={{
                 color: "var(--color-at-blue-v2)",
                 borderBottom: "1px solid var(--color-at-blue-v4)",
@@ -98,14 +98,14 @@ export default function SlideWhatWePresent() {
             </p>
 
             {/* Bullets */}
-            <ul className="space-y-2 flex-1">
+            <ul className="space-y-2.5 flex-1">
               {p.bullets.map((b, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <span
-                    className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0"
+                    className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0"
                     style={{ background: "var(--color-at-red)" }}
                   />
-                  <span className="text-sm leading-snug" style={{ color: "var(--color-at-blue)" }}>
+                  <span className="text-base leading-snug" style={{ color: "var(--color-at-blue)" }}>
                     {b}
                   </span>
                 </li>

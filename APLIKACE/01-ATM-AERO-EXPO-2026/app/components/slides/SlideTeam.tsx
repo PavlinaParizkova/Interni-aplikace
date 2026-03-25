@@ -1,4 +1,4 @@
-﻿import { TEAM } from "../../data/slides-data";
+import { TEAM } from "../../data/slides-data";
 
 const INITIALS_COLORS = [
   "var(--color-at-blue-v2)",
@@ -30,12 +30,59 @@ export default function SlideTeam() {
         </p>
       </div>
 
-      {/* Table */}
+      {/* Mobile card view */}
+      <div className="md:hidden flex flex-col gap-2">
+        {TEAM.map((member, i) => (
+          <div
+            key={member.name}
+            className="rounded-lg px-4 py-3 flex flex-col gap-1.5"
+            style={{ background: "var(--color-at-blue-v1)", border: "1px solid var(--color-at-blue-v4)" }}
+          >
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
+                  style={{
+                    background: INITIALS_COLORS[i % INITIALS_COLORS.length],
+                    color: "var(--color-at-white)",
+                    border: "2px solid var(--color-at-blue-v4)",
+                  }}
+                >
+                  {member.initials}
+                </div>
+                <span className="font-bold text-base" style={{ color: "var(--color-at-white)" }}>
+                  {member.name}
+                </span>
+              </div>
+              <span
+                className="text-lg font-black flex-shrink-0"
+                style={{ color: member.days === 4 ? "var(--color-at-red)" : "var(--color-at-blue-v5)" }}
+              >
+                {member.days} dny
+              </span>
+            </div>
+            <p className="text-sm font-semibold" style={{ color: "var(--color-at-blue-v5)" }}>{member.role}</p>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span
+                className="px-2 py-0.5 rounded text-xs font-semibold"
+                style={{ background: "var(--color-at-blue)", color: "var(--color-at-white)" }}
+              >
+                {member.dates}
+              </span>
+            </div>
+            <p className="text-sm leading-snug mt-0.5" style={{ color: "var(--color-at-blue-v5)" }}>
+              {member.responsibility}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop table */}
       <div
-        className="overflow-x-auto rounded-lg"
+        className="hidden md:block overflow-x-auto rounded-lg"
         style={{ border: "1px solid var(--color-at-blue-v2)" }}
       >
-        <table className="w-full text-sm">
+        <table className="w-full text-base">
           <thead>
             <tr style={{ background: "var(--color-at-blue)" }}>
               {["Jméno", "Role", "Přítomnost", "Dní", "Primární odpovědnost"].map((h, i) => (
@@ -100,7 +147,7 @@ export default function SlideTeam() {
                   </span>
                 </td>
                 <td
-                  className="px-4 py-3 text-sm leading-snug"
+                  className="px-4 py-3 text-base leading-snug"
                   style={{ color: "var(--color-at-blue-v3)", maxWidth: 320 }}
                 >
                   {member.responsibility}

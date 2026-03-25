@@ -1,4 +1,4 @@
-﻿import { TRANSPORT } from "../../data/slides-data";
+import { TRANSPORT } from "../../data/slides-data";
 
 const TYPE_BADGE: Record<string, { bg: string; text: string }> = {
   "Firemní letadlo":      { bg: "var(--color-at-red)",    text: "var(--color-at-white)" },
@@ -76,9 +76,41 @@ export default function SlideTransport() {
         </div>
       </div>
 
-      {/* Table */}
+      {/* Mobile card view */}
+      <div className="md:hidden flex flex-col gap-2">
+        {TRANSPORT.map((row) => (
+          <div
+            key={row.name}
+            className="rounded-lg px-4 py-3 flex flex-col gap-1.5"
+            style={{ background: "var(--color-at-blue-v1)", border: "1px solid var(--color-at-blue-v4)" }}
+          >
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-bold" style={{ color: "var(--color-at-white)" }}>{row.name}</span>
+              <span
+                className="px-2 py-0.5 rounded text-xs font-semibold flex-shrink-0"
+                style={{
+                  background: TYPE_BADGE[row.type]?.bg ?? "var(--color-at-blue-v3)",
+                  color: TYPE_BADGE[row.type]?.text ?? "var(--color-at-white)",
+                }}
+              >
+                {row.type}
+              </span>
+            </div>
+            <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>{row.route}</p>
+            <div className="flex gap-4 text-xs font-semibold" style={{ color: "var(--color-at-blue-v5)" }}>
+              <span>Odjezd: <span style={{ color: "var(--color-at-white)" }}>{row.departure}</span></span>
+              <span>Návrat: <span style={{ color: "var(--color-at-white)" }}>{row.returnDate}</span></span>
+            </div>
+            {row.note && (
+              <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>{row.note}</p>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop table */}
       <div
-        className="overflow-x-auto rounded-lg"
+        className="hidden md:block overflow-x-auto rounded-lg"
         style={{ border: "1px solid var(--color-at-blue-v5)" }}
       >
         <table className="w-full text-sm">
