@@ -63,18 +63,18 @@ const CONFIRMED_TOTAL = 15930;
 const STATUS_CONFIG = {
   confirmed: {
     label: "Potvrzeno",
-    color: "var(--color-at-blue-v3)",
-    bg: "rgba(35,81,124,0.25)",
+    color: "var(--color-at-blue-v1)",
+    bg: "var(--color-at-blue-a5)",
   },
   tbd: {
     label: "TBD",
-    color: "#f59e0b",
-    bg: "rgba(245,158,11,0.12)",
+    color: "var(--color-at-blue-v1)",
+    bg: "#f59e0b",
   },
   missing: {
     label: "CHYBÍ",
-    color: "var(--color-at-red)",
-    bg: "rgba(213,28,23,0.12)",
+    color: "var(--color-at-white)",
+    bg: "var(--color-at-red)",
   },
 };
 

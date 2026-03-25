@@ -15,6 +15,8 @@ import SlideGiftsBudget from "./components/slides/SlideGiftsBudget";
 import SlideDressCode from "./components/slides/SlideDressCode";
 import SlideBoothBudget from "./components/slides/SlideBoothBudget";
 import SlideBoothComparison from "./components/slides/SlideBoothComparison";
+import SlideExponexOffer from "./components/slides/SlideExponexOffer";
+import SlideAccommodation from "./components/slides/SlideAccommodation";
 
 const SLIDES = [
   { component: <SlideCover />,                  label: "Úvod",           section: "Úvod" },
@@ -24,11 +26,13 @@ const SLIDES = [
   { component: <SlideTransport />,               label: "Doprava",        section: "Logistika" },
   { component: <SlideChecklistTransport />,      label: "✓ Doprava",      section: "Logistika" },
   { component: <SlideChecklistAttendance />,     label: "✓ Účast",        section: "Logistika" },
+  { component: <SlideAccommodation />,           label: "Ubytování",      section: "Logistika" },
   { component: <SlideMarketingKit />,            label: "MKT materiály",  section: "MKT materiály" },
   { component: <SlideDressCode />,               label: "Dress Code",     section: "Dress Code" },
   { component: <SlideGifts />,                   label: "Dárky",          section: "Dárky" },
   { component: <SlideGiftsBudget />,             label: "Rozpočet dárků", section: "Dárky" },
   { component: <SlideBoothBudget />,             label: "Stánek MLT",     section: "Stánek" },
+  { component: <SlideExponexOffer />,            label: "Exponex nabídka",section: "Stánek" },
   { component: <SlideBoothComparison />,         label: "Porovnání",      section: "Stánek" },
 ];
 
@@ -37,10 +41,10 @@ const SECTIONS = [
   { label: "Obsah",         slideIndex: 1 },
   { label: "Tým",           slideIndex: 2 },
   { label: "Logistika",     slideIndex: 4 },
-  { label: "MKT materiály", slideIndex: 7 },
-  { label: "Dress Code",    slideIndex: 8 },
-  { label: "Dárky",         slideIndex: 9 },
-  { label: "Stánek",        slideIndex: 11 },
+  { label: "MKT materiály", slideIndex: 8 },
+  { label: "Dress Code",    slideIndex: 9 },
+  { label: "Dárky",         slideIndex: 10 },
+  { label: "Stánek",        slideIndex: 12 },
 ];
 
 type Direction = "forward" | "backward" | null;

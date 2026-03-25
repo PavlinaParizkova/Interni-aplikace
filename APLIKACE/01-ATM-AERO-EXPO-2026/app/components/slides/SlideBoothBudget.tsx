@@ -26,9 +26,9 @@ const VAT = 59_122;
 const TOTAL_WITH_VAT = 340_658;
 
 const STATUS_CONFIG = {
-  confirmed: { label: "Zahrnuto",  color: "var(--color-at-blue-v3)", bg: "rgba(35,81,124,0.25)" },
-  tbd:       { label: "TBD",       color: "#f59e0b",                 bg: "rgba(245,158,11,0.12)" },
-  client:    { label: "Klient",    color: "var(--color-at-blue-v5)", bg: "rgba(147,179,207,0.15)" },
+  confirmed: { label: "Zahrnuto",  color: "var(--color-at-blue-v1)", bg: "var(--color-at-blue-a5)" },
+  tbd:       { label: "TBD",       color: "var(--color-at-blue-v1)", bg: "#f59e0b" },
+  client:    { label: "Klient",    color: "var(--color-at-blue-v1)", bg: "var(--color-at-blue-v5)" },
 };
 
 const OPEN_ITEMS = [
@@ -209,7 +209,7 @@ export default function SlideBoothBudget() {
             <p className="text-sm font-bold" style={{ color: "#f59e0b" }}>
               ⚠ Otevřené body
             </p>
-            <ul className="text-xs flex flex-col gap-1 mt-1" style={{ color: "var(--color-at-black-v1)" }}>
+            <ul className="text-xs flex flex-col gap-1 mt-1" style={{ color: "#f59e0b" }}>
               {OPEN_ITEMS.map((item) => (
                 <li key={item}>· {item}</li>
               ))}

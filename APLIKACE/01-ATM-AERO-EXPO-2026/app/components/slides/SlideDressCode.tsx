@@ -7,32 +7,42 @@ type DressItem = {
   title: string;
   subtitle: string;
   tag: string;
+  count: number;
+  price: number;
 };
 
 const ITEMS: DressItem[] = [
   {
-    image: "/dresscode-bomber-muzi.png",
-    title: "Bomber Jacket",
-    subtitle: "Malfini 453 · Navy · Pánský",
+    image: "/dresscode-collar-up257-muzi.png",
+    title: "Collar Up 257",
+    subtitle: "Malfini · Navy · Pánské polo",
     tag: "Muži",
+    count: 6,
+    price: 434,
   },
   {
-    image: "/dresscode-polo-muzi.png",
-    title: "Polo tričko",
-    subtitle: "Malfini 256 · Bílá · Pánské",
+    image: "/dresscode-bomber454-muzi.png",
+    title: "Bomber 454",
+    subtitle: "Malfini · Black · Pánská mikina",
     tag: "Muži",
+    count: 6,
+    price: 650,
   },
   {
-    image: "/dresscode-polo-zeny.png",
-    title: "Polo tričko",
-    subtitle: "Malfini 220 · Bílá · Dámské",
+    image: "/dresscode-collar-up257-zeny.png",
+    title: "Collar Up 257",
+    subtitle: "Malfini · Navy · Dámské polo",
     tag: "Ženy",
+    count: 2,
+    price: 434,
   },
   {
-    image: "/dresscode-bomber-zeny.png",
-    title: "Bomber Jacket",
-    subtitle: "Malfini 454 · Navy · Dámský",
+    image: "/dresscode-bomber454-zeny.png",
+    title: "Bomber 454",
+    subtitle: "Malfini · Black · Dámská mikina",
     tag: "Ženy",
+    count: 2,
+    price: 650,
   },
 ];
 
@@ -99,31 +109,46 @@ export default function SlideDressCode() {
             </div>
 
             {/* Label */}
-            <div className="px-4 py-3 flex items-start justify-between gap-2">
-              <div className="text-left">
-                <p
-                  className="text-sm font-black leading-tight"
-                  style={{ color: "var(--color-at-white)" }}
+            <div className="px-4 py-3 flex flex-col gap-1">
+              <div className="flex items-start justify-between gap-2">
+                <div className="text-left">
+                  <p
+                    className="text-sm font-black leading-tight"
+                    style={{ color: "var(--color-at-white)" }}
+                  >
+                    {item.title}
+                  </p>
+                  <p
+                    className="text-xs mt-0.5 leading-snug"
+                    style={{ color: "var(--color-at-blue-v5)" }}
+                  >
+                    {item.subtitle}
+                  </p>
+                </div>
+                <span
+                  className="text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0 mt-0.5"
+                  style={{
+                    background: "rgba(213,28,23,0.15)",
+                    color: "var(--color-at-red)",
+                    border: "1px solid var(--color-at-red)",
+                  }}
                 >
-                  {item.title}
-                </p>
-                <p
-                  className="text-xs mt-0.5 leading-snug"
-                  style={{ color: "var(--color-at-blue-v5)" }}
-                >
-                  {item.subtitle}
-                </p>
+                  {item.tag}
+                </span>
               </div>
-              <span
-                className="text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0 mt-0.5"
-                style={{
-                  background: "rgba(213,28,23,0.15)",
-                  color: "var(--color-at-red)",
-                  border: "1px solid var(--color-at-red)",
-                }}
-              >
-                {item.tag}
-              </span>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-black tabular-nums" style={{ color: "var(--color-at-white)" }}>
+                  {item.price} Kč / ks
+                </span>
+                {item.count > 0 && (
+                  <span
+                    className="text-xs font-bold px-2 py-0.5 rounded"
+                    style={{ background: "var(--color-at-blue-v3)", color: "var(--color-at-white)" }}
+                  >
+                    {item.count}× ks
+                  </span>
+                )}
+              </div>
             </div>
           </button>
         ))}
@@ -179,6 +204,15 @@ export default function SlideDressCode() {
                 </p>
                 <p className="text-sm mt-0.5" style={{ color: "var(--color-at-blue-v5)" }}>
                   {lightbox.subtitle}
+                </p>
+                <p className="text-sm font-black mt-1" style={{ color: "var(--color-at-white)" }}>
+                  {lightbox.price} Kč / ks
+                  {lightbox.count > 0 && (
+                    <span className="ml-2 text-xs font-bold px-2 py-0.5 rounded"
+                      style={{ background: "var(--color-at-blue-v3)", color: "var(--color-at-white)" }}>
+                      {lightbox.count}× ks · {lightbox.count * lightbox.price} Kč celkem
+                    </span>
+                  )}
                 </p>
               </div>
               <span

@@ -64,9 +64,9 @@ const CATEGORIES: GiftCategory[] = [
 ];
 
 const STATUS_CONFIG = {
-  done: { label: "Zajištěno", color: "var(--color-at-blue-v3)", bg: "rgba(35,81,124,0.25)" },
-  todo: { label: "Objednat", color: "#f59e0b", bg: "rgba(245,158,11,0.12)" },
-  missing: { label: "CHYBÍ", color: "var(--color-at-red)", bg: "rgba(213,28,23,0.12)" },
+  done:    { label: "Zajištěno", color: "var(--color-at-blue-v1)", bg: "var(--color-at-blue-a5)" },
+  todo:    { label: "Objednat",  color: "var(--color-at-blue-v1)", bg: "#f59e0b" },
+  missing: { label: "CHYBÍ",     color: "var(--color-at-white)",   bg: "var(--color-at-red)" },
 };
 
 export default function SlideGifts() {
@@ -86,7 +86,7 @@ export default function SlideGifts() {
   return (
     <div className="flex flex-col h-full px-10 py-8">
       {/* Header */}
-      <div className="mb-6">
+      <div className="mb-5">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
           style={{ color: "var(--color-at-red)" }}
@@ -101,27 +101,31 @@ export default function SlideGifts() {
         </p>
       </div>
 
-      {/* Categories grid */}
-      <div className="grid grid-cols-3 gap-4 flex-1 min-h-0">
+      {/* Categories – stacked columns */}
+      <div className="flex gap-5 flex-1 min-h-0">
         {CATEGORIES.map((cat) => (
           <div
             key={cat.label}
-            className="rounded-xl flex flex-col overflow-hidden"
+            className="flex flex-col rounded-xl overflow-hidden"
             style={{
-              background: "var(--color-at-blue-a5)",
-              border: "1px solid var(--color-at-blue-v5)",
+              flex: cat.items.length > 2 ? "1.2" : "1",
+              background: "var(--color-at-blue-v1)",
+              border: "1px solid var(--color-at-blue-v3)",
             }}
           >
             {/* Category header */}
             <div
-              className="px-5 py-3 flex items-start justify-between gap-2"
-              style={{ borderBottom: "1px solid var(--color-at-blue-v4)" }}
+              className="px-5 py-3 flex items-center justify-between gap-3 flex-shrink-0"
+              style={{
+                background: "var(--color-at-blue)",
+                borderBottom: "2px solid var(--color-at-blue-v4)",
+              }}
             >
               <div>
-                <p className="text-sm font-black" style={{ color: "var(--color-at-blue-v1)" }}>
+                <p className="text-sm font-black" style={{ color: "var(--color-at-white)" }}>
                   {cat.label}
                 </p>
-                <p className="text-xs mt-0.5" style={{ color: "var(--color-at-blue-v3)" }}>
+                <p className="text-xs mt-0.5" style={{ color: "var(--color-at-blue-v5)" }}>
                   {cat.target}
                 </p>
               </div>
@@ -129,7 +133,7 @@ export default function SlideGifts() {
                 <span
                   className="text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0"
                   style={{
-                    background: "rgba(213,28,23,0.15)",
+                    background: "rgba(213,28,23,0.18)",
                     color: "var(--color-at-red)",
                     border: "1px solid var(--color-at-red)",
                   }}
@@ -139,69 +143,69 @@ export default function SlideGifts() {
               )}
             </div>
 
-            {/* Items */}
-            <div className="flex flex-col gap-3 p-4 flex-1 overflow-y-auto">
+            {/* Items – horizontal rows */}
+            <div className="flex flex-col flex-1 overflow-y-auto slide-scroll divide-y" style={{ borderColor: "var(--color-at-blue-v2)" }}>
               {cat.items.map((item) => {
                 const sc = item.status ? STATUS_CONFIG[item.status] : null;
                 return (
                   <div
                     key={item.name}
-                    className="rounded-lg overflow-hidden"
-                    style={{
-                      background: "var(--color-at-blue-v1)",
-                      border: "1px solid var(--color-at-blue-v2)",
-                    }}
+                    className="flex items-center gap-4 px-4 py-3"
+                    style={{ minHeight: 72 }}
                   >
-                    {/* Photo */}
-                    {item.image && (
-                      <div
-                        className="w-full"
-                        role="button"
-                        tabIndex={0}
-                        aria-label={`Zobrazit foto: ${item.name}`}
+                    {/* Thumbnail */}
+                    {item.image ? (
+                      <button
                         onClick={() => setLightbox(item.image!)}
-                        onKeyDown={(e) => e.key === "Enter" && setLightbox(item.image!)}
+                        aria-label={`Zobrazit foto: ${item.name}`}
+                        className="flex-shrink-0 rounded-lg overflow-hidden cursor-zoom-in focus:outline-none"
                         style={{
-                          aspectRatio: "1 / 1",
-                          backgroundImage: `url(${item.image})`,
-                          backgroundSize: "cover",
-                          backgroundPosition: "center",
-                          backgroundColor: "#fff",
-                          cursor: "zoom-in",
-                          transition: "opacity 150ms ease",
+                          width: 80,
+                          height: 80,
+                          background: "#fff",
                         }}
-                        onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
-                        onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-                      />
+                      >
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-full h-full object-cover transition-opacity duration-150 hover:opacity-80"
+                        />
+                      </button>
+                    ) : (
+                      <div
+                        className="flex-shrink-0 rounded-lg flex items-center justify-center"
+                        style={{
+                          width: 80,
+                          height: 80,
+                          background: "var(--color-at-blue-v2)",
+                          border: "1px solid var(--color-at-blue-v3)",
+                        }}
+                      >
+                        <span className="text-2xl">🎁</span>
+                      </div>
                     )}
 
                     {/* Text */}
-                    <div className="px-3 py-2 flex items-start justify-between gap-2">
-                      <div>
-                        <p
-                          className="text-xs font-bold leading-tight"
-                          style={{ color: "var(--color-at-white)" }}
-                        >
-                          {item.name}
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-black leading-tight" style={{ color: "var(--color-at-white)" }}>
+                        {item.name}
+                      </p>
+                      {item.note && (
+                        <p className="text-xs mt-1 leading-snug" style={{ color: "var(--color-at-blue-v5)" }}>
+                          {item.note}
                         </p>
-                        {item.note && (
-                          <p
-                            className="text-xs mt-0.5 leading-snug"
-                            style={{ color: "var(--color-at-blue-v5)" }}
-                          >
-                            {item.note}
-                          </p>
-                        )}
-                      </div>
-                      {sc && (
-                        <span
-                          className="text-xs font-bold px-2 py-0.5 rounded flex-shrink-0"
-                          style={{ background: sc.bg, color: sc.color }}
-                        >
-                          {sc.label}
-                        </span>
                       )}
                     </div>
+
+                    {/* Status badge */}
+                    {sc && (
+                      <span
+                        className="text-xs font-bold px-2 py-1 rounded flex-shrink-0"
+                        style={{ background: sc.bg, color: sc.color }}
+                      >
+                        {sc.label}
+                      </span>
+                    )}
                   </div>
                 );
               })}
