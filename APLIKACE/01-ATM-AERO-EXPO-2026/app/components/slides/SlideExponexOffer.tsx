@@ -1,4 +1,4 @@
-type OfferRow = {
+﻿type OfferRow = {
   no: string;
   name: string;
   desc: string;
@@ -100,7 +100,7 @@ export default function SlideExponexOffer() {
   const allSections = [...SECTIONS_A, ...SECTIONS_B];
 
   return (
-    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
+    <div className="flex flex-col flex-1 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Header */}
       <div className="mb-4">
         <p
@@ -118,10 +118,10 @@ export default function SlideExponexOffer() {
       </div>
 
       {/* Main layout */}
-      <div className="flex flex-col lg:flex-row gap-5 flex-1 min-h-0">
+      <div className="flex flex-col lg:flex-row gap-5">
         {/* Scrollable table */}
         <div
-          className="flex-1 min-h-0 overflow-y-auto overflow-x-auto rounded-xl slide-scroll"
+          className="overflow-x-auto rounded-xl"
           style={{ border: "1px solid var(--color-at-blue-v4)" }}
         >
           {/* Table header */}
@@ -195,7 +195,7 @@ export default function SlideExponexOffer() {
         </div>
 
         {/* Right panel */}
-        <div className="flex flex-col gap-3 w-full lg:w-56 flex-shrink-0 overflow-y-auto slide-scroll">
+        <div className="flex flex-col gap-3 w-full lg:w-56 flex-shrink-0">
           {/* Total cards */}
           <div
             className="rounded-xl p-4 flex flex-col gap-1"

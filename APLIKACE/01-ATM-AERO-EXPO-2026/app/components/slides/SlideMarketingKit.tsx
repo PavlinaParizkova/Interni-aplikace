@@ -1,4 +1,4 @@
-const ITEMS = [
+﻿const ITEMS = [
   {
     icon: "✉",
     title: "E-mailový banner",
@@ -52,7 +52,7 @@ const ITEMS = [
 
 export default function SlideMarketingKit() {
   return (
-    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
+    <div className="flex flex-col flex-1 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Slide header */}
       <div className="mb-4 sm:mb-7">
         <p

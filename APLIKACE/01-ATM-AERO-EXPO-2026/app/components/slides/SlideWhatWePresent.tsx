@@ -1,4 +1,4 @@
-const PILLARS = [
+﻿const PILLARS = [
   {
     number: "01",
     title: "Komplexní upgrade avioniky",
@@ -39,7 +39,7 @@ const PILLARS = [
 
 export default function SlideWhatWePresent() {
   return (
-    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
+    <div className="flex flex-col flex-1 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Slide header */}
       <div className="mb-5 sm:mb-8">
         <p

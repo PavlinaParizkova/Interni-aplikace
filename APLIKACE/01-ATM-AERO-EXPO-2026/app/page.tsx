@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import SlideNav from "./components/SlideNav";
+import SlideDrawer from "./components/SlideDrawer";
 import SlideCover from "./components/slides/SlideCover";
 import SlideWhatWePresent from "./components/slides/SlideWhatWePresent";
 import SlideTeam from "./components/slides/SlideTeam";
@@ -20,27 +21,27 @@ import SlideAccommodation from "./components/slides/SlideAccommodation";
 import SlideDressCodeBudget from "./components/slides/SlideDressCodeBudget";
 import SlideTotalCosts from "./components/slides/SlideTotalCosts";
 
-const SLIDES = [
-  { component: <SlideCover />,                  label: "Úvod",           section: "Úvod" },
-  { component: <SlideWhatWePresent />,           label: "Prezentace",     section: "Obsah" },
-  { component: <SlideTeam />,                    label: "Tým",            section: "Tým" },
-  { component: <SlideDays />,                    label: "Harmonogram",    section: "Tým" },
-  { component: <SlideTransport />,               label: "Doprava",        section: "Logistika" },
-  { component: <SlideChecklistTransport />,      label: "✓ Doprava",      section: "Logistika" },
-  { component: <SlideChecklistAttendance />,     label: "✓ Účast",        section: "Logistika" },
-  { component: <SlideAccommodation />,           label: "Ubytování",      section: "Logistika" },
-  { component: <SlideMarketingKit />,            label: "MKT materiály",  section: "MKT materiály" },
-  { component: <SlideDressCode />,               label: "Dress Code",     section: "Dress Code" },
+export const SLIDES = [
+  { component: <SlideCover />,                  label: "Úvod",              section: "Úvod" },
+  { component: <SlideWhatWePresent />,           label: "Prezentace",        section: "Obsah" },
+  { component: <SlideTeam />,                    label: "Tým",               section: "Tým" },
+  { component: <SlideDays />,                    label: "Harmonogram",       section: "Tým" },
+  { component: <SlideTransport />,               label: "Doprava",           section: "Logistika" },
+  { component: <SlideChecklistTransport />,      label: "✓ Doprava",         section: "Logistika" },
+  { component: <SlideChecklistAttendance />,     label: "✓ Účast",           section: "Logistika" },
+  { component: <SlideAccommodation />,           label: "Ubytování",         section: "Logistika" },
+  { component: <SlideMarketingKit />,            label: "MKT materiály",     section: "MKT materiály" },
+  { component: <SlideDressCode />,               label: "Dress Code",        section: "Dress Code" },
   { component: <SlideDressCodeBudget />,         label: "Rozpočet oblečení", section: "Dress Code" },
-  { component: <SlideGifts />,                   label: "Dárky",          section: "Dárky" },
-  { component: <SlideGiftsBudget />,             label: "Rozpočet dárků", section: "Dárky" },
-  { component: <SlideBoothBudget />,             label: "Stánek MLT",     section: "Stánek" },
-  { component: <SlideExponexOffer />,            label: "Exponex nabídka",section: "Stánek" },
-  { component: <SlideBoothComparison />,         label: "Porovnání",      section: "Stánek" },
-  { component: <SlideTotalCosts />,              label: "Celkové náklady",section: "Souhrn" },
+  { component: <SlideGifts />,                   label: "Dárky",             section: "Dárky" },
+  { component: <SlideGiftsBudget />,             label: "Rozpočet dárků",    section: "Dárky" },
+  { component: <SlideBoothBudget />,             label: "Stánek MLT",        section: "Stánek" },
+  { component: <SlideExponexOffer />,            label: "Exponex nabídka",   section: "Stánek" },
+  { component: <SlideBoothComparison />,         label: "Porovnání",         section: "Stánek" },
+  { component: <SlideTotalCosts />,              label: "Celkové náklady",   section: "Souhrn" },
 ];
 
-const SECTIONS = [
+export const SECTIONS = [
   { label: "Úvod",          slideIndex: 0 },
   { label: "Obsah",         slideIndex: 1 },
   { label: "Tým",           slideIndex: 2 },
@@ -58,6 +59,7 @@ export default function Home() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState<Direction>(null);
   const [animating, setAnimating] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const touchStartX = useRef<number>(0);
   const touchStartY = useRef<number>(0);
 
@@ -72,6 +74,8 @@ export default function Home() {
         setCurrent(index);
         setAnimating(false);
         setDirection(null);
+        // Scroll to top when changing slides
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }, 260);
     },
     [current, animating]
@@ -83,6 +87,7 @@ export default function Home() {
   // Keyboard navigation
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      if (drawerOpen) return;
       if (e.key === "ArrowRight" || e.key === "ArrowDown" || e.key === " ") {
         e.preventDefault();
         next();
@@ -99,7 +104,7 @@ export default function Home() {
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [next, prev, goTo]);
+  }, [next, prev, goTo, drawerOpen]);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -110,7 +115,6 @@ export default function Home() {
     (e: React.TouchEvent) => {
       const dx = e.changedTouches[0].clientX - touchStartX.current;
       const dy = e.changedTouches[0].clientY - touchStartY.current;
-      // Only trigger on predominantly horizontal swipes
       if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
         if (dx < 0) next();
         else prev();
@@ -129,15 +133,8 @@ export default function Home() {
     : {};
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
-        background: "var(--color-at-blue-v1)",
-        overflow: "hidden",
-      }}
-    >
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--color-at-blue-v1)" }}>
+      {/* Sticky nav */}
       <SlideNav
         current={current}
         total={SLIDES.length}
@@ -145,82 +142,68 @@ export default function Home() {
         onPrev={prev}
         onNext={next}
         onGoTo={goTo}
+        onOpenDrawer={() => setDrawerOpen(true)}
       />
 
-      {/* Slide area */}
+      {/* Slide content – scrollable */}
       <main
-        style={{
-          flex: 1,
-          overflow: "hidden",
-          position: "relative",
-        }}
+        style={{ flex: 1 }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Dot rail – hidden on mobile, visible on sm+ */}
-        <div
-          className="hidden sm:flex"
-          style={{
-            position: "absolute",
-            bottom: 16,
-            left: "50%",
-            transform: "translateX(-50%)",
-            gap: 6,
-            zIndex: 10,
-          }}
-        >
-          {SLIDES.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i)}
-              aria-label={`Přejít na slide ${i + 1}`}
-              style={{
-                width: i === current ? 20 : 6,
-                height: 6,
-                borderRadius: 3,
-                background: i === current ? "var(--color-at-red)" : "var(--color-at-blue-v2)",
-                border: "none",
-                padding: 0,
-                cursor: "pointer",
-                transition: "width 250ms ease, background 200ms",
-              }}
-            />
-          ))}
+        <div style={{ minHeight: "calc(100vh - 52px)", display: "flex", flexDirection: "column", paddingBottom: 48, ...exitStyle }}>
+          {SLIDES[current].component}
         </div>
 
-        {/* Mobile slide counter (replaces dot rail on small screens) */}
+        {/* Slide counter strip at bottom */}
         <div
-          className="sm:hidden"
           style={{
-            position: "absolute",
-            bottom: 12,
-            left: "50%",
-            transform: "translateX(-50%)",
-            zIndex: 10,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 8,
+            paddingBottom: 16,
           }}
         >
-          <span
-            className="text-xs font-mono"
-            style={{ color: "var(--color-at-blue-v4)" }}
-          >
-            {String(current + 1).padStart(2, "0")}{" "}
-            <span style={{ color: "var(--color-at-blue-v2)" }}>/</span>{" "}
+          {/* Dots – visible on sm+ */}
+          <div className="hidden sm:flex" style={{ gap: 6 }}>
+            {SLIDES.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                aria-label={`Přejít na slide ${i + 1}`}
+                style={{
+                  width: i === current ? 20 : 6,
+                  height: 6,
+                  borderRadius: 3,
+                  background: i === current ? "var(--color-at-red)" : "var(--color-at-blue-v2)",
+                  border: "none",
+                  padding: 0,
+                  cursor: "pointer",
+                  transition: "width 250ms ease, background 200ms",
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Text counter – visible on mobile */}
+          <span className="sm:hidden text-xs font-mono" style={{ color: "var(--color-at-blue-v4)" }}>
+            {String(current + 1).padStart(2, "0")}
+            {" "}<span style={{ color: "var(--color-at-blue-v2)" }}>/</span>{" "}
             {String(SLIDES.length).padStart(2, "0")}
           </span>
         </div>
-
-        {/* Slide content */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            paddingBottom: 40,
-            ...exitStyle,
-          }}
-        >
-          {SLIDES[current].component}
-        </div>
       </main>
+
+      {/* Slide drawer */}
+      <SlideDrawer
+        open={drawerOpen}
+        current={current}
+        slides={SLIDES}
+        sections={SECTIONS}
+        onGoTo={(i) => { goTo(i); setDrawerOpen(false); }}
+        onClose={() => setDrawerOpen(false)}
+      />
     </div>
   );
 }

@@ -7,6 +7,7 @@ type SlideNavProps = {
   onPrev: () => void;
   onNext: () => void;
   onGoTo: (index: number) => void;
+  onOpenDrawer: () => void;
 };
 
 function getActiveSection(
@@ -27,12 +28,13 @@ export default function SlideNav({
   onPrev,
   onNext,
   onGoTo,
+  onOpenDrawer,
 }: SlideNavProps) {
   const activeSection = getActiveSection(current, sections);
 
   return (
     <nav
-      className="flex items-center justify-between px-4 md:px-8 py-0 flex-shrink-0"
+      className="flex items-center justify-between px-4 md:px-8 py-0 flex-shrink-0 sticky top-0 z-50"
       style={{
         background: "var(--color-at-blue-v1)",
         borderBottom: "1px solid var(--color-at-blue-v2)",
@@ -89,7 +91,7 @@ export default function SlideNav({
         </div>
       </div>
 
-      {/* Right: counter + arrows */}
+      {/* Right: counter + arrows + hamburger */}
       <div className="flex items-center gap-2 md:gap-3 flex-shrink-0">
         <span
           className="hidden sm:inline text-xs font-mono"
@@ -115,6 +117,19 @@ export default function SlideNav({
           aria-label="Další slide"
         >
           →
+        </button>
+
+        {/* Hamburger / menu button */}
+        <button
+          onClick={onOpenDrawer}
+          className="btn-secondary w-8 h-8 rounded flex items-center justify-center"
+          aria-label="Otevřít přehled slidů"
+        >
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+            <rect y="2" width="16" height="1.5" rx="0.75" />
+            <rect y="7.25" width="16" height="1.5" rx="0.75" />
+            <rect y="12.5" width="16" height="1.5" rx="0.75" />
+          </svg>
         </button>
       </div>
     </nav>

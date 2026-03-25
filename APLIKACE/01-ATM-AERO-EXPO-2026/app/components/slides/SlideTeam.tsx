@@ -1,4 +1,4 @@
-import { TEAM } from "../../data/slides-data";
+﻿import { TEAM } from "../../data/slides-data";
 
 const INITIALS_COLORS = [
   "var(--color-at-blue-v2)",
@@ -13,7 +13,7 @@ const INITIALS_COLORS = [
 
 export default function SlideTeam() {
   return (
-    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
+    <div className="flex flex-col flex-1 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Slide header */}
       <div className="mb-4 sm:mb-6">
         <p
@@ -32,7 +32,7 @@ export default function SlideTeam() {
 
       {/* Table */}
       <div
-        className="flex-1 overflow-auto rounded-lg slide-scroll"
+        className="overflow-x-auto rounded-lg"
         style={{ border: "1px solid var(--color-at-blue-v2)" }}
       >
         <table className="w-full text-sm">

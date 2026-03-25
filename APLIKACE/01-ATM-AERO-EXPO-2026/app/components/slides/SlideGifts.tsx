@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, useCallback } from "react";
 
@@ -90,7 +90,7 @@ export default function SlideGifts() {
   }, [lightbox, closeLightbox]);
 
   return (
-    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
+    <div className="flex flex-col flex-1 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Header */}
       <div className="mb-4 sm:mb-5">
         <p
@@ -108,7 +108,7 @@ export default function SlideGifts() {
       </div>
 
       {/* Categories – stacked columns */}
-      <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 flex-1 min-h-0">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-5">
         {CATEGORIES.map((cat) => (
           <div
             key={cat.label}
@@ -150,7 +150,7 @@ export default function SlideGifts() {
             </div>
 
             {/* Items – horizontal rows */}
-            <div className="flex flex-col flex-1 overflow-y-auto slide-scroll divide-y" style={{ borderColor: "var(--color-at-blue-v2)" }}>
+            <div className="flex flex-col divide-y" style={{ borderColor: "var(--color-at-blue-v2)" }}>
               {cat.items.map((item) => {
                 const sc = item.status ? STATUS_CONFIG[item.status] : null;
                 return (

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 
@@ -70,7 +70,7 @@ export default function SlideAccommodation() {
   const nextPhoto = () => setLightboxIdx((i) => (i !== null && i < PHOTOS.length - 1 ? i + 1 : i));
 
   return (
-    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
+    <div className="flex flex-col flex-1 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Header */}
       <div className="mb-4">
         <p className="text-xs font-bold tracking-[0.2em] uppercase mb-2" style={{ color: "var(--color-at-red)" }}>
@@ -117,9 +117,9 @@ export default function SlideAccommodation() {
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-5 flex-1 min-h-0">
+      <div className="flex flex-col lg:flex-row gap-5">
         {/* Left – gallery or highlights */}
-        <div className="flex flex-col gap-4 flex-1 min-h-0">
+        <div className="flex flex-col gap-4">
           {/* Highlights grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
             {HIGHLIGHTS.map((h) => (
@@ -140,7 +140,7 @@ export default function SlideAccommodation() {
           </div>
 
           {/* Photo gallery + map */}
-          <div className="flex-1 min-h-0 flex gap-3">
+          <div className="flex gap-3">
             {/* Gallery or placeholder */}
             {PHOTOS.length > 0 ? (
               <div className="flex-1 grid grid-cols-3 gap-2 min-h-0 overflow-hidden">

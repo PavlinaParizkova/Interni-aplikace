@@ -1,4 +1,4 @@
-type CompRow = {
+﻿type CompRow = {
   category: string;
   mlt: number;
   exponex: number;
@@ -84,7 +84,7 @@ function Bar({ value, color }: { value: number; color: string }) {
 
 export default function SlideBoothComparison() {
   return (
-    <div className="flex flex-col h-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
+    <div className="flex flex-col flex-1 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       {/* Header */}
       <div className="mb-4">
         <p
@@ -144,7 +144,7 @@ export default function SlideBoothComparison() {
 
       {/* Comparison table */}
       <div
-        className="flex-1 min-h-0 overflow-y-auto overflow-x-auto rounded-xl"
+        className="overflow-x-auto rounded-xl"
         style={{ border: "1px solid var(--color-at-blue-v4)" }}
       >
         {/* Table header */}

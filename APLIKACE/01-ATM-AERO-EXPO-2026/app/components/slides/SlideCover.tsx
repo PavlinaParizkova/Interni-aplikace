@@ -1,7 +1,7 @@
-export default function SlideCover() {
+﻿export default function SlideCover() {
   return (
     <div
-      className="flex flex-col items-center h-full text-center px-8 relative overflow-hidden"
+      className="flex flex-col items-center flex-1 text-center px-8 relative overflow-hidden"
       style={{ background: "var(--color-at-blue-v1)" }}
     >
       {/* Background decorative elements */}
