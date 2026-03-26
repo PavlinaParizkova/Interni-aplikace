@@ -223,7 +223,7 @@ export const CHECKLIST_TRANSPORT: ChecklistItem[] = [
   },
   {
     id: "flight-dryska-return",
-    label: "Zpáteční let firemním letadlem pro Jakuba Drýsku (26.4.) potvrzen",
+    label: "Zpáteční let firemním letadlem pro Jakuba Drysku (26.4.) potvrzen",
   },
   {
     id: "transfer-kunovice",
