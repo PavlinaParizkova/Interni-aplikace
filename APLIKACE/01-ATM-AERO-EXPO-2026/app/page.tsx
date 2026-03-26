@@ -16,8 +16,6 @@ import SlideGifts from "./components/slides/SlideGifts";
 import SlideGiftsBudget from "./components/slides/SlideGiftsBudget";
 import SlideDressCode from "./components/slides/SlideDressCode";
 import SlideBoothBudget from "./components/slides/SlideBoothBudget";
-import SlideBoothComparison from "./components/slides/SlideBoothComparison";
-import SlideExponexOffer from "./components/slides/SlideExponexOffer";
 import SlideAccommodation from "./components/slides/SlideAccommodation";
 import SlideDressCodeBudget from "./components/slides/SlideDressCodeBudget";
 import SlideTotalCosts from "./components/slides/SlideTotalCosts";
@@ -39,8 +37,6 @@ export const SLIDES = [
   { component: <SlideGifts />,                   label: "Dárky",             section: "Dárky" },
   { component: <SlideGiftsBudget />,             label: "Rozpočet dárků",    section: "Dárky" },
   { component: <SlideBoothBudget />,             label: "Stánek MLT",        section: "Stánek" },
-  { component: <SlideExponexOffer />,            label: "Exponex nabídka",   section: "Stánek" },
-  { component: <SlideBoothComparison />,         label: "Porovnání",         section: "Stánek" },
   { component: <SlideTotalCosts />,              label: "Celkové náklady",   section: "Souhrn" },
 ];
 
@@ -53,7 +49,7 @@ export const SECTIONS = [
   { label: "Dress Code",    slideIndex: 10 },
   { label: "Dárky",         slideIndex: 12 },
   { label: "Stánek",        slideIndex: 14 },
-  { label: "Souhrn",        slideIndex: 17 },
+  { label: "Souhrn",        slideIndex: 15 },
 ];
 
 type Direction = "forward" | "backward" | null;
