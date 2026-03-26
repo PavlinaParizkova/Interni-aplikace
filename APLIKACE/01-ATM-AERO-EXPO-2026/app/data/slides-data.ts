@@ -260,6 +260,10 @@ export const CHECKLIST_ATTENDANCE: ChecklistItem[] = [
     id: "meetings-booked",
     label: "Každý obchodník má min. 4 schůzky domluvené před odjezdem (dle SOP)",
   },
+  {
+    id: "vratko-airport-transfer",
+    label: "Odvoz Vratka na letiště – Memmingen, 23. 4., let FR 4947 odlet 12:15 (booking YQPE2L)",
+  },
 ];
 
 export const LINKS = [
