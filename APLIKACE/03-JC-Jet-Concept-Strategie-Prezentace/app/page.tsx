@@ -32,7 +32,7 @@ export default function Page() {
           right: 0,
           width: "100%",
           zIndex: 50,
-          height: 52,
+          height: 72,
           background: "var(--color-at-blue-v1)",
           borderBottom: "1px solid var(--color-at-blue-v2)",
           display: "flex",
@@ -46,7 +46,7 @@ export default function Page() {
           <img
             src="/jet-concept-logo.svg"
             alt="Jet Concept"
-            style={{ height: 34, width: "auto" }}
+            style={{ height: 46, width: "auto" }}
           />
         </a>
 
@@ -174,7 +174,7 @@ export default function Page() {
         <nav
           style={{
             position: "fixed",
-            top: 52,
+            top: 72,
             left: 0,
             right: 0,
             zIndex: 49,
@@ -250,7 +250,7 @@ export default function Page() {
         </nav>
       )}
 
-      <main style={{ maxWidth: 1100, margin: "0 auto", padding: "52px clamp(1rem, 4vw, 3rem) 6rem" }}>
+      <main style={{ maxWidth: 1100, margin: "0 auto", padding: "72px clamp(1rem, 4vw, 3rem) 6rem" }}>
 
         {/* ═══════════════════════════════════════════════════════════════════
             HERO
@@ -294,7 +294,7 @@ export default function Page() {
             <img
               src="/jet-concept-logo.svg"
               alt="Jet Concept"
-              style={{ height: 56, width: "auto", marginBottom: "2rem", display: "block" }}
+              style={{ height: 80, width: "auto", marginBottom: "2rem", display: "block" }}
             />
 
             {/* Pre-label */}
