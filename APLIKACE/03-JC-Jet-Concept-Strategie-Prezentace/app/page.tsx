@@ -2,10 +2,16 @@
 
 import { useState } from "react";
 import ScrollToTop from "./components/ScrollToTop";
+import LockScreen from "./components/LockScreen";
 import { translations, type Lang } from "./translations";
 
 export default function Page() {
+  const [unlocked, setUnlocked] = useState(false);
   const [lang, setLang] = useState<Lang>("cs");
+
+  if (!unlocked) {
+    return <LockScreen onUnlock={() => setUnlocked(true)} />;
+  }
   const t = translations[lang];
 
   return (
