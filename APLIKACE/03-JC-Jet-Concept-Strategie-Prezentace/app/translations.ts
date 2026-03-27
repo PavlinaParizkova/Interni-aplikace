@@ -26,7 +26,7 @@ export const translations = {
       s07: { label: "07 · Kontakt", title: "Připraveni převzít váš program" },
     },
     about: {
-      p1: "Větší změna letadla vyžaduje partnera, který spojuje technický návrh, schvalovací proces i výrobu v jeden celek. Jet Concept je od toho – přebíráme odpovědnost za celý program tak, aby každý krok navazoval na ten předchozí a zákazník měl v každém momentu jasný přehled o průběhu.",
+      p1: "Větší změna letadla vyžaduje partnera, který technický návrh, schvalovací proces i výrobu drží v jednom řízeném programu. Jet Concept je od toho – přebíráme odpovědnost za celý program tak, aby každý krok navazoval na ten předchozí a zákazník měl v každém momentu jasný přehled o průběhu.",
       p2: "Pracujeme s majiteli a operátory business jetů, aeroliniemi, lessory a completion centry. Výsledkem každého programu je letadlo schopné plnit roli, pro kterou ho zákazník potřebuje – s čistou dokumentací a ověřeným certifikačním základem.",
       identityTitle: "Identita entity",
       identityDesc: "Integrační a certifikační vrstva AIR TEAMu pro komplexní technické změny letadel.",
@@ -84,14 +84,14 @@ export const translations = {
         {
           number: "05",
           title: "Aircraft conversions",
-          situation: "Letadlo má dostat novou roli nebo odlišnou konfiguraci. Chcete program, který drží strukturální, systémové i interiérové změny pohromadě a dodá certifikovaný výstup v jednom řízeném celku.",
-          action: "Realizujeme role change programy, medevac, head of state nebo mission cabin konfigurace. Zpracujeme úpravy kabiny, systémů a rozhraní. Zajistíme AD compliance a certifikační rámec pro celý rozsah změn.",
+          situation: "Letadlo má dostat novou roli nebo odlišnou konfiguraci. Chcete program, který strukturální, systémové i interiérové změny drží v jednom řízeném celku a dodá certifikovaný výstup.",
+          action: "Realizujeme role change programy, medevac, head of state nebo mission cabin konfigurace. Zpracujeme úpravy kabiny, systémů a rozhraní. Zajistíme AD compliance a certifikační rámec pro celý rozsah změn. Strukturální, systémové i interiérové části programu koordinujeme jako jeden celek.",
           value: "Letadlo odpovídá nové provozní roli – s čistou dokumentací a schváleným výstupem.",
         },
         {
           number: "06",
           title: "Program management a koordinace",
-          situation: "Program zahrnuje více technických oblastí a více dodavatelů. Potřebujete silné programové řízení, které drží celý celek pod kontrolou a dává vám průběžný přehled.",
+          situation: "Program zahrnuje více technických oblastí a více dodavatelů. Potřebujete silné programové řízení, které celý celek udržuje pod kontrolou a dává vám průběžný přehled.",
           action: "Řídíme celý program. Koordinujeme interní i externí odbornosti, dodavatele a partnery. Hlídáme harmonogram, rozpočet a rizika. Koordinujeme s vámi, vaším Part 145 nebo instalačním partnerem.",
           value: "Máte jednoho partnera s přehledem o celém programu. Víte, kde stojí, co přijde dál a co dostanete na konci.",
         },
@@ -158,7 +158,7 @@ export const translations = {
       ],
       situations: [
         {
-          situation: "Zákazník potřebuje jednoho partnera, který drží celý postup pohromadě – od návrhu po přípravu podkladů pro instalaci.",
+          situation: "Zákazník potřebuje jednoho partnera, který celý postup drží v jednom řízeném programu – od návrhu po přípravu podkladů pro instalaci.",
           action: "Jet Concept přebírá koordinaci celého procesu. Zákazník ví, kdo za co odpovídá a jaký bude další krok.",
         },
         {
@@ -215,7 +215,7 @@ export const translations = {
         {
           quote: "Tři strany, jeden program. Takhle to fungovat nemá.",
           context: "Hook · Jet Concept jako jeden partner",
-          detail: "Certifikační a výrobní postup musí být navržený správně od začátku. Jet Concept drží pohromadě návrh, certifikaci a výrobu – zákazník se nemusí ztrácet mezi více stranami.",
+          detail: "Certifikační a výrobní postup musí být navržený správně od začátku. Jet Concept drží návrh, certifikaci a výrobu v jednom řízeném celku – zákazník se nemusí ztrácet mezi více stranami.",
         },
         {
           quote: "Certifikace přichází dříve, než si myslíte – pokud víte, co připravit.",
@@ -306,7 +306,7 @@ export const translations = {
       s07: { label: "07 · Contact", title: "Ready to Take Your Program" },
     },
     about: {
-      p1: "A major aircraft change requires a partner who connects technical design, the approval process and manufacturing into a single whole. That is what Jet Concept is for – we take responsibility for the entire program so that every step follows from the previous one and the customer has a clear picture of progress at every moment.",
+      p1: "A major aircraft change requires a partner who holds the technical design, the approval process and manufacturing within a single managed programme. That is what Jet Concept is for – we take responsibility for the entire program so that every step follows from the previous one and the customer has a clear picture of progress at every moment.",
       p2: "We work with business jet owners and operators, airlines, lessors and completion centres. The outcome of every program is an aircraft capable of fulfilling the role the customer needs – with clean documentation and a verified certification basis.",
       identityTitle: "Entity Identity",
       identityDesc: "AIR TEAM's integration and certification layer for complex technical aircraft modifications.",
@@ -364,8 +364,8 @@ export const translations = {
         {
           number: "05",
           title: "Aircraft Conversions",
-          situation: "The aircraft is to take on a new role or a different configuration. You need a program that keeps structural, systems and interior changes together and delivers a certified output in a single managed scope.",
-          action: "We execute role change programs, medevac, head of state and mission cabin configurations. We process cabin, systems and interface modifications. We ensure AD compliance and a certification framework for the full scope of changes.",
+          situation: "The aircraft is to take on a new role or a different configuration. You need a program that keeps structural, systems and interior changes within a single managed whole and delivers a certified output.",
+          action: "We execute role change programs, medevac, head of state and mission cabin configurations. We process cabin, systems and interface modifications. We ensure AD compliance and a certification framework for the full scope of changes. Structural, systems and interior elements of the programme are coordinated as a single whole.",
           value: "The aircraft meets its new operational role – with clean documentation and an approved output.",
         },
         {
@@ -438,7 +438,7 @@ export const translations = {
       ],
       situations: [
         {
-          situation: "The customer needs one partner who keeps the entire process together – from design through to preparation of installation documentation.",
+          situation: "The customer needs one partner who keeps the entire process within a single managed programme – from design through to preparation of installation documentation.",
           action: "Jet Concept takes over coordination of the entire process. The customer knows who is responsible for what and what the next step will be.",
         },
         {
@@ -495,7 +495,7 @@ export const translations = {
         {
           quote: "Three parties, one program. That is not how it should work.",
           context: "Hook · Jet Concept as a single partner",
-          detail: "The certification and manufacturing process must be designed correctly from the start. Jet Concept holds design, certification and manufacturing together – the customer does not have to get lost between multiple parties.",
+          detail: "The certification and manufacturing process must be designed correctly from the start. Jet Concept holds design, certification and manufacturing within a single managed whole – the customer does not have to get lost between multiple parties.",
         },
         {
           quote: "Certification arrives sooner than you think – if you know what to prepare.",
