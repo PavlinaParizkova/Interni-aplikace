@@ -79,7 +79,7 @@ export const translations = {
           title: "Completions – VIP a prémiové interiéry",
           situation: "Chystáte kabinový program s vysokými nároky na kvalitu, estetiku i certifikaci. Potřebujete partnera, který zvládne obojí – prémiový výsledek i správný certifikační základ.",
           action: "Zpracujeme VIP a VVIP cabin completions, business jet interiéry a prémiové úpravy kabiny. Navrhneme kabinové konfigurace podle účelu provozu, integrujeme prvky, systémy a materiály. Řídíme celý program dokončení interiéru od konceptu po výrobní a dokumentační připravenost.",
-          value: "Interiér, který dobře vypadá, funkčně funguje a má za sebou správnou certifikační základnu.",
+          value: "Interiér, který dobře vypadá, správně funguje a má za sebou správnou certifikační základnu.",
         },
         {
           number: "05",
@@ -291,8 +291,8 @@ export const translations = {
       { label: "Contact", href: "#kontakt" },
     ],
     hero: {
-      tagline: "One programme.\u00a0\u00a0One partner.\u00a0\u00a0Results on the aircraft.",
-      lead: "Jet Concept takes ownership of design, certification and manufacturing as a single managed programme – from the first brief to the approved, installation-ready output. One partner. Clear accountability at every step.",
+      tagline: "One program.\u00a0\u00a0One partner.\u00a0\u00a0Results on the aircraft.",
+      lead: "Jet Concept takes ownership of design, certification and manufacturing as a single managed program – from the first brief to the approved, installation-ready output. One partner. Clear accountability at every step.",
       badges: ["DOA", "POA", "Design Engineering", "Certification", "Completions", "Conversions"],
       slogan: "YOUR MISSION. OUR TECHNOLOGY.",
     },
@@ -303,11 +303,11 @@ export const translations = {
       s04: { label: "04 · Why Us", title: "Why Jet Concept" },
       s05: { label: "05 · Principles", title: "How We Work" },
       s06: { label: "06 · Process", title: "How It Works" },
-      s07: { label: "07 · Contact", title: "Ready to Take Your Programme" },
+      s07: { label: "07 · Contact", title: "Ready to Take Your Program" },
     },
     about: {
-      p1: "A major aircraft change requires a partner who connects technical design, the approval process and manufacturing into a single whole. That is what Jet Concept is for – we take responsibility for the entire programme so that every step follows from the previous one and the customer has a clear picture of progress at every moment.",
-      p2: "We work with business jet owners and operators, airlines, lessors and completion centres. The outcome of every programme is an aircraft capable of fulfilling the role the customer needs – with clean documentation and a verified certification basis.",
+      p1: "A major aircraft change requires a partner who connects technical design, the approval process and manufacturing into a single whole. That is what Jet Concept is for – we take responsibility for the entire program so that every step follows from the previous one and the customer has a clear picture of progress at every moment.",
+      p2: "We work with business jet owners and operators, airlines, lessors and completion centres. The outcome of every program is an aircraft capable of fulfilling the role the customer needs – with clean documentation and a verified certification basis.",
       identityTitle: "Entity Identity",
       identityDesc: "AIR TEAM's integration and certification layer for complex technical aircraft modifications.",
       identityBody: "When a customer faces a major aircraft change, standard maintenance or a single-discipline supplier is not enough. They need a partner who understands design, certification and manufacturing and can keep the entire process under control. That is the role of Jet Concept.",
@@ -336,9 +336,9 @@ export const translations = {
         {
           number: "01",
           title: "DOA & Design Engineering",
-          situation: "You are facing a major aircraft change and want clarity on the technical approach from day one. The right concept and a verified technical basis are key to a smooth programme.",
-          action: "We develop the modification or conversion concept. We design structural, systems and cabin changes, perform calculations and analyses, and prepare technical documentation. We resolve technical questions continuously so the programme maintains pace.",
-          value: "You know exactly what you are getting into. The programme is built on a verified technical foundation and every subsequent step is properly prepared.",
+          situation: "You are facing a major aircraft change and want clarity on the technical approach from day one. The right concept and a verified technical basis are key to a smooth program.",
+          action: "We develop the modification or conversion concept. We design structural, systems and cabin changes, perform calculations and analyses, and prepare technical documentation. We resolve technical questions continuously so the program maintains pace.",
+          value: "You know exactly what you are getting into. The program is built on a verified technical foundation and every subsequent step is properly prepared.",
         },
         {
           number: "02",
@@ -350,52 +350,52 @@ export const translations = {
         {
           number: "03",
           title: "Certification & Airworthiness",
-          situation: "The programme requires regulatory approval. You need a partner who takes over the approval process, prepares compliance documentation and coordinates with the regulator – so that certification runs in parallel with the project, not behind it.",
+          situation: "The program requires regulatory approval. You need a partner who takes over the approval process, prepares compliance documentation and coordinates with the regulator – so that certification runs in parallel with the project, not behind it.",
           action: "We classify changes and repairs (major/minor change). We manage the approval process including preparation of STC submissions or approval under DOA. We create and maintain compliance documentation. We coordinate tests, validations and everything required to obtain approval.",
-          value: "STC or approved data are part of the programme output – ready for handover. The certification element of the project runs in parallel with design and manufacturing.",
+          value: "STC or approved data are part of the program output – ready for handover. The certification element of the project runs in parallel with design and manufacturing.",
         },
         {
           number: "04",
           title: "Completions – VIP & Premium Interiors",
-          situation: "You are preparing a cabin programme with high demands on quality, aesthetics and certification. You need a partner who can deliver both – a premium result and the correct certification basis.",
-          action: "We execute VIP and VVIP cabin completions, business jet interiors and premium cabin modifications. We design cabin configurations to match the intended operation, integrate elements, systems and materials. We manage the entire interior completion programme from concept to manufacturing and documentation readiness.",
+          situation: "You are preparing a cabin program with high demands on quality, aesthetics and certification. You need a partner who can deliver both – a premium result and the correct certification basis.",
+          action: "We execute VIP and VVIP cabin completions, business jet interiors and premium cabin modifications. We design cabin configurations to match the intended operation, integrate elements, systems and materials. We manage the entire interior completion program from concept to manufacturing and documentation readiness.",
           value: "An interior that looks right, functions correctly and stands on the right certification foundation.",
         },
         {
           number: "05",
           title: "Aircraft Conversions",
-          situation: "The aircraft is to take on a new role or a different configuration. You need a programme that keeps structural, systems and interior changes together and delivers a certified output in a single managed scope.",
-          action: "We execute role change programmes, medevac, head of state and mission cabin configurations. We process cabin, systems and interface modifications. We ensure AD compliance and a certification framework for the full scope of changes.",
+          situation: "The aircraft is to take on a new role or a different configuration. You need a program that keeps structural, systems and interior changes together and delivers a certified output in a single managed scope.",
+          action: "We execute role change programs, medevac, head of state and mission cabin configurations. We process cabin, systems and interface modifications. We ensure AD compliance and a certification framework for the full scope of changes.",
           value: "The aircraft meets its new operational role – with clean documentation and an approved output.",
         },
         {
           number: "06",
-          title: "Programme Management & Coordination",
-          situation: "The programme spans multiple technical disciplines and multiple suppliers. You need strong programme management that keeps everything under control and gives you ongoing visibility.",
-          action: "We manage the entire programme. We coordinate internal and external disciplines, suppliers and partners. We monitor schedule, budget and risks. We coordinate with you, your Part 145 or installation partner.",
-          value: "You have one partner with full oversight of the programme. You know where it stands, what comes next and what you will receive at the end.",
+          title: "Program Management & Coordination",
+          situation: "The program spans multiple technical disciplines and multiple suppliers. You need strong program management that keeps everything under control and gives you ongoing visibility.",
+          action: "We manage the entire program. We coordinate internal and external disciplines, suppliers and partners. We monitor schedule, budget and risks. We coordinate with you, your Part 145 or installation partner.",
+          value: "You have one partner with full oversight of the program. You know where it stands, what comes next and what you will receive at the end.",
         },
       ],
     },
     segments: {
-      perex: "Jet Concept works with clients in the Business and Commercial segments. Defence remains a long-term development direction.",
+      perex: "Jet Concept works with clients in the Business and Commercial segments. Defense remains a long-term development direction.",
       businessTitle: "Business",
-      businessDesc: "Are you preparing a cabin programme, modernisation or specific business jet modification? We work with clients who place emphasis on quality of execution, discreet programme management and a premium outcome.",
+      businessDesc: "Are you preparing a cabin program, modernization or specific business jet modification? We work with clients who place emphasis on quality of execution, discreet program management and a premium outcome.",
       businessHelp: "We help with:",
       businessItems: [
         "VIP and VVIP cabin completions – from concept to certified output",
         "Cabin refresh and cabin upgrade – refurbishment extending into certification",
         "Connectivity, comfort and cabin personalisation – integrated, not just added",
-        "Owner- or operator-specific modifications – discretely managed programmes",
+        "Owner- or operator-specific modifications – discretely managed programs",
       ],
       commercialTitle: "Commercial",
-      commercialDesc: "Are you planning a compliance upgrade, retrofit or redelivery project? We work with fleet operators and lessors who need a programme delivered on time, within a controlled budget and with complete certification documentation.",
+      commercialDesc: "Are you planning a compliance upgrade, retrofit or redelivery project? We work with fleet operators and lessors who need a program delivered on time, within a controlled budget and with complete certification documentation.",
       commercialHelp: "We help with:",
       commercialItems: [
         "Compliance and mandated upgrades including AD compliance",
-        "Retrofit programmes – execution within a controlled framework",
+        "Retrofit programs – execution within a controlled framework",
         "Redelivery and transition projects – aircraft handed over correctly and on time",
-        "Systems and cabin modernisation – increasing operational and market value",
+        "Systems and cabin modernization – increasing operational and market value",
         "Engineering, certification and execution in one – with clear accountability",
       ],
       customersTitle: "Key Customer Types",
@@ -416,20 +416,20 @@ export const translations = {
       situationLabel: "SITUATION",
       valuePillars: [
         {
-          title: "One partner for the entire programme.",
-          desc: "Design, STC process, manufacturing and documentation handover – all in one managed programme. One partner with clear accountability for the whole.",
+          title: "One partner for the entire program.",
+          desc: "Design, STC process, manufacturing and documentation handover – all in one managed program. One partner with clear accountability for the whole.",
         },
         {
           title: "Certification as part of the plan.",
-          desc: "We engage the approval process from day one. Change classification, compliance documentation, regulator coordination – all running in parallel with design. The programme proceeds on schedule.",
+          desc: "We engage the approval process from day one. Change classification, compliance documentation, regulator coordination – all running in parallel with design. The program proceeds on schedule.",
         },
         {
           title: "Supplier network in one set of hands.",
-          desc: "We coordinate internal teams, specialist partners and component suppliers. The customer has a single point of contact and ongoing visibility of the entire programme.",
+          desc: "We coordinate internal teams, specialist partners and component suppliers. The customer has a single point of contact and ongoing visibility of the entire program.",
         },
         {
           title: "A schedule that holds.",
-          desc: "Every programme is managed with clear milestones, a transparent plan and continuous communication. At every moment you know where the programme stands and what comes next.",
+          desc: "Every program is managed with clear milestones, a transparent plan and continuous communication. At every moment you know where the program stands and what comes next.",
         },
         {
           title: "A technical outcome that fits operations.",
@@ -443,11 +443,11 @@ export const translations = {
         },
         {
           situation: "The technical, manufacturing and certification elements of the project must function as a single whole, not three separate tasks.",
-          action: "We connect DOA, POA, engineering and airworthiness into one managed programme with a clear schedule.",
+          action: "We connect DOA, POA, engineering and airworthiness into one managed program with a clear schedule.",
         },
         {
-          situation: "The scope of the aircraft change exceeds the standard maintenance framework and requires a managed programme with clear accountability.",
-          action: "We specialise in exactly these projects – we take design, certification and manufacturing into one programme.",
+          situation: "The scope of the aircraft change exceeds the standard maintenance framework and requires a managed program with clear accountability.",
+          action: "We specialize in exactly these projects – we take design, certification and manufacturing into one program.",
         },
         {
           situation: "The certification and manufacturing process must be designed correctly from the start so the project progresses without unnecessary delays.",
@@ -460,19 +460,19 @@ export const translations = {
       ],
     },
     howWeWork: {
-      perex: "The customer is the hero of the programme. Jet Concept is the guide who helps navigate the challenge and reach the result. We work with composure, precision and accountability for the whole.",
+      perex: "The customer is the hero of the program. Jet Concept is the guide who helps navigate the challenge and reach the result. We work with composure, precision and accountability for the whole.",
       principlesTitle: "4 Working Principles",
       hooksTitle: "Sample Hooks & Formulations",
       hooksNote: "The first sentence of every external output must stop the reader. Below are example hooks following the communication pattern Tension → Breakthrough → Result.",
       principles: [
         {
           n: "01",
-          title: "The Customer Is the Hero of the Programme",
+          title: "The Customer Is the Hero of the Program",
           desc: "We describe the customer's challenge, their situation and their outcome. Jet Concept is the guide who helps them navigate it.",
         },
         {
           n: "02",
-          title: "One Framework for the Entire Programme",
+          title: "One Framework for the Entire Program",
           desc: "We connect DOA, POA, engineering, execution and airworthiness into a single managed whole.",
         },
         {
@@ -490,10 +490,10 @@ export const translations = {
         {
           quote: "The modification is approved. The project can fly.",
           context: "Hook · Business jet completion",
-          detail: "The scope of the change was clearly defined. I take design, certification and manufacturing into one programme. The customer knows what is happening, and the aircraft is ready on time.",
+          detail: "The scope of the change was clearly defined. I take design, certification and manufacturing into one program. The customer knows what is happening, and the aircraft is ready on time.",
         },
         {
-          quote: "Three parties, one programme. That is not how it should work.",
+          quote: "Three parties, one program. That is not how it should work.",
           context: "Hook · Jet Concept as a single partner",
           detail: "The certification and manufacturing process must be designed correctly from the start. Jet Concept holds design, certification and manufacturing together – the customer does not have to get lost between multiple parties.",
         },
@@ -505,12 +505,12 @@ export const translations = {
         {
           quote: "The cabin is complete. Documentation checks out. The aircraft is waiting for the customer.",
           context: "Hook · Redelivery & conversion",
-          detail: "We manage completion or conversion programmes from concept to manufacturing and documentation readiness. The customer gets a result that looks right, works correctly and stands up technically.",
+          detail: "We manage completion or conversion programs from concept to manufacturing and documentation readiness. The customer gets a result that looks right, works correctly and stands up technically.",
         },
       ],
     },
     process: {
-      perex: "Every Jet Concept programme passes through five managed steps. The customer has a clear picture at every moment – they know where the programme stands and what comes next.",
+      perex: "Every Jet Concept program passes through five managed steps. The customer has a clear picture at every moment – they know where the program stands and what comes next.",
       steps: [
         {
           n: "01",
@@ -525,7 +525,7 @@ export const translations = {
         {
           n: "03",
           title: "Certification & Approval",
-          desc: "We lead the approval process, prepare compliance documentation and coordinate tests and validations. The certification element of the programme runs in parallel.",
+          desc: "We lead the approval process, prepare compliance documentation and coordinate tests and validations. The certification element of the program runs in parallel.",
         },
         {
           n: "04",
@@ -535,17 +535,17 @@ export const translations = {
         {
           n: "05",
           title: "Handover & Installation Documentation",
-          desc: "We hand over complete documentation and manufacturing outputs. To you or your Part 145. The programme is closed. Documentation is clean. Installation can proceed.",
+          desc: "We hand over complete documentation and manufacturing outputs. To you or your Part 145. The program is closed. Documentation is clean. Installation can proceed.",
         },
       ],
     },
     contact: {
-      title: "Ready to Take Your Programme",
-      perex: "Share the scope and intent with us. We will show you how Jet Concept will approach the programme – what it takes on, how it will run and what you will receive at the end. A concrete process for your situation.",
+      title: "Ready to Take Your Program",
+      perex: "Share the scope and intent with us. We will show you how Jet Concept will approach the program – what it takes on, how it will run and what you will receive at the end. A concrete process for your situation.",
       messages: [
         "One partner. Clear accountability. A result you can rely on.",
         "Certification from day one – running in parallel with design, not behind it.",
-        "You know where the programme stands and what comes next. At every step.",
+        "You know where the program stands and what comes next. At every step.",
       ],
       cta: "Contact Us",
     },
