@@ -116,6 +116,16 @@ h1, h2, h3, h4, h5, h6 {
   .nav-links { display: none !important; }
 }
 
+/* Hamburger tlačítko: skryto na desktopu, viditelné na mobilu */
+.menu-btn {
+  display: none;
+}
+@media (max-width: 600px) {
+  .menu-btn {
+    display: flex !important;
+  }
+}
+
 /* Kontaktní karta: zmenši padding na mobilech */
 @media (max-width: 600px) {
   .contact-card { padding: 1.5rem 1.25rem !important; }
@@ -132,11 +142,23 @@ main {
   border: 1px solid var(--color-at-blue-v3);
   border-radius: 10px;
   padding: 1.5rem;
-  transition: border-color 200ms, box-shadow 200ms;
+  transition: border-color 200ms, box-shadow 200ms, transform 200ms;
 }
 .card:hover {
   border-color: var(--color-at-red);
-  box-shadow: 0 0 0 2px rgba(213, 28, 23, 0.18);
+  box-shadow: 0 0 0 2px rgba(213, 28, 23, 0.18), 0 8px 24px rgba(0, 0, 0, 0.25);
+  transform: translateY(-4px);
+  cursor: pointer;
+}
+
+/* Hover lift pro non-card dlažice (value pillars, process steps, formulations) */
+.tile-hover {
+  transition: border-color 200ms, box-shadow 200ms, transform 200ms;
+}
+.tile-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 }
 
 /* === BUTTONS === */
@@ -183,11 +205,16 @@ main {
 /* === H2 SECTION HEADER === */
 .section-h2 {
   font-size: clamp(1.8rem, 4vw, 3rem);
-  font-weight: 900;
+  font-weight: 700;
   color: var(--color-at-white);
   line-height: 1.1;
   padding-left: 1rem;
   border-left: 4px solid var(--color-at-red);
+}
+
+/* === TEXT JUSTIFY === */
+main p {
+  text-align: justify;
 }
 
 /* === DIVIDER === */

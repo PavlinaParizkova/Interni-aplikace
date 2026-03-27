@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ScrollToTop from "./components/ScrollToTop";
 import LockScreen from "./components/LockScreen";
 import { translations, type Lang } from "./translations";
@@ -8,6 +8,13 @@ import { translations, type Lang } from "./translations";
 export default function Page() {
   const [unlocked, setUnlocked] = useState(false);
   const [lang, setLang] = useState<Lang>("cs");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setMenuOpen(false);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   if (!unlocked) {
     return <LockScreen onUnlock={() => setUnlocked(true)} />;
@@ -19,8 +26,11 @@ export default function Page() {
       {/* ─── STICKY NAV ───────────────────────────────────────────────────── */}
       <header
         style={{
-          position: "sticky",
+          position: "fixed",
           top: 0,
+          left: 0,
+          right: 0,
+          width: "100%",
           zIndex: 50,
           height: 52,
           background: "var(--color-at-blue-v1)",
@@ -107,36 +117,167 @@ export default function Page() {
         </nav>
 
         {/* Language switcher */}
-        <div style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
-          {(["cs", "en"] as Lang[]).map((l, i) => (
-            <span key={l} style={{ display: "flex", alignItems: "center", gap: 4 }}>
-              {i > 0 && (
-                <span style={{ color: "var(--color-at-blue-v3)", fontSize: 10 }}>|</span>
-              )}
+        <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
+          {(["cs", "en"] as Lang[]).map((l) => (
+            <button
+              key={l}
+              onClick={() => setLang(l)}
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: lang === l ? "var(--color-at-white)" : "var(--color-at-blue-a5)",
+                background: lang === l ? "var(--color-at-red)" : "var(--color-at-blue-v3)",
+                border: `1px solid ${lang === l ? "var(--color-at-red)" : "var(--color-at-blue-v3)"}`,
+                cursor: "pointer",
+                padding: "4px 10px",
+                borderRadius: 4,
+                transition: "background 150ms, color 150ms",
+              }}
+            >
+              {l.toUpperCase()}
+            </button>
+          ))}
+
+          {/* Hamburger — pouze mobil */}
+          <button
+            className="menu-btn"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label={menuOpen ? "Zavřít menu" : "Otevřít menu"}
+            style={{
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              padding: "6px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 5,
+              width: 32,
+              height: 32,
+            }}
+          >
+            <span
+              style={{
+                display: "block",
+                width: 20,
+                height: 2,
+                borderRadius: 1,
+                background: "var(--color-at-blue-a5)",
+                transition: "transform 200ms, opacity 200ms",
+                transform: menuOpen ? "translateY(7px) rotate(45deg)" : "none",
+              }}
+            />
+            <span
+              style={{
+                display: "block",
+                width: 20,
+                height: 2,
+                borderRadius: 1,
+                background: "var(--color-at-blue-a5)",
+                transition: "opacity 200ms",
+                opacity: menuOpen ? 0 : 1,
+              }}
+            />
+            <span
+              style={{
+                display: "block",
+                width: 20,
+                height: 2,
+                borderRadius: 1,
+                background: "var(--color-at-blue-a5)",
+                transition: "transform 200ms, opacity 200ms",
+                transform: menuOpen ? "translateY(-7px) rotate(-45deg)" : "none",
+              }}
+            />
+          </button>
+        </div>
+      </header>
+
+      {/* ─── MOBILNÍ DROPDOWN MENU ────────────────────────────────────────── */}
+      {menuOpen && (
+        <nav
+          style={{
+            position: "fixed",
+            top: 52,
+            left: 0,
+            right: 0,
+            zIndex: 49,
+            background: "var(--color-at-blue-v1)",
+            borderBottom: "1px solid var(--color-at-blue-v2)",
+            padding: "1rem clamp(1rem, 4vw, 3rem) 1.25rem",
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.25rem",
+          }}
+        >
+          {t.nav.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              style={{
+                fontSize: 13,
+                fontWeight: 600,
+                letterSpacing: "0.06em",
+                color: "var(--color-at-blue-v5)",
+                textDecoration: "none",
+                padding: "10px 12px",
+                borderRadius: 6,
+                display: "block",
+                transition: "background 150ms, color 150ms",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background = "var(--color-at-blue-v2)";
+                (e.currentTarget as HTMLAnchorElement).style.color = "var(--color-at-white)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
+                (e.currentTarget as HTMLAnchorElement).style.color = "var(--color-at-blue-v5)";
+              }}
+            >
+              {link.label}
+            </a>
+          ))}
+
+          {/* CS/EN v dropdown */}
+          <div
+            style={{
+              display: "flex",
+              gap: 8,
+              paddingTop: "0.75rem",
+              marginTop: "0.25rem",
+              borderTop: "1px solid var(--color-at-blue-v2)",
+            }}
+          >
+            {(["cs", "en"] as Lang[]).map((l) => (
               <button
-                onClick={() => setLang(l)}
+                key={l}
+                onClick={() => { setLang(l); setMenuOpen(false); }}
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: 700,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
-                  color: lang === l ? "var(--color-at-white)" : "var(--color-at-blue-v4)",
-                  background: "transparent",
-                  border: "none",
+                  color: lang === l ? "var(--color-at-white)" : "var(--color-at-blue-a5)",
+                  background: lang === l ? "var(--color-at-red)" : "var(--color-at-blue-v3)",
+                  border: `1px solid ${lang === l ? "var(--color-at-red)" : "var(--color-at-blue-v3)"}`,
                   cursor: "pointer",
-                  padding: "4px 6px",
+                  padding: "6px 14px",
                   borderRadius: 4,
-                  transition: "color 150ms",
+                  transition: "background 150ms, color 150ms",
                 }}
               >
                 {l.toUpperCase()}
               </button>
-            </span>
-          ))}
-        </div>
-      </header>
+            ))}
+          </div>
+        </nav>
+      )}
 
-      <main style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(1rem, 4vw, 3rem) 6rem" }}>
+      <main style={{ maxWidth: 1100, margin: "0 auto", padding: "52px clamp(1rem, 4vw, 3rem) 6rem" }}>
 
         {/* ═══════════════════════════════════════════════════════════════════
             HERO
@@ -176,6 +317,13 @@ export default function Page() {
           />
 
           <div style={{ position: "relative", zIndex: 1 }}>
+            {/* Logo */}
+            <img
+              src="/jet-concept-logo.svg"
+              alt="Jet Concept"
+              style={{ height: 56, width: "auto", marginBottom: "2rem", display: "block" }}
+            />
+
             {/* Pre-label */}
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "1.5rem" }}>
               <div style={{ width: 3, height: 18, borderRadius: 2, background: "var(--color-at-red)" }} />
@@ -196,7 +344,7 @@ export default function Page() {
             <h1
               style={{
                 fontSize: "clamp(3.5rem, 9vw, 7rem)",
-                fontWeight: 900,
+                fontWeight: 700,
                 lineHeight: 1,
                 letterSpacing: "-0.02em",
                 color: "var(--color-at-white)",
@@ -417,6 +565,58 @@ export default function Page() {
               <p style={{ fontSize: "0.95rem", color: "var(--color-at-blue-a5)", lineHeight: 1.7 }}>
                 {t.about.purposeDesc}
               </p>
+            </div>
+
+            {/* Strategická role entity / Strategic Role */}
+            <div
+              className="card"
+              style={{ gridColumn: "1 / -1" }}
+            >
+              <h3
+                style={{
+                  fontSize: "0.75rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "var(--color-at-white)",
+                  marginBottom: "0.75rem",
+                }}
+              >
+                {t.about.roleTitle}
+              </h3>
+              <p style={{ fontSize: "0.95rem", color: "var(--color-at-blue-a5)", lineHeight: 1.7, marginBottom: "1.25rem", maxWidth: 760 }}>
+                {t.about.roleIntro}
+              </p>
+              <p
+                style={{
+                  fontSize: "0.75rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.15em",
+                  textTransform: "uppercase",
+                  color: "var(--color-at-white)",
+                  marginBottom: "0.75rem",
+                }}
+              >
+                {t.about.roleItemsLabel}
+              </p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem 2rem" }}>
+                {t.about.roleItems.map((item) => (
+                  <div key={item} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <div
+                      style={{
+                        width: 5,
+                        height: 5,
+                        borderRadius: "50%",
+                        background: "var(--color-at-red)",
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.6 }}>
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -747,6 +947,7 @@ export default function Page() {
             {t.why.valuePillars.map((pillar, i) => (
               <div
                 key={i}
+                className="tile-hover"
                 style={{
                   display: "flex",
                   alignItems: "flex-start",
@@ -933,6 +1134,7 @@ export default function Page() {
             {t.howWeWork.formulations.map((f, i) => (
               <div
                 key={i}
+                className="tile-hover"
                 style={{
                   padding: "1.25rem 1.5rem",
                   borderRadius: 8,
@@ -1010,6 +1212,7 @@ export default function Page() {
             {t.process.steps.map((step, i) => (
               <div
                 key={step.n}
+                className="tile-hover"
                 style={{
                   display: "flex",
                   alignItems: "flex-start",
