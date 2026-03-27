@@ -41,41 +41,14 @@ export default function Page() {
           padding: "0 clamp(1rem, 4vw, 3rem)",
         }}
       >
-        {/* Wordmark */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
-          <div
-            style={{
-              width: 4,
-              height: 20,
-              borderRadius: 2,
-              background: "var(--color-at-red)",
-              flexShrink: 0,
-            }}
+        {/* Logo */}
+        <a href="#" style={{ display: "flex", alignItems: "center", flexShrink: 0, lineHeight: 0 }}>
+          <img
+            src="/jet-concept-logo.svg"
+            alt="Jet Concept"
+            style={{ height: 34, width: "auto" }}
           />
-          <span
-            style={{
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: "var(--color-at-blue-a5)",
-            }}
-          >
-            AIR TEAM
-          </span>
-          <span style={{ color: "var(--color-at-blue-v3)", fontSize: 11 }}>·</span>
-          <span
-            style={{
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "var(--color-at-blue-v4)",
-            }}
-          >
-            Jet Concept 2026
-          </span>
-        </div>
+        </a>
 
         {/* Anchor links – hidden on mobile via .nav-links class */}
         <nav
@@ -336,7 +309,7 @@ export default function Page() {
                   color: "var(--color-at-blue-a5)",
                 }}
               >
-                AIR TEAM Group
+                AIR TEAM holding
               </span>
             </div>
 

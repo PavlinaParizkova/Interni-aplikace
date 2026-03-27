@@ -33,7 +33,7 @@ export const translations = {
       identityBody: "Když zákazník řeší větší změnu letadla, nestačí mu běžný servis ani jeden dodavatel jedné části. Potřebuje partnera, který se vyzná v návrhu, certifikaci i výrobě a dokáže celý postup udržet pod kontrolou. Právě to je role Jet Conceptu.",
       identityTags: ["Rozhodný", "Strukturovaný", "Technicky silný", "Diskrétní", "Odpovědný"],
       roleTitle: "Strategická role entity",
-      roleIntro: "Jet Concept je část AIR TEAM, která přebírá odpovědnost za projekty, kde se mění konfigurace, schopnosti nebo hodnota letadla. Ve chvíli, kdy běžný servis nestačí, přebíráme odpovědnost za to, aby byl jasný postup od zadání až po schválený návrh, výrobu a podklady pro instalaci.",
+      roleIntro: "Jet Concept je část AIR TEAMu, která přebírá odpovědnost za projekty, kde se mění konfigurace, schopnosti nebo hodnota letadla. Ve chvíli, kdy běžný servis nestačí, přebíráme odpovědnost za to, aby byl jasný postup od zadání až po schválený návrh, výrobu a podklady pro instalaci.",
       roleItemsLabel: "Konkrétně řešíme:",
       roleItems: [
         "Technické zadání a koncept",
