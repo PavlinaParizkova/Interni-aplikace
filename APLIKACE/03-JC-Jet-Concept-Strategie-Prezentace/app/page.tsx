@@ -1,182 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import ScrollToTop from "./components/ScrollToTop";
-
-const NAV_LINKS = [
-  { label: "Kdo jsme", href: "#co-jsme" },
-  { label: "Co děláme", href: "#portfolio" },
-  { label: "Pro koho", href: "#segmenty" },
-  { label: "Proč Jet Concept", href: "#proc-Jet Concept" },
-  { label: "Jak to funguje", href: "#jak-to-funguje" },
-  { label: "Kontakt", href: "#kontakt" },
-];
-
-const PORTFOLIO = [
-  {
-    number: "01",
-    title: "DOA a design engineering",
-    situation: "Stojíte před větší změnou letadla a chcete mít jasno o technickém postupu od prvního dne. Správný koncept a ověřený technický základ jsou klíčem k hladkému průběhu celého programu.",
-    action: "Zpracujeme koncept modifikace nebo přestavby. Navrhneme strukturální, systémové a kabinové změny, provedeme výpočty a analýzy, připravíme technickou dokumentaci. Průběžně rozhodujeme technické otázky, aby program udržel tempo.",
-    value: "Přesně víte, do čeho jdete. Program stojí na ověřeném technickém základě a každý navazující krok je správně připravený.",
-  },
-  {
-    number: "02",
-    title: "POA a výroba",
-    situation: "Návrh je hotový a schválený. Potřebujete partnera, který ho převede do výroby přesně tak, jak byl navržen – s čistou výrobní dokumentací a díly připravenými pro instalaci.",
-    action: "Vyrobíme schválené díly, podsestavy a interiérové prvky. Zajistíme výrobní dokumentaci a kontrolované procesy. Zkoordinujeme dodavatele. Připravíme díly a celky přesně tak, aby instalace proběhla hladce.",
-    value: "Výroba přesně navazuje na schválený návrh. Na instalaci přichází díly připravené k montáži.",
-  },
-  {
-    number: "03",
-    title: "Certifikace a airworthiness",
-    situation: "Program vyžaduje regulační schválení. Chcete partnera, který přebere schvalovací proces, připraví compliance dokumentaci a koordinuje postup s regulátorem – aby certifikace probíhala souběžně s projektem, ne za ním.",
-    action: "Klasifikujeme změny a opravy (major/minor change). Vedeme schvalovací proces včetně přípravy podkladů pro STC nebo schválení pod DOA. Tvoříme a spravujeme compliance dokumentaci. Koordinujeme testy, validace a vše potřebné k získání schválení.",
-    value: "STC nebo schválená data jsou součástí výstupu programu – připravená k předání. Certifikační část projektu postupuje souběžně s návrhem a výrobou.",
-  },
-  {
-    number: "04",
-    title: "Completions – VIP a prémiové interiéry",
-    situation: "Chystáte kabinový program s vysokými nároky na kvalitu, estetiku i certifikaci. Potřebujete partnera, který zvládne obojí – prémiový výsledek i správný certifikační základ.",
-    action: "Zpracujeme VIP a VVIP cabin completions, business jet interiéry a prémiové úpravy kabiny. Navrhneme kabinové konfigurace podle účelu provozu, integrujeme prvky, systémy a materiály. Řídíme celý program dokončení interiéru od konceptu po výrobní a dokumentační připravenost.",
-    value: "Interiér, který dobře vypadá, funkčně funguje a má za sebou správnou certifikační základnu.",
-  },
-  {
-    number: "05",
-    title: "Aircraft conversions",
-    situation: "Letadlo má dostat novou roli nebo odlišnou konfiguraci. Chcete program, který drží strukturální, systémové i interiérové změny pohromadě a dodá certifikovaný výstup v jednom řízeném celku.",
-    action: "Realizujeme role change programy, medevac, head of state nebo mission cabin konfigurace. Zpracujeme úpravy kabiny, systémů a rozhraní. Zajistíme AD compliance a certifikační rámec pro celý rozsah změn.",
-    value: "Letadlo odpovídá nové provozní roli – s čistou dokumentací a schváleným výstupem.",
-  },
-  {
-    number: "06",
-    title: "Program management a koordinace",
-    situation: "Program zahrnuje více technických oblastí a více dodavatelů. Potřebujete silné programové řízení, které drží celý celek pod kontrolou a dává vám průběžný přehled.",
-    action: "Řídíme celý program. Koordinujeme interní i externí odbornosti, dodavatele a partnery. Hlídáme harmonogram, rozpočet a rizika. Koordinujeme s vámi, vaším Part 145 nebo instalačním partnerem.",
-    value: "Máte jednoho partnera s přehledem o celém programu. Víte, kde stojí, co přijde dál a co dostanete na konci.",
-  },
-];
-
-const VALUE_PILLARS = [
-  {
-    title: "Jeden partner pro celý program.",
-    desc: "Návrh, STC proces, výroba a předání podkladů – vše v jednom řízeném programu. Máte jednoho partnera s jasnou odpovědností za celek.",
-  },
-  {
-    title: "Certifikace jako součást plánu.",
-    desc: "Schvalovací proces zapojujeme od prvního dne. Klasifikace změny, compliance dokumentace, koordinace s regulátorem – vše probíhá souběžně s návrhem. Program postupuje podle plánu.",
-  },
-  {
-    title: "Dodavatelská síť v jedněch rukách.",
-    desc: "Koordinujeme interní týmy, specializované partnery i dodavatele dílů. Zákazník dostává jeden bod kontaktu a průběžný přehled o celém programu.",
-  },
-  {
-    title: "Harmonogram, který drží.",
-    desc: "Každý program řídíme s jasnými milníky, přehledným plánem a průběžnou komunikací. V každém momentu víte, kde program stojí a co přijde dál.",
-  },
-  {
-    title: "Technický výsledek, který sedí na provoz.",
-    desc: "Pracujeme pro to, aby letadlo po změně lépe plnilo roli, pro kterou ho potřebujete. Technický výstup musí dávat smysl i provozně.",
-  },
-];
-
-const SITUATIONS = [
-  {
-    situation: "Zákazník potřebuje jednoho partnera, který drží celý postup pohromadě – od návrhu po přípravu podkladů pro instalaci.",
-    action: "Jet Concept přebírá koordinaci celého procesu. Zákazník ví, kdo za co odpovídá a jaký bude další krok.",
-  },
-  {
-    situation: "Technická, výrobní a certifikační část projektu musí fungovat jako jeden celek, ne jako tři oddělené úkoly.",
-    action: "Propojujeme DOA, POA, engineering a airworthiness do jednoho řízeného programu s jasným harmonogramem.",
-  },
-  {
-    situation: "Rozsah změny letadla přesahuje standardní servisní rámec a vyžaduje řízený program s jasnou odpovědností.",
-    action: "Specializujeme se přesně na takové projekty – přebíráme návrh, certifikaci i výrobu do jednoho programu.",
-  },
-  {
-    situation: "Certifikační a výrobní postup musí být navržený správně od začátku, aby projekt postupoval bez zbytečných zdržení.",
-    action: "Jasně definujeme postup, odpovědnost a další krok v každé fázi – od zadání po schválené podklady pro instalaci.",
-  },
-  {
-    situation: "Technická změna musí dávat smysl i provozně a obchodně – nejen technicky.",
-    action: "Mluvíme jazykem výsledné schopnosti letadla, ne pouze jazykem technických úkonů.",
-  },
-];
-
-const PRINCIPLES = [
-  {
-    n: "01",
-    title: "Zákazník je hrdina programu",
-    desc: "Popisujeme výzvu zákazníka, jeho situaci a jeho výsledek. Jet Concept je průvodce, který pomáhá situaci zvládnout.",
-  },
-  {
-    n: "02",
-    title: "Jeden rámec pro celý program",
-    desc: "Propojujeme DOA, POA, engineering, realizaci a airworthiness do jednoho řízeného celku.",
-  },
-  {
-    n: "03",
-    title: "Strukturovaná odpovědnost",
-    desc: "Vedeme projekt s jasnou odpovědností, důvěryhodně a s disciplínou v dokumentaci i komunikaci.",
-  },
-  {
-    n: "04",
-    title: "Výsledek, který obstojí",
-    desc: "Dodáváme výstupy, které jsou technicky správné, regulačně schválené a mají reálný přínos pro provoz letadla.",
-  },
-];
-
-const PROCESS_STEPS = [
-  {
-    n: "01",
-    title: "Zadání a technický brief",
-    desc: "Sdílíte s námi záměr, rozsah a provozní kontext. Společně definujeme přístup a první kroky. Odcházíte s jasnou představou o postupu.",
-  },
-  {
-    n: "02",
-    title: "Návrh a engineering",
-    desc: "Zpracujeme technický koncept, provedeme výpočty a analýzy a připravíme základ pro schvalovací proces. Průběžně sdílíme postup a klíčová rozhodnutí.",
-  },
-  {
-    n: "03",
-    title: "Certifikace a schválení",
-    desc: "Vedeme schvalovací postup, připravujeme compliance dokumentaci a koordinujeme testy a validace. Certifikační část programu postupuje souběžně.",
-  },
-  {
-    n: "04",
-    title: "Výroba",
-    desc: "Vyrábíme schválené díly a celky, koordinujeme dodavatele a připravujeme výstupy pro instalaci. Výroba přesně navazuje na schválený návrh.",
-  },
-  {
-    n: "05",
-    title: "Předání a podklady pro instalaci",
-    desc: "Předáme kompletní dokumentaci a výrobní výstupy. Vám nebo vašemu Part 145. Program je uzavřený. Podklady jsou čisté. Instalace může jít.",
-  },
-];
-
-const FORMULATIONS = [
-  {
-    quote: "Modifikace je schválená. Projekt může letět.",
-    context: "Hook · Business jet completion",
-    detail: "Rozsah změny byl jasně zadán. Přebírám návrh, certifikaci i výrobu do jednoho programu. Zákazník ví, co se děje, a letadlo je připravené v termínu.",
-  },
-  {
-    quote: "Tři strany, jeden program. Takhle to fungovat nemá.",
-    context: "Hook · Jet Concept jako jeden partner",
-    detail: "Certifikační a výrobní postup musí být navržený správně od začátku. Jet Concept drží pohromadě návrh, certifikaci a výrobu – zákazník se nemusí ztrácet mezi více stranami.",
-  },
-  {
-    quote: "Certifikace přichází dříve, než si myslíte – pokud víte, co připravit.",
-    context: "Hook · Airworthiness & certifikace",
-    detail: "Klasifikujeme změny, vedeme schvalovací proces a připravujeme compliance dokumentaci tak, aby projekt nezasekl na nesprávně zvoleném postupu.",
-  },
-  {
-    quote: "Kabina je hotová. Dokumentace souhlasí. Letadlo čeká na zákazníka.",
-    context: "Hook · Redelivery & conversion",
-    detail: "Completion nebo conversion program vedeme od konceptu po výrobní a dokumentační připravenost. Zákazník dostane výsledek, který dobře vypadá, funguje a obstojí technicky.",
-  },
-];
+import { translations, type Lang } from "./translations";
 
 export default function Page() {
+  const [lang, setLang] = useState<Lang>("cs");
+  const t = translations[lang];
+
   return (
     <>
       {/* ─── STICKY NAV ───────────────────────────────────────────────────── */}
@@ -240,7 +71,7 @@ export default function Page() {
             overflowX: "auto",
           }}
         >
-          {NAV_LINKS.map((link) => (
+          {t.nav.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -268,6 +99,35 @@ export default function Page() {
             </a>
           ))}
         </nav>
+
+        {/* Language switcher */}
+        <div style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
+          {(["cs", "en"] as Lang[]).map((l, i) => (
+            <span key={l} style={{ display: "flex", alignItems: "center", gap: 4 }}>
+              {i > 0 && (
+                <span style={{ color: "var(--color-at-blue-v3)", fontSize: 10 }}>|</span>
+              )}
+              <button
+                onClick={() => setLang(l)}
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: lang === l ? "var(--color-at-white)" : "var(--color-at-blue-v4)",
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "4px 6px",
+                  borderRadius: 4,
+                  transition: "color 150ms",
+                }}
+              >
+                {l.toUpperCase()}
+              </button>
+            </span>
+          ))}
+        </div>
       </header>
 
       <main style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(1rem, 4vw, 3rem) 6rem" }}>
@@ -351,7 +211,7 @@ export default function Page() {
                 marginBottom: "2rem",
               }}
             >
-              Jeden program.&nbsp;&nbsp;Jeden partner.&nbsp;&nbsp;Výsledek na letadle.
+              {t.hero.tagline}
             </p>
 
             {/* Divider line */}
@@ -375,14 +235,12 @@ export default function Page() {
                 marginBottom: "2.5rem",
               }}
             >
-              Jet Concept přebírá návrh, certifikaci i výrobu do jednoho řízeného celku –
-              od prvního zadání po schválený výstup připravený k instalaci.
-              Máte jednoho partnera s jasnou odpovědností za každý krok programu.
+              {t.hero.lead}
             </p>
 
             {/* Badges */}
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: "1.75rem" }}>
-              {["DOA", "POA", "Design Engineering", "Certifikace", "Completions", "Conversions"].map((tag) => (
+              {t.hero.badges.map((tag) => (
                 <span
                   key={tag}
                   style={{
@@ -413,7 +271,7 @@ export default function Page() {
                   color: "var(--color-at-blue-a5)",
                 }}
               >
-                YOUR MISSION. OUR TECHNOLOGY.
+                {t.hero.slogan}
               </span>
             </div>
           </div>
@@ -422,7 +280,7 @@ export default function Page() {
         <div className="divider" />
 
         {/* ═══════════════════════════════════════════════════════════════════
-            CO JSME
+            CO JSME / ABOUT
         ═══════════════════════════════════════════════════════════════════ */}
         <section id="co-jsme" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
           <p
@@ -435,21 +293,16 @@ export default function Page() {
               marginBottom: "0.75rem",
             }}
           >
-            01 · O nás
+            {t.sections.s01.label}
           </p>
           <h2 className="section-h2" style={{ marginBottom: "0.75rem" }}>
-            Co je Jet Concept
+            {t.sections.s01.title}
           </h2>
           <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "1.5rem", fontSize: "0.95rem" }}>
-            Větší změna letadla vyžaduje partnera, který spojuje technický návrh, schvalovací
-            proces i výrobu v jeden celek. Jet Concept je od toho – přebíráme zodpovědnost za celý program tak,
-            aby každý krok navazoval na ten předchozí a zákazník měl v každém momentu jasný přehled
-            o průběhu.
+            {t.about.p1}
           </p>
           <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "3rem", fontSize: "0.95rem" }}>
-            Pracujeme s majiteli a operátory business jetů, aeroliniemi, lessory a completion centry.
-            Výsledkem každého programu je letadlo schopné plnit roli, pro kterou ho zákazník potřebuje –
-            s čistou dokumentací a ověřeným certifikačním základem.
+            {t.about.p2}
           </p>
 
           {/* H3 grid: Identita + Vize/Mise/Poslání */}
@@ -466,15 +319,13 @@ export default function Page() {
                   marginBottom: "0.75rem",
                 }}
               >
-                Identita entity
+                {t.about.identityTitle}
               </h3>
               <p style={{ fontSize: "1rem", fontWeight: 700, color: "var(--color-at-white)", lineHeight: 1.5, marginBottom: "1rem" }}>
-                Integrační a certifikační vrstva AIR TEAM pro komplexní technické změny letadel.
+                {t.about.identityDesc}
               </p>
               <p style={{ fontSize: "0.875rem", color: "var(--color-at-blue-a5)", lineHeight: 1.7 }}>
-                Když zákazník řeší větší změnu letadla, nestačí mu běžný servis ani jeden dodavatel jedné
-                části. Potřebuje partnera, který se vyzná v návrhu, certifikaci i výrobě a dokáže celý
-                postup udržet pod kontrolou. Právě to je role Jet Conceptu.
+                {t.about.identityBody}
               </p>
               <div
                 style={{
@@ -486,9 +337,9 @@ export default function Page() {
                   gap: 8,
                 }}
               >
-                {["Rozhodný", "Strukturovaný", "Technicky silný", "Diskrétní", "Odpovědný"].map((t) => (
+                {t.about.identityTags.map((tag) => (
                   <span
-                    key={t}
+                    key={tag}
                     style={{
                       fontSize: "0.75rem",
                       fontWeight: 600,
@@ -499,13 +350,13 @@ export default function Page() {
                       color: "var(--color-at-blue-a5)",
                     }}
                   >
-                    {t}
+                    {tag}
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* Vize */}
+            {/* Vize / Vision */}
             <div className="card">
               <h3
                 style={{
@@ -517,15 +368,14 @@ export default function Page() {
                   marginBottom: "0.75rem",
                 }}
               >
-                Vize
+                {t.about.visionTitle}
               </h3>
               <p style={{ fontSize: "0.95rem", color: "var(--color-at-blue-a5)", lineHeight: 1.7 }}>
-                Být partner, na kterého se zákazník obrátí ve chvíli, kdy potřebuje změnu letadla
-                udělat správně, bezpečně a bez chaosu mezi více dodavateli.
+                {t.about.visionDesc}
               </p>
             </div>
 
-            {/* Mise */}
+            {/* Mise / Mission */}
             <div className="card">
               <h3
                 style={{
@@ -537,15 +387,14 @@ export default function Page() {
                   marginBottom: "0.75rem",
                 }}
               >
-                Mise
+                {t.about.missionTitle}
               </h3>
               <p style={{ fontSize: "0.95rem", color: "var(--color-at-blue-a5)", lineHeight: 1.7 }}>
-                Navrhujeme, certifikujeme a vyrábíme technicky náročné změny letadel tak, aby zákazník
-                věděl, co se děje, co je v sázce a jaký bude další krok.
+                {t.about.missionDesc}
               </p>
             </div>
 
-            {/* Poslání */}
+            {/* Poslání / Purpose */}
             <div className="card">
               <h3
                 style={{
@@ -557,12 +406,10 @@ export default function Page() {
                   marginBottom: "0.75rem",
                 }}
               >
-                Poslání
+                {t.about.purposeTitle}
               </h3>
               <p style={{ fontSize: "0.95rem", color: "var(--color-at-blue-a5)", lineHeight: 1.7 }}>
-                Pomáháme zákazníkům změnit letadlo nebo jeho konfiguraci bez zbytečné nejistoty.
-                Přinášíme technickou jistotu, pořádek v procesu a odpovědnost za to, co navrhujeme
-                a vyrábíme.
+                {t.about.purposeDesc}
               </p>
             </div>
           </div>
@@ -584,19 +431,17 @@ export default function Page() {
               marginBottom: "0.75rem",
             }}
           >
-            02 · Portfolio
+            {t.sections.s02.label}
           </p>
           <h2 className="section-h2" style={{ marginBottom: "0.75rem" }}>
-            Portfolio služeb
+            {t.sections.s02.title}
           </h2>
           <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "3rem", fontSize: "0.95rem" }}>
-            Jet Concept řídí projekty, kde se mění konfigurace, schopnosti nebo hodnota letadla.
-            Přebíráme odpovědnost za jasný postup od zadání až po schválený návrh, výrobu a podklady
-            pro instalaci.
+            {t.portfolio.perex}
           </p>
 
           <div className="grid-auto grid-auto-md">
-            {PORTFOLIO.map((item) => (
+            {t.portfolio.items.map((item) => (
               <div
                 key={item.number}
                 className="card"
@@ -628,27 +473,27 @@ export default function Page() {
                   </h3>
                 </div>
 
-                {/* Situace */}
+                {/* Situace / Situation */}
                 <div>
                   <p style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-at-blue-v4)", margin: "0 0 0.25rem 0" }}>
-                    Situace
+                    {t.ui.situationLabel}
                   </p>
                   <p style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.6, margin: 0 }}>
                     {item.situation}
                   </p>
                 </div>
 
-                {/* Co uděláme */}
+                {/* Co uděláme / What We Do */}
                 <div>
                   <p style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-at-blue-v4)", margin: "0 0 0.25rem 0" }}>
-                    Co uděláme
+                    {t.ui.actionLabel}
                   </p>
                   <p style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.6, margin: 0 }}>
                     {item.action}
                   </p>
                 </div>
 
-                {/* Výsledek */}
+                {/* Výsledek / Outcome */}
                 <div
                   style={{
                     marginTop: "auto",
@@ -681,7 +526,7 @@ export default function Page() {
         <div className="divider" />
 
         {/* ═══════════════════════════════════════════════════════════════════
-            SEGMENTY
+            SEGMENTY / SEGMENTS
         ═══════════════════════════════════════════════════════════════════ */}
         <section id="segmenty" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
           <p
@@ -694,14 +539,13 @@ export default function Page() {
               marginBottom: "0.75rem",
             }}
           >
-            03 · Segmenty
+            {t.sections.s03.label}
           </p>
           <h2 className="section-h2" style={{ marginBottom: "0.75rem" }}>
-            Tržní segmenty
+            {t.sections.s03.title}
           </h2>
           <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "3rem", fontSize: "0.95rem" }}>
-            Jet Concept pracuje s klienty v segmentech Business a Commercial. Oblast Defense zůstává
-            dlouhodobým rozvojovým směrem.
+            {t.segments.perex}
           </p>
 
           <div className="grid-auto grid-auto-lg">
@@ -724,14 +568,12 @@ export default function Page() {
                   <span style={{ fontSize: "1rem" }}>✈</span>
                 </div>
                 <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--color-at-white)", margin: 0 }}>
-                  Business
+                  {t.segments.businessTitle}
                 </h3>
               </div>
 
               <p style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.65, marginBottom: "1rem" }}>
-                Připravujete kabinový program, modernizaci nebo specifickou úpravu business jetu?
-                Pracujeme s klienty, kteří kladou důraz na kvalitu provedení, diskrétní vedení
-                programu a prémiový výsledek.
+                {t.segments.businessDesc}
               </p>
 
               <p
@@ -744,15 +586,10 @@ export default function Page() {
                   marginBottom: "0.5rem",
                 }}
               >
-                Pomáháme s:
+                {t.segments.businessHelp}
               </p>
               <ul style={{ margin: 0, padding: "0 0 0 1rem" }}>
-                {[
-                  "VIP a VVIP cabin completions – od konceptu po certifikovaný výstup",
-                  "Cabin refresh a cabin upgrade – renovace s přesahem do certifikace",
-                  "Konektivita, komfort a personalizace kabiny – integrované, ne jen přidané",
-                  "Specifické úpravy podle majitele nebo operátora – diskrétně vedené programy",
-                ].map((item) => (
+                {t.segments.businessItems.map((item) => (
                   <li
                     key={item}
                     style={{ fontSize: "0.85rem", color: "var(--color-at-blue-v5)", lineHeight: 1.7, marginBottom: "0.3rem" }}
@@ -782,14 +619,12 @@ export default function Page() {
                   <span style={{ fontSize: "1rem" }}>⚙</span>
                 </div>
                 <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--color-at-white)", margin: 0 }}>
-                  Commercial
+                  {t.segments.commercialTitle}
                 </h3>
               </div>
 
               <p style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.65, marginBottom: "1rem" }}>
-                Plánujete compliance upgrade, retrofit nebo redelivery projekt? Pracujeme s provozovateli
-                flotil a lessory, kteří potřebují program doručit v termínu, v kontrolovaném rozpočtu
-                a s kompletní certifikační dokumentací.
+                {t.segments.commercialDesc}
               </p>
 
               <p
@@ -802,16 +637,10 @@ export default function Page() {
                   marginBottom: "0.5rem",
                 }}
               >
-                Pomáháme s:
+                {t.segments.commercialHelp}
               </p>
               <ul style={{ margin: 0, padding: "0 0 0 1rem" }}>
-                {[
-                  "Compliance a mandated upgrades včetně AD compliance",
-                  "Retrofit programy – realizace v kontrolovaném rámci",
-                  "Redelivery a transition projekty – letadlo předané správně a načas",
-                  "Systémová a kabinová modernizace – zvyšující provozní i tržní hodnotu",
-                  "Engineering, certifikace a realizace v jednom – s jasnou odpovědností",
-                ].map((item) => (
+                {t.segments.commercialItems.map((item) => (
                   <li
                     key={item}
                     style={{ fontSize: "0.85rem", color: "var(--color-at-blue-v5)", lineHeight: 1.7, marginBottom: "0.3rem" }}
@@ -822,7 +651,7 @@ export default function Page() {
               </ul>
             </div>
 
-            {/* Klíčoví zákazníci */}
+            {/* Klíčoví zákazníci / Key Customers */}
             <div
               className="card"
               style={{
@@ -840,7 +669,7 @@ export default function Page() {
                   marginBottom: "1rem",
                 }}
               >
-                Klíčové typy zákazníků
+                {t.segments.customersTitle}
               </h3>
               <div
                 style={{
@@ -849,15 +678,7 @@ export default function Page() {
                   gap: 10,
                 }}
               >
-                {[
-                  "Majitelé a operátoři business jetů",
-                  "Completion centra",
-                  "Technické partnerské organizace",
-                  "Aerolinky a provozovatelé flotil",
-                  "Lessoři a asset manažeři",
-                  "Systémoví integrátoři",
-                  "OEM partneři",
-                ].map((c) => (
+                {t.segments.customers.map((c) => (
                   <span
                     key={c}
                     style={{
@@ -881,7 +702,7 @@ export default function Page() {
         <div className="divider" />
 
         {/* ═══════════════════════════════════════════════════════════════════
-            PROČ JET CONCEPT
+            PROČ JET CONCEPT / WHY JET CONCEPT
         ═══════════════════════════════════════════════════════════════════ */}
         <section id="proc-Jet Concept" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
           <p
@@ -894,18 +715,16 @@ export default function Page() {
               marginBottom: "0.75rem",
             }}
           >
-            04 · Proč my
+            {t.sections.s04.label}
           </p>
           <h2 className="section-h2" style={{ marginBottom: "0.75rem" }}>
-            Proč Jet Concept
+            {t.sections.s04.title}
           </h2>
           <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "3rem", fontSize: "0.95rem" }}>
-            Jet Concept dává zákazníkovi jistotu, že se větší změna letadla nerozpadne mezi více stran.
-            Nestačí říkat, že to umíme – stavíme důvěru na konkrétních schváleních, referencích
-            a schopnosti prezentovat proces, ne jen výsledek.
+            {t.why.perex}
           </p>
 
-          {/* H3: Nabídka hodnoty */}
+          {/* H3: Value Pillars */}
           <h3
             style={{
               fontSize: "1rem",
@@ -916,10 +735,10 @@ export default function Page() {
               marginBottom: "1.25rem",
             }}
           >
-            Nabídka hodnoty – 5 pilířů
+            {t.why.pillarsTitle}
           </h3>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem", marginBottom: "3rem" }}>
-            {VALUE_PILLARS.map((pillar, i) => (
+            {t.why.valuePillars.map((pillar, i) => (
               <div
                 key={i}
                 style={{
@@ -957,7 +776,7 @@ export default function Page() {
             ))}
           </div>
 
-          {/* H3: Situace */}
+          {/* H3: Situations */}
           <h3
             style={{
               fontSize: "1rem",
@@ -968,10 +787,10 @@ export default function Page() {
               marginBottom: "1.25rem",
             }}
           >
-            Situace, které Jet Concept pomáhá zvládnout
+            {t.why.situationsTitle}
           </h3>
           <div className="grid-auto grid-auto-lg" style={{ gap: "1rem" }}>
-            {SITUATIONS.map((item, i) => (
+            {t.why.situations.map((item, i) => (
               <div
                 key={i}
                 className="card"
@@ -989,7 +808,7 @@ export default function Page() {
                       letterSpacing: "0.1em",
                     }}
                   >
-                    SITUACE
+                    {t.why.situationLabel}
                   </span>
                 </div>
                 <p
@@ -1025,7 +844,7 @@ export default function Page() {
         <div className="divider" />
 
         {/* ═══════════════════════════════════════════════════════════════════
-            JAK PRACUJEME
+            JAK PRACUJEME / HOW WE WORK
         ═══════════════════════════════════════════════════════════════════ */}
         <section id="jak-pracujeme" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
           <p
@@ -1038,17 +857,16 @@ export default function Page() {
               marginBottom: "0.75rem",
             }}
           >
-            05 · Principy
+            {t.sections.s05.label}
           </p>
           <h2 className="section-h2" style={{ marginBottom: "0.75rem" }}>
-            Jak pracujeme
+            {t.sections.s05.title}
           </h2>
           <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "3rem", fontSize: "0.95rem" }}>
-            Zákazník je hrdina programu. Jet Concept je průvodce, který pomáhá zvládnout výzvu
-            a dojít k výsledku. Pracujeme s klidem, přesností a odpovědností za celek.
+            {t.howWeWork.perex}
           </p>
 
-          {/* H3: 4 principy */}
+          {/* H3: Principles */}
           <h3
             style={{
               fontSize: "1rem",
@@ -1059,10 +877,10 @@ export default function Page() {
               marginBottom: "1.25rem",
             }}
           >
-            4 principy práce
+            {t.howWeWork.principlesTitle}
           </h3>
           <div className="grid-auto grid-auto-sm" style={{ gap: "1rem", marginBottom: "3rem" }}>
-            {PRINCIPLES.map((p) => (
+            {t.howWeWork.principles.map((p) => (
               <div
                 key={p.n}
                 className="card"
@@ -1089,7 +907,7 @@ export default function Page() {
             ))}
           </div>
 
-          {/* H3: Vzorové formulace / hooky */}
+          {/* H3: Hooks & Formulations */}
           <h3
             style={{
               fontSize: "1rem",
@@ -1100,14 +918,13 @@ export default function Page() {
               marginBottom: "0.5rem",
             }}
           >
-            Vzorové hooky a formulace
+            {t.howWeWork.hooksTitle}
           </h3>
           <p style={{ color: "var(--color-at-blue-v4)", fontSize: "0.8rem", marginBottom: "1.25rem", lineHeight: 1.6 }}>
-            První věta každého externího výstupu musí zastavit adresáta. Níže jsou příklady hooků
-            dle komunikačního vzorce Napětí → Průlom → Výsledek.
+            {t.howWeWork.hooksNote}
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            {FORMULATIONS.map((f, i) => (
+            {t.howWeWork.formulations.map((f, i) => (
               <div
                 key={i}
                 style={{
@@ -1161,7 +978,7 @@ export default function Page() {
         <div className="divider" />
 
         {/* ═══════════════════════════════════════════════════════════════════
-            JAK TO FUNGUJE
+            JAK TO FUNGUJE / HOW IT WORKS
         ═══════════════════════════════════════════════════════════════════ */}
         <section id="jak-to-funguje" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
           <p
@@ -1174,18 +991,17 @@ export default function Page() {
               marginBottom: "0.75rem",
             }}
           >
-            06 · Proces
+            {t.sections.s06.label}
           </p>
           <h2 className="section-h2" style={{ marginBottom: "0.75rem" }}>
-            Jak to funguje
+            {t.sections.s06.title}
           </h2>
           <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "3rem", fontSize: "0.95rem" }}>
-            Každý program Jet Conceptu prochází pěti řízenými kroky. Zákazník má v každém momentu
-            jasný přehled – ví, kde program stojí a co přijde dál.
+            {t.process.perex}
           </p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-            {PROCESS_STEPS.map((step, i) => (
+            {t.process.steps.map((step, i) => (
               <div
                 key={step.n}
                 style={{
@@ -1211,7 +1027,7 @@ export default function Page() {
                   >
                     {step.n}
                   </span>
-                  {i < PROCESS_STEPS.length - 1 && (
+                  {i < t.process.steps.length - 1 && (
                     <div style={{ width: 1, height: 20, background: "var(--color-at-blue-v3)" }} />
                   )}
                 </div>
@@ -1231,7 +1047,7 @@ export default function Page() {
         <div className="divider" />
 
         {/* ═══════════════════════════════════════════════════════════════════
-            KONTAKT / CTA
+            KONTAKT / CONTACT
         ═══════════════════════════════════════════════════════════════════ */}
         <section id="kontakt" style={{ paddingTop: "4rem", paddingBottom: "2rem" }}>
           <p
@@ -1244,10 +1060,10 @@ export default function Page() {
               marginBottom: "0.75rem",
             }}
           >
-            07 · Kontakt
+            {t.sections.s07.label}
           </p>
           <h2 className="section-h2" style={{ marginBottom: "0.75rem" }}>
-            Připraveni převzít váš program
+            {t.contact.title}
           </h2>
           <p
             style={{
@@ -1258,8 +1074,7 @@ export default function Page() {
               fontSize: "0.95rem",
             }}
           >
-            Sdílejte s námi rozsah a záměr. Ukážeme vám, jak Jet Concept program uchopí – co přebírá,
-            jak bude probíhat a co dostanete na konci. Konkrétní postup pro vaši situaci.
+            {t.contact.perex}
           </p>
 
           <div
@@ -1276,11 +1091,7 @@ export default function Page() {
           >
             {/* Key messages */}
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-              {[
-                "Jeden partner. Jasná odpovědnost. Výsledek, na který se můžete spolehnout.",
-                "Certifikace od prvního dne – souběžně s návrhem, ne za ním.",
-                "Víte, kde program stojí a co přijde dál. V každém kroku.",
-              ].map((msg) => (
+              {t.contact.messages.map((msg) => (
                 <div key={msg} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
                   <div
                     style={{
@@ -1304,7 +1115,7 @@ export default function Page() {
                 href="mailto:info@Jet Concept.aero"
                 className="btn-primary"
               >
-                Kontaktujte nás
+                {t.contact.cta}
               </a>
               <span style={{ fontSize: "0.8rem", color: "var(--color-at-blue-v4)" }}>
                 info@Jet Concept.aero
@@ -1334,7 +1145,7 @@ export default function Page() {
           </span>
           <span style={{ color: "var(--color-at-blue-v3)", fontSize: "0.7rem" }}>·</span>
           <span style={{ fontSize: "0.7rem", color: "var(--color-at-blue-v4)", letterSpacing: "0.1em" }}>
-            Jet Concept · Strategie 2026
+            {t.footer.label}
           </span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", flexWrap: "wrap" }}>
@@ -1342,7 +1153,7 @@ export default function Page() {
             YOUR MISSION. OUR TECHNOLOGY.
           </span>
           <p style={{ margin: 0, fontSize: "0.7rem", color: "var(--color-at-blue-v4)", letterSpacing: "0.08em" }}>
-            Interní dokument · Důvěrné
+            {t.footer.confidential}
           </p>
         </div>
       </footer>

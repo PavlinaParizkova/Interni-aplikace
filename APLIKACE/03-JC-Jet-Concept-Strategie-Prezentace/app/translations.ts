@@ -1,0 +1,541 @@
+export type Lang = "cs" | "en";
+
+export const translations = {
+  cs: {
+    nav: [
+      { label: "Kdo jsme", href: "#co-jsme" },
+      { label: "Co děláme", href: "#portfolio" },
+      { label: "Pro koho", href: "#segmenty" },
+      { label: "Proč Jet Concept", href: "#proc-Jet Concept" },
+      { label: "Jak to funguje", href: "#jak-to-funguje" },
+      { label: "Kontakt", href: "#kontakt" },
+    ],
+    hero: {
+      tagline: "Jeden program.\u00a0\u00a0Jeden partner.\u00a0\u00a0Výsledek na letadle.",
+      lead: "Jet Concept přebírá návrh, certifikaci i výrobu do jednoho řízeného celku – od prvního zadání po schválený výstup připravený k instalaci. Máte jednoho partnera s jasnou odpovědností za každý krok programu.",
+      badges: ["DOA", "POA", "Design Engineering", "Certifikace", "Completions", "Conversions"],
+      slogan: "YOUR MISSION. OUR TECHNOLOGY.",
+    },
+    sections: {
+      s01: { label: "01 · O nás", title: "Co je Jet Concept" },
+      s02: { label: "02 · Portfolio", title: "Portfolio služeb" },
+      s03: { label: "03 · Segmenty", title: "Tržní segmenty" },
+      s04: { label: "04 · Proč my", title: "Proč Jet Concept" },
+      s05: { label: "05 · Principy", title: "Jak pracujeme" },
+      s06: { label: "06 · Proces", title: "Jak to funguje" },
+      s07: { label: "07 · Kontakt", title: "Připraveni převzít váš program" },
+    },
+    about: {
+      p1: "Větší změna letadla vyžaduje partnera, který spojuje technický návrh, schvalovací proces i výrobu v jeden celek. Jet Concept je od toho – přebíráme zodpovědnost za celý program tak, aby každý krok navazoval na ten předchozí a zákazník měl v každém momentu jasný přehled o průběhu.",
+      p2: "Pracujeme s majiteli a operátory business jetů, aeroliniemi, lessory a completion centry. Výsledkem každého programu je letadlo schopné plnit roli, pro kterou ho zákazník potřebuje – s čistou dokumentací a ověřeným certifikačním základem.",
+      identityTitle: "Identita entity",
+      identityDesc: "Integrační a certifikační vrstva AIR TEAM pro komplexní technické změny letadel.",
+      identityBody: "Když zákazník řeší větší změnu letadla, nestačí mu běžný servis ani jeden dodavatel jedné části. Potřebuje partnera, který se vyzná v návrhu, certifikaci i výrobě a dokáže celý postup udržet pod kontrolou. Právě to je role Jet Conceptu.",
+      identityTags: ["Rozhodný", "Strukturovaný", "Technicky silný", "Diskrétní", "Odpovědný"],
+      visionTitle: "Vize",
+      visionDesc: "Být partner, na kterého se zákazník obrátí ve chvíli, kdy potřebuje změnu letadla udělat správně, bezpečně a bez chaosu mezi více dodavateli.",
+      missionTitle: "Mise",
+      missionDesc: "Navrhujeme, certifikujeme a vyrábíme technicky náročné změny letadel tak, aby zákazník věděl, co se děje, co je v sázce a jaký bude další krok.",
+      purposeTitle: "Poslání",
+      purposeDesc: "Pomáháme zákazníkům změnit letadlo nebo jeho konfiguraci bez zbytečné nejistoty. Přinášíme technickou jistotu, pořádek v procesu a odpovědnost za to, co navrhujeme a vyrábíme.",
+    },
+    portfolio: {
+      perex: "Jet Concept řídí projekty, kde se mění konfigurace, schopnosti nebo hodnota letadla. Přebíráme odpovědnost za jasný postup od zadání až po schválený návrh, výrobu a podklady pro instalaci.",
+      items: [
+        {
+          number: "01",
+          title: "DOA a design engineering",
+          situation: "Stojíte před větší změnou letadla a chcete mít jasno o technickém postupu od prvního dne. Správný koncept a ověřený technický základ jsou klíčem k hladkému průběhu celého programu.",
+          action: "Zpracujeme koncept modifikace nebo přestavby. Navrhneme strukturální, systémové a kabinové změny, provedeme výpočty a analýzy, připravíme technickou dokumentaci. Průběžně rozhodujeme technické otázky, aby program udržel tempo.",
+          value: "Přesně víte, do čeho jdete. Program stojí na ověřeném technickém základě a každý navazující krok je správně připravený.",
+        },
+        {
+          number: "02",
+          title: "POA a výroba",
+          situation: "Návrh je hotový a schválený. Potřebujete partnera, který ho převede do výroby přesně tak, jak byl navržen – s čistou výrobní dokumentací a díly připravenými pro instalaci.",
+          action: "Vyrobíme schválené díly, podsestavy a interiérové prvky. Zajistíme výrobní dokumentaci a kontrolované procesy. Zkoordinujeme dodavatele. Připravíme díly a celky přesně tak, aby instalace proběhla hladce.",
+          value: "Výroba přesně navazuje na schválený návrh. Na instalaci přichází díly připravené k montáži.",
+        },
+        {
+          number: "03",
+          title: "Certifikace a airworthiness",
+          situation: "Program vyžaduje regulační schválení. Chcete partnera, který přebere schvalovací proces, připraví compliance dokumentaci a koordinuje postup s regulátorem – aby certifikace probíhala souběžně s projektem, ne za ním.",
+          action: "Klasifikujeme změny a opravy (major/minor change). Vedeme schvalovací proces včetně přípravy podkladů pro STC nebo schválení pod DOA. Tvoříme a spravujeme compliance dokumentaci. Koordinujeme testy, validace a vše potřebné k získání schválení.",
+          value: "STC nebo schválená data jsou součástí výstupu programu – připravená k předání. Certifikační část projektu postupuje souběžně s návrhem a výrobou.",
+        },
+        {
+          number: "04",
+          title: "Completions – VIP a prémiové interiéry",
+          situation: "Chystáte kabinový program s vysokými nároky na kvalitu, estetiku i certifikaci. Potřebujete partnera, který zvládne obojí – prémiový výsledek i správný certifikační základ.",
+          action: "Zpracujeme VIP a VVIP cabin completions, business jet interiéry a prémiové úpravy kabiny. Navrhneme kabinové konfigurace podle účelu provozu, integrujeme prvky, systémy a materiály. Řídíme celý program dokončení interiéru od konceptu po výrobní a dokumentační připravenost.",
+          value: "Interiér, který dobře vypadá, funkčně funguje a má za sebou správnou certifikační základnu.",
+        },
+        {
+          number: "05",
+          title: "Aircraft conversions",
+          situation: "Letadlo má dostat novou roli nebo odlišnou konfiguraci. Chcete program, který drží strukturální, systémové i interiérové změny pohromadě a dodá certifikovaný výstup v jednom řízeném celku.",
+          action: "Realizujeme role change programy, medevac, head of state nebo mission cabin konfigurace. Zpracujeme úpravy kabiny, systémů a rozhraní. Zajistíme AD compliance a certifikační rámec pro celý rozsah změn.",
+          value: "Letadlo odpovídá nové provozní roli – s čistou dokumentací a schváleným výstupem.",
+        },
+        {
+          number: "06",
+          title: "Program management a koordinace",
+          situation: "Program zahrnuje více technických oblastí a více dodavatelů. Potřebujete silné programové řízení, které drží celý celek pod kontrolou a dává vám průběžný přehled.",
+          action: "Řídíme celý program. Koordinujeme interní i externí odbornosti, dodavatele a partnery. Hlídáme harmonogram, rozpočet a rizika. Koordinujeme s vámi, vaším Part 145 nebo instalačním partnerem.",
+          value: "Máte jednoho partnera s přehledem o celém programu. Víte, kde stojí, co přijde dál a co dostanete na konci.",
+        },
+      ],
+    },
+    segments: {
+      perex: "Jet Concept pracuje s klienty v segmentech Business a Commercial. Oblast Defense zůstává dlouhodobým rozvojovým směrem.",
+      businessTitle: "Business",
+      businessDesc: "Připravujete kabinový program, modernizaci nebo specifickou úpravu business jetu? Pracujeme s klienty, kteří kladou důraz na kvalitu provedení, diskrétní vedení programu a prémiový výsledek.",
+      businessHelp: "Pomáháme s:",
+      businessItems: [
+        "VIP a VVIP cabin completions – od konceptu po certifikovaný výstup",
+        "Cabin refresh a cabin upgrade – renovace s přesahem do certifikace",
+        "Konektivita, komfort a personalizace kabiny – integrované, ne jen přidané",
+        "Specifické úpravy podle majitele nebo operátora – diskrétně vedené programy",
+      ],
+      commercialTitle: "Commercial",
+      commercialDesc: "Plánujete compliance upgrade, retrofit nebo redelivery projekt? Pracujeme s provozovateli flotil a lessory, kteří potřebují program doručit v termínu, v kontrolovaném rozpočtu a s kompletní certifikační dokumentací.",
+      commercialHelp: "Pomáháme s:",
+      commercialItems: [
+        "Compliance a mandated upgrades včetně AD compliance",
+        "Retrofit programy – realizace v kontrolovaném rámci",
+        "Redelivery a transition projekty – letadlo předané správně a načas",
+        "Systémová a kabinová modernizace – zvyšující provozní i tržní hodnotu",
+        "Engineering, certifikace a realizace v jednom – s jasnou odpovědností",
+      ],
+      customersTitle: "Klíčové typy zákazníků",
+      customers: [
+        "Majitelé a operátoři business jetů",
+        "Completion centra",
+        "Technické partnerské organizace",
+        "Aerolinky a provozovatelé flotil",
+        "Lessoři a asset manažeři",
+        "Systémoví integrátoři",
+        "OEM partneři",
+      ],
+    },
+    why: {
+      perex: "Jet Concept dává zákazníkovi jistotu, že se větší změna letadla nerozpadne mezi více stran. Nestačí říkat, že to umíme – stavíme důvěru na konkrétních schváleních, referencích a schopnosti prezentovat proces, ne jen výsledek.",
+      pillarsTitle: "Nabídka hodnoty – 5 pilířů",
+      situationsTitle: "Situace, které Jet Concept pomáhá zvládnout",
+      situationLabel: "SITUACE",
+      valuePillars: [
+        {
+          title: "Jeden partner pro celý program.",
+          desc: "Návrh, STC proces, výroba a předání podkladů – vše v jednom řízeném programu. Máte jednoho partnera s jasnou odpovědností za celek.",
+        },
+        {
+          title: "Certifikace jako součást plánu.",
+          desc: "Schvalovací proces zapojujeme od prvního dne. Klasifikace změny, compliance dokumentace, koordinace s regulátorem – vše probíhá souběžně s návrhem. Program postupuje podle plánu.",
+        },
+        {
+          title: "Dodavatelská síť v jedněch rukách.",
+          desc: "Koordinujeme interní týmy, specializované partnery i dodavatele dílů. Zákazník dostává jeden bod kontaktu a průběžný přehled o celém programu.",
+        },
+        {
+          title: "Harmonogram, který drží.",
+          desc: "Každý program řídíme s jasnými milníky, přehledným plánem a průběžnou komunikací. V každém momentu víte, kde program stojí a co přijde dál.",
+        },
+        {
+          title: "Technický výsledek, který sedí na provoz.",
+          desc: "Pracujeme pro to, aby letadlo po změně lépe plnilo roli, pro kterou ho potřebujete. Technický výstup musí dávat smysl i provozně.",
+        },
+      ],
+      situations: [
+        {
+          situation: "Zákazník potřebuje jednoho partnera, který drží celý postup pohromadě – od návrhu po přípravu podkladů pro instalaci.",
+          action: "Jet Concept přebírá koordinaci celého procesu. Zákazník ví, kdo za co odpovídá a jaký bude další krok.",
+        },
+        {
+          situation: "Technická, výrobní a certifikační část projektu musí fungovat jako jeden celek, ne jako tři oddělené úkoly.",
+          action: "Propojujeme DOA, POA, engineering a airworthiness do jednoho řízeného programu s jasným harmonogramem.",
+        },
+        {
+          situation: "Rozsah změny letadla přesahuje standardní servisní rámec a vyžaduje řízený program s jasnou odpovědností.",
+          action: "Specializujeme se přesně na takové projekty – přebíráme návrh, certifikaci i výrobu do jednoho programu.",
+        },
+        {
+          situation: "Certifikační a výrobní postup musí být navržený správně od začátku, aby projekt postupoval bez zbytečných zdržení.",
+          action: "Jasně definujeme postup, odpovědnost a další krok v každé fázi – od zadání po schválené podklady pro instalaci.",
+        },
+        {
+          situation: "Technická změna musí dávat smysl i provozně a obchodně – nejen technicky.",
+          action: "Mluvíme jazykem výsledné schopnosti letadla, ne pouze jazykem technických úkonů.",
+        },
+      ],
+    },
+    howWeWork: {
+      perex: "Zákazník je hrdina programu. Jet Concept je průvodce, který pomáhá zvládnout výzvu a dojít k výsledku. Pracujeme s klidem, přesností a odpovědností za celek.",
+      principlesTitle: "4 principy práce",
+      hooksTitle: "Vzorové hooky a formulace",
+      hooksNote: "První věta každého externího výstupu musí zastavit adresáta. Níže jsou příklady hooků dle komunikačního vzorce Napětí → Průlom → Výsledek.",
+      principles: [
+        {
+          n: "01",
+          title: "Zákazník je hrdina programu",
+          desc: "Popisujeme výzvu zákazníka, jeho situaci a jeho výsledek. Jet Concept je průvodce, který pomáhá situaci zvládnout.",
+        },
+        {
+          n: "02",
+          title: "Jeden rámec pro celý program",
+          desc: "Propojujeme DOA, POA, engineering, realizaci a airworthiness do jednoho řízeného celku.",
+        },
+        {
+          n: "03",
+          title: "Strukturovaná odpovědnost",
+          desc: "Vedeme projekt s jasnou odpovědností, důvěryhodně a s disciplínou v dokumentaci i komunikaci.",
+        },
+        {
+          n: "04",
+          title: "Výsledek, který obstojí",
+          desc: "Dodáváme výstupy, které jsou technicky správné, regulačně schválené a mají reálný přínos pro provoz letadla.",
+        },
+      ],
+      formulations: [
+        {
+          quote: "Modifikace je schválená. Projekt může letět.",
+          context: "Hook · Business jet completion",
+          detail: "Rozsah změny byl jasně zadán. Přebírám návrh, certifikaci i výrobu do jednoho programu. Zákazník ví, co se děje, a letadlo je připravené v termínu.",
+        },
+        {
+          quote: "Tři strany, jeden program. Takhle to fungovat nemá.",
+          context: "Hook · Jet Concept jako jeden partner",
+          detail: "Certifikační a výrobní postup musí být navržený správně od začátku. Jet Concept drží pohromadě návrh, certifikaci a výrobu – zákazník se nemusí ztrácet mezi více stranami.",
+        },
+        {
+          quote: "Certifikace přichází dříve, než si myslíte – pokud víte, co připravit.",
+          context: "Hook · Airworthiness & certifikace",
+          detail: "Klasifikujeme změny, vedeme schvalovací proces a připravujeme compliance dokumentaci tak, aby projekt nezasekl na nesprávně zvoleném postupu.",
+        },
+        {
+          quote: "Kabina je hotová. Dokumentace souhlasí. Letadlo čeká na zákazníka.",
+          context: "Hook · Redelivery & conversion",
+          detail: "Completion nebo conversion program vedeme od konceptu po výrobní a dokumentační připravenost. Zákazník dostane výsledek, který dobře vypadá, funguje a obstojí technicky.",
+        },
+      ],
+    },
+    process: {
+      perex: "Každý program Jet Conceptu prochází pěti řízenými kroky. Zákazník má v každém momentu jasný přehled – ví, kde program stojí a co přijde dál.",
+      steps: [
+        {
+          n: "01",
+          title: "Zadání a technický brief",
+          desc: "Sdílíte s námi záměr, rozsah a provozní kontext. Společně definujeme přístup a první kroky. Odcházíte s jasnou představou o postupu.",
+        },
+        {
+          n: "02",
+          title: "Návrh a engineering",
+          desc: "Zpracujeme technický koncept, provedeme výpočty a analýzy a připravíme základ pro schvalovací proces. Průběžně sdílíme postup a klíčová rozhodnutí.",
+        },
+        {
+          n: "03",
+          title: "Certifikace a schválení",
+          desc: "Vedeme schvalovací postup, připravujeme compliance dokumentaci a koordinujeme testy a validace. Certifikační část programu postupuje souběžně.",
+        },
+        {
+          n: "04",
+          title: "Výroba",
+          desc: "Vyrábíme schválené díly a celky, koordinujeme dodavatele a připravujeme výstupy pro instalaci. Výroba přesně navazuje na schválený návrh.",
+        },
+        {
+          n: "05",
+          title: "Předání a podklady pro instalaci",
+          desc: "Předáme kompletní dokumentaci a výrobní výstupy. Vám nebo vašemu Part 145. Program je uzavřený. Podklady jsou čisté. Instalace může jít.",
+        },
+      ],
+    },
+    contact: {
+      title: "Připraveni převzít váš program",
+      perex: "Sdílejte s námi rozsah a záměr. Ukážeme vám, jak Jet Concept program uchopí – co přebírá, jak bude probíhat a co dostanete na konci. Konkrétní postup pro vaši situaci.",
+      messages: [
+        "Jeden partner. Jasná odpovědnost. Výsledek, na který se můžete spolehnout.",
+        "Certifikace od prvního dne – souběžně s návrhem, ne za ním.",
+        "Víte, kde program stojí a co přijde dál. V každém kroku.",
+      ],
+      cta: "Kontaktujte nás",
+    },
+    footer: {
+      label: "Jet Concept · Strategie 2026",
+      confidential: "Interní dokument · Důvěrné",
+    },
+    ui: {
+      situationLabel: "SITUACE",
+      actionLabel: "Co uděláme",
+      valueLabel: "Výsledek",
+      helpWith: "Pomáháme s:",
+    },
+  },
+
+  en: {
+    nav: [
+      { label: "Who We Are", href: "#co-jsme" },
+      { label: "What We Do", href: "#portfolio" },
+      { label: "Who We Serve", href: "#segmenty" },
+      { label: "Why Jet Concept", href: "#proc-Jet Concept" },
+      { label: "How It Works", href: "#jak-to-funguje" },
+      { label: "Contact", href: "#kontakt" },
+    ],
+    hero: {
+      tagline: "One programme.\u00a0\u00a0One partner.\u00a0\u00a0Results on the aircraft.",
+      lead: "Jet Concept takes ownership of design, certification and manufacturing as a single managed programme – from the first brief to the approved, installation-ready output. One partner. Clear accountability at every step.",
+      badges: ["DOA", "POA", "Design Engineering", "Certification", "Completions", "Conversions"],
+      slogan: "YOUR MISSION. OUR TECHNOLOGY.",
+    },
+    sections: {
+      s01: { label: "01 · About", title: "What Is Jet Concept" },
+      s02: { label: "02 · Portfolio", title: "Service Portfolio" },
+      s03: { label: "03 · Segments", title: "Market Segments" },
+      s04: { label: "04 · Why Us", title: "Why Jet Concept" },
+      s05: { label: "05 · Principles", title: "How We Work" },
+      s06: { label: "06 · Process", title: "How It Works" },
+      s07: { label: "07 · Contact", title: "Ready to Take Your Programme" },
+    },
+    about: {
+      p1: "A major aircraft change requires a partner who connects technical design, the approval process and manufacturing into a single whole. That is what Jet Concept is for – we take responsibility for the entire programme so that every step follows from the previous one and the customer has a clear picture of progress at every moment.",
+      p2: "We work with business jet owners and operators, airlines, lessors and completion centres. The outcome of every programme is an aircraft capable of fulfilling the role the customer needs – with clean documentation and a verified certification basis.",
+      identityTitle: "Entity Identity",
+      identityDesc: "AIR TEAM's integration and certification layer for complex technical aircraft modifications.",
+      identityBody: "When a customer faces a major aircraft change, standard maintenance or a single-discipline supplier is not enough. They need a partner who understands design, certification and manufacturing and can keep the entire process under control. That is the role of Jet Concept.",
+      identityTags: ["Decisive", "Structured", "Technically Strong", "Discreet", "Accountable"],
+      visionTitle: "Vision",
+      visionDesc: "To be the partner a customer turns to when they need an aircraft modification done correctly, safely and without chaos across multiple suppliers.",
+      missionTitle: "Mission",
+      missionDesc: "We design, certify and manufacture technically demanding aircraft modifications so that the customer always knows what is happening, what is at stake and what the next step is.",
+      purposeTitle: "Purpose",
+      purposeDesc: "We help customers change an aircraft or its configuration without unnecessary uncertainty. We bring technical confidence, process discipline and accountability for everything we design and manufacture.",
+    },
+    portfolio: {
+      perex: "Jet Concept manages projects that change an aircraft's configuration, capability or value. We take responsibility for a clear process from the initial brief through to the approved design, manufacturing and installation documentation.",
+      items: [
+        {
+          number: "01",
+          title: "DOA & Design Engineering",
+          situation: "You are facing a major aircraft change and want clarity on the technical approach from day one. The right concept and a verified technical basis are key to a smooth programme.",
+          action: "We develop the modification or conversion concept. We design structural, systems and cabin changes, perform calculations and analyses, and prepare technical documentation. We resolve technical questions continuously so the programme maintains pace.",
+          value: "You know exactly what you are getting into. The programme is built on a verified technical foundation and every subsequent step is properly prepared.",
+        },
+        {
+          number: "02",
+          title: "POA & Manufacturing",
+          situation: "The design is complete and approved. You need a partner who will translate it into production exactly as designed – with clean manufacturing documentation and parts ready for installation.",
+          action: "We manufacture approved parts, subassemblies and interior elements. We ensure manufacturing documentation and controlled processes. We coordinate suppliers. We prepare parts and assemblies precisely so that installation proceeds smoothly.",
+          value: "Manufacturing follows directly from the approved design. Parts arrive at installation ready to fit.",
+        },
+        {
+          number: "03",
+          title: "Certification & Airworthiness",
+          situation: "The programme requires regulatory approval. You need a partner who takes over the approval process, prepares compliance documentation and coordinates with the regulator – so that certification runs in parallel with the project, not behind it.",
+          action: "We classify changes and repairs (major/minor change). We manage the approval process including preparation of STC submissions or approval under DOA. We create and maintain compliance documentation. We coordinate tests, validations and everything required to obtain approval.",
+          value: "STC or approved data are part of the programme output – ready for handover. The certification element of the project runs in parallel with design and manufacturing.",
+        },
+        {
+          number: "04",
+          title: "Completions – VIP & Premium Interiors",
+          situation: "You are preparing a cabin programme with high demands on quality, aesthetics and certification. You need a partner who can deliver both – a premium result and the correct certification basis.",
+          action: "We execute VIP and VVIP cabin completions, business jet interiors and premium cabin modifications. We design cabin configurations to match the intended operation, integrate elements, systems and materials. We manage the entire interior completion programme from concept to manufacturing and documentation readiness.",
+          value: "An interior that looks right, functions correctly and stands on the right certification foundation.",
+        },
+        {
+          number: "05",
+          title: "Aircraft Conversions",
+          situation: "The aircraft is to take on a new role or a different configuration. You need a programme that keeps structural, systems and interior changes together and delivers a certified output in a single managed scope.",
+          action: "We execute role change programmes, medevac, head of state and mission cabin configurations. We process cabin, systems and interface modifications. We ensure AD compliance and a certification framework for the full scope of changes.",
+          value: "The aircraft meets its new operational role – with clean documentation and an approved output.",
+        },
+        {
+          number: "06",
+          title: "Programme Management & Coordination",
+          situation: "The programme spans multiple technical disciplines and multiple suppliers. You need strong programme management that keeps everything under control and gives you ongoing visibility.",
+          action: "We manage the entire programme. We coordinate internal and external disciplines, suppliers and partners. We monitor schedule, budget and risks. We coordinate with you, your Part 145 or installation partner.",
+          value: "You have one partner with full oversight of the programme. You know where it stands, what comes next and what you will receive at the end.",
+        },
+      ],
+    },
+    segments: {
+      perex: "Jet Concept works with clients in the Business and Commercial segments. Defence remains a long-term development direction.",
+      businessTitle: "Business",
+      businessDesc: "Are you preparing a cabin programme, modernisation or specific business jet modification? We work with clients who place emphasis on quality of execution, discreet programme management and a premium outcome.",
+      businessHelp: "We help with:",
+      businessItems: [
+        "VIP and VVIP cabin completions – from concept to certified output",
+        "Cabin refresh and cabin upgrade – refurbishment extending into certification",
+        "Connectivity, comfort and cabin personalisation – integrated, not just added",
+        "Owner- or operator-specific modifications – discretely managed programmes",
+      ],
+      commercialTitle: "Commercial",
+      commercialDesc: "Are you planning a compliance upgrade, retrofit or redelivery project? We work with fleet operators and lessors who need a programme delivered on time, within a controlled budget and with complete certification documentation.",
+      commercialHelp: "We help with:",
+      commercialItems: [
+        "Compliance and mandated upgrades including AD compliance",
+        "Retrofit programmes – execution within a controlled framework",
+        "Redelivery and transition projects – aircraft handed over correctly and on time",
+        "Systems and cabin modernisation – increasing operational and market value",
+        "Engineering, certification and execution in one – with clear accountability",
+      ],
+      customersTitle: "Key Customer Types",
+      customers: [
+        "Business jet owners and operators",
+        "Completion centres",
+        "Technical partner organisations",
+        "Airlines and fleet operators",
+        "Lessors and asset managers",
+        "System integrators",
+        "OEM partners",
+      ],
+    },
+    why: {
+      perex: "Jet Concept gives customers confidence that a major aircraft change will not fall apart between multiple parties. It is not enough to say we can do it – we build trust on concrete approvals, references and the ability to present the process, not just the outcome.",
+      pillarsTitle: "Value Proposition – 5 Pillars",
+      situationsTitle: "Situations Jet Concept Helps Navigate",
+      situationLabel: "SITUATION",
+      valuePillars: [
+        {
+          title: "One partner for the entire programme.",
+          desc: "Design, STC process, manufacturing and documentation handover – all in one managed programme. One partner with clear accountability for the whole.",
+        },
+        {
+          title: "Certification as part of the plan.",
+          desc: "We engage the approval process from day one. Change classification, compliance documentation, regulator coordination – all running in parallel with design. The programme proceeds on schedule.",
+        },
+        {
+          title: "Supplier network in one set of hands.",
+          desc: "We coordinate internal teams, specialist partners and component suppliers. The customer has a single point of contact and ongoing visibility of the entire programme.",
+        },
+        {
+          title: "A schedule that holds.",
+          desc: "Every programme is managed with clear milestones, a transparent plan and continuous communication. At every moment you know where the programme stands and what comes next.",
+        },
+        {
+          title: "A technical outcome that fits operations.",
+          desc: "We work to ensure the aircraft better fulfils the role you need it for after the change. The technical output must also make operational sense.",
+        },
+      ],
+      situations: [
+        {
+          situation: "The customer needs one partner who keeps the entire process together – from design through to preparation of installation documentation.",
+          action: "Jet Concept takes over coordination of the entire process. The customer knows who is responsible for what and what the next step will be.",
+        },
+        {
+          situation: "The technical, manufacturing and certification elements of the project must function as a single whole, not three separate tasks.",
+          action: "We connect DOA, POA, engineering and airworthiness into one managed programme with a clear schedule.",
+        },
+        {
+          situation: "The scope of the aircraft change exceeds the standard maintenance framework and requires a managed programme with clear accountability.",
+          action: "We specialise in exactly these projects – we take design, certification and manufacturing into one programme.",
+        },
+        {
+          situation: "The certification and manufacturing process must be designed correctly from the start so the project progresses without unnecessary delays.",
+          action: "We clearly define the process, accountability and next step at every stage – from the brief to approved installation documentation.",
+        },
+        {
+          situation: "The technical change must make sense operationally and commercially – not just technically.",
+          action: "We speak the language of the aircraft's resulting capability, not only the language of technical tasks.",
+        },
+      ],
+    },
+    howWeWork: {
+      perex: "The customer is the hero of the programme. Jet Concept is the guide who helps navigate the challenge and reach the result. We work with composure, precision and accountability for the whole.",
+      principlesTitle: "4 Working Principles",
+      hooksTitle: "Sample Hooks & Formulations",
+      hooksNote: "The first sentence of every external output must stop the reader. Below are example hooks following the communication pattern Tension → Breakthrough → Result.",
+      principles: [
+        {
+          n: "01",
+          title: "The Customer Is the Hero of the Programme",
+          desc: "We describe the customer's challenge, their situation and their outcome. Jet Concept is the guide who helps them navigate it.",
+        },
+        {
+          n: "02",
+          title: "One Framework for the Entire Programme",
+          desc: "We connect DOA, POA, engineering, execution and airworthiness into a single managed whole.",
+        },
+        {
+          n: "03",
+          title: "Structured Accountability",
+          desc: "We lead the project with clear accountability, reliability and discipline in documentation and communication.",
+        },
+        {
+          n: "04",
+          title: "An Outcome That Holds Up",
+          desc: "We deliver outputs that are technically correct, regulatorily approved and bring real benefit to the operation of the aircraft.",
+        },
+      ],
+      formulations: [
+        {
+          quote: "The modification is approved. The project can fly.",
+          context: "Hook · Business jet completion",
+          detail: "The scope of the change was clearly defined. I take design, certification and manufacturing into one programme. The customer knows what is happening, and the aircraft is ready on time.",
+        },
+        {
+          quote: "Three parties, one programme. That is not how it should work.",
+          context: "Hook · Jet Concept as a single partner",
+          detail: "The certification and manufacturing process must be designed correctly from the start. Jet Concept holds design, certification and manufacturing together – the customer does not have to get lost between multiple parties.",
+        },
+        {
+          quote: "Certification arrives sooner than you think – if you know what to prepare.",
+          context: "Hook · Airworthiness & certification",
+          detail: "We classify changes, manage the approval process and prepare compliance documentation so the project does not stall on a poorly chosen approach.",
+        },
+        {
+          quote: "The cabin is complete. Documentation checks out. The aircraft is waiting for the customer.",
+          context: "Hook · Redelivery & conversion",
+          detail: "We manage completion or conversion programmes from concept to manufacturing and documentation readiness. The customer gets a result that looks right, works correctly and stands up technically.",
+        },
+      ],
+    },
+    process: {
+      perex: "Every Jet Concept programme passes through five managed steps. The customer has a clear picture at every moment – they know where the programme stands and what comes next.",
+      steps: [
+        {
+          n: "01",
+          title: "Brief & Technical Scope",
+          desc: "You share the intent, scope and operational context with us. Together we define the approach and first steps. You leave with a clear picture of the process.",
+        },
+        {
+          n: "02",
+          title: "Design & Engineering",
+          desc: "We develop the technical concept, perform calculations and analyses and prepare the foundation for the approval process. We share progress and key decisions continuously.",
+        },
+        {
+          n: "03",
+          title: "Certification & Approval",
+          desc: "We lead the approval process, prepare compliance documentation and coordinate tests and validations. The certification element of the programme runs in parallel.",
+        },
+        {
+          n: "04",
+          title: "Manufacturing",
+          desc: "We manufacture approved parts and assemblies, coordinate suppliers and prepare outputs for installation. Manufacturing follows directly from the approved design.",
+        },
+        {
+          n: "05",
+          title: "Handover & Installation Documentation",
+          desc: "We hand over complete documentation and manufacturing outputs. To you or your Part 145. The programme is closed. Documentation is clean. Installation can proceed.",
+        },
+      ],
+    },
+    contact: {
+      title: "Ready to Take Your Programme",
+      perex: "Share the scope and intent with us. We will show you how Jet Concept will approach the programme – what it takes on, how it will run and what you will receive at the end. A concrete process for your situation.",
+      messages: [
+        "One partner. Clear accountability. A result you can rely on.",
+        "Certification from day one – running in parallel with design, not behind it.",
+        "You know where the programme stands and what comes next. At every step.",
+      ],
+      cta: "Contact Us",
+    },
+    footer: {
+      label: "Jet Concept · Strategy 2026",
+      confidential: "Internal document · Confidential",
+    },
+    ui: {
+      situationLabel: "SITUATION",
+      actionLabel: "What We Do",
+      valueLabel: "Outcome",
+      helpWith: "We help with:",
+    },
+  },
+} as const;
