@@ -26,10 +26,10 @@ export const translations = {
       s07: { label: "07 · Kontakt", title: "Připraveni převzít váš program" },
     },
     about: {
-      p1: "Větší změna letadla vyžaduje partnera, který spojuje technický návrh, schvalovací proces i výrobu v jeden celek. Jet Concept je od toho – přebíráme zodpovědnost za celý program tak, aby každý krok navazoval na ten předchozí a zákazník měl v každém momentu jasný přehled o průběhu.",
+      p1: "Větší změna letadla vyžaduje partnera, který spojuje technický návrh, schvalovací proces i výrobu v jeden celek. Jet Concept je od toho – přebíráme odpovědnost za celý program tak, aby každý krok navazoval na ten předchozí a zákazník měl v každém momentu jasný přehled o průběhu.",
       p2: "Pracujeme s majiteli a operátory business jetů, aeroliniemi, lessory a completion centry. Výsledkem každého programu je letadlo schopné plnit roli, pro kterou ho zákazník potřebuje – s čistou dokumentací a ověřeným certifikačním základem.",
       identityTitle: "Identita entity",
-      identityDesc: "Integrační a certifikační vrstva AIR TEAM pro komplexní technické změny letadel.",
+      identityDesc: "Integrační a certifikační vrstva AIR TEAMu pro komplexní technické změny letadel.",
       identityBody: "Když zákazník řeší větší změnu letadla, nestačí mu běžný servis ani jeden dodavatel jedné části. Potřebuje partnera, který se vyzná v návrhu, certifikaci i výrobě a dokáže celý postup udržet pod kontrolou. Právě to je role Jet Conceptu.",
       identityTags: ["Rozhodný", "Strukturovaný", "Technicky silný", "Diskrétní", "Odpovědný"],
       roleTitle: "Strategická role entity",
@@ -130,7 +130,7 @@ export const translations = {
       ],
     },
     why: {
-      perex: "Jet Concept dává zákazníkovi jistotu, že se větší změna letadla nerozpadne mezi více stran. Nestačí říkat, že to umíme – stavíme důvěru na konkrétních schváleních, referencích a schopnosti prezentovat proces, ne jen výsledek.",
+      perex: "Jet Concept dává zákazníkovi jistotu, že se větší změna letadla nerozpadne mezi více stranami. Nestačí říkat, že to umíme – stavíme důvěru na konkrétních schváleních, referencích a schopnosti prezentovat proces, ne jen výsledek.",
       pillarsTitle: "Nabídka hodnoty – 5 pilířů",
       situationsTitle: "Situace, které Jet Concept pomáhá zvládnout",
       situationLabel: "SITUACE",
@@ -483,7 +483,7 @@ export const translations = {
         {
           n: "04",
           title: "An Outcome That Holds Up",
-          desc: "We deliver outputs that are technically correct, regulatorily approved and bring real benefit to the operation of the aircraft.",
+          desc: "We deliver outputs that are technically correct, approved by the regulator and bring real benefit to the operation of the aircraft.",
         },
       ],
       formulations: [
