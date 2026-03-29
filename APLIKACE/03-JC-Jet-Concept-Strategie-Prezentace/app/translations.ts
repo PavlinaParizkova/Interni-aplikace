@@ -47,7 +47,7 @@ export const translations = {
       visionTitle: "Vize",
       visionDesc: "Být partner, na kterého se zákazník obrátí ve chvíli, kdy potřebuje změnu letadla udělat správně, bezpečně a bez chaosu mezi více dodavateli.",
       missionTitle: "Mise",
-      missionDesc: "Navrhujeme, certifikujeme a vyrábíme technicky náročné změny letadel tak, aby zákazník věděl, co se děje, co je v sázce a jaký bude další krok.",
+      missionDesc: "Technicky náročné změny letadel vedeme od konceptu přes certifikaci až po výrobu – zákazník vždy ví, co se děje, co přijde dál a co dostane na konci.",
       purposeTitle: "Poslání",
       purposeDesc: "Pomáháme zákazníkům změnit letadlo nebo jeho konfiguraci bez zbytečné nejistoty. Přinášíme technickou jistotu, pořádek v procesu a odpovědnost za to, co navrhujeme a vyrábíme.",
     },
@@ -57,9 +57,9 @@ export const translations = {
         {
           number: "01",
           title: "DOA a design engineering",
-          situation: "Stojíte před větší změnou letadla a chcete mít jasno o technickém postupu od prvního dne. Správný koncept a ověřený technický základ jsou klíčem k hladkému průběhu celého programu.",
+          situation: "Potřebujete jasno v technickém postupu hned od začátku – ať jde o minor change, STC nebo komplexní konverzi. Správný koncept a ověřený technický základ jsou klíčem k hladkému průběhu programu.",
           action: "Zpracujeme koncept modifikace nebo přestavby. Navrhneme systémové a kabinové změny, provedeme výpočty a analýzy, připravíme technickou dokumentaci. Průběžně rozhodujeme technické otázky, aby program udržel tempo.",
-          value: "Přesně víte, do čeho jdete. Program stojí na ověřeném technickém základě a každý navazující krok je správně připravený.",
+          value: "Víte, do čeho jdete. Program stojí na ověřeném technickém základě a každý navazující krok je správně připravený.",
         },
         {
           number: "02",
@@ -73,7 +73,7 @@ export const translations = {
           title: "Certifikace a regulační schválení",
           situation: "Program vyžaduje regulační schválení. Chcete partnera, který přebere schvalovací proces, připraví compliance dokumentaci a koordinuje postup s regulátorem – aby certifikace probíhala souběžně s projektem, ne za ním.",
           action: "Klasifikujeme změny a opravy (major/minor change). Vedeme schvalovací proces včetně přípravy podkladů pro STC nebo schválení pod DOA. Tvoříme a spravujeme compliance dokumentaci. Koordinujeme testy, validace a vše potřebné k získání schválení.",
-          value: "STC nebo schválená dokumentace jsou součástí výstupu programu – připravená k předání. Certifikační část projektu postupuje souběžně s návrhem a výrobou.",
+          value: "STC nebo certifikační podklady jsou součástí výstupu programu – připravené k předání. Certifikační část projektu postupuje souběžně s návrhem a výrobou.",
         },
         {
           number: "04",
@@ -85,8 +85,8 @@ export const translations = {
         {
           number: "05",
           title: "Aircraft conversions",
-          situation: "Letadlo má dostat novou roli nebo odlišnou konfiguraci. Chcete program, který strukturální, systémové i interiérové změny drží v jednom řízeném celku a dodá certifikovaný výstup.",
-          action: "Realizujeme role change programy, medevac, head of state nebo mission cabin konfigurace. Zpracujeme úpravy kabiny, systémů a rozhraní. Zajistíme AD compliance a certifikační rámec pro celý rozsah změn. Strukturální, systémové i interiérové části programu koordinujeme jako jeden celek.",
+          situation: "Letadlo má dostat novou roli nebo odlišnou konfiguraci. Potřebujete program, který systémové a kabinové změny drží v jednom řízeném celku a dodá certifikovaný výstup.",
+          action: "Realizujeme role change programy, medevac, head of state nebo mission cabin konfigurace. Zpracujeme úpravy kabiny, systémů a rozhraní. Zajistíme certifikační rámec pro celý rozsah změn. Systémové a kabinové části programu koordinujeme jako jeden celek.",
           value: "Letadlo odpovídá nové provozní roli – s čistou dokumentací a schváleným výstupem.",
         },
         {
@@ -101,7 +101,7 @@ export const translations = {
     segments: {
       perex: "Jet Concept pracuje s klienty v segmentech Business a Commercial. Oblast Defense zůstává dlouhodobým rozvojovým směrem.",
       businessTitle: "Business",
-      businessDesc: "Připravujete kabinový program, modernizaci nebo specifickou úpravu business jetu? Pracujeme s klienty, kteří kladou důraz na kvalitu provedení, diskrétní vedení programu a prémiový výsledek.",
+      businessDesc: "Plánujete cabin completion, modernizaci nebo specifickou úpravu business jetu? Pracujeme s klienty, kteří kladou důraz na kvalitu provedení, diskrétní vedení programu a prémiový výsledek.",
       businessHelp: "Pomáháme s:",
       businessItems: [
         "VIP a VVIP cabin completions – od konceptu po certifikovaný výstup",
@@ -278,7 +278,7 @@ export const translations = {
       visionTitle: "Vision",
       visionDesc: "To be the partner a customer turns to when they need an aircraft modification done correctly, safely and without chaos across multiple suppliers.",
       missionTitle: "Mission",
-      missionDesc: "We design, certify and manufacture technically demanding aircraft modifications so that the customer always knows what is happening, what is at stake and what the next step is.",
+      missionDesc: "We take technically demanding aircraft changes from initial concept through certification to manufacturing – so the customer always knows what is happening, what comes next and what they will receive.",
       purposeTitle: "Purpose",
       purposeDesc: "We help customers change an aircraft or its configuration without unnecessary uncertainty. We bring technical confidence, process discipline and accountability for everything we design and manufacture.",
     },
@@ -288,9 +288,9 @@ export const translations = {
         {
           number: "01",
           title: "DOA & Design Engineering",
-          situation: "You are facing a major aircraft change and want clarity on the technical approach from day one. The right concept and a verified technical basis are key to a smooth program.",
-          action: "We develop the modification or conversion concept. We design systems and cabin changes, perform calculations and analyses, and prepare technical documentation. We resolve technical questions continuously so the program maintains pace.",
-          value: "You know exactly what you are getting into. The program is built on a verified technical foundation and every subsequent step is properly prepared.",
+          situation: "You need a clear technical approach from the start – whether it is a minor change, an STC or a full conversion. The right concept and a verified technical basis are what keeps the programme on track.",
+          action: "We develop the modification or conversion concept. We design systems and cabin changes, perform calculations and analyses, and prepare technical documentation. We resolve technical questions continuously so the programme maintains pace.",
+          value: "You know what you are getting into. The programme is built on a verified technical foundation and every subsequent step is properly set up.",
         },
         {
           number: "02",
@@ -304,7 +304,7 @@ export const translations = {
           title: "Certification & Regulatory Approval",
           situation: "The program requires regulatory approval. You need a partner who takes over the approval process, prepares compliance documentation and coordinates with the regulator – so that certification runs in parallel with the project, not behind it.",
           action: "We classify changes and repairs (major/minor change). We manage the approval process including preparation of STC submissions or approval under DOA. We create and maintain compliance documentation. We coordinate tests, validations and everything required to obtain approval.",
-          value: "STC or approved documentation is part of the program output – ready for handover. The certification element of the project runs in parallel with design and manufacturing.",
+          value: "STC or certification documentation is part of the programme output – ready for handover. The certification element runs in parallel with design and manufacturing.",
         },
         {
           number: "04",
@@ -316,8 +316,8 @@ export const translations = {
         {
           number: "05",
           title: "Aircraft Conversions",
-          situation: "The aircraft is to take on a new role or a different configuration. You need a program that keeps structural, systems and interior changes within a single managed whole and delivers a certified output.",
-          action: "We execute role change programs, medevac, head of state and mission cabin configurations. We process cabin, systems and interface modifications. We ensure AD compliance and a certification framework for the full scope of changes. Structural, systems and interior elements of the programme are coordinated as a single whole.",
+          situation: "The aircraft is to take on a new role or a different configuration. You need a programme that keeps systems and cabin changes within a single managed whole and delivers a certified output.",
+          action: "We execute role change programmes, medevac, head of state and mission cabin configurations. We handle cabin, systems and interface modifications. We ensure a certification framework for the full scope of changes. Systems and cabin elements of the programme are coordinated as a single whole.",
           value: "The aircraft meets its new operational role – with clean documentation and an approved output.",
         },
         {
@@ -332,7 +332,7 @@ export const translations = {
     segments: {
       perex: "Jet Concept works with clients in the Business and Commercial segments. Defense remains a long-term development direction.",
       businessTitle: "Business",
-      businessDesc: "Are you preparing a cabin program, modernization or specific business jet modification? We work with clients who place emphasis on quality of execution, discreet program management and a premium outcome.",
+      businessDesc: "Are you planning a cabin completion, modernisation or a specific business jet modification? We work with clients who value quality of execution, discreet programme management and a clean outcome.",
       businessHelp: "We help with:",
       businessItems: [
         "VIP and VVIP cabin completions – from concept to certified output",
