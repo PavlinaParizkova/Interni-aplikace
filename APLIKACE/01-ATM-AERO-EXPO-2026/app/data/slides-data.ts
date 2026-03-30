@@ -288,4 +288,10 @@ export const LINKS = [
     description: "Sdílená složka s materiály na veletrh",
     external: true,
   },
+  {
+    label: "Google Kalendář – AERO EXPO 2026",
+    href: "https://calendar.google.com/calendar/u/0?cid=Y184OTkxNWJlMTQ4ZWJkMmQzYTczYWU3OGQyZWFlMzY5MDcxMzU0OTM1ODU5Y2MzMjhjYzI0OTY3MWRmOWQ4MDJhQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20",
+    description: "Sdílený kalendář schůzek a programu – přidat do Google Kalendáře",
+    external: true,
+  },
 ];

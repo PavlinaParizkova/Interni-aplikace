@@ -1245,13 +1245,53 @@ export default function Page() {
           </h2>
 
           {/* Meta badges */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: "1.75rem" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: "1.5rem" }}>
             <span style={{ padding: "5px 12px", borderRadius: 6, fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.05em", background: "var(--color-at-blue-v2)", border: "1px solid var(--color-at-blue-v3)", color: "var(--color-at-blue-a5)" }}>
               {t.aeroSync.date}
             </span>
             <span style={{ padding: "5px 12px", borderRadius: 6, fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.05em", background: "var(--color-at-red-15)", border: "1px solid var(--color-at-red-30)", color: "var(--color-at-blue-a5)" }}>
               {t.aeroSync.project}
             </span>
+          </div>
+
+          {/* Google Calendar CTA */}
+          <div style={{ marginBottom: "2.5rem" }}>
+            <a
+              href={t.aeroSync.calendarLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                fontSize: "0.875rem",
+                fontWeight: 700,
+                letterSpacing: "0.04em",
+                color: "var(--color-at-white)",
+                textDecoration: "none",
+                padding: "11px 22px",
+                borderRadius: 7,
+                background: "var(--color-at-red)",
+                border: "2px solid var(--color-at-red)",
+                transition: "background 150ms, border-color 150ms",
+                boxShadow: "0 2px 12px rgba(213,28,23,0.35)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background = "#b51612";
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "#b51612";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background = "var(--color-at-red)";
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "var(--color-at-red)";
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+                <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2" fill="none"/>
+                <path d="M3 9h18" stroke="currentColor" strokeWidth="2"/>
+                <path d="M8 2v4M16 2v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+              {t.aeroSync.calendarLabel}
+            </a>
           </div>
 
           <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 720, lineHeight: 1.7, marginBottom: "2.5rem", fontSize: "0.95rem" }}>

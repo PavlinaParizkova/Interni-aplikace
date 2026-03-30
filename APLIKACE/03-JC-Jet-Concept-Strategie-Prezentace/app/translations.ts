@@ -255,6 +255,8 @@ export const translations = {
       ],
       fathomLabel: "Záznam meetingu",
       fathomLink: "https://fathom.video/share/Z9qsypoqzCU74QFttix1A87jBQz7pLRS",
+      calendarLabel: "Přidat Aero FN 2026 do Google Kalendáře",
+      calendarLink: "https://calendar.google.com/calendar/u/0?cid=Y184OTkxNWJlMTQ4ZWJkMmQzYTczYWU3OGQyZWFlMzY5MDcxMzU0OTM1ODU5Y2MzMjhjYzI0OTY3MWRmOWQ4MDJhQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20",
     },
     footer: {
       label: "Jet Concept · Strategie 2026",
@@ -522,6 +524,8 @@ export const translations = {
       ],
       fathomLabel: "Meeting Recording",
       fathomLink: "https://fathom.video/share/Z9qsypoqzCU74QFttix1A87jBQz7pLRS",
+      calendarLabel: "Add Aero FN 2026 to Google Calendar",
+      calendarLink: "https://calendar.google.com/calendar/u/0?cid=Y184OTkxNWJlMTQ4ZWJkMmQzYTczYWU3OGQyZWFlMzY5MDcxMzU0OTM1ODU5Y2MzMjhjYzI0OTY3MWRmOWQ4MDJhQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20",
     },
     footer: {
       label: "Jet Concept · Strategy 2026",

@@ -91,19 +91,55 @@ export default function SlideCalendar() {
     <div className="flex flex-col flex-1 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
 
       {/* Header */}
-      <div className="mb-4 sm:mb-5">
-        <p
-          className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
-          style={{ color: "var(--color-at-white)" }}
+      <div className="mb-4 sm:mb-5 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+        <div>
+          <p
+            className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
+            style={{ color: "var(--color-at-white)" }}
+          >
+            Logistika · Google Kalendář
+          </p>
+          <h2 className="text-xl sm:text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
+            Metodika schůzek na veletrhu
+          </h2>
+          <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-a5)" }}>
+            Závazná pravidla pro Google Kalendář · Owner: Lucie Kysučanová · AERO EXPO 2026, Friedrichshafen 22.–25. 4. 2026
+          </p>
+        </div>
+
+        {/* Calendar CTA button */}
+        <a
+          href="https://calendar.google.com/calendar/u/0?cid=Y184OTkxNWJlMTQ4ZWJkMmQzYTczYWU3OGQyZWFlMzY5MDcxMzU0OTM1ODU5Y2MzMjhjYzI0OTY3MWRmOWQ4MDJhQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 flex-shrink-0 font-bold text-sm px-5 py-3 rounded-xl transition-opacity hover:opacity-90 active:opacity-75"
+          style={{
+            background: "var(--color-at-red)",
+            color: "var(--color-at-white)",
+            textDecoration: "none",
+            boxShadow: "0 4px 16px rgba(213,28,23,0.35)",
+            letterSpacing: "0.01em",
+          }}
         >
-          Logistika · Google Kalendář
-        </p>
-        <h2 className="text-xl sm:text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
-          Metodika schůzek na veletrhu
-        </h2>
-        <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-a5)" }}>
-          Závazná pravidla pro Google Kalendář · Owner: Lucie Kysučanová · AERO EXPO 2026, Friedrichshafen 22.–25. 4. 2026
-        </p>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ flexShrink: 0 }}
+          >
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+          </svg>
+          Otevřít kalendář AERO EXPO 2026
+        </a>
       </div>
 
       {/* Main layout */}
