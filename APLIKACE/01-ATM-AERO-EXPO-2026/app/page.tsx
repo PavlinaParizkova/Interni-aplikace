@@ -20,6 +20,7 @@ import SlideAccommodation from "./components/slides/SlideAccommodation";
 import SlideDressCodeBudget from "./components/slides/SlideDressCodeBudget";
 import SlideTotalCosts from "./components/slides/SlideTotalCosts";
 import SlideCalendar from "./components/slides/SlideCalendar";
+import SlideSales from "./components/slides/SlideSales";
 
 export const SLIDES = [
   { component: <SlideCover />,                  label: "Úvod",              section: "Úvod" },
@@ -32,6 +33,7 @@ export const SLIDES = [
   { component: <SlideAccommodation />,           label: "Ubytování",         section: "Logistika" },
   { component: <SlideCalendar />,                label: "Schůzky GCal",      section: "Logistika" },
   { component: <SlideMarketingKit />,            label: "MKT materiály",     section: "MKT materiály" },
+  { component: <SlideSales />,                   label: "Sales & KPIs",      section: "Sales" },
   { component: <SlideDressCode />,               label: "Dress Code",        section: "Dress Code" },
   { component: <SlideDressCodeBudget />,         label: "Rozpočet oblečení", section: "Dress Code" },
   { component: <SlideGifts />,                   label: "Dárky",             section: "Dárky" },
@@ -46,10 +48,11 @@ export const SECTIONS = [
   { label: "Tým",           slideIndex: 2 },
   { label: "Logistika",     slideIndex: 4 },
   { label: "MKT materiály", slideIndex: 9 },
-  { label: "Dress Code",    slideIndex: 10 },
-  { label: "Dárky",         slideIndex: 12 },
-  { label: "Stánek",        slideIndex: 14 },
-  { label: "Souhrn",        slideIndex: 15 },
+  { label: "Sales",         slideIndex: 10 },
+  { label: "Dress Code",    slideIndex: 11 },
+  { label: "Dárky",         slideIndex: 13 },
+  { label: "Stánek",        slideIndex: 15 },
+  { label: "Souhrn",        slideIndex: 16 },
 ];
 
 type Direction = "forward" | "backward" | null;

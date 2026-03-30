@@ -1,4 +1,4 @@
-﻿const ITEMS = [
+const ITEMS = [
   {
     icon: "✉",
     title: "E-mailový banner",
@@ -11,6 +11,8 @@
     title: "LinkedIn profil",
     subtitle: "Osobní profil",
     note: "Aktualizace před veletrhem",
+    link: "https://drive.google.com/file/d/1LFz0qAATv7f2wrVwxQCyWVCiH7nEA_x3/view?usp=drive_link",
+    linkLabel: "Stáhnout podklady",
   },
   {
     icon: "📲",
@@ -103,7 +105,7 @@ export default function SlideMarketingKit() {
 
             {/* Note */}
             <div
-              className="mt-auto pt-3"
+              className="mt-auto pt-3 flex flex-col gap-2"
               style={{ borderTop: "1px solid var(--color-at-blue-v4)" }}
             >
               <p
@@ -112,6 +114,22 @@ export default function SlideMarketingKit() {
               >
                 {item.note}
               </p>
+              {"link" in item && typeof (item as { link?: string }).link === "string" && (item as { link?: string }).link !== "" && (
+                <a
+                  href={(item as { link: string }).link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-md w-full"
+                  style={{
+                    background: "var(--color-at-red)",
+                    color: "var(--color-at-white)",
+                    textDecoration: "none",
+                    letterSpacing: "0.03em",
+                  }}
+                >
+                  ↓ {(item as { linkLabel?: string }).linkLabel ?? "Stáhnout"}
+                </a>
+              )}
             </div>
           </div>
         ))}
