@@ -61,8 +61,13 @@ export default function SlideNav({
           AERO EXPO 2026
         </span>
         <span
-          className="hidden md:inline text-xs font-black tracking-widest uppercase px-2 py-0.5 rounded"
-          style={{ background: "var(--color-at-red)", color: "var(--color-at-white)", letterSpacing: "0.1em" }}
+          className="text-xs font-black tracking-widest uppercase px-2 py-1 rounded"
+          style={{
+            background: "var(--color-at-red)",
+            color: "var(--color-at-white)",
+            letterSpacing: "0.1em",
+            boxShadow: "0 0 0 1px rgba(213,28,23,0.4)",
+          }}
         >
           A6-102
         </span>
