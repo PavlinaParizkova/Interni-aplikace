@@ -1,9 +1,9 @@
-﻿"use client";
+"use client";
 
 type SlideNavProps = {
   current: number;
   total: number;
-  sections: { label: string; slideIndex: number }[];
+  sections: { label: string; slideIndex: number; hasUpdate?: boolean }[];
   onPrev: () => void;
   onNext: () => void;
   onGoTo: (index: number) => void;
@@ -60,6 +60,12 @@ export default function SlideNav({
         >
           AERO EXPO 2026
         </span>
+        <span
+          className="hidden md:inline text-xs font-black tracking-widest uppercase px-2 py-0.5 rounded"
+          style={{ background: "var(--color-at-red)", color: "var(--color-at-white)", letterSpacing: "0.1em" }}
+        >
+          A6-102
+        </span>
       </div>
 
       {/* Center: Mobile – current section name | Tablet+ – scrollable tabs */}
@@ -80,11 +86,23 @@ export default function SlideNav({
               <button
                 key={section.label}
                 onClick={() => onGoTo(section.slideIndex)}
-                className={`px-3 py-1.5 rounded text-xs font-semibold tracking-wide flex-shrink-0 ${
+                className={`px-3 py-1.5 rounded text-xs font-semibold tracking-wide flex-shrink-0 flex items-center gap-1.5 ${
                   isActive ? "btn-secondary" : "btn-nav-ghost"
                 }`}
               >
                 {String(i + 1).padStart(2, "0")} {section.label}
+                {section.hasUpdate && (
+                  <span
+                    style={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: "50%",
+                      background: "var(--color-at-red)",
+                      flexShrink: 0,
+                      display: "inline-block",
+                    }}
+                  />
+                )}
               </button>
             );
           })}

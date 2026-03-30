@@ -31,9 +31,9 @@ export const SLIDES = [
   { component: <SlideChecklistTransport />,      label: "✓ Doprava",         section: "Logistika" },
   { component: <SlideChecklistAttendance />,     label: "✓ Účast",           section: "Logistika" },
   { component: <SlideAccommodation />,           label: "Ubytování",         section: "Logistika" },
-  { component: <SlideCalendar />,                label: "Schůzky GCal",      section: "Logistika" },
-  { component: <SlideMarketingKit />,            label: "MKT materiály",     section: "MKT materiály" },
-  { component: <SlideSales />,                   label: "Sales & KPIs",      section: "Sales" },
+  { component: <SlideCalendar />,                label: "Schůzky GCal",      section: "Logistika",     updated: true },
+  { component: <SlideMarketingKit />,            label: "MKT materiály",     section: "MKT materiály", updated: true },
+  { component: <SlideSales />,                   label: "Sales & KPIs",      section: "Sales",         updated: true },
   { component: <SlideDressCode />,               label: "Dress Code",        section: "Dress Code" },
   { component: <SlideDressCodeBudget />,         label: "Rozpočet oblečení", section: "Dress Code" },
   { component: <SlideGifts />,                   label: "Dárky",             section: "Dárky" },
@@ -53,7 +53,11 @@ export const SECTIONS = [
   { label: "Dárky",         slideIndex: 13 },
   { label: "Stánek",        slideIndex: 15 },
   { label: "Souhrn",        slideIndex: 16 },
-];
+].map((sec, i, arr) => {
+  const end = arr[i + 1]?.slideIndex ?? SLIDES.length;
+  const hasUpdate = SLIDES.slice(sec.slideIndex, end).some((s) => s.updated);
+  return { ...sec, hasUpdate };
+});
 
 type Direction = "forward" | "backward" | null;
 
@@ -204,7 +208,7 @@ export default function Home() {
       <SlideDrawer
         open={drawerOpen}
         current={current}
-        slides={SLIDES}
+        slides={SLIDES.map((s) => ({ label: s.label, section: s.section, updated: s.updated }))}
         sections={SECTIONS}
         onGoTo={(i) => { goTo(i); setDrawerOpen(false); }}
         onClose={() => setDrawerOpen(false)}

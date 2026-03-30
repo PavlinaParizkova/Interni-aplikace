@@ -1,8 +1,8 @@
-﻿"use client";
+"use client";
 
 import { useEffect } from "react";
 
-type SlideItem = { label: string; section: string };
+type SlideItem = { label: string; section: string; updated?: boolean };
 type SectionItem = { label: string; slideIndex: number };
 
 type SlideDrawerProps = {
@@ -209,10 +209,29 @@ export default function SlideDrawer({
                         fontWeight: isActive ? 700 : 400,
                         color: isActive ? "var(--color-at-white)" : "var(--color-at-blue-v5)",
                         lineHeight: 1.3,
+                        flex: 1,
                       }}
                     >
                       {item.label}
                     </span>
+                    {/* Updated badge */}
+                    {item.updated && (
+                      <span
+                        style={{
+                          fontSize: 9,
+                          fontWeight: 800,
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                          color: "var(--color-at-white)",
+                          background: "var(--color-at-red)",
+                          padding: "1px 5px",
+                          borderRadius: 3,
+                          flexShrink: 0,
+                        }}
+                      >
+                        NOVÉ
+                      </span>
+                    )}
                   </button>
                 );
               })}
