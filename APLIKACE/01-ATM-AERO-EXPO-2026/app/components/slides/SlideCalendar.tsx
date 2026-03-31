@@ -12,6 +12,7 @@ const COLORS = [
   {
     dot: "#D50000",
     gcal: "Tomato",
+    gcalCz: "Rajče",
     prefix: "[CEO]",
     label: "CEO – Petr Polák",
     desc: "Vyžaduje přítomnost CEO. Nelze přesunout bez jeho souhlasu. Přítomen 22.–24. 4.",
@@ -20,6 +21,7 @@ const COLORS = [
   {
     dot: "#1565C0",
     gcal: "Blueberry",
+    gcalCz: "Borůvka",
     prefix: "[STÁNEK]",
     label: "Na stánku",
     desc: "Zákazník nebo partner přichází k nám na stánek AIR TEAM.",
@@ -28,6 +30,7 @@ const COLORS = [
   {
     dot: "#0097A7",
     gcal: "Peacock",
+    gcalCz: "Páv",
     prefix: "[ZÁKAZNÍK]",
     label: "U zákazníka (areál)",
     desc: "Náš tým jde za zákazníkem do jeho stánku v areálu veletrhu.",
@@ -36,6 +39,7 @@ const COLORS = [
   {
     dot: "#EF6C00",
     gcal: "Tangerine",
+    gcalCz: "Mandarinková",
     prefix: "[OFF-SITE]",
     label: "Mimo veletrh",
     desc: "Schůzka mimo areál Messe – restaurace, hotel, jiné místo.",
@@ -44,6 +48,7 @@ const COLORS = [
   {
     dot: "#2E7D32",
     gcal: "Sage",
+    gcalCz: "Šalvěj",
     prefix: "[INTERNÍ]",
     label: "Interní tým",
     desc: "Briefing, debriefing, koordinace, interní rozhodnutí.",
@@ -52,6 +57,7 @@ const COLORS = [
   {
     dot: "#616161",
     gcal: "Graphite",
+    gcalCz: "Grafit",
     prefix: "[SETUP]",
     label: "Setup & logistika",
     desc: "Příprava stánku, transport, příjezd, technická příprava.",
@@ -60,6 +66,7 @@ const COLORS = [
   {
     dot: "#F9A825",
     gcal: "Banana",
+    gcalCz: "Banánová",
     prefix: "[BUFFER]",
     label: "Volný slot / rezerva",
     desc: "Nepotvrzená schůzka, buffer pro příchozí zájem, holding slot.",
@@ -152,10 +159,10 @@ export default function SlideCalendar() {
         >
           {/* thead */}
           <div
-            className="grid px-4 py-2.5 text-xs font-bold uppercase tracking-widest min-w-[560px]"
+            className="grid px-4 py-2.5 text-xs font-bold uppercase tracking-widest min-w-[600px]"
             style={{
-              gridTemplateColumns: "20px 100px 120px 1fr",
-              gap: "14px",
+              gridTemplateColumns: "20px 80px 80px 120px 1fr",
+              gap: "12px",
               background: "var(--color-at-blue)",
               color: "var(--color-at-white)",
               borderBottom: "2px solid var(--color-at-blue-v3)",
@@ -163,7 +170,8 @@ export default function SlideCalendar() {
             }}
           >
             <span />
-            <span>GCal barva</span>
+            <span>GCal (EN)</span>
+            <span>GCal (CZ)</span>
             <span>Prefix</span>
             <span>Popis · Description</span>
           </div>
@@ -172,10 +180,10 @@ export default function SlideCalendar() {
           {COLORS.map((c, i) => (
             <div
               key={c.gcal}
-              className="grid px-4 py-3 text-sm items-start min-w-[560px]"
+              className="grid px-4 py-3 text-sm items-start min-w-[600px]"
               style={{
-                gridTemplateColumns: "20px 100px 120px 1fr",
-                gap: "14px",
+                gridTemplateColumns: "20px 80px 80px 120px 1fr",
+                gap: "12px",
                 background: i % 2 === 0 ? ROW_ODD : ROW_EVEN,
                 borderBottom: i < COLORS.length - 1 ? "1px solid #c0d0e0" : "none",
                 borderRadius: i === COLORS.length - 1 ? "0 0 12px 12px" : undefined,
@@ -195,9 +203,14 @@ export default function SlideCalendar() {
                 }}
               />
 
-              {/* GCal name */}
+              {/* GCal name EN */}
               <span className="font-bold text-xs" style={{ color: TEXT_MAIN }}>
                 {c.gcal}
+              </span>
+
+              {/* GCal name CZ */}
+              <span className="font-bold text-xs" style={{ color: TEXT_SUB }}>
+                {c.gcalCz}
               </span>
 
               {/* prefix badge – btn-secondary style (air-blue bg, white text) */}

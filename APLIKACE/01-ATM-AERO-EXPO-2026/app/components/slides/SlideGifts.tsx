@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect, useCallback } from "react";
 
@@ -20,9 +20,15 @@ const CATEGORIES: GiftCategory[] = [
     target: "Všichni návštěvníci",
     items: [
       {
-        name: "Energetický nápoj",
-        note: "PilotStyle + ATM · 100 ks každý · zajišťuje Simča",
-        image: "/darky-energy-drink.png",
+        name: "Energetický nápoj AIR TEAM",
+        note: "ATM verze · 100 ks · zajišťuje Simča",
+        image: "/darky-energy-drink-airteam.png",
+        status: "done",
+      },
+      {
+        name: "Energetický nápoj PilotStyle",
+        note: "PilotStyle verze · 100 ks · zajišťuje Simča",
+        image: "/darky-energy-drink-pilotstyle.png",
         status: "done",
       },
       {

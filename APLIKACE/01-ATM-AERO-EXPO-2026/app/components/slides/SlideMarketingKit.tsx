@@ -3,8 +3,10 @@ const ITEMS = [
     icon: "✉",
     title: "E-mailový banner",
     subtitle: "Podpis e-mailu",
-    note: "Nastaví Pavlína Pařízková",
+    note: "Nastaveno na Google Admin Consoli",
     highlight: true,
+    link: "https://live.airteam.eu/hubfs/MKT-email/01_38_10%20ATM_AE_2026_email_banner_542x135_fin.jpg",
+    linkLabel: "Otevřít banner",
   },
   {
     icon: "👤",

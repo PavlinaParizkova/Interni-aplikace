@@ -1,4 +1,4 @@
-﻿export default function SlideCover() {
+export default function SlideCover() {
   return (
     <div
       className="flex flex-col items-center flex-1 text-center px-8 relative overflow-hidden"
@@ -82,7 +82,7 @@
       </p>
 
       {/* Event info */}
-      <div className="flex items-center gap-4 mt-2">
+      <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
         <span
           className="px-4 py-2 rounded text-sm font-semibold tracking-wide"
           style={{ background: "rgba(16,37,62,0.55)", color: "var(--color-at-white)", border: "1px solid rgba(255,255,255,0.15)" }}
@@ -95,6 +95,13 @@
           style={{ background: "rgba(16,37,62,0.55)", color: "var(--color-at-white)", border: "1px solid rgba(255,255,255,0.15)" }}
         >
           Friedrichshafen, Německo
+        </span>
+        <span style={{ color: "var(--color-at-blue-v5)" }}>·</span>
+        <span
+          className="px-4 py-2 rounded text-sm font-black tracking-widest uppercase"
+          style={{ background: "var(--color-at-red)", color: "var(--color-at-white)", letterSpacing: "0.12em" }}
+        >
+          Stánek A6-102
         </span>
       </div>
 

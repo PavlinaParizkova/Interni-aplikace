@@ -266,6 +266,57 @@ export const CHECKLIST_ATTENDANCE: ChecklistItem[] = [
   },
 ];
 
+export const CHECKLIST_DRESSCODE: ChecklistItem[] = [
+  {
+    id: "dc-sizes-all",
+    label: "Všichni členové týmu potvrdili velikosti polokošile i mikiny (viz slide Dress Code → Výběr velikostí)",
+  },
+  {
+    id: "dc-counts-confirmed",
+    label: "Celkový počet kusů per velikost zkontrolován a připraven pro objednávku",
+  },
+  {
+    id: "dc-print-approved",
+    label: "Grafické podklady pro potisk / výšivku schváleny a předány dodavateli (logo AIR TEAM přední, text záda)",
+  },
+  {
+    id: "dc-order-polo-men",
+    label: "Objednáno u Malfini Premium – Collar Up 256 (pánská polokošile, bílá #00) v potvrzených velikostech",
+  },
+  {
+    id: "dc-order-bomber-men",
+    label: "Objednáno u Malfini Premium – Bomber 453 (pánská mikina na zip, námořní modrá #02) v potvrzených velikostech",
+  },
+  {
+    id: "dc-order-polo-women",
+    label: "Objednáno u Malfini Premium – Collar Up 257 (dámská polokošile, bílá #00) v potvrzených velikostech",
+  },
+  {
+    id: "dc-order-bomber-women",
+    label: "Objednáno u Malfini Premium – Bomber 454 (dámská mikina na zip, námořní modrá #02) v potvrzených velikostech",
+  },
+  {
+    id: "dc-order-lucie-polo",
+    label: "Objednáno pro Lucii Kysučanovou – Malfini Action 152 (námořní modrá #02) v potvrzené velikosti",
+  },
+  {
+    id: "dc-order-lucie-hoodie",
+    label: "Objednáno pro Lucii Kysučanovou – mikina s nabíranými rukávy BP3869 (Bezpotisku.cz, černá, 697 Kč/ks) v potvrzené velikosti",
+  },
+  {
+    id: "dc-delivery-deadline",
+    label: "Termín výroby a dodání potvrzen – oblečení dorazí nejpozději 4 týdny před veletrhem (25. 3. 2026)",
+  },
+  {
+    id: "dc-delivery-check",
+    label: "Dodávka zkontrolována – správné velikosti, správný potisk, správný počet kusů",
+  },
+  {
+    id: "dc-distribution",
+    label: "Oblečení distribuováno všem členům týmu před odjezdem na veletrh",
+  },
+];
+
 export const LINKS = [
   {
     label: "SOP – Eventy 2026",
