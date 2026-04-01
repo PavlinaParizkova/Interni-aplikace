@@ -25,6 +25,7 @@ type Product = {
   sizeTable?: SizeRow[];
   details: string[];
   price?: string;
+  url?: string;
 };
 
 type TeamMember = {
@@ -62,6 +63,7 @@ const PRODUCTS: Product[] = [
       "Léga s 2 knoflíčky v barvě materiálu",
       "Žebrový úplet 1:1 na límci a manžetách",
     ],
+    url: "https://shop.malfini.com/cz/cs/product/collar-up-256?color=00",
   },
   {
     id: "bomber-453",
@@ -93,6 +95,7 @@ const PRODUCTS: Product[] = [
       "Žebrovaný stojáček s elastanem",
       "Žebro 2:2 + 5% elastan na manžetách a lemu",
     ],
+    url: "https://shop.malfini.com/cz/cs/product/bomber-453?color=02",
   },
   {
     id: "collar-257",
@@ -124,6 +127,7 @@ const PRODUCTS: Product[] = [
       "Léga se 4 knoflíčky zdobenými logem",
       "Žebrový úplet 1:1 na límci a manžetách",
     ],
+    url: "https://shop.malfini.com/cz/cs/product/collar-up-257?color=00",
   },
   {
     id: "bomber-454",
@@ -147,6 +151,7 @@ const PRODUCTS: Product[] = [
       "Žebrovaný stojáček s elastanem",
       "Tvarovaný střih bočními díly",
     ],
+    url: "https://shop.malfini.com/cz/cs/product/bomber-454?color=02",
   },
   {
     id: "action-152",
@@ -171,6 +176,7 @@ const PRODUCTS: Product[] = [
       "Žebrový průkrčník 1:1 s 5% elastanem",
       "Krátké přiléhavé rukávy",
     ],
+    url: "https://shop.malfini.com/cz/cs/product/action-152?color=02",
   },
   {
     id: "next-level-hoodie",
@@ -202,6 +208,7 @@ const PRODUCTS: Product[] = [
       "Žebrované manžety",
     ],
     price: "697 Kč / ks",
+    url: "https://www.bezpotisku.cz/produkt/mikina-s-nabiranymi-rukavy",
   },
 ];
 
@@ -220,22 +227,35 @@ const TEAM: TeamMember[] = [
 
 const PRODUCT_MAP = Object.fromEntries(PRODUCTS.map((p) => [p.id, p]));
 
-const STORAGE_KEY = "aero-expo-dresscode-sizes-v1";
-
-function loadSizes(): SizeSelections {
+async function fetchSizes(): Promise<SizeSelections> {
   try {
-    const raw = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
-    return raw ? JSON.parse(raw) : {};
+    const res = await fetch("/api/sizes");
+    if (!res.ok) return {};
+    return await res.json();
   } catch {
     return {};
   }
 }
 
-function saveSizes(data: SizeSelections) {
+async function saveSize(name: string, polo: string, bomber: string): Promise<SizeSelections> {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    const res = await fetch("/api/sizes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, polo, bomber }),
+    });
+    if (!res.ok) return {};
+    return await res.json();
   } catch {
-    // ignore storage errors
+    return {};
+  }
+}
+
+async function resetSizes(): Promise<void> {
+  try {
+    await fetch("/api/sizes", { method: "DELETE" });
+  } catch {
+    // ignore
   }
 }
 
@@ -306,6 +326,24 @@ function ProductCard({ product }: { product: Product }) {
             );
           })}
         </div>
+
+        {/* Product link – overlaid on image */}
+        {product.url && (
+          <a
+            href={product.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute bottom-3 left-3 flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-black transition-all hover:scale-105"
+            style={{
+              background: "var(--color-at-red)",
+              color: "var(--color-at-white)",
+              boxShadow: "0 4px 14px rgba(213,28,23,0.5)",
+              letterSpacing: "0.01em",
+            }}
+          >
+            Prohlédnout ↗
+          </a>
+        )}
 
         {/* Gender tag */}
         <div className="absolute top-2 left-2">
@@ -657,23 +695,43 @@ function SizeRow({
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function SlideDressCode() {
-  const [tab, setTab]         = useState<"products" | "sizes">("products");
-  const [sizes, setSizes]     = useState<SizeSelections>({});
+  const [tab, setTab]           = useState<"products" | "sizes">("products");
+  const [sizes, setSizes]       = useState<SizeSelections>({});
   const [hydrated, setHydrated] = useState(false);
+  const [saving, setSaving]     = useState(false);
 
   useEffect(() => {
-    setSizes(loadSizes());
-    setHydrated(true);
+    fetchSizes().then((data) => {
+      setSizes(data);
+      setHydrated(true);
+    });
+
+    const interval = setInterval(() => {
+      fetchSizes().then((data) => setSizes(data));
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const setSize = (name: string, type: "polo" | "bomber", size: string) => {
     setSizes((prev) => {
       const current = prev[name] ?? { polo: "", bomber: "" };
+      const newValue = current[type] === size ? "" : size;
       const updated: SizeSelections = {
         ...prev,
-        [name]: { ...current, [type]: current[type] === size ? "" : size },
+        [name]: { ...current, [type]: newValue },
       };
-      saveSizes(updated);
+
+      setSaving(true);
+      saveSize(
+        name,
+        type === "polo" ? newValue : (updated[name]?.polo ?? ""),
+        type === "bomber" ? newValue : (updated[name]?.bomber ?? ""),
+      ).then((serverData) => {
+        if (Object.keys(serverData).length > 0) setSizes(serverData);
+        setSaving(false);
+      });
+
       return updated;
     });
   };
@@ -716,23 +774,30 @@ export default function SlideDressCode() {
 
           {/* Progress pill */}
           {hydrated && (
-            <div
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg flex-shrink-0"
-              style={{
-                background: "var(--color-at-blue-v1)",
-                border: `1px solid ${completedCount === TEAM.length ? "rgba(34,197,94,0.4)" : "var(--color-at-blue-v3)"}`,
-              }}
-            >
+            <div className="flex items-center gap-2 flex-shrink-0 flex-wrap">
               <div
-                className="w-2 h-2 rounded-full"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg"
                 style={{
-                  background: completedCount === TEAM.length ? "#22c55e" : "#f59e0b",
-                  boxShadow: completedCount === TEAM.length ? "0 0 6px rgba(34,197,94,0.5)" : "none",
+                  background: "var(--color-at-blue-v1)",
+                  border: `1px solid ${completedCount === TEAM.length ? "rgba(34,197,94,0.4)" : "var(--color-at-blue-v3)"}`,
                 }}
-              />
-              <span className="text-xs font-bold" style={{ color: "var(--color-at-white)" }}>
-                {completedCount} / {TEAM.length} velikostí vyplněno
-              </span>
+              >
+                <div
+                  className="w-2 h-2 rounded-full"
+                  style={{
+                    background: completedCount === TEAM.length ? "#22c55e" : "#f59e0b",
+                    boxShadow: completedCount === TEAM.length ? "0 0 6px rgba(34,197,94,0.5)" : "none",
+                  }}
+                />
+                <span className="text-xs font-bold" style={{ color: "var(--color-at-white)" }}>
+                  {completedCount} / {TEAM.length} velikostí vyplněno
+                </span>
+              </div>
+              {saving && (
+                <span className="text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
+                  Ukládám…
+                </span>
+              )}
             </div>
           )}
         </div>
@@ -932,7 +997,10 @@ export default function SlideDressCode() {
 
           {/* Reset */}
           <button
-            onClick={() => { setSizes({}); saveSizes({}); }}
+            onClick={() => {
+              setSizes({});
+              resetSizes();
+            }}
             className="text-xs self-start mt-1"
             style={{ color: "var(--color-at-blue-v4)" }}
           >
