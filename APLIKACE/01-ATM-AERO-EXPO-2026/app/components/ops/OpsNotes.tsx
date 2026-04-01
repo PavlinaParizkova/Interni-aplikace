@@ -2,10 +2,12 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { TEAM } from "../../data/slides-data";
+import { TEAM_PINS } from "../../data/team-pins";
 
 type NotesState = { content: string; updatedAt: string; updatedBy: string };
 
 const AUTHOR_KEY = "aero-expo-notes-author";
+const AUTHOR_VERIFIED_KEY = "aero-expo-notes-author-verified";
 
 function formatTs(iso: string) {
   if (!iso) return "";
@@ -83,14 +85,51 @@ export default function OpsNotes() {
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  // PIN auth state
+  const [pinTarget, setPinTarget] = useState<string | null>(null);
+  const [pinInput, setPinInput] = useState("");
+  const [pinError, setPinError] = useState(false);
+  const pinRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
-    const saved = localStorage.getItem(AUTHOR_KEY) ?? "";
-    setAuthor(saved);
+    const savedAuthor = localStorage.getItem(AUTHOR_KEY) ?? "";
+    const savedVerified = localStorage.getItem(AUTHOR_VERIFIED_KEY) ?? "";
+    if (savedAuthor && savedVerified === savedAuthor) setAuthor(savedAuthor);
   }, []);
 
+  useEffect(() => {
+    if (pinTarget) {
+      setPinInput("");
+      setPinError(false);
+      setTimeout(() => pinRef.current?.focus(), 50);
+    }
+  }, [pinTarget]);
+
   const handleAuthorChange = (name: string) => {
-    setAuthor(name);
-    localStorage.setItem(AUTHOR_KEY, name);
+    if (author === name) return;
+    setPinTarget(name);
+  };
+
+  const confirmPin = () => {
+    if (!pinTarget) return;
+    if (pinInput === TEAM_PINS[pinTarget]) {
+      setAuthor(pinTarget);
+      localStorage.setItem(AUTHOR_KEY, pinTarget);
+      localStorage.setItem(AUTHOR_VERIFIED_KEY, pinTarget);
+      setPinTarget(null);
+      setPinInput("");
+      setPinError(false);
+    } else {
+      setPinError(true);
+      setPinInput("");
+      setTimeout(() => pinRef.current?.focus(), 10);
+    }
+  };
+
+  const logoutAuthor = () => {
+    setAuthor("");
+    localStorage.removeItem(AUTHOR_KEY);
+    localStorage.removeItem(AUTHOR_VERIFIED_KEY);
   };
 
   const save = useCallback(
@@ -201,24 +240,93 @@ export default function OpsNotes() {
             </span>
           )}
 
-          {/* Author selector */}
-          <select
-            value={author}
-            onChange={(e) => handleAuthorChange(e.target.value)}
-            className="text-xs rounded-lg px-2 py-1 focus:outline-none"
-            style={{
-              background: "var(--color-at-blue-v2)",
-              color: author ? "var(--color-at-white)" : "var(--color-at-blue-v4)",
-              border: "1px solid var(--color-at-blue-v3)",
-            }}
-          >
-            <option value="">— Kdo zapisuje? —</option>
-            {TEAM.map((m) => (
-              <option key={m.name} value={m.name}>{m.name}</option>
-            ))}
-          </select>
+          {/* Author selector / logout */}
+          {author ? (
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold" style={{ color: "var(--color-at-blue-v5)" }}>
+                {author.split(" ")[0]}
+              </span>
+              <button
+                onClick={logoutAuthor}
+                className="text-xs px-2 py-0.5 rounded"
+                style={{ color: "var(--color-at-blue-v4)", border: "1px solid var(--color-at-blue-v3)" }}
+              >
+                Změnit
+              </button>
+            </div>
+          ) : (
+            <div className="flex flex-wrap gap-1">
+              {TEAM.map((m) => (
+                <button
+                  key={m.name}
+                  onClick={() => handleAuthorChange(m.name)}
+                  title={m.name}
+                  className="text-xs font-bold px-2 py-0.5 rounded hover:opacity-90"
+                  style={{
+                    background: "var(--color-at-blue-v2)",
+                    color: "var(--color-at-white)",
+                    border: "1px solid var(--color-at-blue-v3)",
+                  }}
+                >
+                  {m.initials}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
+
+      {/* PIN dialog */}
+      {pinTarget && (
+        <div
+          className="flex flex-col gap-3 px-4 py-3 rounded-xl"
+          style={{ background: "var(--color-at-blue-v2)", border: "1px solid var(--color-at-blue-v3)" }}
+        >
+          <p className="text-sm font-bold" style={{ color: "var(--color-at-white)" }}>
+            Zadej PIN pro <span style={{ color: "var(--color-at-blue-v5)" }}>{pinTarget}</span>
+          </p>
+          <div className="flex items-center gap-3">
+            <input
+              ref={pinRef}
+              type="password"
+              inputMode="numeric"
+              maxLength={4}
+              value={pinInput}
+              onChange={(e) => { setPinInput(e.target.value.replace(/\D/g, "")); setPinError(false); }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") confirmPin();
+                if (e.key === "Escape") { setPinTarget(null); setPinInput(""); }
+              }}
+              placeholder="• • • •"
+              className="w-24 rounded-lg px-3 py-1.5 text-sm text-center font-mono tracking-widest focus:outline-none"
+              style={{
+                background: "var(--color-at-blue-v1)",
+                border: `1px solid ${pinError ? "var(--color-at-red)" : "var(--color-at-blue-v3)"}`,
+                color: "var(--color-at-white)",
+              }}
+            />
+            <button
+              onClick={confirmPin}
+              className="text-sm font-bold px-4 py-1.5 rounded-lg"
+              style={{ background: "var(--color-at-red)", color: "var(--color-at-white)" }}
+            >
+              Potvrdit
+            </button>
+            <button
+              onClick={() => { setPinTarget(null); setPinInput(""); setPinError(false); }}
+              className="text-xs"
+              style={{ color: "var(--color-at-blue-v4)", textDecoration: "underline" }}
+            >
+              Zrušit
+            </button>
+          </div>
+          {pinError && (
+            <p className="text-xs" style={{ color: "var(--color-at-red)" }}>
+              Nesprávný PIN. Zkus to znovu nebo požádej organizátora.
+            </p>
+          )}
+        </div>
+      )}
 
       {/* Formatting toolbar */}
       <div
