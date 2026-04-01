@@ -111,7 +111,7 @@ export default function SlideTransport() {
       {/* Desktop table */}
       <div
         className="hidden md:block overflow-x-auto rounded-lg"
-        style={{ border: "1px solid var(--color-at-blue-v5)" }}
+        style={{ border: "1px solid var(--color-at-blue-v3)" }}
       >
         <table className="w-full text-sm">
           <thead>
@@ -134,17 +134,17 @@ export default function SlideTransport() {
           </thead>
           <tbody>
             {TRANSPORT.map((row, i) => {
-              const rowBg = i % 2 === 0 ? "#ffffff" : "var(--color-at-black-v4)";
-              const tdStyle = { background: rowBg, borderBottom: "1px solid var(--color-at-blue-v5)" };
+              const rowBg = i % 2 === 0 ? "var(--color-at-blue-v1)" : "var(--color-at-blue-v2)";
+              const tdStyle = { background: rowBg, borderBottom: "1px solid var(--color-at-blue-v2)" };
               return (
                 <tr key={row.name}>
                   <td
                     className="px-4 py-2.5 font-semibold"
-                    style={{ ...tdStyle, color: "var(--color-at-blue)" }}
+                    style={{ ...tdStyle, color: "var(--color-at-white)" }}
                   >
                     {row.name}
                   </td>
-                  <td className="px-4 py-2.5" style={{ ...tdStyle, color: "var(--color-at-blue-v2)" }}>
+                  <td className="px-4 py-2.5" style={{ ...tdStyle, color: "var(--color-at-blue-v5)" }}>
                     {row.route}
                   </td>
                   <td className="px-4 py-2.5" style={tdStyle}>
@@ -158,15 +158,15 @@ export default function SlideTransport() {
                       {row.type}
                     </span>
                   </td>
-                  <td className="px-4 py-2.5 font-semibold" style={{ ...tdStyle, color: "var(--color-at-blue)" }}>
+                  <td className="px-4 py-2.5 font-semibold" style={{ ...tdStyle, color: "var(--color-at-white)" }}>
                     {row.departure}
                   </td>
-                  <td className="px-4 py-2.5 font-semibold" style={{ ...tdStyle, color: "var(--color-at-blue)" }}>
+                  <td className="px-4 py-2.5 font-semibold" style={{ ...tdStyle, color: "var(--color-at-white)" }}>
                     {row.returnDate}
                   </td>
                   <td
                     className="px-4 py-2.5 text-xs"
-                    style={{ ...tdStyle, color: "var(--color-at-blue-v3)" }}
+                    style={{ ...tdStyle, color: "var(--color-at-blue-v5)" }}
                   >
                     {row.note ?? "—"}
                   </td>
