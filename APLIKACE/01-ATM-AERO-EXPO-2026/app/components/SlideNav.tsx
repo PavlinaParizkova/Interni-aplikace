@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 type SlideNavProps = {
   current: number;
   total: number;
@@ -141,6 +143,19 @@ export default function SlideNav({
         >
           →
         </button>
+
+        {/* Operativa link */}
+        <Link
+          href="/ops"
+          className="hidden sm:flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded transition-all hover:opacity-80"
+          style={{
+            background: "var(--color-at-blue-v2)",
+            color: "var(--color-at-blue-v5)",
+            border: "1px solid var(--color-at-blue-v3)",
+          }}
+        >
+          Operativa →
+        </Link>
 
         {/* Hamburger / menu button */}
         <button

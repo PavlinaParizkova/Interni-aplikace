@@ -3,30 +3,27 @@
 import { useState, useEffect } from "react";
 import { CHECKLIST_DRESSCODE } from "../../data/slides-data";
 
-const STORAGE_KEY = "atm-aero-expo-checklist-dresscode";
+const CHECKLIST_KEY = "dresscode";
 
 export default function SlideChecklistDressCode() {
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) setChecked(JSON.parse(saved));
-    } catch {
-      // ignore
-    }
+    fetch(`/api/checklist?key=${CHECKLIST_KEY}`)
+      .then((r) => r.json())
+      .then((data) => { setChecked(data); setMounted(true); })
+      .catch(() => setMounted(true));
   }, []);
 
   const toggle = (id: string) => {
     const next = { ...checked, [id]: !checked[id] };
     setChecked(next);
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    } catch {
-      // ignore
-    }
+    fetch("/api/checklist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ key: CHECKLIST_KEY, checked: next }),
+    }).catch(() => {});
   };
 
   const doneCount = CHECKLIST_DRESSCODE.filter((item) => checked[item.id]).length;
