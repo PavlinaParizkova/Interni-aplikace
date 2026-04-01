@@ -9,13 +9,10 @@ import SlideWhatWePresent from "./components/slides/SlideWhatWePresent";
 import SlideTeam from "./components/slides/SlideTeam";
 import SlideDays from "./components/slides/SlideDays";
 import SlideTransport from "./components/slides/SlideTransport";
-import SlideChecklistTransport from "./components/slides/SlideChecklistTransport";
-import SlideChecklistAttendance from "./components/slides/SlideChecklistAttendance";
 import SlideMarketingKit from "./components/slides/SlideMarketingKit";
 import SlideGifts from "./components/slides/SlideGifts";
 import SlideGiftsBudget from "./components/slides/SlideGiftsBudget";
 import SlideDressCode from "./components/slides/SlideDressCode";
-import SlideChecklistDressCode from "./components/slides/SlideChecklistDressCode";
 import SlideBoothBudget from "./components/slides/SlideBoothBudget";
 import SlideAccommodation from "./components/slides/SlideAccommodation";
 import SlideDressCodeBudget from "./components/slides/SlideDressCodeBudget";
@@ -29,14 +26,11 @@ export const SLIDES = [
   { component: <SlideTeam />,                    label: "Tým",               section: "Tým" },
   { component: <SlideDays />,                    label: "Harmonogram",       section: "Tým" },
   { component: <SlideTransport />,               label: "Doprava",           section: "Logistika" },
-  { component: <SlideChecklistTransport />,      label: "✓ Doprava",         section: "Logistika" },
-  { component: <SlideChecklistAttendance />,     label: "✓ Účast",           section: "Logistika" },
   { component: <SlideAccommodation />,           label: "Ubytování",         section: "Logistika" },
   { component: <SlideCalendar />,                label: "Schůzky GCal",      section: "Logistika",     updated: true },
   { component: <SlideMarketingKit />,            label: "MKT materiály",     section: "MKT materiály", updated: true },
   { component: <SlideSales />,                   label: "Sales & KPIs",      section: "Sales",         updated: true },
-  { component: <SlideDressCode />,               label: "Dress Code",        section: "Dress Code",  updated: true },
-  { component: <SlideChecklistDressCode />,      label: "✓ Oblečení",        section: "Dress Code",  updated: true },
+  { component: <SlideDressCode />,               label: "Dress Code",        section: "Dress Code",    updated: true },
   { component: <SlideDressCodeBudget />,         label: "Rozpočet oblečení", section: "Dress Code" },
   { component: <SlideGifts />,                   label: "Dárky",             section: "Dárky" },
   { component: <SlideGiftsBudget />,             label: "Rozpočet dárků",    section: "Dárky" },
@@ -49,12 +43,12 @@ export const SECTIONS = [
   { label: "Obsah",         slideIndex: 1 },
   { label: "Tým",           slideIndex: 2 },
   { label: "Logistika",     slideIndex: 4 },
-  { label: "MKT materiály", slideIndex: 9 },
-  { label: "Sales",         slideIndex: 10 },
-  { label: "Dress Code",    slideIndex: 11 },
-  { label: "Dárky",         slideIndex: 14 },
-  { label: "Stánek",        slideIndex: 16 },
-  { label: "Souhrn",        slideIndex: 17 },
+  { label: "MKT materiály", slideIndex: 7 },
+  { label: "Sales",         slideIndex: 8 },
+  { label: "Dress Code",    slideIndex: 9 },
+  { label: "Dárky",         slideIndex: 11 },
+  { label: "Stánek",        slideIndex: 13 },
+  { label: "Souhrn",        slideIndex: 14 },
 ].map((sec, i, arr) => {
   const end = arr[i + 1]?.slideIndex ?? SLIDES.length;
   const hasUpdate = SLIDES.slice(sec.slideIndex, end).some((s) => s.updated);
