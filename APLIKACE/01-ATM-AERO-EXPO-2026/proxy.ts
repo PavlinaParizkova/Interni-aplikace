@@ -1,35 +1,27 @@
+import { auth } from "./auth";
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
-const COOKIE_NAME = "atm-aero-auth";
-const LOGIN_PATH  = "/login";
-const API_PATH    = "/api/auth";
+export const proxy = auth((req) => {
+  const isLoggedIn = !!req.auth;
+  const { pathname } = req.nextUrl;
 
-export function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-
-  if (pathname.startsWith(LOGIN_PATH) || pathname.startsWith(API_PATH)) {
-    return NextResponse.next();
-  }
-
+  // Veřejné cesty
   if (
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/api/auth") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/favicon")
   ) {
     return NextResponse.next();
   }
 
-  const token = request.cookies.get(COOKIE_NAME)?.value;
-  const expected = process.env.AUTH_TOKEN?.trim();
-
-  if (!expected || token !== expected) {
-    const loginUrl = request.nextUrl.clone();
-    loginUrl.pathname = LOGIN_PATH;
-    return NextResponse.redirect(loginUrl);
+  // Nepřihlášený → přesměrovat na Google login
+  if (!isLoggedIn) {
+    return NextResponse.redirect(new URL("/login", req.nextUrl.origin));
   }
 
   return NextResponse.next();
-}
+});
 
 export const config = {
   matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],

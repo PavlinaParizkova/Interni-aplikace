@@ -1,13 +1,9 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { TEAM } from "../../data/slides-data";
-import { TEAM_PINS } from "../../data/team-pins";
+import { useSession } from "next-auth/react";
 
 type NotesState = { content: string; updatedAt: string; updatedBy: string };
-
-const AUTHOR_KEY = "aero-expo-notes-author";
-const AUTHOR_VERIFIED_KEY = "aero-expo-notes-author-verified";
 
 function formatTs(iso: string) {
   if (!iso) return "";
@@ -24,47 +20,33 @@ type FormatAction = {
 };
 
 const FORMAT_ACTIONS: FormatAction[] = [
-  { label: "H2",  title: "Nadpis sekce",   prefix: "## " },
-  { label: "H3",  title: "Podnadpis",       prefix: "### " },
-  { label: "B",   title: "Tučné",           wrap: ["**", "**"] },
-  { label: "I",   title: "Kurzíva",         wrap: ["*", "*"] },
-  { label: "—",   title: "Odrážka",         prefix: "- " },
-  { label: "1.",  title: "Číslovaný bod",   prefix: "1. " },
-  { label: "[ ]", title: "Úkol",           prefix: "- [ ] " },
-  { label: "───", title: "Oddělovač",       insert: "\n\n---\n\n" },
+  { label: "H2",  title: "Nadpis sekce",  prefix: "## " },
+  { label: "H3",  title: "Podnadpis",     prefix: "### " },
+  { label: "B",   title: "Tučné",         wrap: ["**", "**"] },
+  { label: "I",   title: "Kurzíva",       wrap: ["*", "*"] },
+  { label: "—",   title: "Odrážka",       prefix: "- " },
+  { label: "1.",  title: "Číslovaný bod", prefix: "1. " },
+  { label: "[ ]", title: "Úkol",         prefix: "- [ ] " },
+  { label: "───", title: "Oddělovač",     insert: "\n\n---\n\n" },
 ];
 
-function applyFormat(
-  textarea: HTMLTextAreaElement,
-  action: FormatAction,
-): string {
+function applyFormat(textarea: HTMLTextAreaElement, action: FormatAction): string {
   const { value, selectionStart, selectionEnd } = textarea;
   const selected = value.slice(selectionStart, selectionEnd);
   let before = value.slice(0, selectionStart);
-  let after = value.slice(selectionEnd);
-  let inserted = "";
+  const after = value.slice(selectionEnd);
 
-  if (action.insert) {
-    inserted = action.insert;
-    return before + inserted + after;
-  }
+  if (action.insert) return before + action.insert + after;
 
   if (action.wrap) {
     const [open, close] = action.wrap;
-    if (selected) {
-      inserted = open + selected + close;
-    } else {
-      inserted = open + "text" + close;
-    }
-    return before + inserted + after;
+    return before + open + (selected || "text") + close + after;
   }
 
   if (action.prefix) {
-    // Apply prefix at start of line
     const lineStart = before.lastIndexOf("\n") + 1;
     const linePrefix = before.slice(lineStart);
     if (linePrefix.startsWith(action.prefix)) {
-      // Toggle off
       before = before.slice(0, lineStart) + linePrefix.slice(action.prefix.length);
     } else {
       before = before.slice(0, lineStart) + action.prefix + linePrefix;
@@ -76,94 +58,43 @@ function applyFormat(
 }
 
 export default function OpsNotes() {
+  const { data: session } = useSession();
+  const author = session?.user?.name ?? "";
+
   const [content, setContent] = useState("");
   const [updatedAt, setUpdatedAt] = useState("");
   const [updatedBy, setUpdatedBy] = useState("");
   const [saving, setSaving] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [author, setAuthor] = useState("");
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // PIN auth state
-  const [pinTarget, setPinTarget] = useState<string | null>(null);
-  const [pinInput, setPinInput] = useState("");
-  const [pinError, setPinError] = useState(false);
-  const pinRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    const savedAuthor = localStorage.getItem(AUTHOR_KEY) ?? "";
-    const savedVerified = localStorage.getItem(AUTHOR_VERIFIED_KEY) ?? "";
-    if (savedAuthor && savedVerified === savedAuthor) setAuthor(savedAuthor);
+  const save = useCallback((value: string, by: string) => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(async () => {
+      setSaving(true);
+      try {
+        const res = await fetch("/api/notes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ content: value, updatedBy: by }),
+        });
+        const data: NotesState = await res.json();
+        setUpdatedAt(data.updatedAt);
+        setUpdatedBy(data.updatedBy);
+      } catch {
+        // ignore
+      } finally {
+        setSaving(false);
+      }
+    }, 1000);
   }, []);
-
-  useEffect(() => {
-    if (pinTarget) {
-      setPinInput("");
-      setPinError(false);
-      setTimeout(() => pinRef.current?.focus(), 50);
-    }
-  }, [pinTarget]);
-
-  const handleAuthorChange = (name: string) => {
-    if (author === name) return;
-    setPinTarget(name);
-  };
-
-  const confirmPin = () => {
-    if (!pinTarget) return;
-    if (pinInput === TEAM_PINS[pinTarget]) {
-      setAuthor(pinTarget);
-      localStorage.setItem(AUTHOR_KEY, pinTarget);
-      localStorage.setItem(AUTHOR_VERIFIED_KEY, pinTarget);
-      setPinTarget(null);
-      setPinInput("");
-      setPinError(false);
-    } else {
-      setPinError(true);
-      setPinInput("");
-      setTimeout(() => pinRef.current?.focus(), 10);
-    }
-  };
-
-  const logoutAuthor = () => {
-    setAuthor("");
-    localStorage.removeItem(AUTHOR_KEY);
-    localStorage.removeItem(AUTHOR_VERIFIED_KEY);
-  };
-
-  const save = useCallback(
-    (value: string, by: string) => {
-      if (debounceRef.current) clearTimeout(debounceRef.current);
-      debounceRef.current = setTimeout(async () => {
-        setSaving(true);
-        try {
-          const res = await fetch("/api/notes", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ content: value, updatedBy: by }),
-          });
-          const data: NotesState = await res.json();
-          setUpdatedAt(data.updatedAt);
-          setUpdatedBy(data.updatedBy);
-        } catch {
-          // ignore
-        } finally {
-          setSaving(false);
-        }
-      }, 1000);
-    },
-    [],
-  );
 
   const load = useCallback(async () => {
     try {
       const res = await fetch("/api/notes");
       const data: NotesState = await res.json();
-      if (!loaded) {
-        setContent(data.content);
-        setLoaded(true);
-      }
+      if (!loaded) { setContent(data.content); setLoaded(true); }
       setUpdatedAt(data.updatedAt);
       setUpdatedBy(data.updatedBy ?? "");
     } catch {
@@ -179,9 +110,7 @@ export default function OpsNotes() {
         const data: NotesState = await res.json();
         setUpdatedAt(data.updatedAt);
         setUpdatedBy(data.updatedBy ?? "");
-      } catch {
-        // ignore
-      }
+      } catch { /* ignore */ }
     }, 10000);
     return () => clearInterval(interval);
   }, [load]);
@@ -197,16 +126,13 @@ export default function OpsNotes() {
     const newValue = applyFormat(el, action);
     setContent(newValue);
     save(newValue, author);
-    // Restore focus
     setTimeout(() => el.focus(), 0);
   };
 
   const insertTimestamp = () => {
     const el = textareaRef.current;
     if (!el) return;
-    const now = new Date().toLocaleString("cs-CZ", {
-      day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit",
-    });
+    const now = new Date().toLocaleString("cs-CZ", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
     const stamp = `\n\n**${author || "?"}** · ${now}\n`;
     const { value, selectionStart } = el;
     const newValue = value.slice(0, selectionStart) + stamp + value.slice(selectionStart);
@@ -229,104 +155,24 @@ export default function OpsNotes() {
           </p>
         </div>
 
-        {/* Save status + author */}
         <div className="flex flex-col items-end gap-1">
-          {saving && (
-            <span className="text-xs" style={{ color: "var(--color-at-blue-v4)" }}>Ukládám…</span>
-          )}
+          {saving && <span className="text-xs" style={{ color: "var(--color-at-blue-v4)" }}>Ukládám…</span>}
           {!saving && updatedAt && (
             <span className="text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
               Uloženo {formatTs(updatedAt)}{updatedBy ? ` · ${updatedBy.split(" ")[0]}` : ""}
             </span>
           )}
-
-          {/* Author selector / logout */}
-          {author ? (
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold" style={{ color: "var(--color-at-blue-v5)" }}>
-                {author.split(" ")[0]}
-              </span>
-              <button
-                onClick={logoutAuthor}
-                className="text-xs px-2 py-0.5 rounded"
-                style={{ color: "var(--color-at-blue-v4)", border: "1px solid var(--color-at-blue-v3)" }}
-              >
-                Změnit
-              </button>
-            </div>
-          ) : (
-            <div className="flex flex-wrap gap-1">
-              {TEAM.map((m) => (
-                <button
-                  key={m.name}
-                  onClick={() => handleAuthorChange(m.name)}
-                  title={m.name}
-                  className="text-xs font-bold px-2 py-0.5 rounded hover:opacity-90"
-                  style={{
-                    background: "var(--color-at-blue-v2)",
-                    color: "var(--color-at-white)",
-                    border: "1px solid var(--color-at-blue-v3)",
-                  }}
-                >
-                  {m.initials}
-                </button>
-              ))}
-            </div>
+          {/* Author identity from Google session */}
+          {author && (
+            <span
+              className="text-xs font-semibold px-2 py-0.5 rounded"
+              style={{ background: "var(--color-at-blue-v2)", color: "var(--color-at-blue-v5)", border: "1px solid var(--color-at-blue-v3)" }}
+            >
+              {author.split(" ")[0]}
+            </span>
           )}
         </div>
       </div>
-
-      {/* PIN dialog */}
-      {pinTarget && (
-        <div
-          className="flex flex-col gap-3 px-4 py-3 rounded-xl"
-          style={{ background: "var(--color-at-blue-v2)", border: "1px solid var(--color-at-blue-v3)" }}
-        >
-          <p className="text-sm font-bold" style={{ color: "var(--color-at-white)" }}>
-            Zadej PIN pro <span style={{ color: "var(--color-at-blue-v5)" }}>{pinTarget}</span>
-          </p>
-          <div className="flex items-center gap-3">
-            <input
-              ref={pinRef}
-              type="password"
-              inputMode="numeric"
-              maxLength={4}
-              value={pinInput}
-              onChange={(e) => { setPinInput(e.target.value.replace(/\D/g, "")); setPinError(false); }}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") confirmPin();
-                if (e.key === "Escape") { setPinTarget(null); setPinInput(""); }
-              }}
-              placeholder="• • • •"
-              className="w-24 rounded-lg px-3 py-1.5 text-sm text-center font-mono tracking-widest focus:outline-none"
-              style={{
-                background: "var(--color-at-blue-v1)",
-                border: `1px solid ${pinError ? "var(--color-at-red)" : "var(--color-at-blue-v3)"}`,
-                color: "var(--color-at-white)",
-              }}
-            />
-            <button
-              onClick={confirmPin}
-              className="text-sm font-bold px-4 py-1.5 rounded-lg"
-              style={{ background: "var(--color-at-red)", color: "var(--color-at-white)" }}
-            >
-              Potvrdit
-            </button>
-            <button
-              onClick={() => { setPinTarget(null); setPinInput(""); setPinError(false); }}
-              className="text-xs"
-              style={{ color: "var(--color-at-blue-v4)", textDecoration: "underline" }}
-            >
-              Zrušit
-            </button>
-          </div>
-          {pinError && (
-            <p className="text-xs" style={{ color: "var(--color-at-red)" }}>
-              Nesprávný PIN. Zkus to znovu nebo požádej organizátora.
-            </p>
-          )}
-        </div>
-      )}
 
       {/* Formatting toolbar */}
       <div
@@ -349,18 +195,12 @@ export default function OpsNotes() {
             {action.label}
           </button>
         ))}
-
         <div style={{ width: 1, background: "var(--color-at-blue-v3)", margin: "0 4px" }} />
-
         <button
           title="Vložit podpis a čas"
           onClick={insertTimestamp}
           className="rounded px-2 py-0.5 text-xs transition-all hover:opacity-90 active:scale-95"
-          style={{
-            background: "var(--color-at-blue-v3)",
-            color: "var(--color-at-white)",
-            border: "1px solid var(--color-at-blue-v3)",
-          }}
+          style={{ background: "var(--color-at-blue-v3)", color: "var(--color-at-white)", border: "1px solid var(--color-at-blue-v3)" }}
         >
           ✍ Podpis
         </button>
@@ -383,9 +223,8 @@ export default function OpsNotes() {
         spellCheck={false}
       />
 
-      {/* Tip */}
       <p className="text-xs" style={{ color: "var(--color-at-blue-v3)" }}>
-        Tip: ## Nadpis · ### Podnadpis · **tučné** · *kurzíva* · - odrážka · - [ ] úkol · tlačítko ✍ vloží váš podpis s časem
+        Tip: ## Nadpis · **tučné** · *kurzíva* · - odrážka · - [ ] úkol · ✍ vloží podpis s časem
       </p>
     </div>
   );
