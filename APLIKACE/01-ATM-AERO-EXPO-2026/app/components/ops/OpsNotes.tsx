@@ -182,10 +182,10 @@ export default function OpsNotes() {
       {/* Header row */}
       <div className="flex items-start justify-between gap-3 flex-wrap">
         <div>
-          <p className="text-xs font-bold tracking-[0.15em] uppercase" style={{ color: "var(--color-at-blue-v5)" }}>
+          <p className="text-xs font-bold tracking-[0.15em] uppercase" style={{ color: "var(--color-at-white)" }}>
             Sdílené poznámky
           </p>
-          <p className="text-xs mt-0.5" style={{ color: "var(--color-at-blue-v4)" }}>
+          <p className="text-xs mt-0.5" style={{ color: "var(--color-at-blue-v5)" }}>
             Viditelné pro celý tým · auto-save za 1 s
           </p>
         </div>
@@ -233,7 +233,7 @@ export default function OpsNotes() {
             className="rounded px-2 py-0.5 text-xs font-mono transition-all hover:opacity-90 active:scale-95"
             style={{
               background: "var(--color-at-blue-v3)",
-              color: "var(--color-at-blue-v5)",
+              color: "var(--color-at-white)",
               border: "1px solid var(--color-at-blue-v3)",
               minWidth: 30,
             }}
@@ -250,7 +250,7 @@ export default function OpsNotes() {
           className="rounded px-2 py-0.5 text-xs transition-all hover:opacity-90 active:scale-95"
           style={{
             background: "var(--color-at-blue-v3)",
-            color: "var(--color-at-blue-v5)",
+            color: "var(--color-at-white)",
             border: "1px solid var(--color-at-blue-v3)",
           }}
         >

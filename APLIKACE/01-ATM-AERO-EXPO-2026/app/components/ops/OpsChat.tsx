@@ -119,7 +119,7 @@ export default function OpsChat() {
     <div className="flex flex-col gap-3" style={{ height: "100%" }}>
       {/* Author selector */}
       <div className="flex items-center gap-3 flex-wrap">
-        <p className="text-xs font-bold" style={{ color: "var(--color-at-blue-v5)" }}>
+        <p className="text-xs font-bold" style={{ color: "var(--color-at-white)" }}>
           Píšeš jako:
         </p>
         <div className="flex flex-wrap gap-1">
@@ -140,7 +140,7 @@ export default function OpsChat() {
           ))}
         </div>
         {author && (
-          <span className="text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
+          <span className="text-xs font-semibold" style={{ color: "var(--color-at-blue-v5)" }}>
             {author}
           </span>
         )}
@@ -151,7 +151,7 @@ export default function OpsChat() {
             className="text-xs font-bold px-3 py-1 rounded transition-all"
             style={{
               background: "var(--color-at-blue-v2)",
-              color: "var(--color-at-blue-v5)",
+              color: "var(--color-at-white)",
               border: "1px solid var(--color-at-blue-v3)",
               opacity: messages.length === 0 ? 0.4 : 1,
             }}
@@ -182,7 +182,7 @@ export default function OpsChat() {
           <button onClick={clearAll} className="font-bold text-xs px-3 py-1 rounded" style={{ background: "var(--color-at-red)", color: "var(--color-at-white)" }}>
             Smazat
           </button>
-          <button onClick={() => setShowClear(false)} className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
+          <button onClick={() => setShowClear(false)} className="text-xs" style={{ color: "var(--color-at-blue-v5)", textDecoration: "underline" }}>
             Zrušit
           </button>
         </div>
@@ -199,7 +199,7 @@ export default function OpsChat() {
         }}
       >
         {messages.length === 0 && (
-          <p className="text-sm text-center my-auto" style={{ color: "var(--color-at-blue-v3)" }}>
+          <p className="text-sm text-center my-auto" style={{ color: "var(--color-at-blue-v4)" }}>
             Chat je zatím prázdný. Začni psát první zprávu.
           </p>
         )}
@@ -211,9 +211,9 @@ export default function OpsChat() {
                 <span className="text-xs font-black" style={{ color: isMe ? "var(--color-at-red)" : "var(--color-at-blue-v5)" }}>
                   {msg.author}
                 </span>
-                <span className="text-xs" style={{ color: "var(--color-at-blue-v3)" }}>
-                  {formatTs(msg.timestamp)}
-                </span>
+          <span className="text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
+            {formatTs(msg.timestamp)}
+          </span>
               </div>
               <div
                 className="text-sm px-3 py-2 rounded-lg max-w-xs sm:max-w-sm"

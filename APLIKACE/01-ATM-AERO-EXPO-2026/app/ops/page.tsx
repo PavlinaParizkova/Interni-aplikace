@@ -40,7 +40,7 @@ export default function OpsPage() {
             AIR TEAM
           </span>
           <span className="hidden sm:inline" style={{ color: "var(--color-at-blue-v2)" }}>·</span>
-          <span className="hidden sm:inline text-xs font-bold tracking-wider uppercase" style={{ color: "var(--color-at-blue-v4)" }}>
+          <span className="hidden sm:inline text-xs font-bold tracking-wider uppercase" style={{ color: "var(--color-at-blue-v5)" }}>
             AERO EXPO 2026
           </span>
           <span
@@ -61,7 +61,7 @@ export default function OpsPage() {
           className="flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded transition-all hover:opacity-80"
           style={{
             background: "var(--color-at-blue-v2)",
-            color: "var(--color-at-blue-v5)",
+            color: "var(--color-at-white)",
             border: "1px solid var(--color-at-blue-v3)",
           }}
         >
@@ -97,9 +97,9 @@ export default function OpsPage() {
         className="px-4 md:px-8 py-2 flex-shrink-0"
         style={{ borderBottom: "1px solid var(--color-at-blue-v2)", background: "var(--color-at-blue-v1)" }}
       >
-        <p className="text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
+        <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
           {PANELS.find((p) => p.key === active)?.desc}
-          <span className="ml-2 text-xs" style={{ color: "var(--color-at-blue-v3)" }}>
+          <span className="ml-2 text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
             · synchronizováno s celým týmem v reálném čase
           </span>
         </p>

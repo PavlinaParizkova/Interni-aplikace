@@ -102,7 +102,7 @@ export default function OpsChecklists() {
                   background: done === l.items.length
                     ? "rgba(34,197,94,0.2)"
                     : isActive ? "var(--color-at-blue-v2)" : "var(--color-at-blue-v2)",
-                  color: done === l.items.length ? "#22c55e" : "var(--color-at-blue-v4)",
+                  color: done === l.items.length ? "#22c55e" : "var(--color-at-blue-v5)",
                 }}
               >
                 {done}/{l.items.length}
@@ -116,10 +116,10 @@ export default function OpsChecklists() {
       <div>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <p className="text-xs font-bold tracking-[0.15em] uppercase" style={{ color: "var(--color-at-blue-v5)" }}>
+            <p className="text-xs font-bold tracking-[0.15em] uppercase" style={{ color: "var(--color-at-white)" }}>
               Checklist
             </p>
-            <p className="text-sm mt-0.5" style={{ color: "var(--color-at-blue-v4)" }}>
+            <p className="text-sm mt-0.5" style={{ color: "var(--color-at-blue-v5)" }}>
               {active.subtitle}
             </p>
           </div>
@@ -137,7 +137,7 @@ export default function OpsChecklists() {
             >
               {doneCount}/{total}
             </div>
-            <div className="text-xs mt-0.5" style={{ color: allDone ? "var(--color-at-white)" : "var(--color-at-blue-v4)" }}>
+            <div className="text-xs mt-0.5" style={{ color: allDone ? "var(--color-at-white)" : "var(--color-at-blue-v5)" }}>
               {allDone ? "Hotovo ✓" : "splněno"}
             </div>
           </div>
