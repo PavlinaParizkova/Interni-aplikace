@@ -1,29 +1,32 @@
-﻿type ClothingRow = {
+type ClothingRow = {
   item: string;
   model: string;
-  gender: "Muži" | "Ženy";
+  gender: "Muži" | "Ženy" | "Lucie";
   qty: number;
   unitPrice: number;
 };
 
 const ROWS: ClothingRow[] = [
-  { item: "Polo tričko",  model: "Collar Up 257", gender: "Muži",  qty: 6, unitPrice: 434 },
-  { item: "Mikina",       model: "Bomber 454",    gender: "Muži",  qty: 6, unitPrice: 650 },
-  { item: "Polo tričko",  model: "Collar Up 257", gender: "Ženy",  qty: 2, unitPrice: 434 },
-  { item: "Mikina",       model: "Bomber 454",    gender: "Ženy",  qty: 2, unitPrice: 650 },
+  { item: "Polo tričko", model: "Collar Up 256",              gender: "Muži",  qty: 12, unitPrice: 434 },
+  { item: "Mikina",      model: "Bomber 453",                 gender: "Muži",  qty: 6,  unitPrice: 650 },
+  { item: "Polo tričko", model: "Collar Up 257",              gender: "Ženy",  qty: 2,  unitPrice: 434 },
+  { item: "Mikina",      model: "Bomber 454",                 gender: "Ženy",  qty: 1,  unitPrice: 650 },
+  { item: "Tričko",      model: "Action 152 (Lucie)",         gender: "Lucie", qty: 2,  unitPrice: 205 },
+  { item: "Mikina",      model: "Nabírané rukávy BP3869 (Lucie)", gender: "Lucie", qty: 1, unitPrice: 697 },
 ];
 
 const GENDER_BADGE: Record<string, { bg: string; color: string }> = {
   Muži:  { bg: "var(--color-at-blue-v3)", color: "var(--color-at-white)" },
   Ženy:  { bg: "var(--color-at-blue-v5)", color: "var(--color-at-blue-v1)" },
+  Lucie: { bg: "rgba(245,158,11,0.2)",    color: "#f59e0b" },
 };
 
 export default function SlideDressCodeBudget() {
   const totalMuzi  = ROWS.filter((r) => r.gender === "Muži").reduce((s, r) => s + r.qty * r.unitPrice, 0);
-  const totalZeny  = ROWS.filter((r) => r.gender === "Ženy").reduce((s, r) => s + r.qty * r.unitPrice, 0);
+  const totalZeny  = ROWS.filter((r) => r.gender !== "Muži").reduce((s, r) => s + r.qty * r.unitPrice, 0);
   const totalAll   = totalMuzi + totalZeny;
 
-  const totalPolo   = ROWS.filter((r) => r.item === "Polo tričko").reduce((s, r) => s + r.qty * r.unitPrice, 0);
+  const totalPolo   = ROWS.filter((r) => r.item === "Polo tričko" || r.item === "Tričko").reduce((s, r) => s + r.qty * r.unitPrice, 0);
   const totalMikina = ROWS.filter((r) => r.item === "Mikina").reduce((s, r) => s + r.qty * r.unitPrice, 0);
 
   return (
@@ -40,7 +43,7 @@ export default function SlideDressCodeBudget() {
           Náklady na firemní oblečení
         </h2>
         <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
-          AERO EXPO 2026 · Malfini · Collar Up 257 + Bomber 454 Black
+          AERO EXPO 2026 · Malfini Premium + Bezpotisku.cz · 6 mužů + 2 ženy · 24 ks celkem
         </p>
       </div>
 
@@ -87,6 +90,15 @@ export default function SlideDressCodeBudget() {
               </span>
               <span className="font-black" style={{ color: "var(--color-at-white)" }}>
                 {totalAll.toLocaleString("cs-CZ")} Kč
+              </span>
+            </div>
+            <div
+              className="px-4 py-2.5 flex items-start gap-2"
+              style={{ background: "rgba(245,158,11,0.06)", borderTop: "1px dashed #f59e0b" }}
+            >
+              <span className="text-xs" style={{ color: "#f59e0b" }}>⚠</span>
+              <span className="text-xs" style={{ color: "#f59e0b" }}>
+                <strong>Potisk a výšivka – bude doplněno.</strong> Cena není zahrnuta.
               </span>
             </div>
           </div>
@@ -170,6 +182,16 @@ export default function SlideDressCodeBudget() {
               {totalAll.toLocaleString("cs-CZ")} Kč
             </span>
           </div>
+          {/* Potisk / výšivka note */}
+          <div
+            className="px-4 py-2.5 flex items-center gap-2 min-w-[560px]"
+            style={{ background: "rgba(245,158,11,0.06)", borderTop: "1px dashed #f59e0b" }}
+          >
+            <span className="text-xs" style={{ color: "#f59e0b" }}>⚠</span>
+            <span className="text-xs" style={{ color: "#f59e0b" }}>
+              <strong>Potisk a výšivka – bude doplněno.</strong> Cena za potisk (zadní strana) a výšivku loga (přední strana) není zahrnuta.
+            </span>
+          </div>
         </div>
 
         {/* Right summary panel */}
@@ -205,7 +227,7 @@ export default function SlideDressCodeBudget() {
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-sm" style={{ color: "var(--color-at-blue-v2)" }}>Ženy (2 os.)</span>
+              <span className="text-sm" style={{ color: "var(--color-at-blue-v2)" }}>Ženy + Lucie (2 os.)</span>
               <span className="text-sm font-black tabular-nums" style={{ color: "var(--color-at-blue-v1)" }}>
                 {totalZeny.toLocaleString("cs-CZ")} Kč
               </span>
@@ -221,13 +243,13 @@ export default function SlideDressCodeBudget() {
               Dle produktu
             </p>
             <div className="flex justify-between">
-              <span className="text-sm" style={{ color: "var(--color-at-blue-v2)" }}>Collar Up 257</span>
+              <span className="text-sm" style={{ color: "var(--color-at-blue-v2)" }}>Polokošile / tričko</span>
               <span className="text-sm font-black tabular-nums" style={{ color: "var(--color-at-blue-v1)" }}>
                 {totalPolo.toLocaleString("cs-CZ")} Kč
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-sm" style={{ color: "var(--color-at-blue-v2)" }}>Bomber 454</span>
+              <span className="text-sm" style={{ color: "var(--color-at-blue-v2)" }}>Mikiny</span>
               <span className="text-sm font-black tabular-nums" style={{ color: "var(--color-at-blue-v1)" }}>
                 {totalMikina.toLocaleString("cs-CZ")} Kč
               </span>
@@ -244,6 +266,7 @@ export default function SlideDressCodeBudget() {
               <li>· Potvrdit velikosti u mužů</li>
               <li>· Objednat u dodavatele</li>
               <li>· Potvrdit termín dodání před veletrhem</li>
+              <li>· <strong>Potisk a výšivka – bude doplněno</strong></li>
             </ul>
           </div>
         </div>
