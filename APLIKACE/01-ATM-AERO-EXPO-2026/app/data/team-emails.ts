@@ -4,12 +4,14 @@
  * Pouze zde uvedené e-maily se mohou přihlásit do aplikace.
  */
 export const TEAM_EMAILS: Record<string, string> = {
-  "petr.polak@airteam.cz":          "Petr Polák",
-  "jan.polak@airteam.cz":           "Jan Polák",
-  "magdalena.sevcikova@airteam.cz": "Magdaléna Ševčíková",
-  "vratko.kapus@airteam.cz":        "Vratko Kapuš",
-  "jakub.dryska@airteam.cz":        "Jakub Dryska",
-  "lucie.kysucanova@airteam.cz":    "Lucie Kysučanová",
-  "alex.mudrych@airteam.cz":        "Alex Mudrych",
-  "jiri.franz@airteam.cz":          "Jiří Franz",
+  "pavlina.parizkova@airteam.eu":   "Pavlína Pařízková",
+  "petr.polak@airteam.eu":          "Petr Polák",
+  "polak@airteam.eu":               "Petr Polák",
+  "jan.polak@airteam.eu":           "Jan Polák",
+  "magdalena.sevcikova@airteam.eu": "Magdaléna Ševčíková",
+  "vratko.kapus@airteam.eu":        "Vratko Kapuš",
+  "jakub.dryska@airteam.eu":        "Jakub Dryska",
+  "lucie.kysucanova@airteam.eu":    "Lucie Kysučanová",
+  "alex.mudrych@airteam.eu":        "Alex Mudrych",
+  "jiri.franz@airteam.eu":          "Jiří Franz",
 };
