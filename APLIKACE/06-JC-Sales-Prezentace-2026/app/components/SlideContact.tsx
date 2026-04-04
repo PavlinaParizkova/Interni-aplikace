@@ -1,0 +1,65 @@
+"use client";
+
+import { type SlideData } from "../slides";
+import SlideShell from "./SlideShell";
+
+interface Props {
+  slide: SlideData;
+}
+
+export default function SlideContact({ slide }: Props) {
+  return (
+    <SlideShell
+      slide={slide}
+      className="slide-contact"
+    >
+      <div className="slide-content centered" style={{ gap: "1.5rem" }}>
+        {/* Label */}
+        {slide.label && (
+          <div className="section-label fade-up fade-up-1" style={{ justifyContent: "center" }}>
+            {slide.label}
+          </div>
+        )}
+
+        {/* Headline */}
+        <h2
+          className="fade-up fade-up-2"
+          style={{
+            fontSize: "clamp(3.5rem, 8vw, 8rem)",
+            fontWeight: 700,
+            lineHeight: 1.28,
+            letterSpacing: "-0.02em",
+            textTransform: "uppercase",
+            color: "var(--color-at-white)",
+            maxWidth: "18ch",
+            textAlign: "center",
+          }}
+        >
+          {slide.headline.split("\n").map((line, i, arr) => (
+            <span key={i} style={{ display: "block", color: i === arr.length - 1 ? "var(--color-at-red)" : "var(--color-at-white)" }}>
+              {line}
+            </span>
+          ))}
+        </h2>
+
+        {/* Thank you */}
+        {slide.body && (
+          <p
+            className="fade-up fade-up-3"
+            style={{
+              fontSize: "clamp(1rem, 1.5vw, 1.3rem)",
+              lineHeight: 1.6,
+              color: "var(--color-at-blue-v5)",
+              textAlign: "center",
+              maxWidth: "48ch",
+              marginTop: "0.5rem",
+            }}
+          >
+            {slide.body}
+          </p>
+        )}
+
+      </div>
+    </SlideShell>
+  );
+}
