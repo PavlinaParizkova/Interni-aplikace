@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useSession } from "next-auth/react";
 
-type ChatMessage = { author: string; text: string; timestamp: string };
+type ChatMessage = { id?: string; author: string; text: string; timestamp: string; editedAt?: string };
 
 function formatTs(iso: string) {
   if (!iso) return "";
@@ -56,6 +56,10 @@ export default function OpsChat() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editText, setEditText] = useState("");
+  const [editSaving, setEditSaving] = useState(false);
+
   const load = useCallback(async () => {
     try {
       const res = await fetch("/api/chat");
@@ -98,6 +102,35 @@ export default function OpsChat() {
     }
   };
 
+  const startEdit = (msg: ChatMessage) => {
+    setEditingId(msg.id ?? msg.timestamp);
+    setEditText(msg.text);
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditText("");
+  };
+
+  const saveEdit = async (id: string) => {
+    if (!editText.trim()) return;
+    setEditSaving(true);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, text: editText }),
+      });
+      const updated: ChatMessage[] = await res.json();
+      setMessages(updated);
+      setEditingId(null);
+    } catch {
+      // ignore
+    } finally {
+      setEditSaving(false);
+    }
+  };
+
   const clearAll = async () => {
     setShowClear(false);
     await fetch("/api/chat", { method: "DELETE" });
@@ -109,20 +142,20 @@ export default function OpsChat() {
 
       {/* Identity bar */}
       <div
-        className="flex items-center gap-3 px-4 py-2.5 rounded-lg"
+        className="flex flex-wrap items-center gap-2 px-4 py-2.5 rounded-lg"
         style={{ background: "var(--color-at-blue-v2)", border: "1px solid var(--color-at-blue-v3)" }}
       >
         <div
           className="w-2 h-2 rounded-full flex-shrink-0"
           style={{ background: "#22c55e", boxShadow: "0 0 6px rgba(34,197,94,0.5)" }}
         />
-        <span className="text-sm font-bold" style={{ color: "var(--color-at-white)" }}>
+        <span className="text-sm font-bold flex-shrink-0" style={{ color: "var(--color-at-white)" }}>
           {author}
         </span>
-        <span className="text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
+        <span className="hidden sm:inline text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
           · přihlášen/a přes Google
         </span>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-2 flex-shrink-0">
           <button
             onClick={() => exportToMarkdown(messages)}
             disabled={messages.length === 0}
@@ -165,12 +198,12 @@ export default function OpsChat() {
 
       {/* Messages */}
       <div
-        className="flex-1 flex flex-col gap-2 overflow-y-auto rounded-xl px-4 py-3"
+        className="flex flex-col gap-2 overflow-y-auto rounded-xl px-4 py-3"
         style={{
           background: "var(--color-at-blue-v1)",
           border: "1px solid var(--color-at-blue-v2)",
-          minHeight: 240,
-          maxHeight: 360,
+          minHeight: 200,
+          height: "clamp(200px, 55vh, 640px)",
         }}
       >
         {messages.length === 0 && (
@@ -180,26 +213,87 @@ export default function OpsChat() {
         )}
         {messages.map((msg, i) => {
           const isMe = msg.author === author;
+          const msgId = msg.id ?? msg.timestamp;
+          const isEditing = editingId === msgId;
           return (
             <div key={i} className={`flex flex-col gap-0.5 ${isMe ? "items-end" : "items-start"}`}>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-xs font-black" style={{ color: isMe ? "var(--color-at-red)" : "var(--color-at-blue-v5)" }}>
                   {msg.author}
                 </span>
                 <span className="text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
                   {formatTs(msg.timestamp)}
                 </span>
+                {msg.editedAt && (
+                  <span className="text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
+                    · upraveno {formatTs(msg.editedAt)}
+                  </span>
+                )}
+                {isMe && !isEditing && (
+                  <button
+                    onClick={() => startEdit(msg)}
+                    className="text-xs"
+                    style={{ color: "var(--color-at-blue-v4)", textDecoration: "underline" }}
+                  >
+                    upravit
+                  </button>
+                )}
               </div>
-              <div
-                className="text-sm px-3 py-2 rounded-lg max-w-xs sm:max-w-sm"
-                style={{
-                  background: isMe ? "var(--color-at-blue-v3)" : "var(--color-at-blue-v2)",
-                  color: "var(--color-at-white)",
-                  wordBreak: "break-word",
-                }}
-              >
-                {msg.text}
-              </div>
+
+              {!isEditing && (
+                <div
+                  className="text-sm px-3 py-2 rounded-lg max-w-xs sm:max-w-sm"
+                  style={{
+                    background: isMe ? "var(--color-at-blue-v3)" : "var(--color-at-blue-v2)",
+                    color: "var(--color-at-white)",
+                    wordBreak: "break-word",
+                  }}
+                >
+                  {msg.text}
+                </div>
+              )}
+
+              {isEditing && (
+                <div className="flex flex-col gap-1.5 w-full max-w-xs sm:max-w-sm">
+                  <textarea
+                    value={editText}
+                    onChange={(e) => setEditText(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); saveEdit(msgId); }
+                      if (e.key === "Escape") cancelEdit();
+                    }}
+                    rows={3}
+                    autoFocus
+                    className="rounded-lg px-3 py-2 text-sm resize-none focus:outline-none"
+                    style={{
+                      background: "var(--color-at-blue-v2)",
+                      border: "1px solid var(--color-at-blue-v3)",
+                      color: "var(--color-at-white)",
+                    }}
+                  />
+                  <div className="flex gap-2 justify-end">
+                    <button
+                      onClick={cancelEdit}
+                      className="text-xs"
+                      style={{ color: "var(--color-at-blue-v5)", textDecoration: "underline" }}
+                    >
+                      Zrušit
+                    </button>
+                    <button
+                      onClick={() => saveEdit(msgId)}
+                      disabled={!editText.trim() || editSaving}
+                      className="text-xs font-bold px-3 py-1 rounded-lg"
+                      style={{
+                        background: "var(--color-at-red)",
+                        color: "var(--color-at-white)",
+                        opacity: !editText.trim() ? 0.4 : 1,
+                      }}
+                    >
+                      {editSaving ? "Ukládám…" : "Uložit"}
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           );
         })}
