@@ -14,7 +14,7 @@ export const translations = {
     hero: {
       tagline: "Jeden program.\u00a0\u00a0Jeden partner.\u00a0\u00a0Certifikovaný výsledek.",
       lead: "Jet Concept přebírá návrh, certifikaci i výrobu do jednoho řízeného celku – od prvního zadání po schválený výstup připravený k instalaci. Máte jednoho partnera s jasnou odpovědností za každý krok programu.",
-      badges: ["DOA", "POA", "Design Engineering", "Certifikace", "Completions", "Conversions"],
+      badges: ["DOA", "POA", "Design Engineering", "Certifikace", "Completions", "Conversions", "Fleet Cabin", "Avionické Upgrady"],
       slogan: "YOUR MISSION. OUR TECHNOLOGY.",
     },
     sections: {
@@ -45,11 +45,11 @@ export const translations = {
         "Koordinaci se zákazníkem nebo jeho Part 145",
       ],
       visionTitle: "Vize",
-      visionDesc: "Být partner, na kterého se zákazník obrátí ve chvíli, kdy potřebuje změnu letadla udělat správně a bez nutnosti koordinovat více stran.",
+      visionDesc: "Být partnerem, ke kterému se zákazník obrátí, když změna letadla musí proběhnout správně – bez nutnosti koordinovat více stran.",
       missionTitle: "Mise",
-      missionDesc: "Technicky náročné změny letadel vedeme od konceptu přes certifikaci až po výrobu – zákazník vždy ví, co se děje, co přijde dál a co dostane na konci.",
+      missionDesc: "Přebíráme technicky náročné změny letadel od prvního zadání přes certifikaci po výrobu. Zákazník vždy ví, co se děje, co přijde jako další krok a co dostane na výstupu.",
       purposeTitle: "Poslání",
-      purposeDesc: "Pomáháme zákazníkům změnit letadlo nebo jeho konfiguraci bez zbytečné nejistoty. Přinášíme technickou jistotu, pořádek v procesu a odpovědnost za to, co navrhujeme a vyrábíme.",
+      purposeDesc: "Pomáháme zákazníkům změnit letadlo nebo jeho konfiguraci s co nejmenší zbytečnou nejistotou. Přinášíme technickou jistotu, procesní disciplínu a odpovědnost za vše, co navrhujeme a vyrábíme. V rámci AIR TEAM holdingu posilujeme kompletní inženýrské a certifikační portfolio skupiny tak, aby pokrývalo programy napříč segmenty, ne jen jeden úzký výklenek.",
     },
     portfolio: {
       perex: "Větší i menší změna letadla je program s jasným postupem. Jet Concept spojuje návrh, certifikaci a výrobu do jednoho řízeného celku – od zadání po schválenou dokumentaci připravenou k instalaci. DOA a POA pod jednou střechou: zákazník dostane certifikovaný výstup bez nutnosti koordinovat více stran.",
@@ -65,7 +65,7 @@ export const translations = {
           number: "02",
           title: "POA a výroba",
           situation: "Návrh je hotový a schválený. Potřebujete partnera, který ho převede do výroby přesně tak, jak byl navržen – s čistou výrobní dokumentací a díly připravenými pro instalaci.",
-          action: "Vyrobíme schválené díly, podsestavy a interiérové prvky. Zajistíme výrobní dokumentaci a kontrolované procesy. Koordinujeme dodavatele a připravujeme díly a celky tak, aby instalace proběhla hladce.",
+          action: "Vyrobíme schválené díly, podsestavy a interiérové prvky. Zajistíme výrobní dokumentaci a kontrolované procesy. Koordinujeme dodavatele a připravujeme díly a celky tak, aby instalace proběhla hladce. Vedle zakázkových projektů vydáváme vlastní produkty vyráběné pod POA na základě DOA dat – přemístitelné přepážky tříd, odkládací přihrádky, závěsy, kity pro renovaci toalet, dětské kolébky, integrační celky ISPSS nebo avionické kity CPDLC, RNP/LVP.",
           value: "Výroba přesně navazuje na schválený návrh. Na instalaci přichází díly připravené k montáži.",
         },
         {
@@ -91,7 +91,21 @@ export const translations = {
         },
         {
           number: "06",
-          title: "Program management a koordinace",
+          title: "Flotové kabinové konfigurační programy",
+          situation: "Provozujete flotilu a potřebujete kabinovou změnu, která dává smysl technicky, certifikačně i obchodně. Projekt musí být v souladu s požadavky CAMO, zvládnout LOPA-driven layout a projít certifikačním procesem bez zbytečných zdržení.",
+          action: "Řídíme kabinové změny pro pravidelné linky, charter a regionální floty. Zajišťujeme soulad konfigurace, hmotnosti a vyvážení s požadavky CAMO a zástavbovými postupy Part 145. Zohledňujeme provozní flexibilitu a příjmovou optimalizaci u změn LOPA. Koordinujeme instalační a certifikační výstupy jako jeden celek.",
+          value: "Kabinová změna, která funguje technicky, obstojí před regulátorem a dává provozní i obchodní smysl.",
+        },
+        {
+          number: "07",
+          title: "Avionické upgrady",
+          situation: "Plánujete retrofikaci avioniky – CPDLC, RNP nebo LVP. Potřebujete jeden odpovědný program, který přebere technické odůvodnění, certifikační cestu i přípravu podkladů pro realizaci vaším Part 145.",
+          action: "Definujeme systém a zpracujeme EASA-kompatibilní technická odůvodnění. Připravíme schválené pokyny pro instalaci. Vedeme celý program jako jeden certifikovaný výstup – od prvního zadání po schválenou dokumentaci připravenou k předání.",
+          value: "Avionická změna dorazí jako jeden certifikovaný výstup. Váš Part 145 dostane kompletní podklady pro realizaci.",
+        },
+        {
+          number: "08",
+          title: "Program integration a koordinace",
           situation: "Program zahrnuje více technických oblastí a více dodavatelů. Potřebujete silné programové řízení, které celý celek udržuje pod kontrolou a dává vám průběžný přehled.",
           action: "Řídíme celý program. Koordinujeme interní i externí odbornosti, dodavatele a partnery. Hlídáme harmonogram, rozpočet a rizika. Jsme v kontaktu s vámi, vaším Part 145 nebo instalačním partnerem.",
           value: "Máte jednoho partnera s přehledem o celém programu. Víte, kde stojí, co přijde dál a co dostanete na konci.",
@@ -99,7 +113,7 @@ export const translations = {
       ],
     },
     segments: {
-      perex: "Jet Concept pracuje s klienty v segmentech Business a Commercial. Oblast Defense zůstává dlouhodobým rozvojovým směrem.",
+      perex: "Primárně se zaměřujeme na aerolinky a VIP/VVIP programy. Pracujeme také s majiteli a operátory business jetů, completion centry a dalšími leteckými organizacemi, kde návrh, certifikace a výroba musí fungovat jako celek. Náš záběr pokrývá i speciální mise, vrtulníky a práce typu EMAR všude tam, kde je naše DOA schopnost správnou volbou. Oblast Defense zůstává dlouhodobým rozvojovým směrem.",
       businessTitle: "Business",
       businessDesc: "Plánujete cabin completion, modernizaci nebo specifickou úpravu business jetu? Pracujeme s klienty, kteří kladou důraz na kvalitu provedení, diskrétní vedení programu a prémiový výsledek.",
       businessHelp: "Pomáháme s:",
@@ -128,6 +142,8 @@ export const translations = {
         "Lessoři a asset manažeři",
         "Systémoví integrátoři",
         "OEM partneři",
+        "Provozovatelé speciálních misí a vrtulníků",
+        "Organizace s programy EMAR nebo vojenským leteckým rámcem",
       ],
     },
     origin: {
@@ -245,7 +261,7 @@ export const translations = {
     hero: {
       tagline: "One programme.\u00a0\u00a0One partner.\u00a0\u00a0Certified.",
       lead: "Jet Concept takes ownership of design, certification and manufacturing as a single managed programme – from the first brief to the approved, installation-ready output. One partner. Clear accountability at every step.",
-      badges: ["DOA", "POA", "Design Engineering", "Certification", "Completions", "Conversions"],
+      badges: ["DOA", "POA", "Design Engineering", "Certification", "Completions", "Conversions", "Fleet Cabin", "Avionics Upgrades"],
       slogan: "YOUR MISSION. OUR TECHNOLOGY.",
     },
     sections: {
@@ -276,11 +292,11 @@ export const translations = {
         "Coordination with the customer or their Part 145",
       ],
       visionTitle: "Vision",
-      visionDesc: "To be the partner a customer turns to when they need an aircraft change done correctly and without the complexity of coordinating multiple parties.",
+      visionDesc: "To be the partner a customer turns to when an aircraft change must be done properly – without the overhead of coordinating many separate parties.",
       missionTitle: "Mission",
-      missionDesc: "We take technically demanding aircraft changes from initial concept through certification to manufacturing – so the customer always knows what is happening, what comes next and what they will receive.",
+      missionDesc: "We take technically demanding aircraft changes from the initial brief through certification to manufacturing. The customer always knows what is happening, what comes next and what they will receive.",
       purposeTitle: "Purpose",
-      purposeDesc: "We help customers change an aircraft or its configuration without unnecessary uncertainty. We bring technical confidence, process discipline and accountability for everything we design and manufacture.",
+      purposeDesc: "We help customers change an aircraft or its configuration with as little unnecessary uncertainty as possible. We bring technical confidence, process discipline and accountability for everything we design and manufacture. Within AIR TEAM holding, we strengthen the group's full engineering and certification portfolio so it covers programmes across segments, not just one narrow niche.",
     },
     portfolio: {
       perex: "An aircraft change of any scope is a programme with a clear process. Jet Concept brings design, certification and manufacturing together into a single managed whole – from the initial brief through to approved documentation ready for installation. DOA and POA under one roof: the customer receives a certified output without coordinating multiple parties.",
@@ -296,7 +312,7 @@ export const translations = {
           number: "02",
           title: "POA & Manufacturing",
           situation: "The design is complete and approved. You need a partner who will translate it into production exactly as designed – with clean manufacturing documentation and parts ready for installation.",
-          action: "We manufacture approved parts, subassemblies and interior elements. We ensure manufacturing documentation and controlled processes. We coordinate suppliers and prepare parts and assemblies so that installation proceeds smoothly.",
+          action: "We manufacture approved parts, subassemblies and interior elements. We ensure manufacturing documentation and controlled processes. We coordinate suppliers and prepare parts and assemblies so that installation proceeds smoothly. Alongside bespoke projects, we release our own products manufactured under POA against DOA data – movable class dividers, stowage compartments, curtains, lavatory refurbishment kits, baby bassinets, ISPSS integration assemblies and avionics kits for CPDLC, RNP/LVP.",
           value: "Manufacturing follows directly from the approved design. Parts arrive at installation ready to fit.",
         },
         {
@@ -322,7 +338,21 @@ export const translations = {
         },
         {
           number: "06",
-          title: "Programme Management & Coordination",
+          title: "Fleet Cabin Configuration Programmes",
+          situation: "You operate a fleet and need a cabin change that makes sense technically, from a certification standpoint and commercially. The project must align with CAMO requirements, handle LOPA-driven layouts and clear the approval process without unnecessary delay.",
+          action: "We manage cabin changes for scheduled services, charter and regional fleet operations. We align configuration, weight and balance with CAMO requirements and Part 145 installation execution. We factor in operational flexibility and revenue optimisation for LOPA changes. We coordinate installation and certification outputs as a single whole.",
+          value: "A cabin change that works technically, holds up under regulatory scrutiny and makes commercial and operational sense.",
+        },
+        {
+          number: "07",
+          title: "Avionics Upgrades",
+          situation: "You are planning an avionics retrofit – CPDLC, RNP or LVP. You need one accountable programme that covers technical substantiation, the certification path and preparation of documentation ready for execution by your Part 145.",
+          action: "We define the system and produce EASA-compliant technical substantiation. We prepare approved installation instructions. We manage the entire programme as a single certified output – from the initial brief through to approved documentation ready for handover.",
+          value: "The avionics change arrives as a single certified output. Your Part 145 receives complete documentation ready for execution.",
+        },
+        {
+          number: "08",
+          title: "Programme Integration & Coordination",
           situation: "The programme spans multiple technical disciplines and suppliers. You need programme management that keeps everything under control and gives you clear, ongoing visibility.",
           action: "We manage the entire programme. We coordinate internal and external disciplines, suppliers and partners. We monitor schedule, budget and risks. We stay in close contact with you, your Part 145 or installation partner.",
           value: "You have one partner with full oversight of the programme. You know where it stands, what comes next and what you will receive at the end.",
@@ -330,7 +360,7 @@ export const translations = {
       ],
     },
     segments: {
-      perex: "Jet Concept works with clients in the Business and Commercial segments. Defense remains a long-term development direction.",
+      perex: "We focus first on airlines and VIP/VVIP programmes. We also work with business jet owners and operators, completion centres and other aviation organisations where design, certification and manufacturing must stay aligned. Our scope covers special missions, rotorcraft and EMAR-type work wherever our DOA capability is the right match. Defense remains a long-term development direction.",
       businessTitle: "Business",
       businessDesc: "Are you planning a cabin completion, modernisation or a specific business jet modification? We work with clients who value quality of execution, discreet programme management and a clean outcome.",
       businessHelp: "We help with:",
@@ -359,6 +389,8 @@ export const translations = {
         "Lessors and asset managers",
         "System integrators",
         "OEM partners",
+        "Special mission and rotorcraft operators",
+        "Organisations operating under EMAR or military airworthiness frameworks",
       ],
     },
     origin: {
