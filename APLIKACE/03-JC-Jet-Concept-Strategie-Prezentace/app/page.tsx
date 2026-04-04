@@ -7,7 +7,7 @@ import { translations, type Lang } from "./translations";
 
 export default function Page() {
   const [unlocked, setUnlocked] = useState(false);
-  const [lang, setLang] = useState<Lang>("cs");
+  const [lang, setLang] = useState<Lang>("en");
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -53,12 +53,7 @@ export default function Page() {
         {/* Anchor links – hidden on mobile via .nav-links class */}
         <nav
           className="scrollbar-none nav-links"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 4,
-            overflowX: "auto",
-          }}
+          style={{ display: "flex", alignItems: "center", gap: 4, overflowX: "auto" }}
         >
           {t.nav.map((link) => (
             <a
@@ -89,7 +84,7 @@ export default function Page() {
           ))}
         </nav>
 
-        {/* Language switcher */}
+        {/* Language switcher + hamburger */}
         <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
           {(["cs", "en"] as Lang[]).map((l) => (
             <button
@@ -113,7 +108,7 @@ export default function Page() {
             </button>
           ))}
 
-          {/* Hamburger — pouze mobil */}
+          {/* Hamburger — mobile only */}
           <button
             className="menu-btn"
             onClick={() => setMenuOpen((o) => !o)}
@@ -132,44 +127,30 @@ export default function Page() {
               height: 32,
             }}
           >
-            <span
-              style={{
-                display: "block",
-                width: 20,
-                height: 2,
-                borderRadius: 1,
-                background: "var(--color-at-blue-a5)",
-                transition: "transform 200ms, opacity 200ms",
-                transform: menuOpen ? "translateY(7px) rotate(45deg)" : "none",
-              }}
-            />
-            <span
-              style={{
-                display: "block",
-                width: 20,
-                height: 2,
-                borderRadius: 1,
-                background: "var(--color-at-blue-a5)",
-                transition: "opacity 200ms",
-                opacity: menuOpen ? 0 : 1,
-              }}
-            />
-            <span
-              style={{
-                display: "block",
-                width: 20,
-                height: 2,
-                borderRadius: 1,
-                background: "var(--color-at-blue-a5)",
-                transition: "transform 200ms, opacity 200ms",
-                transform: menuOpen ? "translateY(-7px) rotate(-45deg)" : "none",
-              }}
-            />
+            {[
+              menuOpen ? "translateY(7px) rotate(45deg)" : "none",
+              undefined,
+              menuOpen ? "translateY(-7px) rotate(-45deg)" : "none",
+            ].map((transform, i) => (
+              <span
+                key={i}
+                style={{
+                  display: "block",
+                  width: 20,
+                  height: 2,
+                  borderRadius: 1,
+                  background: "var(--color-at-blue-a5)",
+                  transition: i === 1 ? "opacity 200ms" : "transform 200ms, opacity 200ms",
+                  opacity: i === 1 && menuOpen ? 0 : 1,
+                  ...(transform ? { transform } : {}),
+                }}
+              />
+            ))}
           </button>
         </div>
       </header>
 
-      {/* ─── MOBILNÍ DROPDOWN MENU ────────────────────────────────────────── */}
+      {/* ─── MOBILE DROPDOWN ──────────────────────────────────────────────── */}
       {menuOpen && (
         <nav
           style={{
@@ -215,7 +196,6 @@ export default function Page() {
             </a>
           ))}
 
-          {/* CS/EN v dropdown */}
           <div
             style={{
               display: "flex",
@@ -274,7 +254,6 @@ export default function Page() {
               pointerEvents: "none",
             }}
           />
-          {/* Radial glow */}
           <div
             style={{
               position: "absolute",
@@ -290,14 +269,12 @@ export default function Page() {
           />
 
           <div style={{ position: "relative", zIndex: 1 }}>
-            {/* Logo */}
             <img
               src="/jet-concept-logo.svg"
               alt="Jet Concept"
               style={{ height: 80, width: "auto", marginBottom: "2rem", display: "block" }}
             />
 
-            {/* Pre-label */}
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "1.5rem" }}>
               <div style={{ width: 3, height: 18, borderRadius: 2, background: "var(--color-at-red)" }} />
               <span
@@ -313,7 +290,6 @@ export default function Page() {
               </span>
             </div>
 
-            {/* H1 */}
             <h1
               style={{
                 fontSize: "clamp(3.5rem, 9vw, 7rem)",
@@ -328,54 +304,53 @@ export default function Page() {
               Jet Concept
             </h1>
 
-            {/* Tagline */}
             <p
               style={{
-                fontSize: "clamp(1.1rem, 2.5vw, 1.6rem)",
-                fontWeight: 300,
-                color: "var(--color-at-blue-a5)",
-                letterSpacing: "0.04em",
-                marginBottom: "2rem",
+                fontSize: "clamp(1.05rem, 2.5vw, 1.5rem)",
+                fontWeight: 600,
+                color: "var(--color-at-white)",
+                maxWidth: "42rem",
+                marginBottom: "1.25rem",
+                lineHeight: 1.3,
               }}
             >
               {t.hero.tagline}
             </p>
 
-            {/* Divider line */}
             <div
               style={{
                 width: "clamp(3rem, 8vw, 5rem)",
                 height: 3,
                 background: "var(--color-at-red)",
                 borderRadius: 2,
-                marginBottom: "2rem",
+                marginBottom: "1.5rem",
               }}
             />
 
-            {/* Lead text */}
             <p
               style={{
                 maxWidth: 680,
                 fontSize: "clamp(0.9rem, 1.8vw, 1.05rem)",
                 lineHeight: 1.7,
                 color: "var(--color-at-blue-v5)",
-                marginBottom: "2.5rem",
+                marginBottom: "2rem",
               }}
             >
               {t.hero.lead}
             </p>
 
             {/* Badges */}
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: "1.75rem" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: "1.75rem" }}>
               {t.hero.badges.map((tag) => (
                 <span
                   key={tag}
                   style={{
-                    padding: "6px 14px",
-                    borderRadius: 6,
-                    fontSize: "0.75rem",
+                    padding: "6px 16px",
+                    borderRadius: 999,
+                    fontSize: "0.72rem",
                     fontWeight: 600,
-                    letterSpacing: "0.05em",
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
                     background: "var(--color-at-blue-v2-60)",
                     border: "1px solid var(--color-at-blue-v3)",
                     color: "var(--color-at-blue-a5)",
@@ -391,7 +366,7 @@ export default function Page() {
               <div style={{ width: 3, height: 18, borderRadius: 2, background: "var(--color-at-red)", flexShrink: 0 }} />
               <span
                 style={{
-                  fontSize: "0.75rem",
+                  fontSize: "0.72rem",
                   fontWeight: 700,
                   letterSpacing: "0.28em",
                   textTransform: "uppercase",
@@ -407,262 +382,45 @@ export default function Page() {
         <div className="divider" />
 
         {/* ═══════════════════════════════════════════════════════════════════
-            KONTEXT / CONTEXT – ORIGIN STORY
+            KONTEXT – WHERE WE ARE NOW (2 cards only)
         ═══════════════════════════════════════════════════════════════════ */}
         <section id="kontext" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--color-at-white)", marginBottom: "0.75rem" }}>
             {t.sections.s00.label}
           </p>
-          <h2 className="section-h2" style={{ marginBottom: "2.5rem" }}>
+          <h2 className="section-h2" style={{ marginBottom: "0.75rem" }}>
             {t.sections.s00.title}
           </h2>
+          <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "2rem", fontSize: "0.95rem" }}>
+            {t.origin.nowText}
+          </p>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem", marginBottom: "2rem" }}>
-            {/* Odkud přicházíme */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
+            {/* For Jet Concept */}
             <div className="card">
-              <h3 style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-at-blue-v4)", marginBottom: "0.75rem" }}>
-                {t.origin.fromTitle}
+              <h3 style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-at-red)", marginBottom: "1rem" }}>
+                {t.origin.forJCTitle}
               </h3>
-              <p style={{ fontSize: "0.9rem", color: "var(--color-at-blue-v5)", lineHeight: 1.7, margin: 0 }}>
-                {t.origin.fromText}
-              </p>
-            </div>
-
-            {/* Proč jsme odešli */}
-            <div className="card">
-              <h3 style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-at-blue-v4)", marginBottom: "0.75rem" }}>
-                {t.origin.whyTitle}
-              </h3>
-              <p style={{ fontSize: "0.9rem", color: "var(--color-at-blue-v5)", lineHeight: 1.7, margin: 0 }}>
-                {t.origin.whyText}
-              </p>
-            </div>
-          </div>
-
-          {/* Kde jsme nyní */}
-          <div className="card" style={{ background: "var(--color-at-blue-v2)", borderColor: "var(--color-at-blue-v3)" }}>
-            <h3 style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-at-white)", marginBottom: "1rem" }}>
-              {t.origin.nowTitle}
-            </h3>
-            <p style={{ fontSize: "0.9rem", color: "var(--color-at-blue-a5)", lineHeight: 1.7, marginBottom: "1.5rem", maxWidth: 680 }}>
-              {t.origin.nowText}
-            </p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
-              {/* Pro Jet Concept */}
-              <div>
-                <p style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--color-at-red)", marginBottom: "0.75rem" }}>
-                  {t.origin.forJCTitle}
-                </p>
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                  {t.origin.forJCItems.map((item) => (
-                    <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
-                      <div style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--color-at-red)", flexShrink: 0, marginTop: 7 }} />
-                      <span style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.6 }}>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              {/* Pro AIR TEAM */}
-              <div>
-                <p style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--color-at-blue-v4)", marginBottom: "0.75rem" }}>
-                  {t.origin.forATTitle}
-                </p>
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                  {t.origin.forATItems.map((item) => (
-                    <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
-                      <div style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--color-at-blue-v4)", flexShrink: 0, marginTop: 7 }} />
-                      <span style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.6 }}>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="divider" />
-
-        {/* ═══════════════════════════════════════════════════════════════════
-            CO JSME / ABOUT
-        ═══════════════════════════════════════════════════════════════════ */}
-        <section id="co-jsme" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
-          <p
-            style={{
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: "var(--color-at-white)",
-              marginBottom: "0.75rem",
-            }}
-          >
-            {t.sections.s01.label}
-          </p>
-          <h2 className="section-h2" style={{ marginBottom: "0.75rem" }}>
-            {t.sections.s01.title}
-          </h2>
-          <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "1.5rem", fontSize: "0.95rem" }}>
-            {t.about.p1}
-          </p>
-          <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "3rem", fontSize: "0.95rem" }}>
-            {t.about.p2}
-          </p>
-
-          {/* H3 grid: Identita + Vize/Mise/Poslání */}
-          <div className="grid-auto">
-            {/* Identita */}
-            <div className="card" style={{ gridColumn: "span 1" }}>
-              <h3
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "var(--color-at-white)",
-                  marginBottom: "0.75rem",
-                }}
-              >
-                {t.about.identityTitle}
-              </h3>
-              <p style={{ fontSize: "1rem", fontWeight: 700, color: "var(--color-at-white)", lineHeight: 1.5, marginBottom: "1rem" }}>
-                {t.about.identityDesc}
-              </p>
-              <p style={{ fontSize: "0.875rem", color: "var(--color-at-blue-a5)", lineHeight: 1.7 }}>
-                {t.about.identityBody}
-              </p>
-              <div
-                style={{
-                  marginTop: "1.25rem",
-                  paddingTop: "1rem",
-                  borderTop: "1px solid var(--color-at-blue-v3)",
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: 8,
-                }}
-              >
-                {t.about.identityTags.map((tag) => (
-                  <span
-                    key={tag}
-                    style={{
-                      fontSize: "0.75rem",
-                      fontWeight: 600,
-                      padding: "4px 10px",
-                      borderRadius: 4,
-                      background: "var(--color-at-blue-v3-40)",
-                      border: "1px solid var(--color-at-blue-v3)",
-                      color: "var(--color-at-blue-a5)",
-                    }}
-                  >
-                    {tag}
-                  </span>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                {t.origin.forJCItems.map((item) => (
+                  <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
+                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--color-at-red)", flexShrink: 0, marginTop: 7 }} />
+                    <span style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.6 }}>{item}</span>
+                  </div>
                 ))}
               </div>
             </div>
 
-            {/* Vize / Vision */}
+            {/* For AIR TEAM */}
             <div className="card">
-              <h3
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "var(--color-at-white)",
-                  marginBottom: "0.75rem",
-                }}
-              >
-                {t.about.visionTitle}
+              <h3 style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-at-blue-v4)", marginBottom: "1rem" }}>
+                {t.origin.forATTitle}
               </h3>
-              <p style={{ fontSize: "0.95rem", color: "var(--color-at-blue-a5)", lineHeight: 1.7 }}>
-                {t.about.visionDesc}
-              </p>
-            </div>
-
-            {/* Mise / Mission */}
-            <div className="card">
-              <h3
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "var(--color-at-white)",
-                  marginBottom: "0.75rem",
-                }}
-              >
-                {t.about.missionTitle}
-              </h3>
-              <p style={{ fontSize: "0.95rem", color: "var(--color-at-blue-a5)", lineHeight: 1.7 }}>
-                {t.about.missionDesc}
-              </p>
-            </div>
-
-            {/* Poslání / Purpose */}
-            <div className="card">
-              <h3
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "var(--color-at-white)",
-                  marginBottom: "0.75rem",
-                }}
-              >
-                {t.about.purposeTitle}
-              </h3>
-              <p style={{ fontSize: "0.95rem", color: "var(--color-at-blue-a5)", lineHeight: 1.7 }}>
-                {t.about.purposeDesc}
-              </p>
-            </div>
-
-            {/* Strategická role entity / Strategic Role */}
-            <div
-              className="card"
-              style={{ gridColumn: "1 / -1" }}
-            >
-              <h3
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "var(--color-at-white)",
-                  marginBottom: "0.75rem",
-                }}
-              >
-                {t.about.roleTitle}
-              </h3>
-              <p style={{ fontSize: "0.95rem", color: "var(--color-at-blue-a5)", lineHeight: 1.7, marginBottom: "1.25rem", maxWidth: 760 }}>
-                {t.about.roleIntro}
-              </p>
-              <p
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                  color: "var(--color-at-white)",
-                  marginBottom: "0.75rem",
-                }}
-              >
-                {t.about.roleItemsLabel}
-              </p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem 2rem" }}>
-                {t.about.roleItems.map((item) => (
-                  <div key={item} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <div
-                      style={{
-                        width: 5,
-                        height: 5,
-                        borderRadius: "50%",
-                        background: "var(--color-at-red)",
-                        flexShrink: 0,
-                      }}
-                    />
-                    <span style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.6 }}>
-                      {item}
-                    </span>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                {t.origin.forATItems.map((item) => (
+                  <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
+                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--color-at-blue-v4)", flexShrink: 0, marginTop: 7 }} />
+                    <span style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.6 }}>{item}</span>
                   </div>
                 ))}
               </div>
@@ -673,133 +431,224 @@ export default function Page() {
         <div className="divider" />
 
         {/* ═══════════════════════════════════════════════════════════════════
-            PORTFOLIO
+            ABOUT – PROSE LAYOUT
         ═══════════════════════════════════════════════════════════════════ */}
-        <section id="portfolio" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
-          <p
-            style={{
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: "var(--color-at-white)",
-              marginBottom: "0.75rem",
-            }}
-          >
-            {t.sections.s02.label}
+        <section id="co-jsme" style={{ paddingTop: "4rem", paddingBottom: "4rem", maxWidth: 920 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--color-at-white)", marginBottom: "0.75rem" }}>
+            {t.sections.s01.label}
           </p>
-          <h2 className="section-h2" style={{ marginBottom: "0.75rem" }}>
-            {t.sections.s02.title}
+          <h2 className="section-h2" style={{ marginBottom: "2rem" }}>
+            {t.sections.s01.title}
           </h2>
-          <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "3rem", fontSize: "0.95rem" }}>
-            {t.portfolio.perex}
+
+          {/* What is Jet Concept */}
+          <h3 style={{ fontSize: "clamp(1.05rem, 2.5vw, 1.25rem)", fontWeight: 700, color: "var(--color-at-white)", marginBottom: "0.85rem", letterSpacing: "-0.01em" }}>
+            {t.about.whatTitle}
+          </h3>
+          <p style={{ color: "var(--color-at-blue-a5)", lineHeight: 1.65, marginBottom: "1rem", fontSize: "0.95rem" }}>
+            {t.about.p1}
+          </p>
+          <p style={{ color: "var(--color-at-blue-a5)", lineHeight: 1.65, marginBottom: "2.25rem", fontSize: "0.95rem" }}>
+            {t.about.p2}
           </p>
 
-          <div className="grid-auto grid-auto-md">
+          {/* Entity identity */}
+          <h3 style={{ fontSize: "clamp(1.05rem, 2.5vw, 1.25rem)", fontWeight: 700, color: "var(--color-at-white)", marginBottom: "0.85rem", letterSpacing: "-0.01em" }}>
+            {t.about.entityTitle}
+          </h3>
+          <p style={{ color: "var(--color-at-blue-a5)", lineHeight: 1.65, marginBottom: "0.85rem", fontSize: "0.95rem" }}>
+            <strong style={{ color: "var(--color-at-white)", fontWeight: 600 }}>{t.about.entityDesc}</strong>
+          </p>
+          <p style={{ color: "var(--color-at-blue-a5)", lineHeight: 1.65, marginBottom: "0.85rem", fontSize: "0.95rem" }}>
+            {t.about.entityBody}
+          </p>
+          <p style={{ color: "var(--color-at-blue-a5)", lineHeight: 1.65, marginBottom: "0.6rem", fontSize: "0.95rem" }}>
+            {t.about.entityBodySub}
+          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginBottom: "2.25rem" }}>
+            {t.about.doaItems.map((item) => (
+              <div key={item} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--color-at-red)", flexShrink: 0 }} />
+                <span style={{ fontSize: "0.9rem", color: "var(--color-at-blue-v5)", lineHeight: 1.5 }}>{item}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Vision */}
+          <h3 style={{ fontSize: "clamp(1.05rem, 2.5vw, 1.25rem)", fontWeight: 700, color: "var(--color-at-white)", marginBottom: "0.85rem", letterSpacing: "-0.01em" }}>
+            {t.about.visionTitle}
+          </h3>
+          <p style={{ color: "var(--color-at-blue-a5)", lineHeight: 1.65, marginBottom: "2.25rem", fontSize: "0.95rem" }}>
+            {t.about.visionDesc}
+          </p>
+
+          {/* Mission */}
+          <h3 style={{ fontSize: "clamp(1.05rem, 2.5vw, 1.25rem)", fontWeight: 700, color: "var(--color-at-white)", marginBottom: "0.85rem", letterSpacing: "-0.01em" }}>
+            {t.about.missionTitle}
+          </h3>
+          <p style={{ color: "var(--color-at-blue-a5)", lineHeight: 1.65, marginBottom: "2.25rem", fontSize: "0.95rem" }}>
+            {t.about.missionDesc}
+          </p>
+
+          {/* Purpose */}
+          <h3 style={{ fontSize: "clamp(1.05rem, 2.5vw, 1.25rem)", fontWeight: 700, color: "var(--color-at-white)", marginBottom: "0.85rem", letterSpacing: "-0.01em" }}>
+            {t.about.purposeTitle}
+          </h3>
+          <p style={{ color: "var(--color-at-blue-a5)", lineHeight: 1.65, fontSize: "0.95rem" }}>
+            {t.about.purposeDesc}
+          </p>
+        </section>
+
+        <div className="divider" />
+
+        {/* ═══════════════════════════════════════════════════════════════════
+            WHAT WE DO – SERVICE STACK
+        ═══════════════════════════════════════════════════════════════════ */}
+        <section id="portfolio" style={{ paddingTop: "4rem", paddingBottom: "4rem", maxWidth: 920 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--color-at-white)", marginBottom: "0.75rem" }}>
+            {t.sections.s02.label}
+          </p>
+          <h2 className="section-h2" style={{ marginBottom: "2rem" }}>
+            {t.sections.s02.title}
+          </h2>
+
+          {/* We specifically address */}
+          <h3 style={{ fontSize: "clamp(1.05rem, 2.5vw, 1.25rem)", fontWeight: 700, color: "var(--color-at-white)", marginBottom: "0.85rem", letterSpacing: "-0.01em" }}>
+            {t.portfolio.whatWeAddressTitle}
+          </h3>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem", marginBottom: "2.5rem" }}>
+            {t.portfolio.whatWeAddressItems.map((item) => (
+              <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
+                <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--color-at-red)", flexShrink: 0, marginTop: 7 }} />
+                <span style={{ fontSize: "0.9rem", color: "var(--color-at-blue-v5)", lineHeight: 1.55 }}>{item}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Service portfolio heading + prose */}
+          <h3 style={{ fontSize: "clamp(1.05rem, 2.5vw, 1.25rem)", fontWeight: 700, color: "var(--color-at-white)", marginBottom: "0.85rem", letterSpacing: "-0.01em" }}>
+            {t.portfolio.servicePortfolioTitle}
+          </h3>
+          <p style={{ color: "var(--color-at-blue-a5)", lineHeight: 1.65, marginBottom: "2rem", fontSize: "0.95rem" }}>
+            {t.portfolio.servicePortfolioDesc}
+          </p>
+
+          {/* Key service lines label */}
+          <p style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-at-white)", marginBottom: "1rem" }}>
+            {t.portfolio.serviceLines}
+          </p>
+
+          {/* Service stack */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2rem" }}>
             {t.portfolio.items.map((item) => (
               <div
                 key={item.number}
-                className="card"
-                style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}
+                className="tile-hover"
+                style={{
+                  background: "var(--color-at-blue-v2)",
+                  border: "1px solid var(--color-at-blue-v3)",
+                  borderRadius: 14,
+                  padding: "clamp(1.1rem, 2.8vw, 1.45rem)",
+                }}
               >
-                <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
-                  <span
-                    style={{
-                      fontSize: "0.75rem",
-                      fontWeight: 700,
-                      fontFamily: "monospace",
-                      color: "var(--color-at-blue-v4)",
-                      flexShrink: 0,
-                      paddingTop: 3,
-                    }}
-                  >
+                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", gap: "0.45rem 0.65rem", marginBottom: "0.6rem" }}>
+                  <span style={{ fontSize: "0.8rem", fontWeight: 700, letterSpacing: "0.06em", color: "var(--color-at-red)", flexShrink: 0 }}>
                     {item.number}
                   </span>
-                  <h3
-                    style={{
-                      fontSize: "1rem",
-                      fontWeight: 700,
-                      color: "var(--color-at-white)",
-                      lineHeight: 1.3,
-                      margin: 0,
-                    }}
-                  >
+                  <h4 style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-at-white)", margin: 0, lineHeight: 1.3, flex: 1, minWidth: "10rem" }}>
                     {item.title}
-                  </h3>
+                  </h4>
                 </div>
-
-                {/* Situace / Situation */}
-                <div>
-                  <p style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-at-blue-v4)", margin: "0 0 0.25rem 0" }}>
-                    {t.ui.situationLabel}
-                  </p>
-                  <p style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.6, margin: 0 }}>
-                    {item.situation}
-                  </p>
-                </div>
-
-                {/* Co uděláme / What We Do */}
-                <div>
-                  <p style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-at-blue-v4)", margin: "0 0 0.25rem 0" }}>
-                    {t.ui.actionLabel}
-                  </p>
-                  <p style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.6, margin: 0 }}>
-                    {item.action}
-                  </p>
-                </div>
-
-                {/* Výsledek / Outcome */}
-                <div
-                  style={{
-                    marginTop: "auto",
-                    paddingTop: "0.75rem",
-                    borderTop: "1px solid var(--color-at-blue-v3)",
-                    display: "flex",
-                    gap: 8,
-                    alignItems: "flex-start",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 3,
-                      height: 14,
-                      borderRadius: 2,
-                      background: "var(--color-at-red)",
-                      flexShrink: 0,
-                      marginTop: 3,
-                    }}
-                  />
-                  <p style={{ fontSize: "0.8rem", color: "var(--color-at-blue-a5)", lineHeight: 1.5, margin: 0 }}>
-                    {item.value}
-                  </p>
-                </div>
+                <p style={{ margin: 0, fontSize: "0.9rem", color: "var(--color-at-blue-v5)", lineHeight: 1.6 }}>
+                  {item.desc}
+                </p>
               </div>
             ))}
+          </div>
+
+          {/* Further modification bubble pills */}
+          <div
+            style={{
+              marginBottom: "2rem",
+              padding: "clamp(1.25rem, 3vw, 1.85rem)",
+              background: "var(--color-at-blue-v1)",
+              border: "1px solid var(--color-at-blue-v3)",
+              borderRadius: 14,
+            }}
+          >
+            <p style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-at-white)", marginBottom: "1rem" }}>
+              {t.portfolio.furtherModTitle}
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem" }}>
+              {t.portfolio.furtherModItems.map((item) => (
+                <span
+                  key={item}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    fontSize: "0.68rem",
+                    fontWeight: 600,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "var(--color-at-white)",
+                    padding: "0.55rem 1.15rem",
+                    background: "transparent",
+                    border: "1px solid var(--color-at-blue-v4)",
+                    borderRadius: 999,
+                    lineHeight: 1.2,
+                  }}
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Product catalogue */}
+          <h3 style={{ fontSize: "clamp(1.05rem, 2.5vw, 1.25rem)", fontWeight: 700, color: "var(--color-at-white)", marginBottom: "0.85rem", letterSpacing: "-0.01em" }}>
+            {t.portfolio.catalogueTitle}
+          </h3>
+          <p style={{ color: "var(--color-at-blue-a5)", lineHeight: 1.65, marginBottom: "1rem", fontSize: "0.95rem" }}>
+            <strong style={{ color: "var(--color-at-white)", fontWeight: 600 }}>{t.portfolio.catalogueDesc}</strong>
+          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+            {t.portfolio.catalogueItems.map((item, i) => {
+              const isLast = i === t.portfolio.catalogueItems.length - 1;
+              return (
+                <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
+                  {!isLast && (
+                    <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--color-at-red)", flexShrink: 0, marginTop: 7 }} />
+                  )}
+                  <span
+                    style={{
+                      fontSize: "0.9rem",
+                      color: isLast ? "var(--color-at-blue-v4)" : "var(--color-at-blue-v5)",
+                      lineHeight: 1.5,
+                      fontStyle: isLast ? "italic" : "normal",
+                      paddingLeft: isLast ? 14 : 0,
+                    }}
+                  >
+                    {item}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </section>
 
         <div className="divider" />
 
         {/* ═══════════════════════════════════════════════════════════════════
-            SEGMENTY / SEGMENTS
+            SEGMENTS
         ═══════════════════════════════════════════════════════════════════ */}
         <section id="segmenty" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
-          <p
-            style={{
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: "var(--color-at-white)",
-              marginBottom: "0.75rem",
-            }}
-          >
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--color-at-white)", marginBottom: "0.75rem" }}>
             {t.sections.s03.label}
           </p>
           <h2 className="section-h2" style={{ marginBottom: "0.75rem" }}>
             {t.sections.s03.title}
           </h2>
-          <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "3rem", fontSize: "0.95rem" }}>
+          <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "2rem", fontSize: "0.95rem" }}>
             {t.segments.perex}
           </p>
 
@@ -809,47 +658,36 @@ export default function Page() {
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "1rem" }}>
                 <div
                   style={{
-                    width: 36,
-                    height: 36,
-                    borderRadius: 8,
-                    background: "var(--color-at-red-15)",
-                    border: "1px solid var(--color-at-red-30)",
+                    width: 44,
+                    height: 44,
+                    borderRadius: 10,
+                    background: "var(--color-at-blue-a3)",
+                    border: "1px solid var(--color-at-blue-v4)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     flexShrink: 0,
                   }}
                 >
-                  <span style={{ fontSize: "1rem" }}>✈</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--color-at-white)" }}>
+                    <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                  </svg>
                 </div>
                 <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--color-at-white)", margin: 0 }}>
                   {t.segments.businessTitle}
                 </h3>
               </div>
-
               <p style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.65, marginBottom: "1rem" }}>
                 {t.segments.businessDesc}
               </p>
-
-              <p
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                  color: "var(--color-at-white)",
-                  marginBottom: "0.5rem",
-                }}
-              >
+              <p style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-at-white)", marginBottom: "0.65rem" }}>
                 {t.segments.businessHelp}
               </p>
-              <ul style={{ margin: 0, padding: "0 0 0 1rem" }}>
+              <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                 {t.segments.businessItems.map((item) => (
-                  <li
-                    key={item}
-                    style={{ fontSize: "0.85rem", color: "var(--color-at-blue-v5)", lineHeight: 1.7, marginBottom: "0.3rem" }}
-                  >
-                    {item}
+                  <li key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
+                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--color-at-red)", flexShrink: 0, marginTop: 7 }} />
+                    <span style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.55 }}>{item}</span>
                   </li>
                 ))}
               </ul>
@@ -860,79 +698,47 @@ export default function Page() {
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "1rem" }}>
                 <div
                   style={{
-                    width: 36,
-                    height: 36,
-                    borderRadius: 8,
-                    background: "var(--color-at-blue-v4-20)",
-                    border: "1px solid var(--color-at-blue-v4-40)",
+                    width: 44,
+                    height: 44,
+                    borderRadius: 10,
+                    background: "var(--color-at-blue-a3)",
+                    border: "1px solid var(--color-at-blue-v4)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     flexShrink: 0,
                   }}
                 >
-                  <span style={{ fontSize: "1rem" }}>⚙</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--color-at-white)" }}>
+                    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9c.26.604.852.997 1.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+                  </svg>
                 </div>
                 <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--color-at-white)", margin: 0 }}>
                   {t.segments.commercialTitle}
                 </h3>
               </div>
-
               <p style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.65, marginBottom: "1rem" }}>
                 {t.segments.commercialDesc}
               </p>
-
-              <p
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                  color: "var(--color-at-white)",
-                  marginBottom: "0.5rem",
-                }}
-              >
+              <p style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-at-white)", marginBottom: "0.65rem" }}>
                 {t.segments.commercialHelp}
               </p>
-              <ul style={{ margin: 0, padding: "0 0 0 1rem" }}>
+              <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                 {t.segments.commercialItems.map((item) => (
-                  <li
-                    key={item}
-                    style={{ fontSize: "0.85rem", color: "var(--color-at-blue-v5)", lineHeight: 1.7, marginBottom: "0.3rem" }}
-                  >
-                    {item}
+                  <li key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
+                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--color-at-red)", flexShrink: 0, marginTop: 7 }} />
+                    <span style={{ fontSize: "0.875rem", color: "var(--color-at-blue-v5)", lineHeight: 1.55 }}>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Klíčoví zákazníci / Key Customers */}
-            <div
-              className="card"
-              style={{
-                gridColumn: "1 / -1",
-                background: "var(--color-at-blue-v1-60)",
-              }}
-            >
-              <h3
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.18em",
-                  textTransform: "uppercase",
-                  color: "var(--color-at-white)",
-                  marginBottom: "1rem",
-                }}
-              >
+            {/* Key customers */}
+            <div className="card" style={{ gridColumn: "1 / -1" }}>
+              <h3 style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-at-white)", marginBottom: "1rem" }}>
                 {t.segments.customersTitle}
               </h3>
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: 10,
-                }}
-              >
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
                 {t.segments.customers.map((c) => (
                   <span
                     key={c}
@@ -957,116 +763,7 @@ export default function Page() {
         <div className="divider" />
 
         {/* ═══════════════════════════════════════════════════════════════════
-            POSITIONING & ODLIŠENÍ / POSITIONING & DIFFERENTIATION
-        ═══════════════════════════════════════════════════════════════════ */}
-        <section id="positioning" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--color-at-white)", marginBottom: "0.75rem" }}>
-            {t.sections.s08.label}
-          </p>
-          <h2 className="section-h2" style={{ marginBottom: "0.75rem" }}>
-            {t.sections.s08.title}
-          </h2>
-          <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "2.5rem", fontSize: "0.95rem" }}>
-            {t.positioning.perex}
-          </p>
-
-          {/* Srovnávací tabulka */}
-          <div style={{ overflowX: "auto", marginBottom: "2.5rem" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.875rem" }}>
-              <thead>
-                <tr>
-                  {t.positioning.tableHeaders.map((h, i) => (
-                    <th
-                      key={i}
-                      style={{
-                        padding: "0.75rem 1rem",
-                        textAlign: "left",
-                        fontWeight: 700,
-                        fontSize: "0.7rem",
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                        color: i === 0 ? "var(--color-at-blue-v4)" : i === 1 ? "var(--color-at-blue-v4)" : "var(--color-at-white)",
-                        background: i === 2 ? "var(--color-at-blue-v2)" : "var(--color-at-blue-v1)",
-                        borderBottom: "2px solid var(--color-at-blue-v3)",
-                        borderRight: i < 2 ? "1px solid var(--color-at-blue-v3)" : "none",
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {t.positioning.tableRows.map((row, ri) => (
-                  <tr key={ri} style={{ background: ri % 2 === 0 ? "var(--color-at-blue-v1)" : "transparent" }}>
-                    {row.map((cell, ci) => (
-                      <td
-                        key={ci}
-                        style={{
-                          padding: "0.75rem 1rem",
-                          color: ci === 0 ? "var(--color-at-blue-v4)" : ci === 1 ? "var(--color-at-blue-v5)" : "var(--color-at-blue-a5)",
-                          fontWeight: ci === 0 ? 700 : 400,
-                          fontSize: ci === 0 ? "0.75rem" : "0.875rem",
-                          letterSpacing: ci === 0 ? "0.08em" : "normal",
-                          textTransform: ci === 0 ? "uppercase" : "none",
-                          borderBottom: "1px solid var(--color-at-blue-v2)",
-                          borderRight: ci < 2 ? "1px solid var(--color-at-blue-v2)" : "none",
-                          background: ci === 2 ? "var(--color-at-blue-v2-20)" : "transparent",
-                          lineHeight: 1.5,
-                        }}
-                      >
-                        {cell}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Positioning statement */}
-          <div
-            style={{
-              padding: "1.75rem 2rem",
-              borderRadius: 10,
-              background: "var(--color-at-blue-v2)",
-              border: "1px solid var(--color-at-blue-v3)",
-              borderLeftColor: "var(--color-at-red)",
-              borderLeftWidth: 4,
-              borderLeftStyle: "solid",
-              maxWidth: 780,
-            }}
-          >
-            <p style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--color-at-blue-v4)", marginBottom: "0.75rem" }}>
-              {t.positioning.positioningLabel}
-            </p>
-            <p style={{ fontSize: "1.05rem", fontWeight: 600, color: "var(--color-at-white)", lineHeight: 1.6, margin: "0 0 1.25rem 0" }}>
-              {t.positioning.positioningStatement}
-            </p>
-            <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap", paddingTop: "1rem", borderTop: "1px solid var(--color-at-blue-v3)" }}>
-              <div>
-                <p style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-at-blue-v4)", marginBottom: "0.25rem" }}>
-                  {t.positioning.headlineLabel} (EN)
-                </p>
-                <p style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--color-at-blue-a5)", margin: 0 }}>
-                  {t.positioning.headlinePrimary}
-                </p>
-              </div>
-              <div>
-                <p style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-at-blue-v4)", marginBottom: "0.25rem" }}>
-                  {t.positioning.headlineLabel} (CZ)
-                </p>
-                <p style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--color-at-blue-a5)", margin: 0 }}>
-                  {t.positioning.headlineCzech}
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ═══════════════════════════════════════════════════════════════════
-            GO-TO-MARKET 2026
+            GTM + MILESTONES (embedded)
         ═══════════════════════════════════════════════════════════════════ */}
         <section id="gtm" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--color-at-white)", marginBottom: "0.75rem" }}>
@@ -1105,7 +802,7 @@ export default function Page() {
             {t.gtm.channelsTitle}
           </h3>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem", marginBottom: "3rem" }}>
             {t.gtm.channels.map((ch) => (
               <div
                 key={ch.n}
@@ -1151,21 +848,12 @@ export default function Page() {
               </div>
             ))}
           </div>
-        </section>
 
-        <div className="divider" />
-
-        {/* ═══════════════════════════════════════════════════════════════════
-            MILNÍKY 2026 / MILESTONES 2026
-        ═══════════════════════════════════════════════════════════════════ */}
-        <section id="milniky" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--color-at-white)", marginBottom: "0.75rem" }}>
-            {t.sections.s10.label}
-          </p>
-          <h2 className="section-h2" style={{ marginBottom: "0.75rem" }}>
-            {t.sections.s10.title}
-          </h2>
-          <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "2.5rem", fontSize: "0.95rem" }}>
+          {/* ── MILESTONES embedded in GTM ─────────────────────────────── */}
+          <h3 id="milniky" style={{ fontSize: "clamp(1.1rem, 2.5vw, 1.35rem)", fontWeight: 700, color: "var(--color-at-white)", letterSpacing: "-0.01em", marginBottom: "0.65rem", scrollMarginTop: "5.5rem" }}>
+            {t.milestones.title}
+          </h3>
+          <p style={{ color: "var(--color-at-blue-a5)", maxWidth: 680, lineHeight: 1.7, marginBottom: "1.5rem", fontSize: "0.95rem" }}>
             {t.milestones.perex}
           </p>
 
@@ -1180,8 +868,8 @@ export default function Page() {
                         padding: "0.75rem 1rem",
                         textAlign: "left",
                         fontWeight: 700,
-                        fontSize: "0.7rem",
-                        letterSpacing: "0.12em",
+                        fontSize: "0.68rem",
+                        letterSpacing: "0.1em",
                         textTransform: "uppercase",
                         color: "var(--color-at-white)",
                         background: "var(--color-at-blue-v2)",
@@ -1197,10 +885,7 @@ export default function Page() {
               </thead>
               <tbody>
                 {t.milestones.rows.map((row, ri) => (
-                  <tr
-                    key={ri}
-                    style={{ background: ri % 2 === 0 ? "var(--color-at-blue-v1)" : "transparent" }}
-                  >
+                  <tr key={ri} style={{ background: ri % 2 === 0 ? "var(--color-at-blue-v1)" : "transparent" }}>
                     <td style={{ padding: "0.875rem 1rem", color: "var(--color-at-blue-a5)", lineHeight: 1.5, borderBottom: "1px solid var(--color-at-blue-v2)", borderRight: "1px solid var(--color-at-blue-v2)" }}>
                       {row[0]}
                     </td>
@@ -1229,8 +914,6 @@ export default function Page() {
             </table>
           </div>
         </section>
-
-
 
       </main>
 
