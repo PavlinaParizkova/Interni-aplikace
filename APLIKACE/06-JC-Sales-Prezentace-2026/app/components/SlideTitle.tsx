@@ -9,6 +9,16 @@ interface Props {
 
 export default function SlideTitle({ slide }: Props) {
   const lines = slide.headline.split("\n");
+  const lineCount = lines.length;
+
+  // Scale font size to viewport height so multi-line headlines never overflow.
+  // dvh unit (dynamic viewport height) respects mobile browser chrome.
+  const fontSize =
+    lineCount >= 4
+      ? "clamp(2.5rem, min(5.5vw, 11dvh), 5.5rem)"
+      : lineCount === 3
+      ? "clamp(3rem, min(7vw, 14dvh), 7rem)"
+      : "clamp(4rem, min(10vw, 18dvh), 10rem)";
 
   return (
     <SlideShell
@@ -18,13 +28,13 @@ export default function SlideTitle({ slide }: Props) {
       {/* Hero content – left-aligned, vertically centered */}
       <div
         className="slide-content fade-up"
-        style={{ justifyContent: "center" }}
+        style={{ justifyContent: "safe center" }}
       >
         {/* Main headline */}
         <h1
           className="fade-up fade-up-2"
           style={{
-            fontSize: "clamp(4rem, 10vw, 10rem)",
+            fontSize,
             fontWeight: 700,
             lineHeight: 1.22,
             letterSpacing: "-0.03em",
@@ -84,29 +94,6 @@ export default function SlideTitle({ slide }: Props) {
         )}
       </div>
 
-      {/* Top-right: Jet Concept logo */}
-      <div
-        className="slide-title-logo"
-        style={{
-          position: "absolute",
-          top: "clamp(5rem, 9vw, 7rem)",
-          right: "clamp(1.5rem, 4vw, 3.5rem)",
-          zIndex: 20,
-          opacity: 0.75,
-          pointerEvents: "none",
-          maxWidth: "28%",
-        }}
-      >
-        <img
-          src="/logos/ATM_logo_Jet_Concept_red_white.svg"
-          alt="AIR TEAM Jet Concept"
-          style={{
-            width: "clamp(100px, 14vw, 200px)",
-            height: "auto",
-            display: "block",
-          }}
-        />
-      </div>
     </SlideShell>
   );
 }

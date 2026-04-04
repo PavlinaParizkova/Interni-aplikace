@@ -25,7 +25,7 @@ export default function SlideContact({ slide }: Props) {
         <h2
           className="fade-up fade-up-2"
           style={{
-            fontSize: "clamp(3.5rem, 8vw, 8rem)",
+            fontSize: "clamp(2.5rem, 5vw, 5rem)",
             fontWeight: 700,
             lineHeight: 1.28,
             letterSpacing: "-0.02em",

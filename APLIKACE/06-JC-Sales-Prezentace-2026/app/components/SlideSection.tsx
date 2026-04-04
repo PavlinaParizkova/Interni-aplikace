@@ -60,17 +60,6 @@ export default function SlideSection({ slide }: Props) {
           </p>
         )}
 
-        {/* Decorative line */}
-        <div
-          className="fade-up fade-up-4"
-          style={{
-            marginTop: "3rem",
-            width: 48,
-            height: 3,
-            background: "var(--color-at-red)",
-            borderRadius: 2,
-          }}
-        />
       </div>
     </SlideShell>
   );

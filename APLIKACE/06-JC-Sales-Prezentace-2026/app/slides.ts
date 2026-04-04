@@ -95,7 +95,7 @@ const enSlides: SlideData[] = [
     type: "section",
     photo: "Slide_03.jpg",
     photoOverlay: "linear-gradient(135deg, rgba(16,37,62,0.80) 0%, rgba(16,37,62,0.55) 100%)",
-    headline: "Meet us.",
+    headline: "Meet us",
   },
 
   /* ── 04 FOUR PILLARS ───────────────────────────────────────────────────── */
@@ -181,7 +181,7 @@ const enSlides: SlideData[] = [
     type: "section",
     photo: "VIP interior_01.jpg",
     photoOverlay: "linear-gradient(135deg, rgba(16,37,62,0.75) 0%, rgba(16,37,62,0.50) 100%)",
-    headline: "Jet\u00a0Concept\nPortfolio.",
+    headline: "Jet\u00a0Concept\nPortfolio",
   },
 
   /* ── 08 UPGRADE HERO ────────────────────────────────────────────────────── */
@@ -444,7 +444,7 @@ const enSlides: SlideData[] = [
     type: "section",
     photo: "Slide_23.jpg",
     photoOverlay: "linear-gradient(135deg, rgba(16,37,62,0.75) 0%, rgba(16,37,62,0.55) 100%)",
-    headline: "Why Us.",
+    headline: "Why Us",
   },
 
   /* ── 24 WHY AIR TEAM ─────────────────────────────────────────────────────── */
@@ -481,7 +481,6 @@ const enSlides: SlideData[] = [
   {
     id: "contact",
     type: "contact",
-    label: "Contact",
     headline: "Your Mission.\nOur Technology.",
     body: "Thank you for your time. We look forward to being part of your next upgrade.",
   },

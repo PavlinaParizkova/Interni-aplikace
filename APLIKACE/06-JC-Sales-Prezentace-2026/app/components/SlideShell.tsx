@@ -68,6 +68,44 @@ export default function SlideShell({ slide, children, className = "" }: SlideShe
       {/* Left: content — 50% with photo, full width without */}
       <div className={hasPhoto ? "slide-split-content" : "slide-split-content slide-split-content--full"}>
         {children}
+
+        {/* Slideshow indicator dots — visible on content side for presenter */}
+        {photoList.length > 1 && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: "4.5rem",
+              left: "clamp(1.25rem, 5vw, 6rem)",
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              zIndex: 20,
+            }}
+          >
+            {photoList.map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  width: i === activeIdx ? 20 : 6,
+                  height: 6,
+                  borderRadius: 3,
+                  background: i === activeIdx ? "var(--color-at-red)" : "rgba(147,179,207,0.4)",
+                  transition: "width 300ms ease, background 300ms",
+                }}
+              />
+            ))}
+            <span style={{
+              marginLeft: 6,
+              fontSize: "0.6rem",
+              fontWeight: 600,
+              letterSpacing: "0.1em",
+              color: "var(--color-at-blue-v4)",
+              textTransform: "uppercase",
+            }}>
+              {activeIdx + 1} / {photoList.length}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Right: photo panel */}
