@@ -80,6 +80,12 @@ export default function SlideShell({ slide, children, className = "" }: SlideShe
               alignItems: "center",
               gap: 6,
               zIndex: 20,
+              background: "rgba(16,37,62,0.55)",
+              backdropFilter: "blur(6px)",
+              WebkitBackdropFilter: "blur(6px)",
+              borderRadius: 20,
+              padding: "5px 10px",
+              border: "1px solid rgba(80,116,153,0.25)",
             }}
           >
             {photoList.map((_, i) => (
@@ -89,18 +95,19 @@ export default function SlideShell({ slide, children, className = "" }: SlideShe
                   width: i === activeIdx ? 20 : 6,
                   height: 6,
                   borderRadius: 3,
-                  background: i === activeIdx ? "var(--color-at-red)" : "rgba(147,179,207,0.4)",
+                  background: i === activeIdx ? "var(--color-at-red)" : "rgba(147,179,207,0.55)",
                   transition: "width 300ms ease, background 300ms",
                 }}
               />
             ))}
             <span style={{
-              marginLeft: 6,
-              fontSize: "0.6rem",
-              fontWeight: 600,
-              letterSpacing: "0.1em",
-              color: "var(--color-at-blue-v4)",
+              marginLeft: 4,
+              fontSize: "0.58rem",
+              fontWeight: 700,
+              letterSpacing: "0.12em",
+              color: "var(--color-at-blue-v5)",
               textTransform: "uppercase",
+              whiteSpace: "nowrap",
             }}>
               {activeIdx + 1} / {photoList.length}
             </span>
@@ -142,8 +149,16 @@ export default function SlideShell({ slide, children, className = "" }: SlideShe
                 left: "50%",
                 transform: "translateX(-50%)",
                 display: "flex",
+                alignItems: "center",
                 gap: 6,
                 zIndex: 10,
+                background: "rgba(16,37,62,0.60)",
+                backdropFilter: "blur(6px)",
+                WebkitBackdropFilter: "blur(6px)",
+                borderRadius: 20,
+                padding: "5px 10px",
+                border: "1px solid rgba(80,116,153,0.20)",
+                whiteSpace: "nowrap",
               }}
             >
               {photoList.map((_, i) => (
@@ -153,11 +168,21 @@ export default function SlideShell({ slide, children, className = "" }: SlideShe
                     width: i === activeIdx ? 18 : 6,
                     height: 6,
                     borderRadius: 3,
-                    background: i === activeIdx ? "var(--color-at-red)" : "rgba(255,255,255,0.35)",
+                    background: i === activeIdx ? "var(--color-at-red)" : "rgba(255,255,255,0.55)",
                     transition: "width 300ms ease, background 300ms",
                   }}
                 />
               ))}
+              <span style={{
+                marginLeft: 4,
+                fontSize: "0.58rem",
+                fontWeight: 700,
+                letterSpacing: "0.12em",
+                color: "rgba(255,255,255,0.75)",
+                textTransform: "uppercase",
+              }}>
+                {activeIdx + 1} / {photoList.length}
+              </span>
             </div>
           )}
         </div>
