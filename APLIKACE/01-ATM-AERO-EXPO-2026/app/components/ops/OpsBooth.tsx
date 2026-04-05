@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { TEAM } from "../../data/slides-data";
+import { useIsOffline } from "../../hooks/useIsOffline";
 
 type BoothStatus = "booth" | "customer" | "offsite" | "away";
 type BoothEntry = { status: BoothStatus; since: string };
@@ -24,6 +25,7 @@ function formatSince(iso: string) {
 }
 
 export default function OpsBooth() {
+  const isOffline = useIsOffline();
   const [booth, setBooth] = useState<BoothState>({});
   const [showCal, setShowCal] = useState(false);
 
@@ -78,8 +80,8 @@ export default function OpsBooth() {
         <span className="text-sm font-bold" style={{ color: "var(--color-at-white)" }}>
           {atBooth} {atBooth === 1 ? "člen" : atBooth >= 2 && atBooth <= 4 ? "členové" : "členů"} na stánku právě teď
         </span>
-        <span className="text-xs ml-auto" style={{ color: "var(--color-at-blue-v4)" }}>
-          sync každých 10 s
+        <span className="text-xs ml-auto" style={{ color: isOffline ? "#f97316" : "var(--color-at-blue-v4)" }}>
+          {isOffline ? "⚡ offline – poslední stav" : "sync každých 10 s"}
         </span>
       </div>
 
@@ -138,12 +140,16 @@ export default function OpsBooth() {
                     <button
                       key={key}
                       onClick={() => setStatus(member.name, key)}
+                      disabled={isOffline}
+                      title={isOffline ? "Offline – změny se neukládají" : undefined}
                       className="text-xs font-bold px-2.5 py-1 rounded transition-all"
                       style={{
                         background: current === key ? s.bg : "var(--color-at-blue-v2)",
                         color: current === key ? s.color : "var(--color-at-blue-v5)",
                         border: `1px solid ${current === key ? s.border : "var(--color-at-blue-v3)"}`,
                         transform: current === key ? "scale(1.05)" : "scale(1)",
+                        opacity: isOffline ? 0.5 : 1,
+                        cursor: isOffline ? "not-allowed" : "pointer",
                       }}
                     >
                       {s.dot} {s.label}

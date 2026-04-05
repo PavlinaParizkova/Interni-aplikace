@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useSession } from "next-auth/react";
+import { useIsOffline } from "../../hooks/useIsOffline";
 
 type ChatMessage = { id?: string; author: string; text: string; timestamp: string; editedAt?: string };
 
@@ -46,6 +47,7 @@ function exportToMarkdown(messages: ChatMessage[]) {
 }
 
 export default function OpsChat() {
+  const isOffline = useIsOffline();
   const { data: session } = useSession();
   const author = session?.user?.name ?? "";
 
@@ -147,13 +149,16 @@ export default function OpsChat() {
       >
         <div
           className="w-2 h-2 rounded-full flex-shrink-0"
-          style={{ background: "#22c55e", boxShadow: "0 0 6px rgba(34,197,94,0.5)" }}
+          style={{
+            background: isOffline ? "#f97316" : "#22c55e",
+            boxShadow: isOffline ? "0 0 6px rgba(249,115,22,0.5)" : "0 0 6px rgba(34,197,94,0.5)",
+          }}
         />
         <span className="text-sm font-bold flex-shrink-0" style={{ color: "var(--color-at-white)" }}>
           {author}
         </span>
         <span className="hidden sm:inline text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
-          · přihlášen/a přes Google
+          {isOffline ? "· offline" : "· přihlášen/a přes Google"}
         </span>
         <div className="ml-auto flex items-center gap-2 flex-shrink-0">
           <button
@@ -300,6 +305,20 @@ export default function OpsChat() {
         <div ref={bottomRef} />
       </div>
 
+      {/* Offline notice */}
+      {isOffline && (
+        <div
+          className="px-4 py-2 rounded-lg text-xs text-center"
+          style={{
+            background: "rgba(249,115,22,0.1)",
+            border: "1px solid rgba(249,115,22,0.25)",
+            color: "#f97316",
+          }}
+        >
+          Offline – odesílání zpráv není dostupné. Zobrazuji naposledy načtené zprávy.
+        </div>
+      )}
+
       {/* Input */}
       <div className="flex gap-2 items-end">
         <textarea
@@ -309,23 +328,25 @@ export default function OpsChat() {
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
           }}
-          placeholder="Napiš zprávu… (Enter = odeslat, Shift+Enter = nový řádek)"
+          placeholder={isOffline ? "Offline – odesílání není dostupné" : "Napiš zprávu… (Enter = odeslat, Shift+Enter = nový řádek)"}
           rows={2}
+          disabled={isOffline}
           className="flex-1 rounded-xl px-4 py-2.5 text-sm resize-none focus:outline-none"
           style={{
             background: "var(--color-at-blue-v1)",
             border: "1px solid var(--color-at-blue-v2)",
             color: "var(--color-at-white)",
+            opacity: isOffline ? 0.5 : 1,
           }}
         />
         <button
           onClick={send}
-          disabled={!text.trim() || sending}
+          disabled={!text.trim() || sending || isOffline}
           className="rounded-xl px-4 py-2.5 text-sm font-black flex-shrink-0 transition-all"
           style={{
             background: "var(--color-at-red)",
             color: "var(--color-at-white)",
-            opacity: !text.trim() ? 0.4 : 1,
+            opacity: !text.trim() || isOffline ? 0.4 : 1,
           }}
         >
           →

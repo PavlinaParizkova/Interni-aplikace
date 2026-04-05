@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import type { MeetingNote } from "@/app/api/meetingnotes/route";
+import { useIsOffline } from "../../hooks/useIsOffline";
 
 function formatTs(iso: string) {
   if (!iso) return "";
@@ -48,6 +49,7 @@ function exportToMd(notes: MeetingNote[], filterLabel?: string) {
 }
 
 export default function OpsNotes() {
+  const isOffline = useIsOffline();
   const { data: session } = useSession();
   const author = session?.user?.name ?? "";
 
@@ -148,8 +150,8 @@ export default function OpsNotes() {
           >
             Zápisy z jednání
           </p>
-          <p className="text-xs mt-0.5" style={{ color: "var(--color-at-blue-v5)" }}>
-            Viditelné pro celý tým · obnova každých 10 s
+          <p className="text-xs mt-0.5" style={{ color: isOffline ? "#f97316" : "var(--color-at-blue-v5)" }}>
+            {isOffline ? "⚡ offline – zobrazuji poslední záznamy" : "Viditelné pro celý tým · obnova každých 10 s"}
           </p>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0 flex-wrap">
@@ -229,17 +231,19 @@ export default function OpsNotes() {
           }}
         />
         <div className="flex items-center justify-between gap-2">
-          <span className="text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
-            {author || "Nepřihlášen/a"}
+          <span className="text-xs" style={{ color: isOffline ? "#f97316" : "var(--color-at-blue-v4)" }}>
+            {isOffline ? "Offline – zápisy se neukládají" : (author || "Nepřihlášen/a")}
           </span>
           <button
             onClick={handleSubmit}
-            disabled={!body.trim() || submitting || !author}
+            disabled={!body.trim() || submitting || !author || isOffline}
+            title={isOffline ? "Offline – zápisy se neukládají" : undefined}
             className="text-sm font-black px-4 py-1.5 rounded-lg transition-all"
             style={{
               background: "var(--color-at-red)",
               color: "var(--color-at-white)",
-              opacity: !body.trim() || !author ? 0.4 : 1,
+              opacity: !body.trim() || !author || isOffline ? 0.4 : 1,
+              cursor: isOffline ? "not-allowed" : "pointer",
             }}
           >
             {submitting ? "Odesílám…" : "Přidat zápis"}
@@ -359,12 +363,14 @@ export default function OpsNotes() {
                     </button>
                     <button
                       onClick={() => saveEdit(note.id)}
-                      disabled={!editBody.trim() || saving}
+                      disabled={!editBody.trim() || saving || isOffline}
+                      title={isOffline ? "Offline – změny se neukládají" : undefined}
                       className="text-xs font-bold px-4 py-1 rounded-lg"
                       style={{
                         background: "var(--color-at-red)",
                         color: "var(--color-at-white)",
-                        opacity: !editBody.trim() ? 0.4 : 1,
+                        opacity: !editBody.trim() || isOffline ? 0.4 : 1,
+                        cursor: isOffline ? "not-allowed" : "pointer",
                       }}
                     >
                       {saving ? "Ukládám…" : "Uložit"}

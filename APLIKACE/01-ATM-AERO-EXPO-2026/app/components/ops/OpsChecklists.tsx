@@ -6,6 +6,7 @@ import {
   CHECKLIST_ATTENDANCE,
   CHECKLIST_DRESSCODE,
 } from "../../data/slides-data";
+import { useIsOffline } from "../../hooks/useIsOffline";
 
 type ChecklistState = Record<string, boolean>;
 
@@ -34,6 +35,7 @@ const LISTS = [
 ] as const;
 
 export default function OpsChecklists() {
+  const isOffline = useIsOffline();
   const [activeKey, setActiveKey] = useState<string>("transport");
   const [states, setStates] = useState<Record<string, ChecklistState>>({});
 
@@ -54,6 +56,7 @@ export default function OpsChecklists() {
   }, [load]);
 
   const toggle = async (listKey: string, id: string) => {
+    if (isOffline) return;
     const current = states[listKey] ?? {};
     const next = { ...current, [id]: !current[id] };
     setStates((prev) => ({ ...prev, [listKey]: next }));
@@ -77,48 +80,64 @@ export default function OpsChecklists() {
   return (
     <div className="flex flex-col gap-4">
       {/* Tab row with progress dots */}
-      <div
-        className="flex gap-1 p-1 rounded-lg w-fit"
-        style={{ background: "var(--color-at-blue-v1)" }}
-      >
-        {LISTS.map((l) => {
-          const s = states[l.key] ?? {};
-          const done = l.items.filter((i) => s[i.id]).length;
-          const isActive = l.key === activeKey;
-          return (
-            <button
-              key={l.key}
-              onClick={() => setActiveKey(l.key)}
-              className="flex items-center gap-2 rounded-md px-4 py-1.5 text-sm font-bold transition-all"
-              style={{
-                background: isActive ? "var(--color-at-blue-v3)" : "transparent",
-                color: isActive ? "var(--color-at-white)" : "var(--color-at-blue-v5)",
-              }}
-            >
-              {l.label}
-              <span
-                className="text-xs font-black px-1.5 py-0.5 rounded"
+      <div className="overflow-x-auto scrollbar-none -mx-1 px-1">
+        <div
+          className="flex gap-1 p-1 rounded-lg w-fit"
+          style={{ background: "var(--color-at-blue-v1)" }}
+        >
+          {LISTS.map((l) => {
+            const s = states[l.key] ?? {};
+            const done = l.items.filter((i) => s[i.id]).length;
+            const isActive = l.key === activeKey;
+            return (
+              <button
+                key={l.key}
+                onClick={() => setActiveKey(l.key)}
+                className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-bold transition-all flex-shrink-0"
                 style={{
-                  background: done === l.items.length
-                    ? "rgba(34,197,94,0.2)"
-                    : isActive ? "var(--color-at-blue-v2)" : "var(--color-at-blue-v2)",
-                  color: done === l.items.length ? "#22c55e" : "var(--color-at-blue-v5)",
+                  background: isActive ? "var(--color-at-blue-v3)" : "transparent",
+                  color: isActive ? "var(--color-at-white)" : "var(--color-at-blue-v5)",
                 }}
               >
-                {done}/{l.items.length}
-              </span>
-            </button>
-          );
-        })}
+                {l.label}
+                <span
+                  className="text-xs font-black px-1.5 py-0.5 rounded"
+                  style={{
+                    background: done === l.items.length
+                      ? "rgba(34,197,94,0.2)"
+                      : "var(--color-at-blue-v2)",
+                    color: done === l.items.length ? "#22c55e" : "var(--color-at-blue-v5)",
+                  }}
+                >
+                  {done}/{l.items.length}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Active checklist */}
       <div>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <p className="text-xs font-bold tracking-[0.15em] uppercase" style={{ color: "var(--color-at-white)" }}>
-              Checklist
-            </p>
+            <div className="flex items-center gap-2">
+              <p className="text-xs font-bold tracking-[0.15em] uppercase" style={{ color: "var(--color-at-white)" }}>
+                Checklist
+              </p>
+              {isOffline && (
+                <span
+                  className="text-xs font-bold px-2 py-0.5 rounded"
+                  style={{
+                    background: "rgba(249,115,22,0.15)",
+                    color: "#f97316",
+                    border: "1px solid rgba(249,115,22,0.3)",
+                  }}
+                >
+                  Offline – pouze čtení
+                </span>
+              )}
+            </div>
             <p className="text-sm mt-0.5" style={{ color: "var(--color-at-blue-v5)" }}>
               {active.subtitle}
             </p>
@@ -176,6 +195,8 @@ export default function OpsChecklists() {
                   className="atm-checkbox mt-0.5 flex-shrink-0"
                   checked={isChecked}
                   onChange={() => toggle(activeKey, item.id)}
+                  disabled={isOffline}
+                  title={isOffline ? "Offline – změny se neukládají" : undefined}
                 />
                 <span
                   className="text-sm leading-relaxed"
