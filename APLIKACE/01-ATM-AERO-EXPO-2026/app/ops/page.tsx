@@ -6,14 +6,16 @@ import OpsChecklists from "../components/ops/OpsChecklists";
 import OpsBooth from "../components/ops/OpsBooth";
 import OpsNotes from "../components/ops/OpsNotes";
 import OpsChat from "../components/ops/OpsChat";
+import OpsVizitky from "../components/ops/OpsVizitky";
 
-type Panel = "checklists" | "booth" | "notes" | "chat";
+type Panel = "checklists" | "booth" | "notes" | "chat" | "vizitky";
 
 const PANELS: { key: Panel; label: string; icon: string; desc: string }[] = [
-  { key: "checklists", label: "Checklisty",     icon: "✓", desc: "Doprava · Účast · Oblečení" },
+  { key: "checklists", label: "Checklisty",     icon: "✓",  desc: "Doprava · Účast · Oblečení" },
   { key: "booth",      label: "Status stánku",  icon: "📍", desc: "Kdo je kde právě teď" },
   { key: "notes",      label: "Poznámky",        icon: "📝", desc: "Sdílené zápisky týmu" },
   { key: "chat",       label: "Chat",            icon: "💬", desc: "Týmová komunikace s exportem" },
+  { key: "vizitky",    label: "Vizitky",         icon: "🪪", desc: "Podklady pro tisk vizitek" },
 ];
 
 export default function OpsPage() {
@@ -112,6 +114,7 @@ export default function OpsPage() {
           {active === "booth"      && <OpsBooth />}
           {active === "notes"      && <OpsNotes />}
           {active === "chat"       && <OpsChat />}
+          {active === "vizitky"    && <OpsVizitky />}
         </div>
       </main>
     </div>
