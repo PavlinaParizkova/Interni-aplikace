@@ -212,9 +212,9 @@ main {
   border-left: 4px solid var(--color-at-red);
 }
 
-/* === TEXT JUSTIFY === */
+/* === TEXT ALIGN === */
 main p {
-  text-align: justify;
+  text-align: left;
 }
 
 /* === DIVIDER === */

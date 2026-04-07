@@ -180,64 +180,10 @@ export default function LockScreen({ onUnlock }: LockScreenProps) {
 
 function JetConceptLogo() {
   return (
-    <svg
-      viewBox="0 0 320 120"
-      width="320"
-      height="120"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-label="AIR TEAM · Jet Concept"
-    >
-      {/* Red vertical accent bar */}
-      <rect x="0" y="8" width="4" height="60" rx="2" fill="#d51c17" />
-
-      {/* AIR TEAM */}
-      <text
-        x="16"
-        y="32"
-        fontFamily="'Poppins', system-ui, sans-serif"
-        fontWeight="700"
-        fontSize="13"
-        letterSpacing="5"
-        fill="#cddce8"
-        textAnchor="start"
-      >
-        AIR TEAM
-      </text>
-
-      {/* Separator dot */}
-      <circle cx="16" cy="46" r="1.5" fill="#23517c" />
-
-      {/* Jet Concept – main wordmark */}
-      <text
-        x="16"
-        y="72"
-        fontFamily="'Poppins', system-ui, sans-serif"
-        fontWeight="900"
-        fontSize="36"
-        letterSpacing="-1"
-        fill="#ffffff"
-        textAnchor="start"
-      >
-        Jet Concept
-      </text>
-
-      {/* Red underline accent */}
-      <rect x="16" y="80" width="44" height="3" rx="1.5" fill="#d51c17" />
-
-      {/* Tagline */}
-      <text
-        x="16"
-        y="104"
-        fontFamily="'Poppins', system-ui, sans-serif"
-        fontWeight="400"
-        fontSize="10"
-        letterSpacing="3"
-        fill="#507499"
-        textAnchor="start"
-      >
-        YOUR MISSION. OUR TECHNOLOGY.
-      </text>
-    </svg>
+    <img
+      src="/ATM_logo_Jet_Concept_red_white.svg"
+      alt="AIR TEAM Jet Concept"
+      style={{ width: 320, height: "auto", display: "block" }}
+    />
   );
 }
