@@ -244,8 +244,7 @@ p {
   /* Allow scroll when content overflows (tall slides on small screens) */
   overflow-y: auto;
   overflow-x: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-at-blue-v3) transparent;
+  scrollbar-width: none;
 }
 
 .slide-content.centered {
@@ -282,7 +281,7 @@ p {
 /* === BODY TEXT === */
 
 .body-text {
-  font-size: 17px;
+  font-size: 1rem;
   line-height: 1.65;
   color: var(--color-at-blue-v5);
   max-width: 68ch;
@@ -328,7 +327,7 @@ p {
 }
 
 .card-body {
-  font-size: 17px;
+  font-size: 1rem;
   line-height: 1.55;
   color: var(--color-at-blue-a5);
 }
@@ -359,7 +358,7 @@ p {
 }
 
 .service-block-text {
-  font-size: 17px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--color-at-blue-a5);
 }
@@ -417,7 +416,7 @@ p {
 }
 
 .process-step-text {
-  font-size: 17px;
+  font-size: 1rem;
   line-height: 1.55;
   color: var(--color-at-blue-a5);
 }
@@ -485,6 +484,12 @@ p {
 
 /* === SPLIT LAYOUT CLASSES === */
 
+/* Overrides .slide base flex-direction: column for split slides */
+.slide-split-wrapper {
+  flex-direction: row !important;
+  overflow: hidden;
+}
+
 .slide-split-content {
   flex: 0 0 50%;
   position: relative;
@@ -499,6 +504,13 @@ p {
 
 .slide-split-photo {
   flex: 0 0 50%;
+}
+
+/* === BEFORE / AFTER SLIDE === */
+
+.slide-before-after {
+  flex-direction: row !important;
+  overflow: hidden;
 }
 
 /* === RESPONSIVE ============================================================ */
@@ -604,12 +616,34 @@ p {
   .process-step-num {
     font-size: 1.5rem;
   }
+
+  /* Split layout: stack vertically, photo below text */
+  .slide-split-wrapper {
+    flex-direction: column !important;
+  }
+
+  .slide-split-content {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .slide-split-photo {
+    flex: 0 0 38vw;
+    max-height: 38vw;
+  }
+
+  /* Before/After slide: always side-by-side */
 }
 
 /* Phone (≤ 480px) */
 @media (max-width: 480px) {
   .slide-content {
     padding: 60px 0.875rem 60px;
+  }
+
+  .slide-split-photo {
+    flex: 0 0 28vw;
+    max-height: 28vw;
   }
 
   .section-h2 {
@@ -630,11 +664,13 @@ p {
 
 /* === UTILITIES === */
 
-.scrollbar-none {
-  scrollbar-width: none;
-}
+.slide-content::-webkit-scrollbar,
 .scrollbar-none::-webkit-scrollbar {
   display: none;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
 }
 
 /* Dot-grid background texture */
