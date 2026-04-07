@@ -14,12 +14,14 @@ export default function SlideContact({ slide }: Props) {
       className="slide-contact"
     >
       <div className="slide-content centered" style={{ gap: "1.5rem" }}>
-        {/* Label */}
-        {slide.label && (
-          <div className="section-label fade-up fade-up-1" style={{ justifyContent: "center" }}>
-            {slide.label}
-          </div>
-        )}
+
+        {/* AIR TEAM logo */}
+        <img
+          src="/logos/ATM_logo_inverzni_white_red.svg"
+          alt="AIR TEAM"
+          className="fade-up fade-up-1"
+          style={{ width: "clamp(220px, 28vw, 360px)", height: "auto", display: "block" }}
+        />
 
         {/* Headline */}
         <h2
