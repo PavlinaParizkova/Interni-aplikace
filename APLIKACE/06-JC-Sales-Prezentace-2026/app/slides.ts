@@ -68,7 +68,7 @@ const enSlides: SlideData[] = [
     photo: "VIP interior_06.jpg",
     photoOverlay: "linear-gradient(135deg, rgba(16,37,62,0.88) 0%, rgba(16,37,62,0.65) 100%)",
     label: "AIR\u00a0TEAM · Jet\u00a0Concept",
-    headline: "Jet Concept.",
+    headline: "Jet Concept",
     subheadline: "European Aerospace Excellence.",
     cta: "Premium Cabin & Aircraft Modernization Solutions by AIR\u00a0TEAM Jet\u00a0Concept",
   },
