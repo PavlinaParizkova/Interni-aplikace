@@ -1,37 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-
-const PASSWORD = "JetConcepT2026";
-
 interface LockScreenProps {
   onUnlock: () => void;
 }
 
 export default function LockScreen({ onUnlock }: LockScreenProps) {
-  const [value, setValue] = useState("");
-  const [error, setError] = useState(false);
-  const [shake, setShake] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (value === PASSWORD) {
-      onUnlock();
-    } else {
-      setError(true);
-      setShake(true);
-      setValue("");
-      setTimeout(() => setShake(false), 500);
-      setTimeout(() => setError(false), 2500);
-      inputRef.current?.focus();
-    }
-  }
-
   return (
     <div
       style={{
@@ -82,62 +55,20 @@ export default function LockScreen({ onUnlock }: LockScreenProps) {
         {/* Logo */}
         <JetConceptLogo />
 
-        {/* Form */}
-        <form
-          onSubmit={handleSubmit}
-          style={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            gap: "1rem",
-            animation: shake ? "shake 0.45s ease" : "none",
-          }}
+        {/* Enter button */}
+        <button
+          onClick={onUnlock}
+          className="btn-primary"
+          style={{ width: "100%", justifyContent: "center" }}
         >
-          <input
-            ref={inputRef}
-            type="password"
-            value={value}
-            onChange={(e) => { setValue(e.target.value); setError(false); }}
-            placeholder="Password"
-            autoComplete="off"
-            style={{
-              width: "100%",
-              padding: "0.875rem 1.25rem",
-              borderRadius: 8,
-              border: `1px solid ${error ? "var(--color-at-red)" : "var(--color-at-blue-v3)"}`,
-              background: "rgba(27,63,103,0.5)",
-              color: "var(--color-at-white)",
-              fontSize: "0.95rem",
-              fontFamily: "inherit",
-              letterSpacing: value ? "0.2em" : "normal",
-              outline: "none",
-              transition: "border-color 200ms",
-              backdropFilter: "blur(8px)",
-            }}
-            onFocus={(e) => {
-              if (!error) e.currentTarget.style.borderColor = "var(--color-at-blue-v4)";
-            }}
-            onBlur={(e) => {
-              if (!error) e.currentTarget.style.borderColor = "var(--color-at-blue-v3)";
-            }}
-          />
-
-          {error && (
-            <p style={{ margin: 0, fontSize: "0.8rem", color: "var(--color-at-red)", textAlign: "center", letterSpacing: "0.04em" }}>
-              Incorrect password. Please try again.
-            </p>
-          )}
-
-          <button type="submit" className="btn-primary" style={{ width: "100%", justifyContent: "center" }}>
-            Unlock presentation
-          </button>
-        </form>
+          Presentation
+        </button>
 
         {/* Footer note */}
         <div style={{ display: "flex", alignItems: "center", gap: 8, opacity: 0.4 }}>
           <div style={{ width: 2, height: 12, borderRadius: 1, background: "var(--color-at-red)" }} />
           <span style={{ fontSize: "0.62rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--color-at-blue-v5)" }}>
-            Internal document · Confidential
+            AIR TEAM | YOUR MISSION. OUR TECHNOLOGY.
           </span>
         </div>
       </div>

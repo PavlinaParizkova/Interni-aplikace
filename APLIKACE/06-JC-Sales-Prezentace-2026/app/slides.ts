@@ -312,7 +312,7 @@ const enSlides: SlideData[] = [
     body: "Every detail engineered to perfection.",
     bullets: [
       "Engine & antenna covers",
-      "Ownership & warning plates",
+      "Ownership plates, placards and decals",
       "Stowage & installation kits",
       "Ancillary components",
     ],
@@ -346,6 +346,7 @@ const enSlides: SlideData[] = [
       "Windscreens",
       "Movable class dividers",
       "Custom partitions",
+      "Curtains",
     ],
   },
 
