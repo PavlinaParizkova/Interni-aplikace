@@ -11,8 +11,6 @@ export default function SlideTitle({ slide }: Props) {
   const lines = slide.headline.split("\n");
   const lineCount = lines.length;
 
-  // Scale font size to viewport height so multi-line headlines never overflow.
-  // dvh unit (dynamic viewport height) respects mobile browser chrome.
   const fontSize =
     lineCount >= 4
       ? "clamp(2.5rem, min(5.5vw, 11dvh), 5.5rem)"
@@ -30,6 +28,29 @@ export default function SlideTitle({ slide }: Props) {
         className="slide-content fade-up"
         style={{ justifyContent: "safe center" }}
       >
+        {/* Jet Concept logo */}
+        <div className="fade-up fade-up-1" style={{ marginBottom: "2rem", width: "100%" }}>
+          <img
+            src="/logos/ATM_logo_Jet_Concept_red_white.svg"
+            alt="AIR TEAM Jet Concept"
+            style={{
+              height: "clamp(60px, 8vw, 110px)",
+              width: "auto",
+              display: "block",
+            }}
+          />
+        </div>
+
+        {/* Section label */}
+        {slide.label && (
+          <p
+            className="fade-up fade-up-1 section-label"
+            style={{ marginBottom: "1rem", width: "100%" }}
+          >
+            {slide.label}
+          </p>
+        )}
+
         {/* Main headline */}
         <h1
           className="fade-up fade-up-2"
@@ -40,7 +61,8 @@ export default function SlideTitle({ slide }: Props) {
             letterSpacing: "-0.03em",
             color: "var(--color-at-white)",
             marginBottom: "1.75rem",
-            maxWidth: "14ch",
+            width: "100%",
+            maxWidth: "min(14ch, 100%)",
           }}
         >
           {lines.map((line, i) => (
@@ -57,11 +79,12 @@ export default function SlideTitle({ slide }: Props) {
           <p
             className="fade-up fade-up-3"
             style={{
-              fontSize: "clamp(1.4rem, 2.5vw, 2.2rem)",
+              fontSize: "clamp(1.1rem, 2vw, 1.8rem)",
               fontWeight: 600,
-              lineHeight: 1.3,
+              lineHeight: 1.35,
               color: "var(--color-at-blue-v5)",
-              maxWidth: "40ch",
+              width: "100%",
+              maxWidth: "min(42ch, 100%)",
               marginBottom: "2rem",
               letterSpacing: "-0.01em",
             }}
@@ -72,20 +95,29 @@ export default function SlideTitle({ slide }: Props) {
 
         {/* CTA */}
         {slide.cta && (
-          <div className="fade-up fade-up-4" style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <div
+            className="fade-up fade-up-4"
+            style={{
+              display: "flex",
+              alignItems: "flex-start",
+              gap: 14,
+              width: "100%",
+              maxWidth: "min(52ch, 100%)",
+            }}
+          >
             <img
               src="/icons/ATM_odrazka_Red.svg"
               alt=""
               aria-hidden="true"
-              style={{ width: 16, height: "auto", flexShrink: 0 }}
+              style={{ width: 16, height: "auto", flexShrink: 0, marginTop: "0.25em" }}
             />
             <span
               style={{
-                fontSize: "clamp(1rem, 1.8vw, 1.5rem)",
+                fontSize: "clamp(0.9rem, 1.5vw, 1.3rem)",
                 fontWeight: 600,
                 color: "var(--color-at-blue-v5)",
                 letterSpacing: "0.01em",
-                lineHeight: 1.4,
+                lineHeight: 1.5,
               }}
             >
               {slide.cta}

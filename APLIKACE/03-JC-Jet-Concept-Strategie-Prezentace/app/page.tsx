@@ -44,9 +44,9 @@ export default function Page() {
         {/* Logo */}
         <a href="#" style={{ display: "flex", alignItems: "center", flexShrink: 0, lineHeight: 0 }}>
           <img
-            src="/jet-concept-logo.svg"
-            alt="Jet Concept"
-            style={{ height: 46, width: "auto" }}
+            src="/ATM_logo_Jet_Concept_red_white.svg"
+            alt="AIR TEAM Jet Concept"
+            style={{ height: 56, width: "auto" }}
           />
         </a>
 
@@ -270,9 +270,9 @@ export default function Page() {
 
           <div style={{ position: "relative", zIndex: 1 }}>
             <img
-              src="/jet-concept-logo.svg"
-              alt="Jet Concept"
-              style={{ height: 80, width: "auto", marginBottom: "2rem", display: "block" }}
+              src="/ATM_logo_Jet_Concept_red_white.svg"
+              alt="AIR TEAM Jet Concept"
+              style={{ height: "clamp(80px, 10vw, 130px)", width: "auto", marginBottom: "2rem", display: "block" }}
             />
 
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "1.5rem" }}>
@@ -309,7 +309,8 @@ export default function Page() {
                 fontSize: "clamp(1.05rem, 2.5vw, 1.5rem)",
                 fontWeight: 600,
                 color: "var(--color-at-white)",
-                maxWidth: "42rem",
+                width: "100%",
+                maxWidth: "min(42rem, 100%)",
                 marginBottom: "1.25rem",
                 lineHeight: 1.3,
               }}
@@ -329,7 +330,8 @@ export default function Page() {
 
             <p
               style={{
-                maxWidth: 680,
+                width: "100%",
+                maxWidth: "min(680px, 100%)",
                 fontSize: "clamp(0.9rem, 1.8vw, 1.05rem)",
                 lineHeight: 1.7,
                 color: "var(--color-at-blue-v5)",
@@ -340,7 +342,7 @@ export default function Page() {
             </p>
 
             {/* Badges */}
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: "1.75rem" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: "1.75rem", width: "100%", maxWidth: "min(680px, 100%)" }}>
               {t.hero.badges.map((tag) => (
                 <span
                   key={tag}
