@@ -9,11 +9,15 @@ interface Props {
 export default function SlideBeforeAfter({ slide }: Props) {
   return (
     <div
-      className="slide slide-before-after"
-      style={{ background: "var(--color-at-blue-v1)" }}
+      className="slide"
+      style={{
+        background: "var(--color-at-blue-v1)",
+        flexDirection: "row",
+        overflow: "hidden",
+      }}
     >
       {/* LEFT — Old Design */}
-      <div style={{ flex: 1, position: "relative" }}>
+      <div style={{ flex: 1, position: "relative", minWidth: 0 }}>
         {slide.photoBefore && (
           <div
             style={{
@@ -94,7 +98,7 @@ export default function SlideBeforeAfter({ slide }: Props) {
       </div>
 
       {/* RIGHT — New Design */}
-      <div style={{ flex: 1, position: "relative" }}>
+      <div style={{ flex: 1, position: "relative", minWidth: 0 }}>
         {slide.photoAfter && (
           <div
             style={{
