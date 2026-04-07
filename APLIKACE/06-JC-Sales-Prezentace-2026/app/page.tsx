@@ -80,9 +80,8 @@ function NavLogo() {
     <img
       src="/logos/ATM_logo_Jet_Concept_red_white.svg"
       alt="AIR TEAM Jet Concept"
-      height={52}
-        style={{
-          height: 52,
+      style={{
+        height: 68,
         width: "auto",
         display: "block",
       }}
@@ -330,11 +329,12 @@ export default function Page() {
             <span
               className="nav-tagline"
               style={{
-                fontSize: "0.6rem",
-                fontWeight: 500,
-                letterSpacing: "0.06em",
-                color: "var(--color-at-blue-v4)",
+                fontSize: "0.72rem",
+                fontWeight: 600,
+                letterSpacing: "0.07em",
+                color: "var(--color-at-white)",
                 whiteSpace: "nowrap",
+                opacity: 0.85,
               }}
             >
               Premium Cabin & Aircraft Modernization Solutions by AIR&nbsp;TEAM Jet&nbsp;Concept
