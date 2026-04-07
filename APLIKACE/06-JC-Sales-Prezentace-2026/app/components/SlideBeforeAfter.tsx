@@ -9,12 +9,8 @@ interface Props {
 export default function SlideBeforeAfter({ slide }: Props) {
   return (
     <div
-      className="slide"
-      style={{
-        background: "var(--color-at-blue-v1)",
-        flexDirection: "row",
-        overflow: "hidden",
-      }}
+      className="slide slide-before-after"
+      style={{ background: "var(--color-at-blue-v1)" }}
     >
       {/* LEFT — Old Design */}
       <div style={{ flex: 1, position: "relative" }}>
@@ -29,14 +25,6 @@ export default function SlideBeforeAfter({ slide }: Props) {
             }}
           />
         )}
-        {/* Gradient overlay */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(to top, rgba(16,37,62,0.90) 0%, rgba(16,37,62,0.30) 60%, transparent 100%)",
-          }}
-        />
         {/* Label — bottom left */}
         <div
           style={{
@@ -52,7 +40,8 @@ export default function SlideBeforeAfter({ slide }: Props) {
               fontWeight: 700,
               letterSpacing: "0.25em",
               textTransform: "uppercase",
-              color: "var(--color-at-blue-v4)",
+              color: "var(--color-at-white)",
+              textShadow: "0 1px 6px rgba(0,0,0,0.7)",
               marginBottom: "0.6rem",
             }}
           >
@@ -117,14 +106,6 @@ export default function SlideBeforeAfter({ slide }: Props) {
             }}
           />
         )}
-        {/* Gradient overlay */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(to top, rgba(16,37,62,0.90) 0%, rgba(16,37,62,0.20) 60%, transparent 100%)",
-          }}
-        />
         {/* Label — bottom right */}
         <div
           style={{
@@ -142,6 +123,7 @@ export default function SlideBeforeAfter({ slide }: Props) {
               letterSpacing: "0.25em",
               textTransform: "uppercase",
               color: "var(--color-at-red)",
+              textShadow: "0 1px 6px rgba(0,0,0,0.7)",
               marginBottom: "0.6rem",
             }}
           >
