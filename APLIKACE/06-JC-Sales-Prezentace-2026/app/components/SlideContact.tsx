@@ -17,7 +17,7 @@ export default function SlideContact({ slide }: Props) {
 
         {/* AIR TEAM logo */}
         <img
-          src="/logos/ATM_logo_inverzni_white_red.svg"
+          src="/logos/ATM_logo_inverzni_white_red_without_bc.svg"
           alt="AIR TEAM"
           className="fade-up fade-up-1"
           style={{ width: "clamp(220px, 28vw, 360px)", height: "auto", display: "block" }}
