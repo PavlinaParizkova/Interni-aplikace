@@ -69,12 +69,6 @@ const CATEGORIES: GiftCategory[] = [
         status: "done",
       },
       {
-        name: "Keramický pohárek – detail",
-        note: "Celobarevný motiv · gravírované provedení",
-        image: "/Exponat.jpeg",
-        status: "done",
-      },
-      {
         name: "Káva Barahona",
         note: "Dom. republika · černý doypack · 173 Kč · 60 ks · máme ve VB",
         image: "/darky-kava-new.png",
