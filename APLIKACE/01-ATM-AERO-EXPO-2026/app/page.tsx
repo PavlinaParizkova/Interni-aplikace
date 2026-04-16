@@ -13,6 +13,7 @@ import SlideMarketingKit from "./components/slides/SlideMarketingKit";
 import SlideGifts from "./components/slides/SlideGifts";
 import SlideGiftsBudget from "./components/slides/SlideGiftsBudget";
 import SlideDressCode from "./components/slides/SlideDressCode";
+import SlideBoothGallery from "./components/slides/SlideBoothGallery";
 import SlideBoothBudget from "./components/slides/SlideBoothBudget";
 import SlideAccommodation from "./components/slides/SlideAccommodation";
 import SlideAccommodation2 from "./components/slides/SlideAccommodation2";
@@ -36,6 +37,7 @@ export const SLIDES = [
   { component: <SlideDressCodeBudget />,         label: "Rozpočet oblečení", section: "Dress Code" },
   { component: <SlideGifts />,                   label: "Dárky",             section: "Dárky" },
   { component: <SlideGiftsBudget />,             label: "Rozpočet dárků",    section: "Dárky" },
+  { component: <SlideBoothGallery />,             label: "Grafika stánku",    section: "Stánek",        updated: true },
   { component: <SlideBoothBudget />,             label: "Stánek MLT",        section: "Stánek" },
   { component: <SlideTotalCosts />,              label: "Celkové náklady",   section: "Souhrn" },
 ];
@@ -50,7 +52,7 @@ export const SECTIONS = [
   { label: "Dress Code",    slideIndex: 10 },
   { label: "Dárky",         slideIndex: 12 },
   { label: "Stánek",        slideIndex: 14 },
-  { label: "Souhrn",        slideIndex: 15 },
+  { label: "Souhrn",        slideIndex: 16 },
 ].map((sec, i, arr) => {
   const end = arr[i + 1]?.slideIndex ?? SLIDES.length;
   const hasUpdate = SLIDES.slice(sec.slideIndex, end).some((s) => s.updated);
