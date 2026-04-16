@@ -57,7 +57,7 @@ export default function SlideTransport() {
           style={{ background: "var(--color-at-blue-a5)", border: "1px solid var(--color-at-blue-v5)" }}
         >
           <span className="text-2xl font-black" style={{ color: "var(--color-at-blue)" }}>
-            4
+            2
           </span>
           <span className="text-sm" style={{ color: "var(--color-at-blue-v2)" }}>
             skupiny
