@@ -93,15 +93,37 @@ export default function SlideAccommodation2() {
             </a>
           </div>
         </div>
-        {/* Check-in alert */}
-        <div
-          className="mt-3 px-4 py-2.5 rounded-lg flex items-center gap-3"
-          style={{ background: "rgba(213,28,23,0.15)", border: "1px solid var(--color-at-red)" }}
-        >
-          <span className="text-lg">⏰</span>
-          <p className="text-sm font-bold" style={{ color: "var(--color-at-red)" }}>
-            Požadavek: Check-in 20:00 – 21:00
-          </p>
+        {/* Check-in alert + reservation info */}
+        <div className="mt-3 flex flex-wrap gap-3">
+          <div
+            className="px-4 py-2.5 rounded-lg flex items-center gap-3"
+            style={{ background: "rgba(213,28,23,0.15)", border: "1px solid var(--color-at-red)" }}
+          >
+            <span className="text-lg">⏰</span>
+            <p className="text-sm font-bold" style={{ color: "var(--color-at-red)" }}>
+              Požadavek: Check-in 20:00 – 21:00
+            </p>
+          </div>
+          <div
+            className="px-4 py-2.5 rounded-lg flex items-center gap-3"
+            style={{ background: "var(--color-at-blue-v2)", border: "1px solid var(--color-at-blue-v3)" }}
+          >
+            <span className="text-lg">🔑</span>
+            <div>
+              <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>Č. rezervace: <span className="font-black" style={{ color: "var(--color-at-white)" }}>6385143502</span></p>
+              <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>PIN: <span className="font-black" style={{ color: "var(--color-at-white)" }}>7736</span></p>
+            </div>
+          </div>
+          <div
+            className="px-4 py-2.5 rounded-lg flex items-center gap-3"
+            style={{ background: "var(--color-at-blue-v2)", border: "1px solid var(--color-at-blue-v3)" }}
+          >
+            <span className="text-lg">📞</span>
+            <div>
+              <p className="text-xs font-bold" style={{ color: "var(--color-at-white)" }}>Ferienwohnungen Apfelhof-Bodensee Röhrenbach</p>
+              <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>{CONTACT_PHONE} · {CONTACT_EMAIL}</p>
+            </div>
+          </div>
         </div>
       </div>
 
