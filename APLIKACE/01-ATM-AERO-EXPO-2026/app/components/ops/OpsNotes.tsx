@@ -89,8 +89,8 @@ async function uploadFile(file: File): Promise<string> {
   const formData = new FormData();
   formData.append("file", file);
   const res = await fetch("/api/upload", { method: "POST", body: formData });
-  if (!res.ok) throw new Error("Upload selhal");
   const data = await res.json();
+  if (!res.ok) throw new Error(data.error ?? "Upload selhal");
   return data.url;
 }
 
@@ -119,6 +119,7 @@ export default function OpsNotes() {
 
   const [photos, setPhotos] = useState<PhotoPair[]>([]);
   const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const [filterAuthor, setFilterAuthor] = useState<string>("all");
@@ -149,6 +150,7 @@ export default function OpsNotes() {
     const files = e.target.files;
     if (!files || files.length === 0) return;
     setUploading(true);
+    setUploadError(null);
     try {
       const pairs: PhotoPair[] = [];
       for (const file of Array.from(files)) {
@@ -156,8 +158,8 @@ export default function OpsNotes() {
         pairs.push(pair);
       }
       setPhotos((prev) => [...prev, ...pairs]);
-    } catch {
-      // ignore
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : "Nahrávání selhalo");
     } finally {
       setUploading(false);
       if (fileRef.current) fileRef.current.value = "";
@@ -342,6 +344,12 @@ export default function OpsNotes() {
         {uploading && (
           <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
             Nahrávám fotky…
+          </p>
+        )}
+
+        {uploadError && (
+          <p className="text-xs font-bold px-3 py-1.5 rounded-lg" style={{ background: "rgba(213,28,23,0.12)", color: "var(--color-at-red)" }}>
+            {uploadError}
           </p>
         )}
 
