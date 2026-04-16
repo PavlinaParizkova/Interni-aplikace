@@ -191,16 +191,49 @@ export default function OpsNotes() {
     }
   };
 
+  const [editPhotos, setEditPhotos] = useState<PhotoPair[]>([]);
+  const [editUploading, setEditUploading] = useState(false);
+  const editFileRef = useRef<HTMLInputElement>(null);
+
   const startEdit = (note: MeetingNote) => {
     setEditingId(note.id);
     setEditTitle(note.title);
     setEditBody(note.body);
+    setEditPhotos(
+      (note.photos ?? []).map((p) =>
+        typeof p === "string" ? { full: p, thumb: p } : p,
+      ),
+    );
   };
 
   const cancelEdit = () => {
     setEditingId(null);
     setEditTitle("");
     setEditBody("");
+    setEditPhotos([]);
+  };
+
+  const handleEditFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    setEditUploading(true);
+    try {
+      const pairs: PhotoPair[] = [];
+      for (const file of Array.from(files)) {
+        const pair = await uploadPhoto(file);
+        pairs.push(pair);
+      }
+      setEditPhotos((prev) => [...prev, ...pairs]);
+    } catch {
+      // ignore
+    } finally {
+      setEditUploading(false);
+      if (editFileRef.current) editFileRef.current.value = "";
+    }
+  };
+
+  const removeEditPhoto = (thumb: string) => {
+    setEditPhotos((prev) => prev.filter((p) => p.thumb !== thumb));
   };
 
   const saveEdit = async (id: string) => {
@@ -210,11 +243,17 @@ export default function OpsNotes() {
       const res = await fetch("/api/meetingnotes", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, title: editTitle, body: editBody }),
+        body: JSON.stringify({
+          id,
+          title: editTitle,
+          body: editBody,
+          photos: editPhotos.length > 0 ? editPhotos : [],
+        }),
       });
       const data: MeetingNote[] = await res.json();
       setNotes(data);
       setEditingId(null);
+      setEditPhotos([]);
     } catch {
       // ignore
     } finally {
@@ -541,7 +580,76 @@ export default function OpsNotes() {
                       lineHeight: 1.7,
                     }}
                   />
-                  <div className="flex gap-2 justify-end">
+
+                  {/* Edit photos */}
+                  {editPhotos.length > 0 && (
+                    <div className="flex gap-2 flex-wrap">
+                      {editPhotos.map((p) => (
+                        <div key={p.thumb} className="relative group">
+                          <img
+                            src={p.thumb}
+                            alt="Příloha"
+                            className="w-16 h-16 object-cover rounded-lg"
+                            style={{ border: "1px solid var(--color-at-blue-v3)" }}
+                          />
+                          <button
+                            onClick={() => removeEditPhoto(p.thumb)}
+                            className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity"
+                            style={{
+                              background: "var(--color-at-red)",
+                              color: "var(--color-at-white)",
+                              lineHeight: 1,
+                            }}
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {editUploading && (
+                    <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
+                      Nahrávám fotky…
+                    </p>
+                  )}
+
+                  <input
+                    ref={editFileRef}
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    className="hidden"
+                    onChange={handleEditFiles}
+                  />
+
+                  <div className="flex gap-2 justify-end items-center">
+                    <button
+                      onClick={() => editFileRef.current?.click()}
+                      disabled={editUploading || isOffline}
+                      className="text-xs font-bold px-3 py-1 rounded-lg flex items-center gap-1.5 mr-auto"
+                      style={{
+                        background: "var(--color-at-blue-v3)",
+                        color: "var(--color-at-white)",
+                        border: "1px solid var(--color-at-blue-v3)",
+                        opacity: editUploading || isOffline ? 0.4 : 1,
+                      }}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <polyline points="21 15 16 10 5 21"/>
+                      </svg>
+                      {editUploading ? "Nahrávám…" : "Foto"}
+                      {editPhotos.length > 0 && (
+                        <span
+                          className="text-xs font-black px-1.5 py-0.5 rounded-full"
+                          style={{ background: "var(--color-at-red)", color: "var(--color-at-white)", fontSize: 10 }}
+                        >
+                          {editPhotos.length}
+                        </span>
+                      )}
+                    </button>
                     <button
                       onClick={cancelEdit}
                       className="text-xs px-3 py-1 rounded"

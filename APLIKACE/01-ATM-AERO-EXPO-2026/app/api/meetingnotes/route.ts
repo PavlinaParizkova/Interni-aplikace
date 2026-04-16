@@ -69,10 +69,11 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
   try {
-    const { id, title, body } = await request.json() as {
+    const { id, title, body, photos } = await request.json() as {
       id: string;
       title?: string;
       body: string;
+      photos?: { full: string; thumb: string }[];
     };
     if (!id || !body?.trim()) {
       return NextResponse.json({ error: "Chybí ID nebo obsah." }, { status: 400 });
@@ -80,7 +81,13 @@ export async function PUT(request: Request) {
     const current = (await redis.get<MeetingNote[]>(KEY)) ?? [];
     const updated = current.map((note) =>
       note.id === id
-        ? { ...note, title: title?.trim() ?? note.title, body: body.trim(), editedAt: new Date().toISOString() }
+        ? {
+            ...note,
+            title: title?.trim() ?? note.title,
+            body: body.trim(),
+            editedAt: new Date().toISOString(),
+            ...(photos !== undefined ? { photos: photos.length > 0 ? photos : undefined } : {}),
+          }
         : note
     );
     await redis.set(KEY, updated);
