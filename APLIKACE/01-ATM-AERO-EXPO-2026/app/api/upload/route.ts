@@ -2,6 +2,13 @@ import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+    return NextResponse.json(
+      { error: "BLOB_READ_WRITE_TOKEN není nastavený. Přidej Blob Store v Settings → Storage." },
+      { status: 500 },
+    );
+  }
+
   try {
     const formData = await request.formData();
     const file = formData.get("file") as File | null;

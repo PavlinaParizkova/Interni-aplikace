@@ -89,16 +89,22 @@ async function uploadFile(file: File): Promise<string> {
   const formData = new FormData();
   formData.append("file", file);
   const res = await fetch("/api/upload", { method: "POST", body: formData });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error ?? "Upload selhal");
+  let data;
+  try {
+    data = await res.json();
+  } catch {
+    throw new Error(`Server vrátil ${res.status}: ${res.statusText}`);
+  }
+  if (!res.ok) throw new Error(data.error ?? `Upload selhal (${res.status})`);
+  if (!data.url) throw new Error("Server nevrátil URL");
   return data.url;
 }
 
 async function uploadPhoto(file: File): Promise<PhotoPair> {
-  const [full, thumb] = await Promise.all([
-    resizeImage(file, 1000, 0.82).then(uploadFile),
-    resizeImage(file, 300, 0.7).then(uploadFile),
-  ]);
+  const fullFile = await resizeImage(file, 1000, 0.82);
+  const full = await uploadFile(fullFile);
+  const thumbFile = await resizeImage(file, 300, 0.7);
+  const thumb = await uploadFile(thumbFile);
   return { full, thumb };
 }
 
