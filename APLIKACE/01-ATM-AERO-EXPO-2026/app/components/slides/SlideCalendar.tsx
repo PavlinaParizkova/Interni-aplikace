@@ -49,10 +49,10 @@ const COLORS = [
     dot: "#2E7D32",
     gcal: "Sage",
     gcalCz: "Šalvějová",
-    prefix: "[INTERNÍ]",
+    prefix: "[STÁNEK]",
     label: "Na stánku AIR TEAM",
-    desc: "Schůzka na našem stánku AIR TEAM (plocha stánku, zasedačka i zázemí).",
-    labelEn: "Meeting at our AIR TEAM booth (open area, meeting room, or back office).",
+    desc: "Schůzka na našem stánku AIR TEAM (plocha stánku).",
+    labelEn: "Meeting at our AIR TEAM booth (booth area).",
   },
   {
     dot: "#616161",
