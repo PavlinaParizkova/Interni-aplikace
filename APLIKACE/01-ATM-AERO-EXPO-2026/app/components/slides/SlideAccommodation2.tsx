@@ -127,6 +127,29 @@ export default function SlideAccommodation2() {
         </div>
       </div>
 
+      {/* Mobile guests strip */}
+      <div
+        className="lg:hidden mb-4 rounded-lg px-4 py-3"
+        style={{ background: "var(--color-at-blue-v1)", border: "1px solid var(--color-at-blue-v3)" }}
+      >
+        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--color-at-blue-v5)" }}>
+          Ubytovaní
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {GUESTS.map((name) => (
+            <div key={name} className="flex items-center gap-1.5">
+              <span
+                className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold"
+                style={{ background: "var(--color-at-blue-v3)", color: "var(--color-at-white)" }}
+              >
+                {name.split(" ").map((n) => n[0]).join("")}
+              </span>
+              <span className="text-xs font-semibold" style={{ color: "var(--color-at-white)" }}>{name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="flex flex-col lg:flex-row gap-5">
         {/* Left – highlights + gallery */}
         <div className="flex flex-col gap-4 flex-1">

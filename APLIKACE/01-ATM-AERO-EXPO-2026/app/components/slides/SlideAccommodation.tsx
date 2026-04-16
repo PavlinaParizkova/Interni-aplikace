@@ -124,6 +124,37 @@ export default function SlideAccommodation() {
         </div>
       </div>
 
+      {/* Mobile guests strip */}
+      <div
+        className="lg:hidden mb-4 rounded-lg px-4 py-3"
+        style={{ background: "var(--color-at-blue-v1)", border: "1px solid var(--color-at-blue-v3)" }}
+      >
+        <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "var(--color-at-blue-v5)" }}>
+          Ubytovaní
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {GUESTS.map((g) => (
+            <div key={g.name} className="flex items-center gap-1.5">
+              <span
+                className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold"
+                style={{ background: g.initials === "PP" ? "var(--color-at-red)" : "var(--color-at-blue-v3)", color: "var(--color-at-white)" }}
+              >
+                {g.initials}
+              </span>
+              <span className="text-xs font-semibold" style={{ color: "var(--color-at-white)" }}>{g.name}</span>
+            </div>
+          ))}
+        </div>
+        <div
+          className="mt-2 px-3 py-2 rounded-lg"
+          style={{ background: "rgba(213,28,23,0.15)", border: "1px solid var(--color-at-red)" }}
+        >
+          <p className="text-xs font-bold" style={{ color: "var(--color-at-red)" }}>
+            Jakub Dryska – přestěhuje se sem od 24. 4. (po skončení ubytování skupiny 2)
+          </p>
+        </div>
+      </div>
+
       <div className="flex flex-col lg:flex-row gap-5">
         {/* Left – gallery or highlights */}
         <div className="flex flex-col gap-4">
