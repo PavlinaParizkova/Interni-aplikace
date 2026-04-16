@@ -4,16 +4,17 @@ import { useState } from "react";
 
 const PHOTOS: string[] = [];
 
-const BOOKING_URL =
-  "https://secure.booking.com/confirmation.cs.html?aid=304142&label=gen173nr-10CCsoggI46AdIBVgEaDqIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4ApuDgs8GwAIB0gIkYTBmMmEwNGItZDI4NC00YWRiLWI1NzgtNDVjMjljNjViMTk42AIB4AIB&sid=f4da4245ef7ec34e28d30f4535b92567&source=confirmation_error_validation&bn=6385143502";
+const BOOKING_URL = "https://www.booking.com/hotel/de/apfelhof-bodensee-rohrenbach.cs.html";
+const BOOKING_MAP_URL = "https://www.booking.com/hotel/de/apfelhof-bodensee-rohrenbach.cs.html?label=gen173nr-10CCsoggI46AdIBVgEaDqIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4AtmFgs8GwAIB0gIkNWZkNTIyYzItN2YyOC00MzVhLWJjNTQtZTFjNzM4NjE1MWZl2AIB4AIB&sid=2e1dbfc038caa73eed6d2b29b05b8dcc&aid=304142&map=1";
+const OSM_EMBED = "https://www.openstreetmap.org/export/embed.html?bbox=9.30%2C47.70%2C9.50%2C47.78&layer=mapnik&marker=47.7405%2C9.3964";
 
 const HIGHLIGHTS = [
-  { icon: "🏨", label: "Typ", value: "Hotel – Booking.com" },
-  { icon: "📍", label: "Místo", value: "Friedrichshafen, Německo" },
-  { icon: "👥", label: "Hosté", value: "4 osoby" },
-  { icon: "🛏️", label: "Pokoje", value: "Upřesnit" },
-  { icon: "📅", label: "Check-in", value: "22. 4. 2026" },
-  { icon: "📅", label: "Check-out", value: "24. 4. 2026" },
+  { icon: "🏡", label: "Typ", value: "Celý apartmán" },
+  { icon: "📍", label: "Místo", value: "Kippenhausen, Německo" },
+  { icon: "👥", label: "Hosté", value: "3 dospělí (max. 6)" },
+  { icon: "🛏️", label: "Ložnice", value: "3 ložnice · balkon" },
+  { icon: "📅", label: "Check-in", value: "22. 4. 2026, 16:00–20:00" },
+  { icon: "📅", label: "Check-out", value: "24. 4. 2026, do 10:00" },
 ];
 
 const GUESTS = [
@@ -23,9 +24,22 @@ const GUESTS = [
   "Alex Mudrych",
 ];
 
+const PERKS = [
+  { icon: "🛁", text: "Vlastní koupelna, vana, sprcha" },
+  { icon: "🏔️", text: "Výhled na jezero, zahrady a hory" },
+  { icon: "🍳", text: "Plně vybavená kuchyně" },
+  { icon: "📺", text: "TV, satelitní programy" },
+  { icon: "☕", text: "Kávovar, rychlovarná konvice" },
+  { icon: "🚭", text: "Nekuřácký pokoj" },
+  { icon: "🅿️", text: "Parkování u objektu" },
+];
+
 const CHECK_IN = "22. 4. 2026";
 const CHECK_OUT = "24. 4. 2026";
 const NIGHTS = 2;
+const ADDRESS = "Altenbergstr. 2, 88090 Kippenhausen, Německo";
+const CONTACT_PHONE = "+4975456233";
+const CONTACT_EMAIL = "info@apfelhof-bodensee.de";
 
 export default function SlideAccommodation2() {
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
@@ -43,13 +57,22 @@ export default function SlideAccommodation2() {
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
           <div>
             <h2 className="text-xl sm:text-3xl font-black" style={{ color: "var(--color-at-white)" }}>
-              Ubytování – Booking.com
+              Ferienwohnungen Apfelhof-Bodensee
             </h2>
             <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
-              Friedrichshafen, Německo · {CHECK_IN} – {CHECK_OUT} · {NIGHTS} noci
+              Apartmán Premium se 3 ložnicemi a balkonem · {CHECK_IN} – {CHECK_OUT} · {NIGHTS} noci
             </p>
           </div>
           <div className="flex gap-2 flex-shrink-0">
+            <a
+              href={BOOKING_MAP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded-lg text-xs font-bold"
+              style={{ background: "var(--color-at-blue-v3)", color: "var(--color-at-white)" }}
+            >
+              📍 Mapa ↗
+            </a>
             <a
               href={BOOKING_URL}
               target="_blank"
@@ -60,6 +83,16 @@ export default function SlideAccommodation2() {
               Booking.com ↗
             </a>
           </div>
+        </div>
+        {/* Check-in alert */}
+        <div
+          className="mt-3 px-4 py-2.5 rounded-lg flex items-center gap-3"
+          style={{ background: "rgba(213,28,23,0.15)", border: "1px solid var(--color-at-red)" }}
+        >
+          <span className="text-lg">⏰</span>
+          <p className="text-sm font-bold" style={{ color: "var(--color-at-red)" }}>
+            Požadavek: Check-in 20:00 – 21:00
+          </p>
         </div>
       </div>
 
@@ -119,8 +152,8 @@ export default function SlideAccommodation2() {
           )}
         </div>
 
-        {/* Right – guests + info */}
-        <div className="flex flex-col gap-4 w-full lg:w-64 flex-shrink-0">
+        {/* Right – guests + perks + map */}
+        <div className="hidden lg:flex flex-col gap-4 w-64 flex-shrink-0">
           {/* Guests */}
           <div
             className="rounded-xl px-4 py-3 flex flex-col gap-2"
@@ -148,35 +181,54 @@ export default function SlideAccommodation2() {
             ))}
           </div>
 
-          {/* Booking details */}
+          {/* Perks */}
           <div
             className="rounded-xl px-4 py-3 flex flex-col gap-2"
             style={{ background: "var(--color-at-blue-v1)", border: "1px solid var(--color-at-blue-v3)" }}
           >
             <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "var(--color-at-blue-v5)" }}>
-              Rezervace
+              Vybavení
             </p>
-            <div className="flex items-center justify-between">
-              <span className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>Check-in</span>
-              <span className="text-sm font-black" style={{ color: "var(--color-at-white)" }}>{CHECK_IN}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>Check-out</span>
-              <span className="text-sm font-black" style={{ color: "var(--color-at-white)" }}>{CHECK_OUT}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>Noci</span>
-              <span className="text-sm font-black" style={{ color: "var(--color-at-white)" }}>{NIGHTS}</span>
-            </div>
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 text-xs font-bold px-3 py-2 rounded-lg text-center"
-              style={{ background: "var(--color-at-red)", color: "var(--color-at-white)" }}
+            {PERKS.map((p) => (
+              <div key={p.text} className="flex items-start gap-2">
+                <span>{p.icon}</span>
+                <span className="text-xs" style={{ color: "var(--color-at-white)" }}>{p.text}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Map + address */}
+          <div className="flex flex-col gap-2">
+            <div
+              className="rounded-xl overflow-hidden"
+              style={{ border: "1px solid var(--color-at-blue-v3)", height: 140 }}
             >
-              Otevřít rezervaci na Booking.com ↗
-            </a>
+              <iframe
+                src={OSM_EMBED}
+                title="Mapa ubytování – Kippenhausen"
+                className="w-full h-full"
+                style={{ border: 0, display: "block" }}
+                loading="lazy"
+              />
+            </div>
+            <div
+              className="rounded-xl px-3 py-2.5 flex flex-col gap-1"
+              style={{ background: "var(--color-at-blue-v2)", border: "1px solid var(--color-at-blue-v3)" }}
+            >
+              <p className="text-xs font-black" style={{ color: "var(--color-at-white)" }}>📍 {ADDRESS}</p>
+              <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
+                Tel: {CONTACT_PHONE} · {CONTACT_EMAIL}
+              </p>
+              <a
+                href={BOOKING_MAP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-bold mt-1 px-2 py-1 rounded text-center"
+                style={{ background: "var(--color-at-blue-v3)", color: "var(--color-at-white)" }}
+              >
+                Zobrazit na mapě ↗
+              </a>
+            </div>
           </div>
         </div>
       </div>
