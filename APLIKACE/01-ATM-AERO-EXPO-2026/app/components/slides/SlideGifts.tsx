@@ -21,38 +21,38 @@ const CATEGORIES: GiftCategory[] = [
     items: [
       {
         name: "Energetický nápoj AIR TEAM",
-        note: "ATM verze · 100 ks · máme ve VB",
+        note: "ATM verze · 100 ks · 28,93 Kč / ks · máme ve VB",
         image: "/darky-energy-drink-airteam.png",
         status: "done",
       },
       {
         name: "Energetický nápoj PilotStyle",
-        note: "PilotStyle verze · 100 ks · máme ve VB",
+        note: "PilotStyle verze · 100 ks · 28,93 Kč / ks · máme ve VB",
         image: "/darky-energy-drink-pilotstyle.png",
         status: "done",
       },
       {
         name: "Karamelky",
-        note: "Máme ve VB",
-        image: "/darky-karamelky.png",
+        note: "1 766 Kč · máme ve VB",
+        image: "/Karamelky.jpeg",
         status: "done",
       },
       {
         name: "Kuličkové pero Connel – AIR TEAM",
         note: "100 ks · 16 Kč / ks · máme ve VB",
-        image: "/darky-pero-airteam.png",
+        image: "/AIR%20TEAM%20propiska.jpeg",
         status: "done",
       },
       {
         name: "Kuličkové pero Connel – PilotStyle",
         note: "50 ks · 16 Kč / ks · máme ve VB",
-        image: "/darky-pero-pilotstyle.png",
+        image: "/PilotStyle%20propiska.jpeg",
         status: "done",
       },
       {
         name: "Tašky RAINBOW modrá",
-        note: "150 ks · 8,10 Kč / ks · máme ve VB",
-        image: "/darky-taska.png",
+        note: "23×10×32 cm · 150 ks · 8,10 Kč / ks · máme ve VB",
+        image: "/taska_na_darky.jpg",
         status: "done",
       },
     ],
@@ -64,13 +64,19 @@ const CATEGORIES: GiftCategory[] = [
     items: [
       {
         name: "Keramický pohárek 330 ml Qeram",
-        note: "Keramický · 126 Kč / ks · 100 ks objednáno",
-        image: "/darky-hrnek-mockup.png",
+        note: "Keramický · 126 Kč / ks · 100 ks objednáno · fa 260100283",
+        image: "/01_781_04%20ATM_Keramicky_poharek_2026_mockup_v4.jpg",
+        status: "done",
+      },
+      {
+        name: "Keramický pohárek – detail",
+        note: "Celobarevný motiv · gravírované provedení",
+        image: "/Exponat.jpeg",
         status: "done",
       },
       {
         name: "Káva Barahona",
-        note: "Dom. republika · černý doypack · 173 Kč · máme ve VB",
+        note: "Dom. republika · černý doypack · 173 Kč · 60 ks · máme ve VB",
         image: "/darky-kava-new.png",
         status: "done",
       },
@@ -112,7 +118,7 @@ export default function SlideGifts() {
           Dárkové balíčky pro zákazníky
         </h2>
         <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
-          Přehled dárků pro AERO EXPO 2026 · celkový náklad 29 246 Kč
+          Přehled dárků pro AERO EXPO 2026 · celkový potvrzený náklad 29 246 Kč
         </p>
       </div>
 

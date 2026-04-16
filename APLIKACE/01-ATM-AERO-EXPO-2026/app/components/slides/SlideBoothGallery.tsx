@@ -19,6 +19,13 @@ const PHOTOS: BoothPhoto[] = [
   { src: "/01_38_02 Stanek_Aero_2026_pudorys.png", label: "Půdorys – rozložení expozic a elektro" },
 ];
 
+const EXHIBIT_PHOTOS: BoothPhoto[] = [
+  { src: "/exponat-kokpit-01.png", label: "Exponát – skleněný kokpit Garmin" },
+  { src: "/exponat-kokpit-02.png", label: "Exponát – yoke AIR TEAM detail" },
+];
+
+const VISIBLE_BOOTH = 4;
+
 const EASYCUBES_PHOTOS: BoothPhoto[] = [
   { src: "/easycube-profi-01.jpg", label: "EasyCubes Set Profi – hlavní" },
   { src: "/easycube-profi-02.jpg", label: "EasyCubes – varianta sestavení" },
@@ -32,7 +39,7 @@ const EASYCUBES_PHOTOS: BoothPhoto[] = [
   { src: "/easycube-profi-10.jpg", label: "EasyCubes – Cover díl" },
 ];
 
-const ALL_PHOTOS = [...PHOTOS, ...EASYCUBES_PHOTOS];
+const ALL_PHOTOS = [...PHOTOS, ...EXHIBIT_PHOTOS, ...EASYCUBES_PHOTOS];
 
 const EASYCUBES_SPECS = [
   { label: "Produkt", value: 'EasyCubes Set \u201EProfi\u201C' },
@@ -52,7 +59,7 @@ const BOOTH_SPECS = [
 
 const ZONES = [
   { name: "Levá část – Aerospec / PilotStyle", desc: "Produktová zóna se skleněnými stěnami, backlit grafika letadla a pilotky" },
-  { name: "Centrum – AIR TEAM recepce", desc: "Hlavní pult s logem, TV obrazovka, claim „Your Mission. Our Technology"" },
+  { name: "Centrum \u2013 AIR TEAM recepce", desc: 'Hlavn\u00ED pult s logem, TV obrazovka, claim \u201EYour Mission. Our Technology\u201C' },
   { name: "Pravá část – kokpit", desc: "Vizualizace skleněného kokpitu, sedačky pro návštěvníky" },
   { name: "Zázemí – jednací místnost", desc: "Uzavřená místnost se stolem pro šest osob, skleněná stěna s grafikou Aerospec" },
 ];
@@ -137,9 +144,9 @@ export default function SlideBoothGallery() {
             </div>
           </button>
 
-          {/* Thumbnail grid */}
-          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-4 gap-2 sm:gap-3">
-            {PHOTOS.slice(1).map((photo, i) => (
+          {/* Thumbnail grid – 4 visible + "more" tile */}
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-3">
+            {PHOTOS.slice(1, VISIBLE_BOOTH + 1).map((photo, i) => (
               <button
                 key={photo.src}
                 onClick={() => setLightboxIdx(i + 1)}
@@ -163,6 +170,67 @@ export default function SlideBoothGallery() {
                 </span>
               </button>
             ))}
+
+            {PHOTOS.length > VISIBLE_BOOTH + 1 && (
+              <button
+                onClick={() => setLightboxIdx(VISIBLE_BOOTH + 1)}
+                className="relative rounded-xl overflow-hidden cursor-zoom-in focus:outline-none"
+                style={{ background: "var(--color-at-blue-v2)", aspectRatio: "4/3" }}
+              >
+                <img
+                  src={PHOTOS[VISIBLE_BOOTH + 1].src}
+                  alt="Další fotky"
+                  className="absolute inset-0 w-full h-full object-cover opacity-40"
+                />
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.5">
+                  <span className="text-white font-black text-xl">+{PHOTOS.length - VISIBLE_BOOTH - 1}</span>
+                  <span className="text-white text-xs font-bold">fotek</span>
+                </div>
+              </button>
+            )}
+          </div>
+
+          {/* Exhibit section */}
+          <div className="mt-6">
+            <p
+              className="text-xs font-bold tracking-[0.2em] uppercase mb-1"
+              style={{ color: "var(--color-at-blue-v5)" }}
+            >
+              Exponát
+            </p>
+            <h3 className="text-lg sm:text-xl font-black mb-1" style={{ color: "var(--color-at-white)" }}>
+              Skleněný kokpit Garmin – OK-ATS
+            </h3>
+            <p className="text-xs mb-3" style={{ color: "var(--color-at-blue-v5)" }}>
+              Funkční přístrojová deska s avionickým systémem Garmin G3X Touch, GTN 750 Xi, GFC 500.
+              Kožený yoke s logem AIR TEAM. Exponát bude umístěn v pravé části stánku.
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              {EXHIBIT_PHOTOS.map((photo, i) => (
+                <button
+                  key={photo.src}
+                  onClick={() => setLightboxIdx(PHOTOS.length + i)}
+                  className="relative rounded-xl overflow-hidden cursor-zoom-in focus:outline-none group"
+                  style={{ background: "var(--color-at-blue-v2)", aspectRatio: "16/10" }}
+                >
+                  <img
+                    src={photo.src}
+                    alt={photo.label}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                  />
+                  <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                    style={{ background: "rgba(16,37,62,0.4)" }}
+                  />
+                  <span
+                    className="absolute bottom-2 left-2 right-2 px-2 py-1 rounded text-xs font-bold truncate"
+                    style={{ background: "rgba(16,37,62,0.75)", color: "var(--color-at-white)", backdropFilter: "blur(4px)" }}
+                  >
+                    {photo.label}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
 
           <p className="mt-3 text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
@@ -216,7 +284,7 @@ export default function SlideBoothGallery() {
               {EASYCUBES_PHOTOS.map((photo, i) => (
                 <button
                   key={photo.src}
-                  onClick={() => setLightboxIdx(PHOTOS.length + i)}
+                  onClick={() => setLightboxIdx(PHOTOS.length + EXHIBIT_PHOTOS.length + i)}
                   className="relative rounded-lg overflow-hidden cursor-zoom-in focus:outline-none group"
                   style={{ background: "#fff", aspectRatio: "1" }}
                 >
@@ -395,7 +463,7 @@ export default function SlideBoothGallery() {
               src={ALL_PHOTOS[lightboxIdx].src}
               alt={ALL_PHOTOS[lightboxIdx].label}
               className="w-full object-contain"
-              style={{ maxHeight: "75vh", background: lightboxIdx >= PHOTOS.length ? "#fff" : "#000" }}
+              style={{ maxHeight: "75vh", background: lightboxIdx >= PHOTOS.length + EXHIBIT_PHOTOS.length ? "#fff" : "#000" }}
             />
 
             {/* Navigation bar */}
