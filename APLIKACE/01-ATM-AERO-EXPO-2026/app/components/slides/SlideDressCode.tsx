@@ -154,13 +154,13 @@ const PRODUCTS: Product[] = [
     url: "https://shop.malfini.com/cz/cs/product/bomber-454?color=02",
   },
   {
-    id: "action-152",
-    code: "152",
-    name: "Action 152",
+    id: "slim-139",
+    code: "139",
+    name: "Slim 139",
     brand: "Malfini",
     gender: "Ženy – Lucie",
-    color: "Námořní modrá",
-    colorHex: "#002060",
+    color: "Černá",
+    colorHex: "#1d1d1b",
     material: "Single Jersey, 95% bavlna + 5% elastan",
     weight: "180 g/m²",
     washTemp: "30 °C",
@@ -168,15 +168,15 @@ const PRODUCTS: Product[] = [
     graphicBack: "AIR TEAM CREW – záda",
     imageFront: "/01_38_08-obleceni-tricko-lucie-predek.png",
     imageBack: "/01_38_08-obleceni-tricko-lucie-zadek.png",
-    sizes: ["XS", "S", "M", "L", "XL", "2XL"],
+    sizes: ["XS", "S", "M", "L", "XL"],
     details: [
       "Slim-fit střih s bočními švy",
       "Zpevnění ramenních švů páskou",
       "Širší kulatý průkrčník začištěn páskou",
       "Žebrový průkrčník 1:1 s 5% elastanem",
-      "Krátké přiléhavé rukávy",
+      "Dlouhé přiléhavé rukávy",
     ],
-    url: "https://shop.malfini.com/cz/cs/product/action-152?color=02",
+    url: "https://shop.malfini.com/cz/cs/product/slim-139?color=01",
   },
   {
     id: "next-level-hoodie",
@@ -222,7 +222,7 @@ const TEAM: TeamMember[] = [
   { name: "Alex Mudrych",        group: "Muži",         poloId: "collar-256", bomberId: "bomber-453" },
   { name: "Jirka Franz",         group: "Muži",         poloId: "collar-256", bomberId: "bomber-453" },
   { name: "Magdaléna Ševčíková", group: "Ženy",         poloId: "collar-257", bomberId: "bomber-454" },
-  { name: "Lucie Kysučanová",    group: "Ženy – Lucie", poloId: "action-152", bomberId: "next-level-hoodie" },
+  { name: "Lucie Kysučanová",    group: "Ženy – Lucie", poloId: "slim-139", bomberId: "next-level-hoodie" },
 ];
 
 const PRODUCT_MAP = Object.fromEntries(PRODUCTS.map((p) => [p.id, p]));
