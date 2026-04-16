@@ -15,6 +15,7 @@ import SlideGiftsBudget from "./components/slides/SlideGiftsBudget";
 import SlideDressCode from "./components/slides/SlideDressCode";
 import SlideBoothBudget from "./components/slides/SlideBoothBudget";
 import SlideAccommodation from "./components/slides/SlideAccommodation";
+import SlideAccommodation2 from "./components/slides/SlideAccommodation2";
 import SlideDressCodeBudget from "./components/slides/SlideDressCodeBudget";
 import SlideTotalCosts from "./components/slides/SlideTotalCosts";
 import SlideCalendar from "./components/slides/SlideCalendar";
@@ -26,7 +27,8 @@ export const SLIDES = [
   { component: <SlideTeam />,                    label: "Tým",               section: "Tým" },
   { component: <SlideDays />,                    label: "Harmonogram",       section: "Tým" },
   { component: <SlideTransport />,               label: "Doprava",           section: "Logistika" },
-  { component: <SlideAccommodation />,           label: "Ubytování",         section: "Logistika" },
+  { component: <SlideAccommodation />,           label: "Ubytování 1",       section: "Logistika" },
+  { component: <SlideAccommodation2 />,          label: "Ubytování 2",       section: "Logistika" },
   { component: <SlideCalendar />,                label: "Schůzky GCal",      section: "Logistika",     updated: true },
   { component: <SlideMarketingKit />,            label: "MKT materiály",     section: "MKT materiály", updated: true },
   { component: <SlideSales />,                   label: "Sales & KPIs",      section: "Sales",         updated: true },
@@ -43,12 +45,12 @@ export const SECTIONS = [
   { label: "Obsah",         slideIndex: 1 },
   { label: "Tým",           slideIndex: 2 },
   { label: "Logistika",     slideIndex: 4 },
-  { label: "MKT materiály", slideIndex: 7 },
-  { label: "Sales",         slideIndex: 8 },
-  { label: "Dress Code",    slideIndex: 9 },
-  { label: "Dárky",         slideIndex: 11 },
-  { label: "Stánek",        slideIndex: 13 },
-  { label: "Souhrn",        slideIndex: 14 },
+  { label: "MKT materiály", slideIndex: 8 },
+  { label: "Sales",         slideIndex: 9 },
+  { label: "Dress Code",    slideIndex: 10 },
+  { label: "Dárky",         slideIndex: 12 },
+  { label: "Stánek",        slideIndex: 14 },
+  { label: "Souhrn",        slideIndex: 15 },
 ].map((sec, i, arr) => {
   const end = arr[i + 1]?.slideIndex ?? SLIDES.length;
   const hasUpdate = SLIDES.slice(sec.slideIndex, end).some((s) => s.updated);
