@@ -25,6 +25,7 @@ export type MeetingNote = {
   author: string;
   createdAt: string;
   editedAt?: string;
+  photos?: string[];
 };
 
 export async function GET() {
@@ -39,10 +40,11 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { title, body, author } = await request.json() as {
+    const { title, body, author, photos } = await request.json() as {
       title?: string;
       body: string;
       author: string;
+      photos?: string[];
     };
     if (!author || !body?.trim()) {
       return NextResponse.json({ error: "Chybí autor nebo obsah." }, { status: 400 });
@@ -54,6 +56,7 @@ export async function POST(request: Request) {
       body: body.trim(),
       author,
       createdAt: new Date().toISOString(),
+      ...(photos && photos.length > 0 ? { photos } : {}),
     };
     const updated = [...current, newNote];
     await redis.set(KEY, updated);

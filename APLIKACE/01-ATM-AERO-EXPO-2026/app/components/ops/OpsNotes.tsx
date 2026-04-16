@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useSession } from "next-auth/react";
 import type { MeetingNote } from "@/app/api/meetingnotes/route";
 import { useIsOffline } from "../../hooks/useIsOffline";
@@ -31,6 +31,12 @@ function exportToMd(notes: MeetingNote[], filterLabel?: string) {
       : `## ${note.author} · ${formatTs(note.createdAt)}`;
     lines.push(heading, "");
     lines.push(note.body);
+    if (note.photos && note.photos.length > 0) {
+      lines.push("");
+      for (const url of note.photos) {
+        lines.push(`![Příloha](${url})`);
+      }
+    }
     if (note.editedAt) {
       lines.push("", `*Upraveno: ${formatTs(note.editedAt)}*`);
     }
@@ -48,6 +54,44 @@ function exportToMd(notes: MeetingNote[], filterLabel?: string) {
   URL.revokeObjectURL(url);
 }
 
+function resizeImage(file: File, maxWidth = 1400): Promise<File> {
+  return new Promise((resolve) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      if (img.width <= maxWidth) {
+        resolve(file);
+        return;
+      }
+      const scale = maxWidth / img.width;
+      const canvas = document.createElement("canvas");
+      canvas.width = maxWidth;
+      canvas.height = Math.round(img.height * scale);
+      const ctx = canvas.getContext("2d")!;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob(
+        (blob) => {
+          resolve(new File([blob!], file.name, { type: "image/jpeg" }));
+        },
+        "image/jpeg",
+        0.82,
+      );
+    };
+    img.src = url;
+  });
+}
+
+async function uploadPhoto(file: File): Promise<string> {
+  const resized = await resizeImage(file);
+  const formData = new FormData();
+  formData.append("file", resized);
+  const res = await fetch("/api/upload", { method: "POST", body: formData });
+  if (!res.ok) throw new Error("Upload selhal");
+  const data = await res.json();
+  return data.url;
+}
+
 export default function OpsNotes() {
   const isOffline = useIsOffline();
   const { data: session } = useSession();
@@ -62,6 +106,10 @@ export default function OpsNotes() {
   const [editTitle, setEditTitle] = useState("");
   const [editBody, setEditBody] = useState("");
   const [saving, setSaving] = useState(false);
+
+  const [photos, setPhotos] = useState<string[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   const [filterAuthor, setFilterAuthor] = useState<string>("all");
 
@@ -87,6 +135,29 @@ export default function OpsNotes() {
     return () => clearInterval(interval);
   }, [load]);
 
+  const handleFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    setUploading(true);
+    try {
+      const urls: string[] = [];
+      for (const file of Array.from(files)) {
+        const url = await uploadPhoto(file);
+        urls.push(url);
+      }
+      setPhotos((prev) => [...prev, ...urls]);
+    } catch {
+      // ignore
+    } finally {
+      setUploading(false);
+      if (fileRef.current) fileRef.current.value = "";
+    }
+  };
+
+  const removePhoto = (url: string) => {
+    setPhotos((prev) => prev.filter((p) => p !== url));
+  };
+
   const handleSubmit = async () => {
     if (!author || !body.trim()) return;
     setSubmitting(true);
@@ -94,12 +165,13 @@ export default function OpsNotes() {
       const res = await fetch("/api/meetingnotes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, body, author }),
+        body: JSON.stringify({ title, body, author, photos: photos.length > 0 ? photos : undefined }),
       });
       const data: MeetingNote[] = await res.json();
       setNotes(data);
       setTitle("");
       setBody("");
+      setPhotos([]);
     } catch {
       // ignore
     } finally {
@@ -230,24 +302,96 @@ export default function OpsNotes() {
             lineHeight: 1.7,
           }}
         />
+        {/* Photo previews */}
+        {photos.length > 0 && (
+          <div className="flex gap-2 flex-wrap">
+            {photos.map((url) => (
+              <div key={url} className="relative group">
+                <img
+                  src={url}
+                  alt="Příloha"
+                  className="w-16 h-16 object-cover rounded-lg"
+                  style={{ border: "1px solid var(--color-at-blue-v3)" }}
+                />
+                <button
+                  onClick={() => removePhoto(url)}
+                  className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{
+                    background: "var(--color-at-red)",
+                    color: "var(--color-at-white)",
+                    lineHeight: 1,
+                  }}
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {uploading && (
+          <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
+            Nahrávám fotky…
+          </p>
+        )}
+
+        <input
+          ref={fileRef}
+          type="file"
+          accept="image/*"
+          multiple
+          className="hidden"
+          onChange={handleFiles}
+        />
+
         <div className="flex items-center justify-between gap-2">
           <span className="text-xs" style={{ color: isOffline ? "#f97316" : "var(--color-at-blue-v4)" }}>
             {isOffline ? "Offline – zápisy se neukládají" : (author || "Nepřihlášen/a")}
           </span>
-          <button
-            onClick={handleSubmit}
-            disabled={!body.trim() || submitting || !author || isOffline}
-            title={isOffline ? "Offline – zápisy se neukládají" : undefined}
-            className="text-sm font-black px-4 py-1.5 rounded-lg transition-all"
-            style={{
-              background: "var(--color-at-red)",
-              color: "var(--color-at-white)",
-              opacity: !body.trim() || !author || isOffline ? 0.4 : 1,
-              cursor: isOffline ? "not-allowed" : "pointer",
-            }}
-          >
-            {submitting ? "Odesílám…" : "Přidat zápis"}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => fileRef.current?.click()}
+              disabled={uploading || isOffline}
+              title="Přidat fotku (vizitka, poznámky…)"
+              className="text-sm font-bold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5"
+              style={{
+                background: "var(--color-at-blue-v3)",
+                color: "var(--color-at-white)",
+                border: "1px solid var(--color-at-blue-v3)",
+                opacity: uploading || isOffline ? 0.4 : 1,
+                cursor: isOffline ? "not-allowed" : "pointer",
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+              {uploading ? "Nahrávám…" : "Foto"}
+              {photos.length > 0 && (
+                <span
+                  className="text-xs font-black px-1.5 py-0.5 rounded-full"
+                  style={{ background: "var(--color-at-red)", color: "var(--color-at-white)", fontSize: 10 }}
+                >
+                  {photos.length}
+                </span>
+              )}
+            </button>
+            <button
+              onClick={handleSubmit}
+              disabled={!body.trim() || submitting || !author || isOffline}
+              title={isOffline ? "Offline – zápisy se neukládají" : undefined}
+              className="text-sm font-black px-4 py-1.5 rounded-lg transition-all"
+              style={{
+                background: "var(--color-at-red)",
+                color: "var(--color-at-white)",
+                opacity: !body.trim() || !author || isOffline ? 0.4 : 1,
+                cursor: isOffline ? "not-allowed" : "pointer",
+              }}
+            >
+              {submitting ? "Odesílám…" : "Přidat zápis"}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -318,12 +462,33 @@ export default function OpsNotes() {
 
               {/* View mode */}
               {!isEditing && (
-                <p
-                  className="text-sm whitespace-pre-wrap"
-                  style={{ color: "var(--color-at-white)", lineHeight: 1.7 }}
-                >
-                  {note.body}
-                </p>
+                <>
+                  <p
+                    className="text-sm whitespace-pre-wrap"
+                    style={{ color: "var(--color-at-white)", lineHeight: 1.7 }}
+                  >
+                    {note.body}
+                  </p>
+                  {note.photos && note.photos.length > 0 && (
+                    <div className="flex gap-2 flex-wrap mt-1">
+                      {note.photos.map((url) => (
+                        <a
+                          key={url}
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <img
+                            src={url}
+                            alt="Příloha"
+                            className="w-24 h-24 object-cover rounded-lg hover:opacity-80 transition-opacity"
+                            style={{ border: "1px solid var(--color-at-blue-v3)" }}
+                          />
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </>
               )}
 
               {/* Edit mode */}
