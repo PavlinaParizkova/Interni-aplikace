@@ -7,11 +7,11 @@ const CATEGORIES: CostCategory[] = [
   {
     label: "Stánek – MLT expo",
     items: [
-      { name: "Realizace stánku (podlaha, stěny, grafika, AV, elektro)", amount: 181_650, note: "Potvrzeno bez TBD", status: "confirmed" },
+      { name: "Realizace stánku (podlaha, stěny, grafika, AV, elektro)", amount: 181_545, status: "confirmed" },
       { name: "Náklady v místě (montáž, demontáž, cesta, produkce)",     amount:  54_250, status: "confirmed" },
       { name: "Hotel + diety (montážní tým)",                             amount:  14_661, status: "confirmed" },
       { name: "Doprava a spedice",                                        amount:  24_600, status: "confirmed" },
-      { name: "Grafika",                                                  amount:   1_480, status: "confirmed" },
+      { name: "Grafika (polep dveří)",                                    amount:   1_480, status: "confirmed" },
       { name: "Vybavení kuchynky",                                        amount:   5_000, note: "Čeká na potvrzení", status: "tbd" },
       { name: "Technické služby (elektro, voda, úklid)",                  amount:       0, note: "Zajišťuje klient", status: "tbd" },
     ],
@@ -30,10 +30,11 @@ const CATEGORIES: CostCategory[] = [
   {
     label: "Firemní oblečení",
     items: [
-      { name: "Collar Up 257 – muži (6 ks × 434 Kč)", amount: 2_604, status: "confirmed" },
-      { name: "Bomber 454 Black – muži (6 ks × 650 Kč)", amount: 3_900, status: "confirmed" },
-      { name: "Collar Up 257 – ženy (2 ks × 434 Kč)", amount:   868, status: "confirmed" },
-      { name: "Bomber 454 Black – ženy (2 ks × 650 Kč)", amount: 1_300, status: "confirmed" },
+      { name: "Polo tričko Collar Up 256/257 (14 ks × 441 Kč)",    amount:  6_174, status: "confirmed" },
+      { name: "Tričko Slim 139 – Lucie (2 ks × 213 Kč)",           amount:    426, status: "confirmed" },
+      { name: "Mikina Bomber 453/454 (7 ks × 662 Kč)",             amount:  4_634, status: "confirmed" },
+      { name: "Mikina BP3869 – Lucie (1 ks × 744 Kč)",             amount:    744, status: "confirmed" },
+      { name: "Potisk a výšivka (Bezpotisku.cz)",                   amount:  2_371, status: "confirmed" },
     ],
   },
   {
@@ -258,7 +259,7 @@ export default function SlideTotalCosts() {
               <li>· Ubytování AIR TEAM (Airbnb Markdorf)</li>
               <li>· Kuchynka stánku (5 000 Kč)</li>
               <li>· Technické služby stánku</li>
-              <li>· Potvrdit celkový rozpočet s vedením</li>
+              <li>· Mikina Lucie (Bezpotisku.cz) – k objednání</li>
             </ul>
           </div>
         </div>
