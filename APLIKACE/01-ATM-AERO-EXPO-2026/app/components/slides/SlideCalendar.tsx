@@ -23,7 +23,7 @@ const COLORS = [
     gcal: "Blueberry",
     gcalCz: "Borůvková",
     prefix: "[STÁNEK]",
-    label: "Na stánku",
+    label: "Zasedačka",
     desc: "Zákazník nebo partner přichází k nám na stánek AIR TEAM.",
     labelEn: "Customer/partner comes to the AIR TEAM booth.",
   },
