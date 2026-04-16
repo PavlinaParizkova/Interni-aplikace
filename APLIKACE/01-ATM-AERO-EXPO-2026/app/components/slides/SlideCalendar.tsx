@@ -12,7 +12,7 @@ const COLORS = [
   {
     dot: "#D50000",
     gcal: "Tomato",
-    gcalCz: "Rajče",
+    gcalCz: "Rajčatová",
     prefix: "[CEO]",
     label: "CEO – Petr Polák",
     desc: "Vyžaduje přítomnost CEO. Nelze přesunout bez jeho souhlasu. Přítomen 22.–24. 4.",
@@ -21,7 +21,7 @@ const COLORS = [
   {
     dot: "#1565C0",
     gcal: "Blueberry",
-    gcalCz: "Borůvka",
+    gcalCz: "Borůvková",
     prefix: "[STÁNEK]",
     label: "Na stánku",
     desc: "Zákazník nebo partner přichází k nám na stánek AIR TEAM.",
@@ -30,7 +30,7 @@ const COLORS = [
   {
     dot: "#0097A7",
     gcal: "Peacock",
-    gcalCz: "Páv",
+    gcalCz: "Azurová",
     prefix: "[ZÁKAZNÍK]",
     label: "U zákazníka (areál)",
     desc: "Náš tým jde za zákazníkem do jeho stánku v areálu veletrhu.",
@@ -48,7 +48,7 @@ const COLORS = [
   {
     dot: "#2E7D32",
     gcal: "Sage",
-    gcalCz: "Šalvěj",
+    gcalCz: "Šalvějová",
     prefix: "[INTERNÍ]",
     label: "Interní tým",
     desc: "Briefing, debriefing, koordinace, interní rozhodnutí.",
@@ -57,7 +57,7 @@ const COLORS = [
   {
     dot: "#616161",
     gcal: "Graphite",
-    gcalCz: "Grafit",
+    gcalCz: "Uhlová",
     prefix: "[SETUP]",
     label: "Setup & logistika",
     desc: "Příprava stánku, transport, příjezd, technická příprava.",
