@@ -12,53 +12,60 @@ const LINES: BudgetLine[] = [
     category: "Rozdávačky",
     item: "Energetický nápoj PilotStyle",
     qty: "100 ks",
-    unitPrice: "36 Kč",
-    total: 3600,
+    unitPrice: "28,93 Kč",
+    total: 2893,
     status: "confirmed",
   },
   {
     category: "Rozdávačky",
     item: "Energetický nápoj ATM",
     qty: "100 ks",
-    unitPrice: "36 Kč",
-    total: 3600,
+    unitPrice: "28,93 Kč",
+    total: 2893,
     status: "confirmed",
   },
   {
     category: "Rozdávačky",
     item: "Karamelky",
     qty: "–",
-    status: "tbd",
+    total: 1766,
+    status: "confirmed",
   },
   {
     category: "Rozdávačky",
-    item: "Tužky",
-    qty: "–",
-    status: "tbd",
+    item: "Kuličkové pero Connel – AIR TEAM",
+    qty: "100 ks",
+    unitPrice: "16 Kč",
+    total: 1600,
+    status: "confirmed",
   },
   {
     category: "Rozdávačky",
-    item: "Bloky A5",
-    qty: "–",
-    status: "tbd",
+    item: "Kuličkové pero Connel – PilotStyle",
+    qty: "50 ks",
+    unitPrice: "16 Kč",
+    total: 800,
+    status: "confirmed",
   },
   {
     category: "Rozdávačky",
-    item: "Tašky",
-    qty: "–",
-    status: "missing",
+    item: "Tašky RAINBOW modrá",
+    qty: "150 ks",
+    unitPrice: "8,10 Kč",
+    total: 1354,
+    status: "confirmed",
   },
   {
     category: "Balíček 1",
     item: "Keramický pohárek Qeram + káva Barahona",
     qty: "60 sad",
-    unitPrice: "291 Kč",
-    total: 17460,
+    unitPrice: "299 Kč",
+    total: 17940,
     status: "confirmed",
   },
 ];
 
-const CONFIRMED_TOTAL = 24660;
+const CONFIRMED_TOTAL = 29246;
 
 const STATUS_CONFIG = {
   confirmed: {
@@ -281,7 +288,7 @@ export default function SlideGiftsBudget() {
               {CONFIRMED_TOTAL.toLocaleString("cs-CZ")} Kč
             </p>
             <p className="text-xs mt-1" style={{ color: "var(--color-at-blue-v5)" }}>
-              Včetně Balíčku 1 (60 sad). TBD: tašky, bloky A5, karamelky, tužky.
+              Včetně Balíčku 1 (60 sad). Vše potvrzeno, bez otevřených položek.
             </p>
           </div>
 
@@ -304,24 +311,20 @@ export default function SlideGiftsBudget() {
             </div>
           ))}
 
-          {/* TBD warning */}
+          {/* All confirmed */}
           <div
             className="rounded-lg px-4 py-3 flex flex-col gap-1 mt-auto"
             style={{
-              background: "rgba(245,158,11,0.08)",
-              border: "1px solid #f59e0b",
+              background: "rgba(147,179,207,0.08)",
+              border: "1px solid var(--color-at-blue-a5)",
             }}
           >
-            <p className="text-sm font-bold" style={{ color: "#f59e0b" }}>
-              ⚠ Otevřené body
+            <p className="text-sm font-bold" style={{ color: "var(--color-at-blue-a5)" }}>
+              Vše potvrzeno
             </p>
-            <ul className="text-xs flex flex-col gap-1 mt-1" style={{ color: "#f59e0b" }}>
-              <li>· Tašky (70 ks) – zajistit dodavatele</li>
-              <li>· Bloky A5 – objednat</li>
-              <li>· Karamelky, tužky – ceny TBD</li>
-              <li>· Balíček 1 (60 sad) – objednat</li>
-              <li>· Potvrdit celkový rozpočet s vedením</li>
-            </ul>
+            <p className="text-xs mt-1" style={{ color: "var(--color-at-blue-v5)" }}>
+              Všechny položky dárků jsou zajištěny a máme je ve VB.
+            </p>
           </div>
         </div>
       </div>

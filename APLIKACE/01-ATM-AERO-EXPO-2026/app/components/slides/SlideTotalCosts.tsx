@@ -19,12 +19,12 @@ const CATEGORIES: CostCategory[] = [
   {
     label: "Dárky pro zákazníky",
     items: [
-      { name: "Energetický nápoj PilotStyle (100 ks × 36 Kč)", amount:  3_600, status: "confirmed" },
-      { name: "Energetický nápoj ATM (100 ks × 36 Kč)",        amount:  3_600, status: "confirmed" },
-      { name: "Balíček 1 – hrněk + káva (60 sad × 291 Kč)",    amount: 17_460, status: "confirmed" },
-      { name: "Karamelky, tužky",                               amount:      0, note: "Ceny TBD", status: "tbd" },
-      { name: "Bloky A5",                                       amount:      0, note: "Objednat", status: "tbd" },
-      { name: "Tašky (70 ks)",                                  amount:      0, note: "Nutno zajistit", status: "tbd" },
+      { name: "Energetický nápoj PilotStyle (100 ks × 28,93 Kč)", amount: 2_893, status: "confirmed" },
+      { name: "Energetický nápoj ATM (100 ks × 28,93 Kč)",        amount: 2_893, status: "confirmed" },
+      { name: "Karamelky",                                         amount: 1_766, status: "confirmed" },
+      { name: "Kuličkové pero Connel (150 ks × 16 Kč)",           amount: 2_400, status: "confirmed" },
+      { name: "Tašky RAINBOW (150 ks × 8,10 Kč + doprava)",       amount: 1_354, status: "confirmed" },
+      { name: "Balíček 1 – pohárek + káva (60 sad × 299 Kč)",     amount: 17_940, status: "confirmed" },
     ],
   },
   {
@@ -258,7 +258,7 @@ export default function SlideTotalCosts() {
               <li>· Ubytování AIR TEAM (Airbnb Markdorf)</li>
               <li>· Kuchynka stánku (5 000 Kč)</li>
               <li>· Technické služby stánku</li>
-              <li>· Tašky, bloky A5, karamelky, tužky</li>
+              <li>· Potvrdit celkový rozpočet s vedením</li>
             </ul>
           </div>
         </div>
