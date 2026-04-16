@@ -50,9 +50,9 @@ const COLORS = [
     gcal: "Sage",
     gcalCz: "Šalvějová",
     prefix: "[INTERNÍ]",
-    label: "Interní tým",
-    desc: "Briefing, debriefing, koordinace, interní rozhodnutí.",
-    labelEn: "Briefing, debriefing, coordination, internal decisions.",
+    label: "Na stánku AIR TEAM",
+    desc: "Schůzka na našem stánku AIR TEAM (plocha stánku, zasedačka i zázemí).",
+    labelEn: "Meeting at our AIR TEAM booth (open area, meeting room, or back office).",
   },
   {
     dot: "#616161",
