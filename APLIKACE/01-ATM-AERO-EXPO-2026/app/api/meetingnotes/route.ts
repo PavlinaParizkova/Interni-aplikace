@@ -25,7 +25,7 @@ export type MeetingNote = {
   author: string;
   createdAt: string;
   editedAt?: string;
-  photos?: string[];
+  photos?: { full: string; thumb: string }[];
 };
 
 export async function GET() {
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
       title?: string;
       body: string;
       author: string;
-      photos?: string[];
+      photos?: { full: string; thumb: string }[];
     };
     if (!author || !body?.trim()) {
       return NextResponse.json({ error: "Chybí autor nebo obsah." }, { status: 400 });

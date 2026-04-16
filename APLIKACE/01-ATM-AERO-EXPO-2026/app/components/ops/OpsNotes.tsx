@@ -33,7 +33,8 @@ function exportToMd(notes: MeetingNote[], filterLabel?: string) {
     lines.push(note.body);
     if (note.photos && note.photos.length > 0) {
       lines.push("");
-      for (const url of note.photos) {
+      for (const photo of note.photos) {
+        const url = typeof photo === "string" ? photo : photo.full;
         lines.push(`![Příloha](${url})`);
       }
     }
@@ -54,19 +55,19 @@ function exportToMd(notes: MeetingNote[], filterLabel?: string) {
   URL.revokeObjectURL(url);
 }
 
-function resizeImage(file: File, maxWidth = 1400): Promise<File> {
+function resizeImage(file: File, maxWidth: number, quality: number): Promise<File> {
   return new Promise((resolve) => {
     const img = new Image();
     const url = URL.createObjectURL(file);
     img.onload = () => {
       URL.revokeObjectURL(url);
-      if (img.width <= maxWidth) {
+      if (img.width <= maxWidth && quality >= 0.9) {
         resolve(file);
         return;
       }
-      const scale = maxWidth / img.width;
+      const scale = Math.min(1, maxWidth / img.width);
       const canvas = document.createElement("canvas");
-      canvas.width = maxWidth;
+      canvas.width = Math.round(img.width * scale);
       canvas.height = Math.round(img.height * scale);
       const ctx = canvas.getContext("2d")!;
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -75,21 +76,30 @@ function resizeImage(file: File, maxWidth = 1400): Promise<File> {
           resolve(new File([blob!], file.name, { type: "image/jpeg" }));
         },
         "image/jpeg",
-        0.82,
+        quality,
       );
     };
     img.src = url;
   });
 }
 
-async function uploadPhoto(file: File): Promise<string> {
-  const resized = await resizeImage(file);
+type PhotoPair = { full: string; thumb: string };
+
+async function uploadFile(file: File): Promise<string> {
   const formData = new FormData();
-  formData.append("file", resized);
+  formData.append("file", file);
   const res = await fetch("/api/upload", { method: "POST", body: formData });
   if (!res.ok) throw new Error("Upload selhal");
   const data = await res.json();
   return data.url;
+}
+
+async function uploadPhoto(file: File): Promise<PhotoPair> {
+  const [full, thumb] = await Promise.all([
+    resizeImage(file, 1000, 0.82).then(uploadFile),
+    resizeImage(file, 300, 0.7).then(uploadFile),
+  ]);
+  return { full, thumb };
 }
 
 export default function OpsNotes() {
@@ -107,7 +117,7 @@ export default function OpsNotes() {
   const [editBody, setEditBody] = useState("");
   const [saving, setSaving] = useState(false);
 
-  const [photos, setPhotos] = useState<string[]>([]);
+  const [photos, setPhotos] = useState<PhotoPair[]>([]);
   const [uploading, setUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -140,12 +150,12 @@ export default function OpsNotes() {
     if (!files || files.length === 0) return;
     setUploading(true);
     try {
-      const urls: string[] = [];
+      const pairs: PhotoPair[] = [];
       for (const file of Array.from(files)) {
-        const url = await uploadPhoto(file);
-        urls.push(url);
+        const pair = await uploadPhoto(file);
+        pairs.push(pair);
       }
-      setPhotos((prev) => [...prev, ...urls]);
+      setPhotos((prev) => [...prev, ...pairs]);
     } catch {
       // ignore
     } finally {
@@ -154,8 +164,8 @@ export default function OpsNotes() {
     }
   };
 
-  const removePhoto = (url: string) => {
-    setPhotos((prev) => prev.filter((p) => p !== url));
+  const removePhoto = (thumb: string) => {
+    setPhotos((prev) => prev.filter((p) => p.thumb !== thumb));
   };
 
   const handleSubmit = async () => {
@@ -305,16 +315,16 @@ export default function OpsNotes() {
         {/* Photo previews */}
         {photos.length > 0 && (
           <div className="flex gap-2 flex-wrap">
-            {photos.map((url) => (
-              <div key={url} className="relative group">
+            {photos.map((p) => (
+              <div key={p.thumb} className="relative group">
                 <img
-                  src={url}
+                  src={p.thumb}
                   alt="Příloha"
                   className="w-16 h-16 object-cover rounded-lg"
                   style={{ border: "1px solid var(--color-at-blue-v3)" }}
                 />
                 <button
-                  onClick={() => removePhoto(url)}
+                  onClick={() => removePhoto(p.thumb)}
                   className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity"
                   style={{
                     background: "var(--color-at-red)",
@@ -471,21 +481,26 @@ export default function OpsNotes() {
                   </p>
                   {note.photos && note.photos.length > 0 && (
                     <div className="flex gap-2 flex-wrap mt-1">
-                      {note.photos.map((url) => (
-                        <a
-                          key={url}
-                          href={url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <img
-                            src={url}
-                            alt="Příloha"
-                            className="w-24 h-24 object-cover rounded-lg hover:opacity-80 transition-opacity"
-                            style={{ border: "1px solid var(--color-at-blue-v3)" }}
-                          />
-                        </a>
-                      ))}
+                      {note.photos.map((photo) => {
+                        const thumbUrl = typeof photo === "string" ? photo : photo.thumb;
+                        const fullUrl = typeof photo === "string" ? photo : photo.full;
+                        return (
+                          <a
+                            key={thumbUrl}
+                            href={fullUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <img
+                              src={thumbUrl}
+                              alt="Příloha"
+                              loading="lazy"
+                              className="w-24 h-24 object-cover rounded-lg hover:opacity-80 transition-opacity"
+                              style={{ border: "1px solid var(--color-at-blue-v3)" }}
+                            />
+                          </a>
+                        );
+                      })}
                     </div>
                   )}
                 </>
