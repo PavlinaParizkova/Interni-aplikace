@@ -147,18 +147,18 @@ export default function SlideWhatWePresent() {
             <div
               key={group.role}
               className="rounded-lg p-3"
-              style={{ background: "var(--color-at-blue-a5)", border: "1px solid var(--color-at-blue-v5)" }}
+              style={{ background: "var(--color-at-blue-a5)", border: "1px solid var(--color-at-blue-v4)" }}
             >
               <p
                 className="text-xs font-bold uppercase tracking-wide mb-2"
-                style={{ color: "var(--color-at-blue-v5)" }}
+                style={{ color: "var(--color-at-blue-v3)" }}
               >
                 {group.role}
               </p>
               <div className="space-y-2">
                 {group.people.map((person) => (
                   <div key={person.name}>
-                    <p className="text-sm font-semibold" style={{ color: "var(--color-at-white)" }}>
+                    <p className="text-sm font-semibold" style={{ color: "var(--color-at-blue)" }}>
                       {person.name}
                     </p>
                     {person.detail && (
@@ -167,7 +167,7 @@ export default function SlideWhatWePresent() {
                       </p>
                     )}
                     {person.phone && (
-                      <p className="text-xs font-medium" style={{ color: "var(--color-at-blue-v5)" }}>
+                      <p className="text-xs font-medium" style={{ color: "var(--color-at-blue-v3)" }}>
                         {person.phone}
                       </p>
                     )}
