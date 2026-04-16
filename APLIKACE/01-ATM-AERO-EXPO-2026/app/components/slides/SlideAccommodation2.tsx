@@ -2,7 +2,16 @@
 
 import { useState } from "react";
 
-const PHOTOS: string[] = [];
+const PHOTOS: string[] = [
+  "/Ubytovani_druha_skupina_01.jpg",
+  "/Ubytovani_druha_skupina_02.jpg",
+  "/Ubytovani_druha_skupina_03.jpg",
+  "/Ubytovani_druha_skupina_04.jpg",
+  "/Ubytovani_druha_skupina_05.jpg",
+  "/Ubytovani_druha_skupina_06.jpg",
+  "/Ubytovani_druha_skupina_07.jpg",
+  "/Ubytovani_druha_skupina_08.jpg",
+];
 
 const BOOKING_URL = "https://www.booking.com/hotel/de/apfelhof-bodensee-rohrenbach.cs.html";
 const BOOKING_MAP_URL = "https://www.booking.com/hotel/de/apfelhof-bodensee-rohrenbach.cs.html?label=gen173nr-10CCsoggI46AdIBVgEaDqIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4AtmFgs8GwAIB0gIkNWZkNTIyYzItN2YyOC00MzVhLWJjNTQtZTFjNzM4NjE1MWZl2AIB4AIB&sid=2e1dbfc038caa73eed6d2b29b05b8dcc&aid=304142&map=1";
