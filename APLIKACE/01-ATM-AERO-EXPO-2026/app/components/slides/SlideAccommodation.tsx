@@ -55,6 +55,13 @@ const PERKS = [
   { icon: "🚗", text: "2 parkovací místa v garáži" },
 ];
 
+const GUESTS = [
+  { name: "Petr Polák", initials: "PP", dates: "21.–26. 4." },
+  { name: "Jan Polák", initials: "JP", dates: "21.–26. 4." },
+  { name: "Magdaléna Ševčíková", initials: "MŠ", dates: "21.–26. 4." },
+  { name: "Vratko Kapuš", initials: "VK", dates: "21.–22. 4." },
+];
+
 const CHECK_IN   = "21. 4. 2026";
 const CHECK_OUT  = "26. 4. 2026";
 const NIGHTS     = 5;
@@ -233,8 +240,45 @@ export default function SlideAccommodation() {
           </div>
         </div>
 
-        {/* Right – bedrooms + perks */}
+        {/* Right – guests + bedrooms + perks */}
         <div className="hidden lg:flex flex-col gap-4 w-64 flex-shrink-0">
+          {/* Guests */}
+          <div
+            className="rounded-xl px-4 py-3 flex flex-col gap-2"
+            style={{ background: "var(--color-at-blue-v1)", border: "1px solid var(--color-at-blue-v3)" }}
+          >
+            <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "var(--color-at-blue-v5)" }}>
+              Ubytovaní
+            </p>
+            {GUESTS.map((g) => (
+              <div
+                key={g.name}
+                className="flex items-center gap-2 pb-1.5"
+                style={{ borderBottom: "1px solid var(--color-at-blue-v3)" }}
+              >
+                <span
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
+                  style={{ background: g.initials === "PP" ? "var(--color-at-red)" : "var(--color-at-blue-v3)", color: "var(--color-at-white)" }}
+                >
+                  {g.initials}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <span className="text-sm font-semibold block" style={{ color: "var(--color-at-white)" }}>{g.name}</span>
+                  <span className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>{g.dates}</span>
+                </div>
+              </div>
+            ))}
+            {/* Jakub Dryska alert */}
+            <div
+              className="mt-1 px-3 py-2 rounded-lg"
+              style={{ background: "rgba(213,28,23,0.15)", border: "1px solid var(--color-at-red)" }}
+            >
+              <p className="text-xs font-bold" style={{ color: "var(--color-at-red)" }}>
+                Jakub Dryska – přestěhuje se sem od 24. 4. (po skončení ubytování skupiny 2)
+              </p>
+            </div>
+          </div>
+
           {/* Bedrooms */}
           <div
             className="rounded-xl px-4 py-3 flex flex-col gap-2"
