@@ -28,16 +28,16 @@ export const TEAM: TeamMember[] = [
   },
   {
     name: "Jan Polák",
-    role: "Part 145 Accountable Manager",
+    role: "Sales Manager & MRO Accountable Manager",
     dates: "22.4.–25.4.",
     days: 4,
     responsibility:
-      "Schůzky a networking, vedení tématu AIR TEAM Service+ upgrade, spolugarant kompletního upgrade avioniky.",
+      "Schůzky a networking, vedení tématu AIR TEAM Service+ upgrade + G3X, spolugarant kompletního upgrade avioniky.",
     initials: "JP",
   },
   {
     name: "Magdaléna Ševčíková",
-    role: "MRO & Avionics Upgrades Director",
+    role: "Sales Manager, MRO",
     dates: "22.4.–25.4.",
     days: 4,
     responsibility:
@@ -46,16 +46,16 @@ export const TEAM: TeamMember[] = [
   },
   {
     name: "Vratko Kapuš",
-    role: "Sales Account Manager",
+    role: "Sales Manager, OEMs & Avionics",
     dates: "22.4.",
     days: 1,
     responsibility:
-      "Obchodní schůzky a produktová dema zaměřená na experimentální letadla a G3X. PilotStyle a Aerospec – networking.",
+      "Obchodní schůzky a produktová dema zaměřená na experimentální letadla a G3X (panelová řešení na míru, self-install varianta), PilotStyle a Aerospec – networking a nabídka produktů.",
     initials: "VK",
   },
   {
     name: "Jakub Dryska",
-    role: "Key Account Director",
+    role: "Key Account Manager, Aircraft Parts",
     dates: "23.4.–25.4.",
     days: 3,
     responsibility:
@@ -64,7 +64,7 @@ export const TEAM: TeamMember[] = [
   },
   {
     name: "Lucie Kysučanová",
-    role: "HR Business Partner",
+    role: "People & Culture Partner",
     dates: "23.4.–24.4.",
     days: 2,
     responsibility:
@@ -73,16 +73,16 @@ export const TEAM: TeamMember[] = [
   },
   {
     name: "Alex Mudrych",
-    role: "Business Development",
+    role: "Sales Manager, DOA & Interior",
     dates: "23.4.–24.4.",
     days: 2,
     responsibility:
-      "Produkty PilotStyle, Aerospec a Upgrade – podpora lead capture, předání obchodních kontaktů do follow-upu.",
+      "Produkty PilotStyle, Aerospec a Upgrade – podpora lead capture během ukázek, předání obchodních kontaktů do follow-upu.",
     initials: "AM",
   },
   {
     name: "Jiří Franz",
-    role: "Purchasing Manager",
+    role: "Procurement Manager",
     dates: "23.4.–24.4.",
     days: 2,
     responsibility:
@@ -147,67 +147,41 @@ export type TransportRow = {
   type: string;
   departure: string;
   returnDate: string;
-  note?: string;
+  status: string;
 };
 
 export const TRANSPORT: TransportRow[] = [
   {
-    name: "Petr Polák",
-    route: "Kunovice → Friedrichshafen",
-    type: "Firemní letadlo",
-    departure: "21. 4. 2026",
-    returnDate: "26. 4. 2026",
+    name: "Vratko Kapuš, Magdaléna Ševčíková, Jan Polák",
+    route: "Kunovice/Brno → Friedrichshafen",
+    type: "Auto",
+    departure: "21. 4. 2026, 8:00",
+    returnDate: "–",
+    status: "potvrdit",
   },
   {
-    name: "Jan Polák",
-    route: "Kunovice → Friedrichshafen",
-    type: "Firemní letadlo",
-    departure: "21. 4. 2026",
-    returnDate: "26. 4. 2026",
-  },
-  {
-    name: "Magdaléna Ševčíková",
-    route: "Kunovice → Friedrichshafen",
-    type: "Firemní letadlo",
-    departure: "21. 4. 2026",
-    returnDate: "26. 4. 2026",
-  },
-  {
-    name: "Vratko Kapuš",
-    route: "Kunovice → Friedrichshafen",
-    type: "Firemní letadlo",
-    departure: "21. 4. 2026",
+    name: "Vratko Kapuš (zpět)",
+    route: "Friedrichshafen → Kunovice/Brno",
+    type: "Auto",
+    departure: "22. 4. 2026 (po skončení Dne 1)",
     returnDate: "22. 4. 2026",
-    note: "Odlétá po 1. dni – dovolená.",
+    status: "Kdo ho vezme na vlak?",
   },
   {
-    name: "Jakub Dryska",
-    route: "Veverská Bítýška → Friedrichshafen",
-    type: "Auto + zpět letadlem",
-    departure: "22. 4. 2026",
-    returnDate: "26. 4. 2026",
-    note: "Odjezd autem, návrat firemním letadlem 26.4.",
+    name: "Petr Polák",
+    route: "řeší si sám",
+    type: "řeší si sám",
+    departure: "řeší si sám",
+    returnDate: "řeší si sám",
+    status: "potvrzeno",
   },
   {
-    name: "Lucie Kysučanová",
-    route: "Veverská Bítýška → Friedrichshafen",
-    type: "Auto",
-    departure: "22. 4. 2026",
-    returnDate: "24. 4. 2026",
-  },
-  {
-    name: "Alex Mudrych",
+    name: "Jakub Dryska, Lucie Kysučanová, Jirka Franz, Alex Mudrych",
     route: "Veverská Bítýška → Friedrichshafen",
     type: "Auto",
     departure: "22. 4. 2026",
     returnDate: "24. 4. 2026",
-  },
-  {
-    name: "Jiří Franz",
-    route: "Veverská Bítýška → Friedrichshafen",
-    type: "Auto",
-    departure: "22. 4. 2026",
-    returnDate: "24. 4. 2026",
+    status: "potvrdit",
   },
 ];
 
@@ -218,28 +192,24 @@ export type ChecklistItem = {
 
 export const CHECKLIST_TRANSPORT: ChecklistItem[] = [
   {
-    id: "flight-kunovice-group",
-    label: "Let firemním letadlem – skupina Kunovice (Petr Polák, Jan Polák, Magdaléna Ševčíková, Vratko Kapuš) potvrzen (21.4. i 26.4.)",
+    id: "car-kunovice-group",
+    label: "Auto – skupina Kunovice/Brno (Vratko Kapuš, Magdaléna Ševčíková, Jan Polák) potvrzeno (odjezd 21. 4., 8:00)",
   },
   {
-    id: "flight-dryska-return",
-    label: "Zpáteční let firemním letadlem pro Jakuba Drysku (26.4.) potvrzen",
+    id: "car-vratko-return",
+    label: "Vratko Kapuš – zpáteční cesta 22. 4. po Dni 1 potvrzena (kdo ho vezme na vlak?)",
   },
   {
-    id: "transfer-kunovice",
-    label: "Transfer z/na letiště Kunovice pro leteckou skupinu zajištěn",
+    id: "car-petr-own",
+    label: "Petr Polák – doprava potvrzena (řeší si sám)",
   },
   {
-    id: "car-bitiska-1",
-    label: "Doprava potvrzena – Jakub Dryska (odjezd autem 21.4., návrat letadlem 26.4.)",
-  },
-  {
-    id: "car-bitiska-2",
-    label: "Sdílení auta potvrzeno – Alex Mudrych + Jirka Franz (odjezd 23.4.)",
+    id: "car-bitiska-group",
+    label: "Auto – skupina Veverská Bítýška (Jakub Dryska, Lucie Kysučanová, Jirka Franz, Alex Mudrych) potvrzeno (odjezd 22. 4., návrat 24. 4.)",
   },
   {
     id: "parking-aero",
-    label: "Parkování na AERO EXPO ověřeno pro příjezd autem",
+    label: "Parkování na AERO EXPO ověřeno pro obě auta",
   },
 ];
 
@@ -261,8 +231,8 @@ export const CHECKLIST_ATTENDANCE: ChecklistItem[] = [
     label: "Každý obchodník má min. 4 schůzky domluvené před odjezdem (dle SOP)",
   },
   {
-    id: "vratko-airport-transfer",
-    label: "Odvoz Vratka na letiště – Memmingen, 23. 4., let FR 4947 odlet 12:15 (booking YQPE2L)",
+    id: "vratko-return",
+    label: "Vratko Kapuš – zpáteční odvoz 22. 4. po skončení Dne 1 zajištěn",
   },
 ];
 

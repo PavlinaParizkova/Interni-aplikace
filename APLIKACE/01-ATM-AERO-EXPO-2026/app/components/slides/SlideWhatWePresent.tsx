@@ -9,19 +9,17 @@ const PILLARS = [
       "Certifikační podpora – EASA Part 145 & DOA (Part 21J)",
       "Kompletní service+ balíčky od návrhu po předání letadla",
     ],
-    icon: "✈",
   },
   {
     number: "02",
     title: "AEROSPEC & PilotStyle",
     subtitle: "Technická avionika · Pilotní lifestyle",
     bullets: [
-      "Aerospec – technická značka AIR TEAM: antény, letové přístroje, kompasy, osvětlení, pneumatiky a ventily pro GA trh",
-      "PilotStyle – heroická lifestyle značka: funkční pilotní vybavení, příslušenství a produkty s příběhem pro moderní piloty",
+      "Aerospec – antény, letové přístroje, kompasy, osvětlení, pneumatiky a ventily pro GA trh",
+      "PilotStyle – funkční pilotní vybavení, příslušenství a produkty s příběhem",
       "Přímá prezentace obou značek na stánku pro GA komunitu",
-      "Aerospec claim: 'Our tech, your flight' – chytrá a spolehlivá technika do kokpitu",
+      "Aerospec claim: 'Our tech, your flight'",
     ],
-    icon: "◈",
   },
   {
     number: "03",
@@ -33,62 +31,85 @@ const PILLARS = [
       "Konzultace self-install varianty pro EMEA trh",
       "AIR TEAM jako EMEA centrum pro G3X homebuilders",
     ],
-    icon: "⊞",
+  },
+];
+
+const CONTACTS = [
+  {
+    role: "Organizátor eventu",
+    people: [
+      { name: "Julia Albrecht", detail: "Projectmanager exhibitors, AERO Friedrichshafen", phone: "+49 7541 95995-12" },
+    ],
+  },
+  {
+    role: "Realizátor stánku – MLT",
+    people: [
+      { name: "Michal Weiss", detail: "jednatel", phone: "777 074 800" },
+      { name: "Leoš Netušil", detail: "technické věci", phone: "+420 732 138 307" },
+      { name: "Bartůněk", detail: "stánek", phone: "+420 777 074 808" },
+    ],
+  },
+  {
+    role: "Interní eskalace",
+    people: [
+      { name: "Pavlína Pařízková", detail: "Marketing", phone: "+420 773 902 290" },
+      { name: "Petr Polák", detail: "Sales", phone: null },
+    ],
+  },
+  {
+    role: "Logistika",
+    people: [
+      { name: "Jan Zerák", detail: null, phone: null },
+    ],
   },
 ];
 
 export default function SlideWhatWePresent() {
   return (
-    <div className="flex flex-col flex-1 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
+    <div className="flex flex-col flex-1 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8 overflow-y-auto">
       {/* Slide header */}
-      <div className="mb-5 sm:mb-8">
+      <div className="mb-4 sm:mb-5">
         <p
-          className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
+          className="text-xs font-bold tracking-[0.2em] uppercase mb-1"
           style={{ color: "var(--color-at-white)" }}
         >
           Co prezentujeme
         </p>
         <h2
-          className="text-xl sm:text-3xl font-black"
+          className="text-xl sm:text-2xl font-black"
           style={{ color: "var(--color-at-white)" }}
         >
           3 hlavní pilíře prezentace
         </h2>
-        <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
+        <p className="mt-0.5 text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
           Zaměření stánku a obchodní priority AERO EXPO 2026
         </p>
       </div>
 
-      {/* Pillars grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 flex-1">
+      {/* Compact pillars */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
         {PILLARS.map((p) => (
           <div
             key={p.number}
-            className="rounded-lg p-6 flex flex-col"
+            className="rounded-lg p-4 flex flex-col"
             style={{ background: "var(--color-at-blue-a5)", border: "1px solid var(--color-at-blue-v5)" }}
           >
-            {/* Number + icon */}
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-baseline gap-2 mb-1.5">
               <span
-                className="text-4xl font-black"
+                className="text-2xl font-black leading-none"
                 style={{ color: "var(--color-at-blue-v2)" }}
               >
                 {p.number}
               </span>
-              <span className="text-2xl" style={{ color: "var(--color-at-white)" }}>
-                {p.icon}
-              </span>
+              <h3
+                className="text-sm font-bold leading-tight"
+                style={{ color: "var(--color-at-blue)" }}
+              >
+                {p.title}
+              </h3>
             </div>
-
-            {/* Title */}
-            <h3
-              className="text-xl font-bold leading-tight mb-1"
-              style={{ color: "var(--color-at-blue)" }}
-            >
-              {p.title}
-            </h3>
             <p
-              className="text-sm font-medium mb-4 pb-4"
+              className="text-xs font-medium mb-2.5 pb-2.5"
               style={{
                 color: "var(--color-at-blue-v2)",
                 borderBottom: "1px solid var(--color-at-blue-v4)",
@@ -96,16 +117,14 @@ export default function SlideWhatWePresent() {
             >
               {p.subtitle}
             </p>
-
-            {/* Bullets */}
-            <ul className="space-y-2.5 flex-1">
+            <ul className="space-y-1 flex-1">
               {p.bullets.map((b, i) => (
-                <li key={i} className="flex items-start gap-2">
+                <li key={i} className="flex items-start gap-1.5">
                   <span
-                    className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0"
+                    className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0"
                     style={{ background: "var(--color-at-red)" }}
                   />
-                  <span className="text-base leading-snug" style={{ color: "var(--color-at-blue)" }}>
+                  <span className="text-xs leading-snug" style={{ color: "var(--color-at-blue)" }}>
                     {b}
                   </span>
                 </li>
@@ -113,6 +132,51 @@ export default function SlideWhatWePresent() {
             </ul>
           </div>
         ))}
+      </div>
+
+      {/* Contacts */}
+      <div>
+        <p
+          className="text-xs font-bold tracking-[0.2em] uppercase mb-3"
+          style={{ color: "var(--color-at-white)" }}
+        >
+          Klíčové kontakty
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {CONTACTS.map((group) => (
+            <div
+              key={group.role}
+              className="rounded-lg p-3"
+              style={{ background: "var(--color-at-blue-a5)", border: "1px solid var(--color-at-blue-v5)" }}
+            >
+              <p
+                className="text-xs font-bold uppercase tracking-wide mb-2"
+                style={{ color: "var(--color-at-blue-v5)" }}
+              >
+                {group.role}
+              </p>
+              <div className="space-y-2">
+                {group.people.map((person) => (
+                  <div key={person.name}>
+                    <p className="text-sm font-semibold" style={{ color: "var(--color-at-white)" }}>
+                      {person.name}
+                    </p>
+                    {person.detail && (
+                      <p className="text-xs" style={{ color: "var(--color-at-blue-v2)" }}>
+                        {person.detail}
+                      </p>
+                    )}
+                    {person.phone && (
+                      <p className="text-xs font-medium" style={{ color: "var(--color-at-blue-v5)" }}>
+                        {person.phone}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
