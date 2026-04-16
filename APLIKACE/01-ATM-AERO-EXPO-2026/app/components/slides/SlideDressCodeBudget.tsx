@@ -6,13 +6,28 @@ type ClothingRow = {
   unitPrice: number;
 };
 
+type PrintRow = {
+  item: string;
+  desc: string;
+  qty: number;
+  unitPrice: number;
+};
+
 const ROWS: ClothingRow[] = [
-  { item: "Polo tričko", model: "Collar Up 256",              gender: "Muži",  qty: 12, unitPrice: 434 },
-  { item: "Mikina",      model: "Bomber 453",                 gender: "Muži",  qty: 6,  unitPrice: 650 },
-  { item: "Polo tričko", model: "Collar Up 257",              gender: "Ženy",  qty: 2,  unitPrice: 434 },
-  { item: "Mikina",      model: "Bomber 454",                 gender: "Ženy",  qty: 1,  unitPrice: 650 },
-  { item: "Tričko",      model: "Action 152 (Lucie)",         gender: "Lucie", qty: 2,  unitPrice: 205 },
-  { item: "Mikina",      model: "Nabírané rukávy BP3869 (Lucie)", gender: "Lucie", qty: 1, unitPrice: 697 },
+  { item: "Polo tričko", model: "Collar Up 256",              gender: "Muži",  qty: 12, unitPrice: 441 },
+  { item: "Mikina",      model: "Bomber 453",                 gender: "Muži",  qty: 6,  unitPrice: 662 },
+  { item: "Polo tričko", model: "Collar Up 257",              gender: "Ženy",  qty: 2,  unitPrice: 441 },
+  { item: "Mikina",      model: "Bomber 454",                 gender: "Ženy",  qty: 1,  unitPrice: 662 },
+  { item: "Tričko",      model: "Slim 139 (Lucie)",           gender: "Lucie", qty: 2,  unitPrice: 213 },
+  { item: "Mikina",      model: "Nabírané rukávy BP3869 (Lucie)", gender: "Lucie", qty: 1, unitPrice: 744 },
+];
+
+const PRINT_ROWS: PrintRow[] = [
+  { item: "Potisk záda", desc: "Polokošile/trika (≤ 150 cm², 2 barvy)", qty: 16, unitPrice: 49.5 },
+  { item: "Potisk záda", desc: "Mikiny (≤ 750 cm², 2 barvy)", qty: 8, unitPrice: 53.5 },
+  { item: "Výšivka",     desc: "AIR TEAM logo", qty: 24, unitPrice: 45 },
+  { item: "Výšivka",     desc: "Křídla (vlastní košile)", qty: 1, unitPrice: 35 },
+  { item: "Potisk",      desc: "Límeček GARMIN (vlastní košile)", qty: 1, unitPrice: 35.5 },
 ];
 
 const GENDER_BADGE: Record<string, { bg: string; color: string }> = {
@@ -24,7 +39,10 @@ const GENDER_BADGE: Record<string, { bg: string; color: string }> = {
 export default function SlideDressCodeBudget() {
   const totalMuzi  = ROWS.filter((r) => r.gender === "Muži").reduce((s, r) => s + r.qty * r.unitPrice, 0);
   const totalZeny  = ROWS.filter((r) => r.gender !== "Muži").reduce((s, r) => s + r.qty * r.unitPrice, 0);
-  const totalAll   = totalMuzi + totalZeny;
+  const totalClothing = totalMuzi + totalZeny;
+
+  const totalPrint = PRINT_ROWS.reduce((s, r) => s + r.qty * r.unitPrice, 0);
+  const totalAll   = totalClothing + totalPrint;
 
   const totalPolo   = ROWS.filter((r) => r.item === "Polo tričko" || r.item === "Tričko").reduce((s, r) => s + r.qty * r.unitPrice, 0);
   const totalMikina = ROWS.filter((r) => r.item === "Mikina").reduce((s, r) => s + r.qty * r.unitPrice, 0);
@@ -93,12 +111,21 @@ export default function SlideDressCodeBudget() {
               </span>
             </div>
             <div
-              className="px-4 py-2.5 flex items-start gap-2"
-              style={{ background: "rgba(245,158,11,0.06)", borderTop: "1px dashed #f59e0b" }}
+              className="px-4 py-2.5"
+              style={{ background: "var(--color-at-blue-v2)", borderTop: "1px solid var(--color-at-blue-v4)" }}
             >
-              <span className="text-xs" style={{ color: "#f59e0b" }}>⚠</span>
-              <span className="text-xs" style={{ color: "#f59e0b" }}>
-                <strong>Potisk a výšivka – bude doplněno.</strong> Cena není zahrnuta.
+              <p className="text-xs font-bold mb-1" style={{ color: "var(--color-at-blue-v5)" }}>Potisk a výšivka</p>
+              <span className="text-xs font-black" style={{ color: "var(--color-at-white)" }}>
+                {totalPrint.toLocaleString("cs-CZ")} Kč
+              </span>
+            </div>
+            <div
+              className="flex justify-between px-4 py-2.5 text-sm"
+              style={{ background: "var(--color-at-blue)", borderTop: "2px solid var(--color-at-red)" }}
+            >
+              <span className="font-black" style={{ color: "var(--color-at-white)" }}>CELKEM VČ. POTISKU</span>
+              <span className="font-black" style={{ color: "var(--color-at-white)" }}>
+                {totalAll.toLocaleString("cs-CZ")} Kč
               </span>
             </div>
           </div>
@@ -182,14 +209,43 @@ export default function SlideDressCodeBudget() {
               {totalAll.toLocaleString("cs-CZ")} Kč
             </span>
           </div>
-          {/* Potisk / výšivka note */}
+          {/* Potisk / výšivka section */}
           <div
-            className="px-4 py-2.5 flex items-center gap-2 min-w-[560px]"
-            style={{ background: "rgba(245,158,11,0.06)", borderTop: "1px dashed #f59e0b" }}
+            className="px-4 py-2 text-xs font-bold uppercase tracking-widest min-w-[560px]"
+            style={{ background: "var(--color-at-blue-v3)", color: "var(--color-at-white)", borderTop: "2px solid var(--color-at-blue-v4)" }}
           >
-            <span className="text-xs" style={{ color: "#f59e0b" }}>⚠</span>
-            <span className="text-xs" style={{ color: "#f59e0b" }}>
-              <strong>Potisk a výšivka – bude doplněno.</strong> Cena za potisk (zadní strana) a výšivku loga (přední strana) není zahrnuta.
+            Potisk a výšivka
+          </div>
+          {PRINT_ROWS.map((row, i) => (
+            <div
+              key={`${row.item}-${row.desc}`}
+              className="grid grid-cols-[2fr_2fr_1fr_1fr_1fr_1fr] px-4 py-2.5 text-sm items-center min-w-[560px]"
+              style={{
+                background: i % 2 === 0 ? "var(--color-at-blue-v1)" : "var(--color-at-blue-v2)",
+                borderBottom: "1px solid var(--color-at-blue-v3)",
+              }}
+            >
+              <span className="font-semibold" style={{ color: "var(--color-at-white)" }}>{row.item}</span>
+              <span style={{ color: "var(--color-at-blue-v5)" }}>{row.desc}</span>
+              <span />
+              <span className="text-right font-bold tabular-nums" style={{ color: "var(--color-at-white)" }}>{row.qty} ks</span>
+              <span className="text-right tabular-nums" style={{ color: "var(--color-at-blue-v5)" }}>{row.unitPrice.toLocaleString("cs-CZ")} Kč</span>
+              <span className="text-right font-black tabular-nums" style={{ color: "var(--color-at-white)" }}>{(row.qty * row.unitPrice).toLocaleString("cs-CZ")} Kč</span>
+            </div>
+          ))}
+
+          {/* Grand total */}
+          <div
+            className="grid grid-cols-[2fr_2fr_1fr_1fr_1fr_1fr] px-4 py-3 text-sm min-w-[560px]"
+            style={{ background: "var(--color-at-blue)", borderTop: "2px solid var(--color-at-red)" }}
+          >
+            <span className="font-black" style={{ color: "var(--color-at-white)" }}>CELKEM VČ. POTISKU</span>
+            <span />
+            <span />
+            <span />
+            <span />
+            <span className="text-right font-black tabular-nums" style={{ color: "var(--color-at-white)" }}>
+              {totalAll.toLocaleString("cs-CZ")} Kč
             </span>
           </div>
         </div>
@@ -208,7 +264,10 @@ export default function SlideDressCodeBudget() {
               {totalAll.toLocaleString("cs-CZ")} Kč
             </p>
             <p className="text-xs mt-1" style={{ color: "var(--color-at-blue-v5)" }}>
-              {ROWS.reduce((s, r) => s + r.qty, 0)} kusů celkem · Malfini
+              Oblečení {totalClothing.toLocaleString("cs-CZ")} Kč + potisk {totalPrint.toLocaleString("cs-CZ")} Kč
+            </p>
+            <p className="text-xs mt-0.5" style={{ color: "var(--color-at-blue-v4)" }}>
+              Faktura KaPO č. 44260375: 13 604 Kč bez DPH / 16 461 Kč s DPH
             </p>
           </div>
 
@@ -256,17 +315,16 @@ export default function SlideDressCodeBudget() {
             </div>
           </div>
 
-          {/* Note */}
+          {/* Status */}
           <div
             className="rounded-lg px-4 py-3 flex flex-col gap-1 mt-auto"
-            style={{ background: "rgba(245,158,11,0.08)", border: "1px solid #f59e0b" }}
+            style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.3)" }}
           >
-            <p className="text-sm font-bold" style={{ color: "#f59e0b" }}>⚠ Otevřené body</p>
-            <ul className="text-xs flex flex-col gap-1 mt-1" style={{ color: "#f59e0b" }}>
-              <li>· Potvrdit velikosti u mužů</li>
-              <li>· Objednat u dodavatele</li>
-              <li>· Potvrdit termín dodání před veletrhem</li>
-              <li>· <strong>Potisk a výšivka – bude doplněno</strong></li>
+            <p className="text-sm font-bold" style={{ color: "#22c55e" }}>✓ Stav objednávky</p>
+            <ul className="text-xs flex flex-col gap-1 mt-1" style={{ color: "#22c55e" }}>
+              <li>· Oblečení Malfini – fakturováno</li>
+              <li>· Potisk a výšivka – fakturováno</li>
+              <li>· Mikina Lucie (Bezpotisku.cz) – k objednání</li>
             </ul>
           </div>
         </div>
