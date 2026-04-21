@@ -116,11 +116,13 @@ function resizeImage(file: File, maxWidth: number, quality: number): Promise<Fil
 
 type PhotoPair = { full: string; thumb: string };
 
-async function uploadFile(file: File): Promise<string> {
+type UploadResult = { url: string; storage?: "gdrive" | "blob" };
+
+async function uploadFile(file: File): Promise<UploadResult> {
   const formData = new FormData();
   formData.append("file", file);
   const res = await fetch("/api/upload", { method: "POST", body: formData });
-  let data;
+  let data: { url?: string; error?: string; storage?: "gdrive" | "blob" };
   try {
     data = await res.json();
   } catch {
@@ -128,15 +130,21 @@ async function uploadFile(file: File): Promise<string> {
   }
   if (!res.ok) throw new Error(data.error ?? `Upload selhal (${res.status})`);
   if (!data.url) throw new Error("Server nevrátil URL");
-  return data.url;
+  return { url: data.url, storage: data.storage };
 }
 
-async function uploadPhoto(file: File): Promise<PhotoPair> {
+async function uploadPhoto(file: File): Promise<{
+  pair: PhotoPair;
+  storage?: "gdrive" | "blob";
+}> {
   const fullFile = await resizeImage(file, PHOTO_FULL_MAX_WIDTH, PHOTO_FULL_QUALITY);
-  const full = await uploadFile(fullFile);
+  const fullRes = await uploadFile(fullFile);
   const thumbFile = await resizeImage(file, PHOTO_THUMB_MAX_WIDTH, PHOTO_THUMB_QUALITY);
-  const thumb = await uploadFile(thumbFile);
-  return { full, thumb };
+  const thumbRes = await uploadFile(thumbFile);
+  return {
+    pair: { full: fullRes.url, thumb: thumbRes.url },
+    storage: fullRes.storage ?? thumbRes.storage,
+  };
 }
 
 export default function OpsNotes() {
@@ -157,6 +165,10 @@ export default function OpsNotes() {
   const [photos, setPhotos] = useState<PhotoPair[]>([]);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  /** Poslední typ úložiště z /api/upload (aby bylo vidět, jestli běží Disk). */
+  const [lastUploadStorage, setLastUploadStorage] = useState<
+    "gdrive" | "blob" | null
+  >(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const [filterAuthor, setFilterAuthor] = useState<string>("all");
@@ -191,8 +203,9 @@ export default function OpsNotes() {
     try {
       const pairs: PhotoPair[] = [];
       for (const file of Array.from(files)) {
-        const pair = await uploadPhoto(file);
+        const { pair, storage } = await uploadPhoto(file);
         pairs.push(pair);
+        if (storage) setLastUploadStorage(storage);
       }
       setPhotos((prev) => [...prev, ...pairs]);
     } catch (err) {
@@ -257,8 +270,9 @@ export default function OpsNotes() {
     try {
       const pairs: PhotoPair[] = [];
       for (const file of Array.from(files)) {
-        const pair = await uploadPhoto(file);
+        const { pair, storage } = await uploadPhoto(file);
         pairs.push(pair);
+        if (storage) setLastUploadStorage(storage);
       }
       setEditPhotos((prev) => [...prev, ...pairs]);
     } catch {
@@ -429,6 +443,14 @@ export default function OpsNotes() {
           </p>
         )}
 
+        {lastUploadStorage && !uploadError && (
+          <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
+            {lastUploadStorage === "gdrive"
+              ? "Úložiště: Google Disk — v exportu budou odkazy na drive.google.com."
+              : "Úložiště: Vercel Blob — velký náhled otevřete kliknutím na obrázek (nová karta)."}
+          </p>
+        )}
+
         <input
           ref={fileRef}
           type="file"
@@ -574,6 +596,7 @@ export default function OpsNotes() {
                             href={blobImageSrc(fullUrl)}
                             target="_blank"
                             rel="noopener noreferrer"
+                            title="Otevřít plnou velikost v nové kartě"
                           >
                             <img
                               src={blobImageSrc(thumbUrl)}

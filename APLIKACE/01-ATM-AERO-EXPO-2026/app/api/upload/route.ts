@@ -22,6 +22,11 @@ export async function POST(request: Request) {
   const useDrive = isGoogleDriveUploadConfigured();
   const useBlob = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 
+  console.info(
+    "[upload]",
+    useDrive ? "using Google Drive" : "Drive not configured, using Blob if token set",
+  );
+
   if (!useDrive && !useBlob) {
     return NextResponse.json(
       {
