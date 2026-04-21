@@ -5,6 +5,13 @@ import { MARKETING_GALLERY_ITEMS, type MarketingGalleryItem } from "../../data/m
 import { PHONE_WALLPAPERS, wallpaperPublicPath, type PhoneWallpaper } from "../../data/wallpaper-assets";
 import { useMediaQuery } from "../../lib/use-media-query";
 
+/** Flex-wrap + gap: šířka jedné buňky (spolehlivější než grid uvnitř scroll/flex v některých PWA). */
+function flexTileWidth(cols: number, gapPx: number): string {
+  if (cols < 2) return "100%";
+  const gapsTotal = (cols - 1) * gapPx;
+  return `calc((100% - ${gapsTotal}px) / ${cols})`;
+}
+
 function btnLightbox(): React.CSSProperties {
   return {
     display: "inline-flex",
@@ -80,15 +87,27 @@ export default function SlideMarketingKit() {
     }
   }, [lightbox]);
 
-  const wide = useMediaQuery("(min-width: 640px)", false);
-  const galleryGridStyle: React.CSSProperties = {
-    display: "grid",
+  const wide = useMediaQuery("(min-width: 768px)", false);
+  const gapPx = wide ? 16 : 12;
+  const cols = wide ? 5 : 2;
+  const cellW = flexTileWidth(cols, gapPx);
+  const galleryRowStyle: React.CSSProperties = {
+    display: "flex",
+    flexWrap: "wrap",
     width: "100%",
     maxWidth: "100%",
     minWidth: 0,
     boxSizing: "border-box",
-    gap: wide ? 16 : 12,
-    gridTemplateColumns: wide ? "repeat(5, minmax(0, 1fr))" : "repeat(2, minmax(0, 1fr))",
+    gap: gapPx,
+    alignContent: "flex-start",
+    justifyContent: "flex-start",
+  };
+  const galleryCellStyle: React.CSSProperties = {
+    flex: `0 0 ${cellW}`,
+    width: cellW,
+    maxWidth: cellW,
+    minWidth: 0,
+    boxSizing: "border-box",
   };
 
   return (
@@ -108,12 +127,12 @@ export default function SlideMarketingKit() {
         </p>
       </div>
 
-      <div className="w-full min-w-0 overflow-x-auto">
-        <div className="atm-gallery-grid" style={galleryGridStyle}>
-          {MARKETING_GALLERY_ITEMS.map((item) => (
-            <Tile key={item.id} item={item} onOpen={() => setLightbox({ kind: "marketing", id: item.id })} />
-          ))}
-        </div>
+      <div style={galleryRowStyle}>
+        {MARKETING_GALLERY_ITEMS.map((item) => (
+          <div key={item.id} style={galleryCellStyle}>
+            <Tile item={item} onOpen={() => setLightbox({ kind: "marketing", id: item.id })} />
+          </div>
+        ))}
       </div>
 
       {/* Tapety na telefon */}
@@ -127,16 +146,12 @@ export default function SlideMarketingKit() {
         <p className="text-xs sm:text-sm mb-4 max-w-2xl" style={{ color: "var(--color-at-blue-v5)" }}>
           Brandovaná pozadí displeje s QR a jménem – 5 dlaždic na řádku, uložení dlouhým stiskem nebo tlačítkem v náhledu
         </p>
-        <div className="w-full min-w-0 overflow-x-auto">
-          <div className="atm-gallery-grid" style={galleryGridStyle}>
+        <div style={galleryRowStyle}>
           {PHONE_WALLPAPERS.map((wp) => (
-            <WallpaperTile
-              key={wp.id}
-              wp={wp}
-              onOpen={() => setLightbox({ kind: "wallpaper", id: wp.id })}
-            />
+            <div key={wp.id} style={galleryCellStyle}>
+              <WallpaperTile wp={wp} onOpen={() => setLightbox({ kind: "wallpaper", id: wp.id })} />
+            </div>
           ))}
-          </div>
         </div>
       </div>
 
@@ -331,7 +346,7 @@ function Tile({ item, onOpen }: { item: MarketingGalleryItem; onOpen: () => void
       type="button"
       onClick={onOpen}
       aria-label={`Otevřít náhled: ${item.title}`}
-      className="group relative w-full min-w-[4.5rem] sm:min-w-0 aspect-square rounded-lg overflow-hidden text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-at-red)]"
+      className="group relative w-full min-w-0 aspect-square rounded-lg overflow-hidden text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-at-red)]"
       style={{
         background: "var(--color-at-blue-a5)",
         border: "1px solid var(--color-at-blue-v3)",
