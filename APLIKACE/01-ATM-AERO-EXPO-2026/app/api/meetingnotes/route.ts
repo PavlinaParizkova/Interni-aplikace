@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import { Redis } from "@upstash/redis";
 import { NextResponse } from "next/server";
 
@@ -95,5 +96,27 @@ export async function PUT(request: Request) {
     return NextResponse.json(updated.slice().reverse());
   } catch {
     return NextResponse.json({ error: "Chyba při úpravě." }, { status: 500 });
+  }
+}
+
+/** Smaže všechny zápisy aktuálně přihlášeného autora (ostatní zůstanou). */
+export async function DELETE() {
+  const session = await auth();
+  const myName = session?.user?.name?.trim();
+  if (!myName) {
+    return NextResponse.json({ error: "Nepřihlášen" }, { status: 401 });
+  }
+  try {
+    const current = (await redis.get<MeetingNote[]>(KEY)) ?? [];
+    const updated = current.filter((note) => note.author !== myName);
+    const removed = current.length - updated.length;
+    await redis.set(KEY, updated);
+    await saveSnapshot(updated);
+    return NextResponse.json({
+      removed,
+      notes: updated.slice().reverse(),
+    });
+  } catch {
+    return NextResponse.json({ error: "Chyba při mazání." }, { status: 500 });
   }
 }

@@ -172,6 +172,7 @@ export default function OpsNotes() {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const [filterAuthor, setFilterAuthor] = useState<string>("all");
+  const [deletingMyNotes, setDeletingMyNotes] = useState(false);
 
   const authors = Array.from(new Set(notes.map((n) => n.author)));
   const filteredNotes =
@@ -312,6 +313,34 @@ export default function OpsNotes() {
     }
   };
 
+  const myNotesCount = notes.filter((n) => n.author === author).length;
+
+  const handleDeleteMyNotes = async () => {
+    if (!author || isOffline || myNotesCount === 0) return;
+    if (
+      !confirm(
+        `Opravdu smazat všech ${myNotesCount} vašich zápisů? Zápisy ostatních zůstanou. Tuto akci nelze vrátit zpět.`,
+      )
+    ) {
+      return;
+    }
+    setDeletingMyNotes(true);
+    try {
+      const res = await fetch("/api/meetingnotes", { method: "DELETE" });
+      const data: { error?: string; notes?: MeetingNote[] } = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Smazání selhalo");
+      if (data.notes) setNotes(data.notes);
+      setEditingId(null);
+      setEditTitle("");
+      setEditBody("");
+      setEditPhotos([]);
+    } catch {
+      // ignore
+    } finally {
+      setDeletingMyNotes(false);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4 h-full">
 
@@ -362,6 +391,28 @@ export default function OpsNotes() {
           >
             Exportovat .md
           </button>
+          {author && (
+            <button
+              type="button"
+              onClick={handleDeleteMyNotes}
+              disabled={isOffline || myNotesCount === 0 || deletingMyNotes}
+              title={
+                myNotesCount === 0
+                  ? "Nemáte žádné zápisy"
+                  : "Smazat jen vaše zápisy (ostatní tím nejsou dotčeni)"
+              }
+              className="text-xs font-bold px-3 py-1 rounded"
+              style={{
+                background: "transparent",
+                color: "var(--color-at-blue-v5)",
+                border: "1px solid var(--color-at-red)",
+                opacity: isOffline || myNotesCount === 0 || deletingMyNotes ? 0.4 : 1,
+                cursor: isOffline || myNotesCount === 0 ? "not-allowed" : "pointer",
+              }}
+            >
+              {deletingMyNotes ? "Mažu…" : `Smazat mé zápisy (${myNotesCount})`}
+            </button>
+          )}
         </div>
       </div>
 
