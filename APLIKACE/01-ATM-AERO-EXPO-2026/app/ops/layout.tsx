@@ -6,18 +6,26 @@ import type { ReactNode } from "react";
  */
 export default function OpsLayout({ children }: { children: ReactNode }) {
   const sha = process.env.VERCEL_GIT_COMMIT_SHA;
-  const short = sha && sha.length >= 7 ? sha.slice(0, 7) : null;
+  const dpl = process.env.VERCEL_DEPLOYMENT_ID;
+  const label =
+    sha && sha.length >= 7
+      ? `git ${sha.slice(0, 7)}`
+      : dpl
+        ? `dpl ${dpl.replace(/^dpl_/, "").slice(0, 8)}`
+        : null;
 
   return (
     <>
       {children}
-      {short ? (
+      {label ? (
         <div
           className="pointer-events-none fixed bottom-1 right-2 z-[100] font-mono text-[10px] tabular-nums"
           style={{ color: "var(--color-at-blue-v4)", opacity: 0.55 }}
-          title={`VERCEL_GIT_COMMIT_SHA=${sha}`}
+          title={[sha && `VERCEL_GIT_COMMIT_SHA=${sha}`, dpl && `VERCEL_DEPLOYMENT_ID=${dpl}`]
+            .filter(Boolean)
+            .join("\n")}
         >
-          build {short}
+          build {label}
         </div>
       ) : null}
     </>
