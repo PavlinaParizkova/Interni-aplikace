@@ -190,6 +190,7 @@ export type ChecklistItem = {
   label: string;
 };
 
+/** Odpovídá „Kontrolní checklist dopravy“ v dokumentu Role týmu AERO EXPO 2026 (odesílaný týmu). */
 export const CHECKLIST_TRANSPORT: ChecklistItem[] = [
   {
     id: "car-kunovice-group",
@@ -197,7 +198,11 @@ export const CHECKLIST_TRANSPORT: ChecklistItem[] = [
   },
   {
     id: "car-vratko-return",
-    label: "Vratko Kapuš – zpáteční cesta 22. 4. po Dni 1 potvrzena (kdo ho vezme na vlak?)",
+    label: "Vratko Kapuš – zpáteční cesta 22. 4. po Dni 1 potvrzena (jede sám)",
+  },
+  {
+    id: "car-return-magda-honza-jakub-26",
+    label: "Magdaléna Ševčíková, Jan Polák + Jakub Dryska – návrat 26. 4. společně potvržen",
   },
   {
     id: "car-petr-own",
@@ -213,6 +218,7 @@ export const CHECKLIST_TRANSPORT: ChecklistItem[] = [
   },
 ];
 
+/** Odpovídá „Kontrola účasti“ ve stejném dokumentu (bez duplicity k bodům o dopravě). */
 export const CHECKLIST_ATTENDANCE: ChecklistItem[] = [
   {
     id: "registration-all",
@@ -229,10 +235,6 @@ export const CHECKLIST_ATTENDANCE: ChecklistItem[] = [
   {
     id: "meetings-booked",
     label: "Každý obchodník má min. 4 schůzky domluvené před odjezdem (dle SOP)",
-  },
-  {
-    id: "vratko-return",
-    label: "Vratko Kapuš – zpáteční odvoz 22. 4. po skončení Dne 1 zajištěn",
   },
 ];
 
@@ -287,28 +289,28 @@ export const CHECKLIST_DRESSCODE: ChecklistItem[] = [
   },
 ];
 
-/** Věci expedované / vezené s sebou na stánek (AERO EXPO 2026). */
+/** Věci expedované / vezené s sebou na stánek – podle seznamu pro tým (AERO EXPO 2026). */
 export const CHECKLIST_PACKED: ChecklistItem[] = [
   {
     id: "packed-customer-gift",
     label:
-      "Dárek pro zákazníky: 60 tašek s logem + 8 ks navíc, 60 keramických pohárů, 60 káv — u každého setu nezapomenout komplimentku",
+      "Dárek pro zákazníky: 60 tašek s logem + 8 ks navíc (60 keramických pohárů, 60 káv) — u každého setu nezapomenout komplimentku",
   },
   {
     id: "packed-small-gift-box",
-    label: "Malý dárek v krabičce: 1× propiska PilotStyle, 1× propiska ATM, komplimentka",
+    label: "Malý dárek – krabička: 1× propiska PS, 1× propiska ATM, komplimentka",
   },
   {
     id: "packed-compliment-cards",
-    label: "Komplimentky (zásoba k rozdávání / doplňování dárků)",
+    label: "Komplimentky",
   },
   {
     id: "packed-stickers-small-atm",
-    label: "Samolepky: 1 arch malé logo ATM (bílé a modré)",
+    label: "Samolepky k nalepení: 1 arch malé logo ATM (bílé a modré)",
   },
   {
     id: "packed-stickers-large-atm",
-    label: "Samolepky: 2 archy velké logo ATM (bílé a modré)",
+    label: "Samolepky k nalepení: 2 archy velké logo ATM (bílé a modré)",
   },
   {
     id: "packed-stickers-booth-number",
@@ -316,15 +318,15 @@ export const CHECKLIST_PACKED: ChecklistItem[] = [
   },
   {
     id: "packed-ps-wings-sheets",
-    label: "PilotStyle: 1 arch křídla bílá samolepka, 1 arch křídla modrá samolepka",
+    label: "PilotStyle: 1 arch křídla – bílá samolepka, 1 arch křídla – modrá samolepka",
   },
   {
     id: "packed-ps-wings-gold",
-    label: "PilotStyle: 1 arch křídla zlatá samolepka",
+    label: "PilotStyle: 1 arch – PS křídla zlatá",
   },
   {
     id: "packed-ps-price-set",
-    label: "PilotStyle: set samolepek s cenami na produkty",
+    label: "PilotStyle: set samolepek – ceny na produkty",
   },
   {
     id: "packed-ps-bags-small",
@@ -332,51 +334,55 @@ export const CHECKLIST_PACKED: ChecklistItem[] = [
   },
   {
     id: "packed-ps-bags-large",
-    label: "PilotStyle: 15× velká taška PS",
+    label: "PilotStyle: 15 ks velká taška PS",
   },
   {
     id: "packed-swatches",
-    label: "Vzorníky: 2× Ambassador, 2× Mercury, 1× Alcantara",
+    label: "Vzorníky: 2× ambasador, 2× mercury, 1× alcantara",
   },
   {
     id: "packed-stand-boards",
-    label: "Stojan: 3× stojan, 3× tabule se vzorky s logem ATM",
+    label: "Stojan: 3× stojan, 3× tabule se vzorkami s logem ATM",
   },
   {
     id: "packed-paintings",
-    label: "Obrazy: 5 ks",
+    label: "Obrazy: 5 kusů",
   },
   {
     id: "packed-markers",
-    label: "Popis obrazů: 2× fix černý, 2× fix bílý",
+    label: "Popis obrazů: 2× fixa černá, 2× fixa bílá",
   },
   {
     id: "packed-pens-atm",
-    label: "Rozdávačky: 100× propiska ATM",
+    label: "Rozdávačky: 100 ks propisek ATM",
   },
   {
     id: "packed-pens-ps",
-    label: "Rozdávačky: 50× propiska PilotStyle",
+    label: "Rozdávačky: 50 ks propisek PS",
   },
   {
     id: "packed-candy",
-    label: "Rozdávačky: karamelky ATM a PilotStyle",
+    label: "Rozdávačky: karamelky – ATM, PS",
   },
   {
     id: "packed-energy",
-    label: "Rozdávačky: energetické nápoje 48× PS, 100× ATM",
+    label: "Rozdávačky: energetické drinky 48× PS, 100 ks ATM",
   },
   {
     id: "packed-return-tape",
     label: "Balení zpět: 2× páska ATM na oblepení",
   },
   {
-    id: "packed-return-wrap",
-    label: "Balení zpět: 1× role bublinkové fólie, strečová fólie",
+    id: "packed-return-bubble",
+    label: "Balení zpět: 1× rulička bublinkové fólie",
+  },
+  {
+    id: "packed-return-stretch",
+    label: "Balení zpět: 1× strečová fólie",
   },
   {
     id: "packed-flyers",
-    label: "Letáky — dle marketingového materiálu",
+    label: "Letáky – viz marketingový materiál",
   },
   {
     id: "packed-toolbox",
@@ -388,11 +394,15 @@ export const CHECKLIST_PACKED: ChecklistItem[] = [
   },
   {
     id: "packed-ps-helmet",
-    label: "Elektronika: helma PilotStyle",
+    label: "Elektronika: helma Pilot Style",
   },
   {
-    id: "packed-tablet-phone",
-    label: "Elektronika: tablet, telefon",
+    id: "packed-tablet",
+    label: "Elektronika: tablet",
+  },
+  {
+    id: "packed-phone",
+    label: "Elektronika: telefon",
   },
 ];
 

@@ -10,6 +10,8 @@ const withPWA = withPWAInit({
   reloadOnOnline: true,
   workboxOptions: {
     disableDevLogs: true,
+    // Po novém buildu odstranit staré precache z předchozí verze SW (méně „zaseknutých“ starých /ops).
+    cleanupOutdatedCaches: true,
     runtimeCaching: [
       {
         // Operativa – vždy síť (žádné zastaralé UI po deployi; pathname + query např. ?_rsc=)

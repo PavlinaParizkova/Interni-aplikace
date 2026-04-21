@@ -87,10 +87,10 @@ export default function OpsChecklists() {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Tab row with progress dots */}
-      <div className="overflow-x-auto scrollbar-none -mx-1 px-1">
+      {/* Čtyři checklisty – mřížka 2×2 na úzkém displeji, vždy všechny vidět (žádná skrytá 4. záložka). */}
+      <div className="-mx-1 px-1">
         <div
-          className="flex gap-1 p-1 rounded-lg w-fit"
+          className="grid grid-cols-2 min-[520px]:grid-cols-4 gap-1 p-1 rounded-lg w-full"
           style={{ background: "var(--color-at-blue-v1)" }}
         >
           {LISTS.map((l) => {
@@ -100,8 +100,9 @@ export default function OpsChecklists() {
             return (
               <button
                 key={l.key}
+                type="button"
                 onClick={() => setActiveKey(l.key)}
-                className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-bold transition-all flex-shrink-0"
+                className="flex min-w-0 items-center justify-center gap-1.5 rounded-md px-2 sm:px-3 py-1.5 text-sm font-bold transition-all"
                 style={{
                   background: isActive ? "var(--color-at-blue-v3)" : "transparent",
                   color: isActive ? "var(--color-at-white)" : "var(--color-at-blue-v5)",
@@ -124,6 +125,10 @@ export default function OpsChecklists() {
           })}
         </div>
       </div>
+
+      <p className="text-xs leading-snug px-0.5" style={{ color: "var(--color-at-blue-v4)" }}>
+        Doprava a účast odpovídají checklistu v dokumentu Role týmu (AERO EXPO 2026). „S sebou“ je jen zde v Operativě (expedice na stánek).
+      </p>
 
       {/* Active checklist */}
       <div>
