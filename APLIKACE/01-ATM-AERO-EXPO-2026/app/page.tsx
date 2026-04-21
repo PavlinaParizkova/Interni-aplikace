@@ -141,7 +141,10 @@ export default function Home() {
     : {};
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--color-at-blue-v1)" }}>
+    <div
+      className="w-full min-w-0"
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--color-at-blue-v1)" }}
+    >
       {/* Sticky nav */}
       <SlideNav
         current={current}
@@ -155,12 +158,13 @@ export default function Home() {
 
       {/* Slide content – scrollable */}
       <main
+        className="min-w-0 w-full flex-1"
         style={{ flex: 1 }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
         <div
-          className="w-full min-w-0"
+          className="w-full min-w-0 self-stretch"
           style={{ minHeight: "calc(100vh - 52px)", display: "flex", flexDirection: "column", paddingBottom: 48, ...exitStyle }}
         >
           {SLIDES[current].component}

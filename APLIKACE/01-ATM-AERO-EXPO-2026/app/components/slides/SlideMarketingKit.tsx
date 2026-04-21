@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { MARKETING_GALLERY_ITEMS, type MarketingGalleryItem } from "../../data/marketing-assets";
 import { PHONE_WALLPAPERS, wallpaperPublicPath, type PhoneWallpaper } from "../../data/wallpaper-assets";
+import { useMediaQuery } from "../../lib/use-media-query";
 
 function btnLightbox(): React.CSSProperties {
   return {
@@ -79,8 +80,19 @@ export default function SlideMarketingKit() {
     }
   }, [lightbox]);
 
+  const wide = useMediaQuery("(min-width: 640px)", false);
+  const galleryGridStyle: React.CSSProperties = {
+    display: "grid",
+    width: "100%",
+    maxWidth: "100%",
+    minWidth: 0,
+    boxSizing: "border-box",
+    gap: wide ? 16 : 12,
+    gridTemplateColumns: wide ? "repeat(5, minmax(0, 1fr))" : "repeat(2, minmax(0, 1fr))",
+  };
+
   return (
-    <div className="flex flex-col flex-1 w-full min-w-0 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
+    <div className="flex flex-col flex-1 w-full min-w-0 max-w-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       <div className="mb-4 sm:mb-5">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
@@ -96,10 +108,12 @@ export default function SlideMarketingKit() {
         </p>
       </div>
 
-      <div className="atm-gallery-grid">
-        {MARKETING_GALLERY_ITEMS.map((item) => (
-          <Tile key={item.id} item={item} onOpen={() => setLightbox({ kind: "marketing", id: item.id })} />
-        ))}
+      <div className="w-full min-w-0 overflow-x-auto">
+        <div className="atm-gallery-grid" style={galleryGridStyle}>
+          {MARKETING_GALLERY_ITEMS.map((item) => (
+            <Tile key={item.id} item={item} onOpen={() => setLightbox({ kind: "marketing", id: item.id })} />
+          ))}
+        </div>
       </div>
 
       {/* Tapety na telefon */}
@@ -113,7 +127,8 @@ export default function SlideMarketingKit() {
         <p className="text-xs sm:text-sm mb-4 max-w-2xl" style={{ color: "var(--color-at-blue-v5)" }}>
           Brandovaná pozadí displeje s QR a jménem – 5 dlaždic na řádku, uložení dlouhým stiskem nebo tlačítkem v náhledu
         </p>
-        <div className="atm-gallery-grid">
+        <div className="w-full min-w-0 overflow-x-auto">
+          <div className="atm-gallery-grid" style={galleryGridStyle}>
           {PHONE_WALLPAPERS.map((wp) => (
             <WallpaperTile
               key={wp.id}
@@ -121,6 +136,7 @@ export default function SlideMarketingKit() {
               onOpen={() => setLightbox({ kind: "wallpaper", id: wp.id })}
             />
           ))}
+          </div>
         </div>
       </div>
 
@@ -315,10 +331,10 @@ function Tile({ item, onOpen }: { item: MarketingGalleryItem; onOpen: () => void
       type="button"
       onClick={onOpen}
       aria-label={`Otevřít náhled: ${item.title}`}
-      className="group relative w-full min-w-0 aspect-square rounded-lg overflow-hidden text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-at-red)]"
+      className="group relative w-full min-w-[4.5rem] sm:min-w-0 aspect-square rounded-lg overflow-hidden text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-at-red)]"
       style={{
         background: "var(--color-at-blue-a5)",
-        border: "1px solid var(--color-at-blue-v5)",
+        border: "1px solid var(--color-at-blue-v3)",
         padding: 0,
       }}
     >
@@ -351,7 +367,7 @@ function Tile({ item, onOpen }: { item: MarketingGalleryItem; onOpen: () => void
           }}
         >
           <p
-            className="text-[10px] sm:text-xs font-bold leading-tight line-clamp-2"
+            className="text-[11px] sm:text-sm font-bold leading-snug line-clamp-2 px-0.5"
             style={{ color: "var(--color-at-blue)" }}
           >
             {item.title}
@@ -369,7 +385,7 @@ function WallpaperTile({ wp, onOpen }: { wp: PhoneWallpaper; onOpen: () => void 
       type="button"
       onClick={onOpen}
       aria-label={`Náhled tapety: ${wp.name}`}
-      className="group relative w-full min-w-0 aspect-[9/16] max-h-[min(280px,55vw)] sm:max-h-[min(320px,32vw)] rounded-lg overflow-hidden text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-at-red)] mx-auto"
+      className="group relative w-full min-w-0 aspect-[9/16] max-h-[min(320px,70vmin)] sm:max-h-[min(360px,42vmin)] rounded-lg overflow-hidden text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-at-red)]"
       style={{
         background: "var(--color-at-blue-a5)",
         border: "1px solid var(--color-at-blue-v5)",
