@@ -42,14 +42,16 @@ const LISTS = [
   },
 ] as const;
 
-const LIST_KEYS = new Set(LISTS.map((l) => l.key));
+type ListKey = (typeof LISTS)[number]["key"];
+
+const LIST_KEYS = new Set<string>(LISTS.map((l) => l.key));
 
 export default function OpsChecklists() {
   const isOffline = useIsOffline();
-  const [activeKey, setActiveKey] = useState<string>("transport");
+  const [activeKey, setActiveKey] = useState<ListKey>("transport");
   const [states, setStates] = useState<Record<string, ChecklistState>>({});
 
-  const selectList = useCallback((key: string) => {
+  const selectList = useCallback((key: ListKey) => {
     setActiveKey(key);
     if (typeof window === "undefined") return;
     const u = new URL(window.location.href);
@@ -70,7 +72,7 @@ export default function OpsChecklists() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const cl = params.get("cl");
-    if (cl && LIST_KEYS.has(cl)) setActiveKey(cl);
+    if (cl && LIST_KEYS.has(cl)) setActiveKey(cl as ListKey);
   }, []);
 
   useEffect(() => {

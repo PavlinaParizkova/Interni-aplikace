@@ -152,18 +152,12 @@ export default function SlideMarketingKit() {
               ×
             </button>
 
+            {/* Akce nahoře – tlačítka jsou hned vidět bez rolování */}
             <div
-              className="flex-1 min-h-0 flex items-center justify-center overflow-auto p-4 pt-12"
-              style={{ background: "var(--color-at-blue-v1)" }}
-            >
-              <LightboxVisual item={activeMkt} />
-            </div>
-
-            <div
-              className="p-4 sm:p-5 shrink-0"
+              className="p-4 sm:p-5 pt-12 shrink-0"
               style={{
                 background: "var(--color-at-blue-a5)",
-                borderTop: "1px solid var(--color-at-blue-v4)",
+                borderBottom: "1px solid var(--color-at-blue-v4)",
               }}
             >
               <p className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: "var(--color-at-red)" }}>
@@ -179,7 +173,7 @@ export default function SlideMarketingKit() {
               <p className="text-xs mt-1" style={{ color: "var(--color-at-blue-v3)" }}>
                 {activeMkt.meta}
               </p>
-              <div className="flex flex-col sm:flex-row gap-2 mt-4">
+              <div className="flex flex-col sm:flex-row gap-2 mt-3 sm:mt-4">
                 <a
                   href={activeMkt.fileUrl}
                   target="_blank"
@@ -202,6 +196,13 @@ export default function SlideMarketingKit() {
                   {copiedId === activeMkt.id ? "Odkaz v schránce" : "Sdílet / zkopírovat odkaz"}
                 </button>
               </div>
+            </div>
+
+            <div
+              className="flex-1 min-h-0 flex items-center justify-center overflow-auto p-4"
+              style={{ background: "var(--color-at-blue-v1)" }}
+            >
+              <LightboxVisual item={activeMkt} />
             </div>
           </div>
         </div>
@@ -240,21 +241,10 @@ export default function SlideMarketingKit() {
             </button>
 
             <div
-              className="flex-1 min-h-0 flex items-center justify-center overflow-auto p-4 pt-12"
-              style={{ background: "var(--color-at-blue-v1)" }}
-            >
-              <img
-                src={wallpaperPublicPath(activeWp.fileName)}
-                alt={activeWp.name}
-                className="max-w-full max-h-[min(72vh,720px)] w-auto h-auto object-contain rounded-md shadow-lg"
-              />
-            </div>
-
-            <div
-              className="p-4 sm:p-5 shrink-0"
+              className="p-4 sm:p-5 pt-12 shrink-0"
               style={{
                 background: "var(--color-at-blue-a5)",
-                borderTop: "1px solid var(--color-at-blue-v4)",
+                borderBottom: "1px solid var(--color-at-blue-v4)",
               }}
             >
               <p className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: "var(--color-at-red)" }}>
@@ -270,7 +260,7 @@ export default function SlideMarketingKit() {
               <p className="text-xs mt-1" style={{ color: "var(--color-at-blue-v3)" }}>
                 AERO EXPO 2026 · uložte obrázek do galerie
               </p>
-              <div className="flex flex-col sm:flex-row gap-2 mt-4">
+              <div className="flex flex-col sm:flex-row gap-2 mt-3 sm:mt-4">
                 <a
                   href={wallpaperPublicPath(activeWp.fileName)}
                   download={activeWp.fileName}
@@ -297,6 +287,17 @@ export default function SlideMarketingKit() {
                   {copiedId === `wp-${activeWp.id}` ? "Odkaz v schránce" : "Sdílet odkaz na soubor"}
                 </button>
               </div>
+            </div>
+
+            <div
+              className="flex-1 min-h-0 flex items-center justify-center overflow-auto p-4"
+              style={{ background: "var(--color-at-blue-v1)" }}
+            >
+              <img
+                src={wallpaperPublicPath(activeWp.fileName)}
+                alt={activeWp.name}
+                className="max-w-full max-h-[min(58vh,560px)] w-auto h-auto object-contain rounded-md shadow-lg"
+              />
             </div>
           </div>
         </div>

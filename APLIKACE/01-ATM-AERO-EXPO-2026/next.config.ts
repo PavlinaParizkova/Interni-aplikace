@@ -118,6 +118,8 @@ const nextConfig: NextConfig = {
       },
     ] as const;
     return [
+      // Hlavní prezentace – bez CDN cache HTML, ať se po deployi hned projeví změny slidů
+      { source: "/", headers: [...opsCache] },
       { source: "/ops", headers: [...opsCache] },
       { source: "/ops/:path*", headers: [...opsCache] },
     ];

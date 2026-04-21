@@ -16,3 +16,11 @@ export const INTERNAL_APP_ORIGIN =
 export const INTERNAL_APP_OPS_URL =
   process.env.NEXT_PUBLIC_INTERNAL_APP_OPS_URL?.trim() ||
   `${INTERNAL_APP_ORIGIN}/ops`;
+
+/** Google Drive – podklad „badge“ / vystavovatelský průkaz (slide Prezentace). */
+export const EXHIBITOR_BADGE_DRIVE_URL =
+  "https://drive.google.com/file/d/1x_LHOqwi_mXHyH64krbLEw_7q4JZPzOv/view?usp=drive_link";
+
+/** Google Drive – druhý podklad ke stažení u vystavovatelských průkazů (slide Prezentace). */
+export const EXHIBITOR_BADGE_DRIVE_URL_2 =
+  "https://drive.google.com/file/d/13S3u9DejlX8dPCr9wTlcvB3w-0htB8L_/view?usp=drive_link";
