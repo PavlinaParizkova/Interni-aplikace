@@ -14,6 +14,7 @@ import SlideGifts from "./components/slides/SlideGifts";
 import SlideGiftsBudget from "./components/slides/SlideGiftsBudget";
 import SlideDressCode from "./components/slides/SlideDressCode";
 import SlideBoothGallery from "./components/slides/SlideBoothGallery";
+import SlidePilotStyleStand from "./components/slides/SlidePilotStyleStand";
 import SlideBoothBudget from "./components/slides/SlideBoothBudget";
 import SlideAccommodation from "./components/slides/SlideAccommodation";
 import SlideAccommodation2 from "./components/slides/SlideAccommodation2";
@@ -31,13 +32,14 @@ export const SLIDES = [
   { component: <SlideAccommodation />,           label: "Ubytování 1",       section: "Logistika" },
   { component: <SlideAccommodation2 />,          label: "Ubytování 2",       section: "Logistika" },
   { component: <SlideCalendar />,                label: "Schůzky GCal",      section: "Logistika",     updated: true },
-  { component: <SlideMarketingKit />,            label: "MKT materiály",     section: "MKT materiály", updated: true },
+  { component: <SlideMarketingKit />,            label: "Marketingové materiály", section: "Marketingové materiály", updated: true },
   { component: <SlideSales />,                   label: "Sales & KPIs",      section: "Sales",         updated: true },
   { component: <SlideDressCode />,               label: "Dress Code",        section: "Dress Code",    updated: true },
   { component: <SlideDressCodeBudget />,         label: "Rozpočet oblečení", section: "Dress Code" },
   { component: <SlideGifts />,                   label: "Dárky",             section: "Dárky" },
   { component: <SlideGiftsBudget />,             label: "Rozpočet dárků",    section: "Dárky" },
   { component: <SlideBoothGallery />,             label: "Grafika stánku",    section: "Stánek",        updated: true },
+  { component: <SlidePilotStyleStand />,         label: "Stojan PilotStyle", section: "Stánek",        updated: true },
   { component: <SlideBoothBudget />,             label: "Stánek MLT",        section: "Stánek" },
   { component: <SlideTotalCosts />,              label: "Celkové náklady",   section: "Souhrn" },
 ];
@@ -47,12 +49,12 @@ export const SECTIONS = [
   { label: "Obsah",         slideIndex: 1 },
   { label: "Tým",           slideIndex: 2 },
   { label: "Logistika",     slideIndex: 4 },
-  { label: "MKT materiály", slideIndex: 8 },
+  { label: "Marketingové materiály", slideIndex: 8 },
   { label: "Sales",         slideIndex: 9 },
   { label: "Dress Code",    slideIndex: 10 },
   { label: "Dárky",         slideIndex: 12 },
   { label: "Stánek",        slideIndex: 14 },
-  { label: "Souhrn",        slideIndex: 16 },
+  { label: "Souhrn",        slideIndex: 17 },
 ].map((sec, i, arr) => {
   const end = arr[i + 1]?.slideIndex ?? SLIDES.length;
   const hasUpdate = SLIDES.slice(sec.slideIndex, end).some((s) => s.updated);

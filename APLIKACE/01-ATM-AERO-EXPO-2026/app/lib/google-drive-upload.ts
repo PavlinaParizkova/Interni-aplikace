@@ -105,7 +105,18 @@ export function validateGoogleDriveEnvForUpload(): string | null {
   const key = resolvePrivateKeyFromEnv(keyRaw!);
 
   if (!looksLikePemKey(key)) {
-    return "V GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY není platný klíč. Očekává se buď PEM od -----BEGIN …, nebo celý JSON od Google začínající {.";
+    const rawLen = trimEnv(keyRaw).length;
+    const hint =
+      rawLen < 80
+        ? " Hodnota je velmi krátká — zkuste vložit celý stažený JSON soubor do jedné proměnné, nebo celý PEM blok včetně řádků BEGIN/END."
+        : trimEnv(keyRaw).startsWith("AIza")
+          ? " Začíná to jako API klíč (AIza…); potřebujete soukromý klíč service accountu (JSON nebo PEM), ne API klíč projektu."
+          : !trimEnv(keyRaw).startsWith("{") && /^[A-Za-z0-9+/=\s]+$/.test(key.replace(/\s/g, ""))
+            ? " Vypadá to jako čistý Base64 bez hlavičky PEM — vložte celý blok od -----BEGIN PRIVATE KEY----- až po -----END …----- (nebo celý JSON)."
+            : trimEnv(keyRaw).startsWith("projects/")
+              ? " Vypadá to jako ID projektu nebo cesta — do GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY patří jen obsah pole private_key z JSONu, nebo celý JSON soubor."
+              : "";
+    return `V GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY není rozpoznatelný klíč (chybí PEM hlavička BEGIN … PRIVATE KEY nebo platný JSON od {).${hint}`;
   }
 
   try {

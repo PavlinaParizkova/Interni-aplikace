@@ -1,3 +1,5 @@
+import { INTERNAL_APP_OPS_URL } from "../../lib/site";
+
 export default function SlideCover() {
   return (
     <div
@@ -108,12 +110,25 @@ export default function SlideCover() {
       </div>{/* end main content */}
 
       {/* Footer note */}
-      <p
-        className="relative z-10 pb-6 text-xs tracking-widest uppercase"
-        style={{ color: "var(--color-at-blue-a5)", opacity: 0.6 }}
-      >
-        Dokument: Pavlína Pařízková · AIR TEAM · 2026-03-23
-      </p>
+      <div className="relative z-10 pb-6 flex flex-col items-center gap-2">
+        <a
+          href={INTERNAL_APP_OPS_URL}
+          className="text-xs font-bold tracking-wide px-3 py-1.5 rounded transition-opacity hover:opacity-90"
+          style={{
+            color: "var(--color-at-white)",
+            background: "var(--color-at-blue-v2)",
+            border: "1px solid var(--color-at-blue-v4)",
+          }}
+        >
+          Operativa (checklisty, stánku, PilotStyle…) →
+        </a>
+        <p
+          className="text-xs tracking-widest uppercase"
+          style={{ color: "var(--color-at-blue-a5)", opacity: 0.6 }}
+        >
+          Dokument: Pavlína Pařízková · AIR TEAM · 2026-03-23
+        </p>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { INTERNAL_APP_OPS_URL } from "../lib/site";
 
 type SlideNavProps = {
   current: number;
@@ -144,9 +145,9 @@ export default function SlideNav({
           →
         </button>
 
-        {/* Operativa link */}
-        <Link
-          href="/ops"
+        {/* Operativa – kanonická URL nasazení na Vercelu */}
+        <a
+          href={INTERNAL_APP_OPS_URL}
           className="flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded transition-all hover:opacity-80"
           style={{
             background: "var(--color-at-blue-v2)",
@@ -157,7 +158,7 @@ export default function SlideNav({
           <span className="hidden sm:inline">Operativa</span>
           <span className="sm:hidden">OPS</span>
           <span>→</span>
-        </Link>
+        </a>
 
         {/* Hamburger / menu button */}
         <button

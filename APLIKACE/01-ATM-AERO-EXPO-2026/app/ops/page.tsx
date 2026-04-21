@@ -8,15 +8,17 @@ import OpsNotes from "../components/ops/OpsNotes";
 import OpsChat from "../components/ops/OpsChat";
 import OpsVizitky from "../components/ops/OpsVizitky";
 import PilotStyleStandGuide from "../components/PilotStyleStandGuide";
+import CubeSystemGuide from "../components/CubeSystemGuide";
 
-type Panel = "checklists" | "booth" | "notes" | "chat" | "vizitky" | "pilotstyle";
+type Panel = "checklists" | "booth" | "notes" | "chat" | "vizitky" | "pilotstyle" | "cube";
 
-const PANEL_KEYS: Panel[] = ["checklists", "booth", "pilotstyle", "notes", "chat", "vizitky"];
+const PANEL_KEYS: Panel[] = ["checklists", "booth", "pilotstyle", "cube", "notes", "chat", "vizitky"];
 
 const PANELS: { key: Panel; label: string; icon: string; desc: string }[] = [
   { key: "checklists", label: "Checklisty",     icon: "✓",  desc: "Doprava · Účast · Oblečení" },
   { key: "booth",      label: "Status stánku",  icon: "📍", desc: "Kdo je kde právě teď" },
   { key: "pilotstyle", label: "Stojan PilotStyle", icon: "🛩", desc: "Skládání stojanů, rozložení zboží, fotky" },
+  { key: "cube",       label: "Systém CUBE",    icon: "⬜", desc: "EasyCube pod exponáty – půdorys, výška, montáž" },
   { key: "notes",      label: "Poznámky",        icon: "📝", desc: "Sdílené zápisky týmu" },
   { key: "chat",       label: "Chat",            icon: "💬", desc: "Týmová komunikace s exportem" },
   { key: "vizitky",    label: "Vizitky",         icon: "🪪", desc: "Podklady pro tisk vizitek" },
@@ -113,7 +115,7 @@ export default function OpsPage() {
       >
         <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
           {PANELS.find((p) => p.key === active)?.desc}
-          {active !== "pilotstyle" && (
+          {active !== "pilotstyle" && active !== "cube" && (
             <span className="ml-2 text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
               · synchronizováno s celým týmem v reálném čase
             </span>
@@ -123,10 +125,11 @@ export default function OpsPage() {
 
       {/* Content */}
       <main className="flex-1 overflow-y-auto px-4 md:px-8 py-6">
-        <div className={active === "pilotstyle" ? "max-w-4xl mx-auto" : "max-w-3xl mx-auto"}>
+        <div className={active === "pilotstyle" || active === "cube" ? "max-w-4xl mx-auto" : "max-w-3xl mx-auto"}>
           {active === "checklists" && <OpsChecklists />}
           {active === "booth"      && <OpsBooth />}
           {active === "pilotstyle" && <PilotStyleStandGuide layout="ops" />}
+          {active === "cube"       && <CubeSystemGuide />}
           {active === "notes"      && <OpsNotes />}
           {active === "chat"       && <OpsChat />}
           {active === "vizitky"    && <OpsVizitky />}

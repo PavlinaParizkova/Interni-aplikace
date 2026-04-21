@@ -1,6 +1,9 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
-import { TEAM_EMAILS } from "./app/data/team-emails";
+import {
+  displayNameForSignIn,
+  isAllowedSignInEmail,
+} from "./app/data/team-emails";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
@@ -11,14 +14,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async signIn({ profile }) {
-      const email = (profile?.email ?? "").toLowerCase();
-      // Pouze povolené firemní e-maily
-      return email in TEAM_EMAILS;
+      const email = profile?.email ?? "";
+      return isAllowedSignInEmail(email);
     },
     async jwt({ token, profile }) {
       if (profile?.email) {
         const email = profile.email.toLowerCase();
-        token.memberName = TEAM_EMAILS[email] ?? token.name ?? "";
+        token.memberName = displayNameForSignIn(email, profile.name);
         token.memberEmail = email;
       }
       return token;

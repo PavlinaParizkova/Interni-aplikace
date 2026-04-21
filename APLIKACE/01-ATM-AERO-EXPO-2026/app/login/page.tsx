@@ -69,7 +69,7 @@ function LoginContent() {
             AIR TEAM × AERO EXPO 2026
           </h1>
           <p style={{ fontSize: 13, color: "var(--color-at-blue-v5)", margin: "0 0 32px" }}>
-            Přihlas se svým firemním Google účtem.
+            Přihlas se firemním Google účtem (povolené domény v Google Workspace, výchozí @airteam.eu).
           </p>
 
           {/* Error */}
@@ -87,7 +87,7 @@ function LoginContent() {
               }}
             >
               {error === "AccessDenied"
-                ? "Tvůj Google účet není v seznamu týmu. Kontaktuj organizátora."
+                ? "Tento účet není z povolené domény. Použij firemní Google (např. @airteam.eu) nebo kontaktuj organizátora."
                 : "Přihlášení se nezdařilo. Zkus to znovu."}
             </div>
           )}
