@@ -213,3 +213,27 @@ h1, h2, h3, h4, h5, h6 {
   transform: rotate(45deg);
 }
 
+/* Marketing / tapety – full-bleed šířka okna + mřížka (jedna třída, bez přepisování width) */
+.atm-mkt-gallery {
+  display: grid !important;
+  width: 100vw;
+  max-width: 100%;
+  margin-left: calc(50% - 50vw);
+  box-sizing: border-box;
+  padding-left: clamp(1rem, 4vw, 2.5rem);
+  padding-right: clamp(1rem, 4vw, 2.5rem);
+  min-width: 0;
+  gap: 0.75rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-flow: row;
+  align-content: start;
+}
+.atm-mkt-gallery > * {
+  min-width: 0;
+}
+@media (min-width: 768px) {
+  .atm-mkt-gallery {
+    gap: 1rem;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}

@@ -3,14 +3,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { MARKETING_GALLERY_ITEMS, type MarketingGalleryItem } from "../../data/marketing-assets";
 import { PHONE_WALLPAPERS, wallpaperPublicPath, type PhoneWallpaper } from "../../data/wallpaper-assets";
-import { useMediaQuery } from "../../lib/use-media-query";
-
-/** Flex-wrap + gap: šířka jedné buňky (spolehlivější než grid uvnitř scroll/flex v některých PWA). */
-function flexTileWidth(cols: number, gapPx: number): string {
-  if (cols < 2) return "100%";
-  const gapsTotal = (cols - 1) * gapPx;
-  return `calc((100% - ${gapsTotal}px) / ${cols})`;
-}
 
 function btnLightbox(): React.CSSProperties {
   return {
@@ -87,29 +79,6 @@ export default function SlideMarketingKit() {
     }
   }, [lightbox]);
 
-  const wide = useMediaQuery("(min-width: 768px)", false);
-  const gapPx = wide ? 16 : 12;
-  const cols = wide ? 5 : 2;
-  const cellW = flexTileWidth(cols, gapPx);
-  const galleryRowStyle: React.CSSProperties = {
-    display: "flex",
-    flexWrap: "wrap",
-    width: "100%",
-    maxWidth: "100%",
-    minWidth: 0,
-    boxSizing: "border-box",
-    gap: gapPx,
-    alignContent: "flex-start",
-    justifyContent: "flex-start",
-  };
-  const galleryCellStyle: React.CSSProperties = {
-    flex: `0 0 ${cellW}`,
-    width: cellW,
-    maxWidth: cellW,
-    minWidth: 0,
-    boxSizing: "border-box",
-  };
-
   return (
     <div className="flex flex-col flex-1 w-full min-w-0 max-w-full px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       <div className="mb-4 sm:mb-5">
@@ -127,11 +96,9 @@ export default function SlideMarketingKit() {
         </p>
       </div>
 
-      <div style={galleryRowStyle}>
+      <div className="atm-mkt-gallery">
         {MARKETING_GALLERY_ITEMS.map((item) => (
-          <div key={item.id} style={galleryCellStyle}>
-            <Tile item={item} onOpen={() => setLightbox({ kind: "marketing", id: item.id })} />
-          </div>
+          <Tile key={item.id} item={item} onOpen={() => setLightbox({ kind: "marketing", id: item.id })} />
         ))}
       </div>
 
@@ -146,11 +113,9 @@ export default function SlideMarketingKit() {
         <p className="text-xs sm:text-sm mb-4 max-w-2xl" style={{ color: "var(--color-at-blue-v5)" }}>
           Brandovaná pozadí displeje s QR a jménem – 5 dlaždic na řádku, uložení dlouhým stiskem nebo tlačítkem v náhledu
         </p>
-        <div style={galleryRowStyle}>
+        <div className="atm-mkt-gallery">
           {PHONE_WALLPAPERS.map((wp) => (
-            <div key={wp.id} style={galleryCellStyle}>
-              <WallpaperTile wp={wp} onOpen={() => setLightbox({ kind: "wallpaper", id: wp.id })} />
-            </div>
+            <WallpaperTile key={wp.id} wp={wp} onOpen={() => setLightbox({ kind: "wallpaper", id: wp.id })} />
           ))}
         </div>
       </div>
