@@ -11,6 +11,17 @@ const withPWA = withPWAInit({
     disableDevLogs: true,
     runtimeCaching: [
       {
+        // Operativa – vždy síť (žádné zastaralé UI po deployi; pathname + query např. ?_rsc=)
+        urlPattern: ({ url }: { url: URL }) =>
+          url.pathname === "/ops" || url.pathname.startsWith("/ops/"),
+        handler: "NetworkOnly",
+      },
+      {
+        // Chunk stránky /ops nesmí brát CacheFirst z obecného pravidla – jinak chybí nové záložky po deployi
+        urlPattern: /\/_next\/static\/chunks\/app\/ops\//i,
+        handler: "NetworkOnly",
+      },
+      {
         // Google OAuth – nikdy necachovat
         urlPattern: /^https:\/\/accounts\.google\.com\/.*/i,
         handler: "NetworkOnly",
