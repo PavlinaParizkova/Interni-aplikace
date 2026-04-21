@@ -1,18 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import OpsChecklists from "../components/ops/OpsChecklists";
 import OpsBooth from "../components/ops/OpsBooth";
 import OpsNotes from "../components/ops/OpsNotes";
 import OpsChat from "../components/ops/OpsChat";
 import OpsVizitky from "../components/ops/OpsVizitky";
+import PilotStyleStandGuide from "../components/PilotStyleStandGuide";
 
-type Panel = "checklists" | "booth" | "notes" | "chat" | "vizitky";
+type Panel = "checklists" | "booth" | "notes" | "chat" | "vizitky" | "pilotstyle";
+
+const PANEL_KEYS: Panel[] = ["checklists", "booth", "pilotstyle", "notes", "chat", "vizitky"];
 
 const PANELS: { key: Panel; label: string; icon: string; desc: string }[] = [
   { key: "checklists", label: "Checklisty",     icon: "✓",  desc: "Doprava · Účast · Oblečení" },
   { key: "booth",      label: "Status stánku",  icon: "📍", desc: "Kdo je kde právě teď" },
+  { key: "pilotstyle", label: "Stojan PilotStyle", icon: "🛩", desc: "Skládání stojanů, rozložení zboží, fotky" },
   { key: "notes",      label: "Poznámky",        icon: "📝", desc: "Sdílené zápisky týmu" },
   { key: "chat",       label: "Chat",            icon: "💬", desc: "Týmová komunikace s exportem" },
   { key: "vizitky",    label: "Vizitky",         icon: "🪪", desc: "Podklady pro tisk vizitek" },
@@ -20,6 +24,14 @@ const PANELS: { key: Panel; label: string; icon: string; desc: string }[] = [
 
 export default function OpsPage() {
   const [active, setActive] = useState<Panel>("checklists");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get("tab");
+    if (tab && PANEL_KEYS.includes(tab as Panel)) {
+      setActive(tab as Panel);
+    }
+  }, []);
 
   return (
     <div
@@ -101,17 +113,20 @@ export default function OpsPage() {
       >
         <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
           {PANELS.find((p) => p.key === active)?.desc}
-          <span className="ml-2 text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
-            · synchronizováno s celým týmem v reálném čase
-          </span>
+          {active !== "pilotstyle" && (
+            <span className="ml-2 text-xs" style={{ color: "var(--color-at-blue-v4)" }}>
+              · synchronizováno s celým týmem v reálném čase
+            </span>
+          )}
         </p>
       </div>
 
       {/* Content */}
       <main className="flex-1 overflow-y-auto px-4 md:px-8 py-6">
-        <div className="max-w-3xl mx-auto">
+        <div className={active === "pilotstyle" ? "max-w-4xl mx-auto" : "max-w-3xl mx-auto"}>
           {active === "checklists" && <OpsChecklists />}
           {active === "booth"      && <OpsBooth />}
+          {active === "pilotstyle" && <PilotStyleStandGuide layout="ops" />}
           {active === "notes"      && <OpsNotes />}
           {active === "chat"       && <OpsChat />}
           {active === "vizitky"    && <OpsVizitky />}
