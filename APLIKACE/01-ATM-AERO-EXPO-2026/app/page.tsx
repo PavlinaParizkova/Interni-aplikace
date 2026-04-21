@@ -159,7 +159,10 @@ export default function Home() {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <div style={{ minHeight: "calc(100vh - 52px)", display: "flex", flexDirection: "column", paddingBottom: 48, ...exitStyle }}>
+        <div
+          className="w-full min-w-0"
+          style={{ minHeight: "calc(100vh - 52px)", display: "flex", flexDirection: "column", paddingBottom: 48, ...exitStyle }}
+        >
           {SLIDES[current].component}
         </div>
 

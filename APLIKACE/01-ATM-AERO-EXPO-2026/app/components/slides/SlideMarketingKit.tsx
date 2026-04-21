@@ -79,10 +79,8 @@ export default function SlideMarketingKit() {
     }
   }, [lightbox]);
 
-  const gridClass = "grid w-full grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4";
-
   return (
-    <div className="flex flex-col flex-1 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
+    <div className="flex flex-col flex-1 w-full min-w-0 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
       <div className="mb-4 sm:mb-5">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-2"
@@ -98,7 +96,7 @@ export default function SlideMarketingKit() {
         </p>
       </div>
 
-      <div className={gridClass}>
+      <div className="atm-gallery-grid">
         {MARKETING_GALLERY_ITEMS.map((item) => (
           <Tile key={item.id} item={item} onOpen={() => setLightbox({ kind: "marketing", id: item.id })} />
         ))}
@@ -115,7 +113,7 @@ export default function SlideMarketingKit() {
         <p className="text-xs sm:text-sm mb-4 max-w-2xl" style={{ color: "var(--color-at-blue-v5)" }}>
           Brandovaná pozadí displeje s QR a jménem – 5 dlaždic na řádku, uložení dlouhým stiskem nebo tlačítkem v náhledu
         </p>
-        <div className={gridClass}>
+        <div className="atm-gallery-grid">
           {PHONE_WALLPAPERS.map((wp) => (
             <WallpaperTile
               key={wp.id}
@@ -317,7 +315,7 @@ function Tile({ item, onOpen }: { item: MarketingGalleryItem; onOpen: () => void
       type="button"
       onClick={onOpen}
       aria-label={`Otevřít náhled: ${item.title}`}
-      className="group relative w-full aspect-square rounded-lg overflow-hidden text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-at-red)]"
+      className="group relative w-full min-w-0 aspect-square rounded-lg overflow-hidden text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-at-red)]"
       style={{
         background: "var(--color-at-blue-a5)",
         border: "1px solid var(--color-at-blue-v5)",
@@ -353,7 +351,7 @@ function Tile({ item, onOpen }: { item: MarketingGalleryItem; onOpen: () => void
           }}
         >
           <p
-            className="text-[9px] sm:text-[10px] font-bold leading-tight line-clamp-2"
+            className="text-[10px] sm:text-xs font-bold leading-tight line-clamp-2"
             style={{ color: "var(--color-at-blue)" }}
           >
             {item.title}
@@ -371,7 +369,7 @@ function WallpaperTile({ wp, onOpen }: { wp: PhoneWallpaper; onOpen: () => void 
       type="button"
       onClick={onOpen}
       aria-label={`Náhled tapety: ${wp.name}`}
-      className="group relative w-full aspect-[9/16] max-h-[220px] sm:max-h-[260px] rounded-lg overflow-hidden text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-at-red)] mx-auto"
+      className="group relative w-full min-w-0 aspect-[9/16] max-h-[min(280px,55vw)] sm:max-h-[min(320px,32vw)] rounded-lg overflow-hidden text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-at-red)] mx-auto"
       style={{
         background: "var(--color-at-blue-a5)",
         border: "1px solid var(--color-at-blue-v5)",
@@ -394,7 +392,7 @@ function WallpaperTile({ wp, onOpen }: { wp: PhoneWallpaper; onOpen: () => void 
           }}
         >
           <p
-            className="text-[9px] sm:text-[10px] font-bold leading-tight line-clamp-1"
+            className="text-[10px] sm:text-xs font-bold leading-tight line-clamp-1"
             style={{ color: "var(--color-at-blue)" }}
           >
             {wp.name}
