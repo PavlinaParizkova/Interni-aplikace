@@ -1,3 +1,9 @@
+/**
+ * Nahrávání fotek: primárně Google Drive (env GOOGLE_DRIVE_*).
+ * BLOB_READ_WRITE_TOKEN se použije jen když není nastavené GOOGLE_DRIVE_FOLDER_ID
+ * nebo nejsou platné Drive údaje (viz logika níže). Token na Vercelu při výstraze
+ * „Need To Rotate“ obnovte v Storage → Blob → přegenerujte a aktualizujte env.
+ */
 import { put } from "@vercel/blob";
 import { auth } from "@/auth";
 import {

@@ -1,3 +1,8 @@
+/**
+ * Proxy pro staré přílohy uložené ve Vercel Blob (/api/blob?p=…).
+ * Vyžaduje BLOB_READ_WRITE_TOKEN (stejný jako u uploadu). Po plném přechodu na Disk
+ * můžete token nechat kvůli čtení starých zápisů, nebo je po migraci odstranit.
+ */
 import { get } from "@vercel/blob";
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
