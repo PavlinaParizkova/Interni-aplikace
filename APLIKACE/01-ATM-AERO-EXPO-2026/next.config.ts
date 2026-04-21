@@ -69,9 +69,13 @@ const withPWA = withPWAInit({
   },
 });
 
+/** Stejná cesta jako turbopack.root – jinak Vercel hlásí konflikt s outputFileTracingRoot. */
+const projectRoot = path.resolve(__dirname);
+
 const nextConfig: NextConfig = {
+  outputFileTracingRoot: projectRoot,
   turbopack: {
-    root: path.resolve(__dirname),
+    root: projectRoot,
   },
 };
 
