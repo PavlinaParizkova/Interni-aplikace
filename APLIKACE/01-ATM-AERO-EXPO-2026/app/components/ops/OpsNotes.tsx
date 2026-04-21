@@ -64,13 +64,20 @@ function exportToMd(notes: MeetingNote[], filterLabel?: string) {
   URL.revokeObjectURL(url);
 }
 
+/** Plná verze: dost rozlišení na čitelný text (vizitky); náhled: menší, ale ne „zněmizovaný“. */
+const PHOTO_FULL_MAX_WIDTH = 2200;
+const PHOTO_FULL_QUALITY = 0.9;
+const PHOTO_THUMB_MAX_WIDTH = 720;
+const PHOTO_THUMB_QUALITY = 0.82;
+
 function resizeImage(file: File, maxWidth: number, quality: number): Promise<File> {
   return new Promise((resolve) => {
     const img = new Image();
     const url = URL.createObjectURL(file);
     img.onload = () => {
       URL.revokeObjectURL(url);
-      if (img.width <= maxWidth && quality >= 0.9) {
+      // Už menší než limit → nahrát beze ztráty další kompresí JPEG
+      if (img.width <= maxWidth) {
         resolve(file);
         return;
       }
@@ -110,9 +117,9 @@ async function uploadFile(file: File): Promise<string> {
 }
 
 async function uploadPhoto(file: File): Promise<PhotoPair> {
-  const fullFile = await resizeImage(file, 1000, 0.82);
+  const fullFile = await resizeImage(file, PHOTO_FULL_MAX_WIDTH, PHOTO_FULL_QUALITY);
   const full = await uploadFile(fullFile);
-  const thumbFile = await resizeImage(file, 300, 0.7);
+  const thumbFile = await resizeImage(file, PHOTO_THUMB_MAX_WIDTH, PHOTO_THUMB_QUALITY);
   const thumb = await uploadFile(thumbFile);
   return { full, thumb };
 }
