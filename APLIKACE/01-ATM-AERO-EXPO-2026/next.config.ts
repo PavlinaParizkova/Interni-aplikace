@@ -12,6 +12,20 @@ const withPWA = withPWAInit({
     disableDevLogs: true,
     // Po novém buildu odstranit staré precache z předchozí verze SW (méně „zaseknutých“ starých /ops).
     cleanupOutdatedCaches: true,
+    /**
+     * Ve výchozím stavu next-pwa přidává do precache i /_next/static/chunks/*.js.
+     * Precache má přednost před runtime „NetworkOnly“ → uživatelé mohli měsíce vidět starý OpsChecklists (jen 3 záložky).
+     * Chunky neprecachovat – vždy se stáhnou aktuální z deploye (offline prezentace zůstává v public + runtime cache).
+     */
+    exclude: [
+      /\/_next\/static\/.*(?<!\.p)\.woff2/,
+      /\.map$/,
+      /^manifest.*\.js$/,
+      ({ asset }) => {
+        const n = String((asset as { name?: string }).name ?? "");
+        return n.includes("static/chunks") && n.endsWith(".js");
+      },
+    ],
     runtimeCaching: [
       {
         // Operativa – vždy síť (žádné zastaralé UI po deployi; pathname + query např. ?_rsc=)

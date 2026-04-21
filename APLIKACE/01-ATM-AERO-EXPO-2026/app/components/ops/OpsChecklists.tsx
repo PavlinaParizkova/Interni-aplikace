@@ -42,10 +42,20 @@ const LISTS = [
   },
 ] as const;
 
+const LIST_KEYS = new Set(LISTS.map((l) => l.key));
+
 export default function OpsChecklists() {
   const isOffline = useIsOffline();
   const [activeKey, setActiveKey] = useState<string>("transport");
   const [states, setStates] = useState<Record<string, ChecklistState>>({});
+
+  const selectList = useCallback((key: string) => {
+    setActiveKey(key);
+    if (typeof window === "undefined") return;
+    const u = new URL(window.location.href);
+    u.searchParams.set("cl", key);
+    window.history.replaceState({}, "", u);
+  }, []);
 
   const load = useCallback(async (key: string) => {
     try {
@@ -55,6 +65,12 @@ export default function OpsChecklists() {
     } catch {
       // ignore
     }
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const cl = params.get("cl");
+    if (cl && LIST_KEYS.has(cl)) setActiveKey(cl);
   }, []);
 
   useEffect(() => {
@@ -101,7 +117,7 @@ export default function OpsChecklists() {
               <button
                 key={l.key}
                 type="button"
-                onClick={() => setActiveKey(l.key)}
+                onClick={() => selectList(l.key)}
                 className="flex min-w-0 items-center justify-center gap-1.5 rounded-md px-2 sm:px-3 py-1.5 text-sm font-bold transition-all"
                 style={{
                   background: isActive ? "var(--color-at-blue-v3)" : "transparent",
@@ -128,6 +144,10 @@ export default function OpsChecklists() {
 
       <p className="text-xs leading-snug px-0.5" style={{ color: "var(--color-at-blue-v4)" }}>
         Doprava a účast odpovídají checklistu v dokumentu Role týmu (AERO EXPO 2026). „S sebou“ je jen zde v Operativě (expedice na stánek).
+        {" "}
+        <span style={{ color: "var(--color-at-blue-v5)" }}>
+          Přímý odkaz na expedici: přidejte do URL <strong className="font-mono">?cl=packed</strong> (např. <strong className="font-mono">/ops?tab=checklists&amp;cl=packed</strong>).
+        </span>
       </p>
 
       {/* Active checklist */}
