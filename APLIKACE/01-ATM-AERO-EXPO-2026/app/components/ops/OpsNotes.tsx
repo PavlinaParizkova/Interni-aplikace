@@ -16,13 +16,28 @@ function formatTs(iso: string) {
   });
 }
 
-/** Náhled / odkaz na přílohu: nové soukromé bloby přes /api/blob, staré přímé URL z Vercel také přes proxy. */
+/** Náhled / odkaz na přílohu: absolutní URL (např. Google Drive), bloby přes /api/blob, staré přímé URL z Vercel přes proxy. */
 function blobImageSrc(stored: string): string {
+  if (/^https?:\/\//i.test(stored)) return stored;
   if (stored.startsWith("/api/blob")) return stored;
   if (stored.includes("blob.vercel-storage.com")) {
     return `/api/blob?u=${encodeURIComponent(stored)}`;
   }
   return stored;
+}
+
+/** Pro export Markdown: veřejné https odkazy beze změny; relativní /api/blob → absolutní URL k aplikaci (vyžaduje přihlášení k náhledu). */
+function exportImageUrl(stored: string): string {
+  if (/^https?:\/\//i.test(stored)) return stored;
+  const path = blobImageSrc(stored);
+  if (typeof window !== "undefined") {
+    try {
+      return new URL(path, window.location.origin).href;
+    } catch {
+      return path;
+    }
+  }
+  return path;
 }
 
 function exportToMd(notes: MeetingNote[], filterLabel?: string) {
@@ -44,7 +59,7 @@ function exportToMd(notes: MeetingNote[], filterLabel?: string) {
       lines.push("");
       for (const photo of note.photos) {
         const url = typeof photo === "string" ? photo : photo.full;
-        lines.push(`![Příloha](${blobImageSrc(url)})`);
+        lines.push(`![Příloha](${exportImageUrl(url)})`);
       }
     }
     if (note.editedAt) {

@@ -1,6 +1,17 @@
 import { put } from "@vercel/blob";
 import { auth } from "@/auth";
+import {
+  isGoogleDriveUploadConfigured,
+  uploadImageToGoogleDrive,
+} from "@/app/lib/google-drive-upload";
 import { NextResponse } from "next/server";
+
+export const runtime = "nodejs";
+
+function safeFileName(name: string): string {
+  const trimmed = name.trim() || "image.jpg";
+  return trimmed.replace(/[^\w.\- ()[\]ČčŘřŽžÁáÉéÍíÓóÚúĎďĚěŇňŤť]/g, "_").slice(0, 200);
+}
 
 export async function POST(request: Request) {
   const session = await auth();
@@ -8,9 +19,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Nepřihlášen" }, { status: 401 });
   }
 
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+  const useDrive = isGoogleDriveUploadConfigured();
+  const useBlob = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+
+  if (!useDrive && !useBlob) {
     return NextResponse.json(
-      { error: "BLOB_READ_WRITE_TOKEN není nastavený. Přidej Blob Store v Settings → Storage." },
+      {
+        error:
+          "Není nastavené úložiště: buď Google Drive (GOOGLE_DRIVE_FOLDER_ID + service account), nebo Vercel Blob (BLOB_READ_WRITE_TOKEN).",
+      },
       { status: 500 },
     );
   }
@@ -23,14 +40,26 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Žádný soubor." }, { status: 400 });
     }
 
-    const blob = await put(
-      `aero-expo-2026/${Date.now()}-${file.name}`,
-      file,
-      { access: "private", addRandomSuffix: true },
-    );
+    const baseName = `${Date.now()}-${safeFileName(file.name)}`;
+
+    if (useDrive) {
+      const buffer = Buffer.from(await file.arrayBuffer());
+      const mime = file.type || "image/jpeg";
+      const { url, fileId } = await uploadImageToGoogleDrive(baseName, buffer, mime);
+      return NextResponse.json({ url, pathname: fileId, storage: "gdrive" as const });
+    }
+
+    const blob = await put(`aero-expo-2026/${baseName}`, file, {
+      access: "private",
+      addRandomSuffix: true,
+    });
 
     const url = `/api/blob?p=${encodeURIComponent(blob.pathname)}`;
-    return NextResponse.json({ url, pathname: blob.pathname });
+    return NextResponse.json({
+      url,
+      pathname: blob.pathname,
+      storage: "blob" as const,
+    });
   } catch (e) {
     console.error("Upload error:", e);
     const message = e instanceof Error ? e.message : "Upload selhal.";
