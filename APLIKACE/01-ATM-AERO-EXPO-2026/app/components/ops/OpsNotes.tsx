@@ -345,53 +345,68 @@ export default function OpsNotes() {
     <div className="flex flex-col gap-4 h-full">
 
       {/* Header */}
-      <div className="flex items-center justify-between gap-3 flex-wrap">
-        <div className="min-w-0">
-          <p
-            className="text-xs font-bold tracking-[0.15em] uppercase"
-            style={{ color: "var(--color-at-white)" }}
-          >
-            Zápisy z jednání
-          </p>
-          <p className="text-xs mt-0.5" style={{ color: isOffline ? "#f97316" : "var(--color-at-blue-v5)" }}>
-            {isOffline ? "⚡ offline – zobrazuji poslední záznamy" : "Viditelné pro celý tým · obnova každých 10 s"}
-          </p>
+      <div className="flex flex-col gap-2 w-full">
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          <div className="min-w-0">
+            <p
+              className="text-xs font-bold tracking-[0.15em] uppercase"
+              style={{ color: "var(--color-at-white)" }}
+            >
+              Zápisy z jednání
+            </p>
+            <p className="text-xs mt-0.5" style={{ color: isOffline ? "#f97316" : "var(--color-at-blue-v5)" }}>
+              {isOffline ? "⚡ offline – zobrazuji poslední záznamy" : "Viditelné pro celý tým · obnova každých 10 s"}
+            </p>
+          </div>
+          <div className="flex items-center gap-2 flex-shrink-0 flex-wrap">
+            <select
+              value={filterAuthor}
+              onChange={(e) => setFilterAuthor(e.target.value)}
+              className="text-xs px-2 py-1 rounded focus:outline-none"
+              style={{
+                background: "var(--color-at-blue-v2)",
+                border: "1px solid var(--color-at-blue-v3)",
+                color: "var(--color-at-white)",
+              }}
+            >
+              <option value="all">Všechny zápisy</option>
+              {author && <option value={author}>Moje zápisy</option>}
+              {authors
+                .filter((a) => a !== author)
+                .map((a) => (
+                  <option key={a} value={a}>
+                    {a}
+                  </option>
+                ))}
+            </select>
+            <button
+              onClick={() => exportToMd(filteredNotes, filterLabel)}
+              disabled={filteredNotes.length === 0}
+              className="text-xs font-bold px-3 py-1 rounded"
+              style={{
+                background: "var(--color-at-blue-v3)",
+                color: "var(--color-at-white)",
+                border: "1px solid var(--color-at-blue-v3)",
+                opacity: filteredNotes.length === 0 ? 0.4 : 1,
+              }}
+            >
+              Exportovat .md
+            </button>
+          </div>
         </div>
-        <div className="flex items-center gap-2 flex-shrink-0 flex-wrap">
-          <select
-            value={filterAuthor}
-            onChange={(e) => setFilterAuthor(e.target.value)}
-            className="text-xs px-2 py-1 rounded focus:outline-none"
+        {author ? (
+          <div
+            className="flex flex-wrap items-center justify-between gap-2 rounded-lg px-3 py-2"
             style={{
-              background: "var(--color-at-blue-v2)",
+              background: "rgba(213,28,23,0.08)",
               border: "1px solid var(--color-at-blue-v3)",
-              color: "var(--color-at-white)",
             }}
           >
-            <option value="all">Všechny zápisy</option>
-            {author && <option value={author}>Moje zápisy</option>}
-            {authors
-              .filter((a) => a !== author)
-              .map((a) => (
-                <option key={a} value={a}>
-                  {a}
-                </option>
-              ))}
-          </select>
-          <button
-            onClick={() => exportToMd(filteredNotes, filterLabel)}
-            disabled={filteredNotes.length === 0}
-            className="text-xs font-bold px-3 py-1 rounded"
-            style={{
-              background: "var(--color-at-blue-v3)",
-              color: "var(--color-at-white)",
-              border: "1px solid var(--color-at-blue-v3)",
-              opacity: filteredNotes.length === 0 ? 0.4 : 1,
-            }}
-          >
-            Exportovat .md
-          </button>
-          {author && (
+            <span className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
+              Vaše zápisy: <strong style={{ color: "var(--color-at-white)" }}>{myNotesCount}</strong>
+              {" · "}
+              ostatní uživatelé se nesmažou.
+            </span>
             <button
               type="button"
               onClick={handleDeleteMyNotes}
@@ -399,21 +414,22 @@ export default function OpsNotes() {
               title={
                 myNotesCount === 0
                   ? "Nemáte žádné zápisy"
-                  : "Smazat jen vaše zápisy (ostatní tím nejsou dotčeni)"
+                  : "Smazat jen vaše zápisy"
               }
-              className="text-xs font-bold px-3 py-1 rounded"
+              className="text-xs font-bold px-3 py-1.5 rounded-lg whitespace-nowrap shrink-0"
               style={{
-                background: "transparent",
-                color: "var(--color-at-blue-v5)",
+                background: myNotesCount === 0 ? "var(--color-at-blue-v2)" : "var(--color-at-red)",
+                color: "var(--color-at-white)",
                 border: "1px solid var(--color-at-red)",
-                opacity: isOffline || myNotesCount === 0 || deletingMyNotes ? 0.4 : 1,
-                cursor: isOffline || myNotesCount === 0 ? "not-allowed" : "pointer",
+                opacity: isOffline || deletingMyNotes ? 0.5 : 1,
+                cursor:
+                  isOffline || myNotesCount === 0 ? "not-allowed" : "pointer",
               }}
             >
-              {deletingMyNotes ? "Mažu…" : `Smazat mé zápisy (${myNotesCount})`}
+              {deletingMyNotes ? "Mažu…" : "Smazat všechny mé zápisy"}
             </button>
-          )}
-        </div>
+          </div>
+        ) : null}
       </div>
 
       {/* New note form */}
