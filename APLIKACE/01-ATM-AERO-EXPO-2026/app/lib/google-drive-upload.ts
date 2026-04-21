@@ -60,9 +60,34 @@ function looksLikePemKey(k: string): boolean {
   );
 }
 
+/** E-mail service accountu z env, nebo z celého JSONu vloženého do PRIVATE_KEY. */
+export function resolveServiceAccountEmail(): string {
+  const direct = trimEnv(process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
+  if (direct) return direct;
+  const keyRaw = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
+  if (!keyRaw) return "";
+  const t = trimEnv(keyRaw);
+  if (t.startsWith("{")) {
+    try {
+      const j = JSON.parse(t) as { client_email?: string };
+      if (j.client_email && typeof j.client_email === "string") {
+        return trimEnv(j.client_email);
+      }
+    } catch {
+      // ignore
+    }
+  }
+  return "";
+}
+
+/** Uživatel chce Disk (nastavené ID složky) – nesmíme tiše spadnout na Blob. */
+export function isGoogleDriveFolderIdSet(): boolean {
+  return Boolean(trimEnv(process.env.GOOGLE_DRIVE_FOLDER_ID));
+}
+
 export function isGoogleDriveUploadConfigured(): boolean {
   const folderId = trimEnv(process.env.GOOGLE_DRIVE_FOLDER_ID);
-  const email = trimEnv(process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
+  const email = resolveServiceAccountEmail();
   const keyRaw = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
   const key = keyRaw ? resolvePrivateKeyFromEnv(keyRaw) : "";
   return Boolean(
@@ -82,8 +107,13 @@ export async function uploadImageToGoogleDrive(
   const privateKey = coercePrivateKeyPem(
     resolvePrivateKeyFromEnv(process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY!),
   );
-  const clientEmail = trimEnv(process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL);
+  const clientEmail = resolveServiceAccountEmail();
   const folderId = trimEnv(process.env.GOOGLE_DRIVE_FOLDER_ID);
+  if (!clientEmail) {
+    throw new Error(
+      "Chybí GOOGLE_SERVICE_ACCOUNT_EMAIL (nebo client_email v JSONu u PRIVATE_KEY).",
+    );
+  }
 
   const auth = new google.auth.GoogleAuth({
     credentials: {

@@ -1,6 +1,7 @@
 import { put } from "@vercel/blob";
 import { auth } from "@/auth";
 import {
+  isGoogleDriveFolderIdSet,
   isGoogleDriveUploadConfigured,
   uploadImageToGoogleDrive,
 } from "@/app/lib/google-drive-upload";
@@ -20,12 +21,27 @@ export async function POST(request: Request) {
   }
 
   const useDrive = isGoogleDriveUploadConfigured();
+  const driveFolderSet = isGoogleDriveFolderIdSet();
   const useBlob = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 
   console.info(
     "[upload]",
-    useDrive ? "using Google Drive" : "Drive not configured, using Blob if token set",
+    useDrive
+      ? "using Google Drive"
+      : driveFolderSet
+        ? "Drive folder ID set but credentials incomplete — must not use Blob"
+        : "Drive not configured, using Blob if token set",
   );
+
+  if (driveFolderSet && !useDrive) {
+    return NextResponse.json(
+      {
+        error:
+          "Google Drive: GOOGLE_DRIVE_FOLDER_ID je nastavený, ale chybí nebo je neplatný e-mail/klíč (GOOGLE_SERVICE_ACCOUNT_EMAIL + GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY, nebo celý JSON od Google v PRIVATE_KEY). Na Vercelu zkontrolujte Production proměnné a redeploy. Blob se v tomto režimu nepoužije.",
+      },
+      { status: 500 },
+    );
+  }
 
   if (!useDrive && !useBlob) {
     return NextResponse.json(
