@@ -16,6 +16,15 @@ function formatTs(iso: string) {
   });
 }
 
+/** Náhled / odkaz na přílohu: nové soukromé bloby přes /api/blob, staré přímé URL z Vercel také přes proxy. */
+function blobImageSrc(stored: string): string {
+  if (stored.startsWith("/api/blob")) return stored;
+  if (stored.includes("blob.vercel-storage.com")) {
+    return `/api/blob?u=${encodeURIComponent(stored)}`;
+  }
+  return stored;
+}
+
 function exportToMd(notes: MeetingNote[], filterLabel?: string) {
   const titleSuffix = filterLabel ? ` – ${filterLabel}` : "";
   const lines = [
@@ -35,7 +44,7 @@ function exportToMd(notes: MeetingNote[], filterLabel?: string) {
       lines.push("");
       for (const photo of note.photos) {
         const url = typeof photo === "string" ? photo : photo.full;
-        lines.push(`![Příloha](${url})`);
+        lines.push(`![Příloha](${blobImageSrc(url)})`);
       }
     }
     if (note.editedAt) {
@@ -365,7 +374,7 @@ export default function OpsNotes() {
             {photos.map((p) => (
               <div key={p.thumb} className="relative group">
                 <img
-                  src={p.thumb}
+                  src={blobImageSrc(p.thumb)}
                   alt="Příloha"
                   className="w-16 h-16 object-cover rounded-lg"
                   style={{ border: "1px solid var(--color-at-blue-v3)" }}
@@ -540,12 +549,12 @@ export default function OpsNotes() {
                         return (
                           <a
                             key={thumbUrl}
-                            href={fullUrl}
+                            href={blobImageSrc(fullUrl)}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
                             <img
-                              src={thumbUrl}
+                              src={blobImageSrc(thumbUrl)}
                               alt="Příloha"
                               loading="lazy"
                               className="w-24 h-24 object-cover rounded-lg hover:opacity-80 transition-opacity"
@@ -593,7 +602,7 @@ export default function OpsNotes() {
                       {editPhotos.map((p) => (
                         <div key={p.thumb} className="relative group">
                           <img
-                            src={p.thumb}
+                            src={blobImageSrc(p.thumb)}
                             alt="Příloha"
                             className="w-16 h-16 object-cover rounded-lg"
                             style={{ border: "1px solid var(--color-at-blue-v3)" }}
