@@ -85,14 +85,41 @@ export function isGoogleDriveFolderIdSet(): boolean {
   return Boolean(trimEnv(process.env.GOOGLE_DRIVE_FOLDER_ID));
 }
 
-export function isGoogleDriveUploadConfigured(): boolean {
-  const folderId = trimEnv(process.env.GOOGLE_DRIVE_FOLDER_ID);
-  const email = resolveServiceAccountEmail();
+/**
+ * Když je nastavená složka na Disku, vrátí důvod proč upload nemůže běžet, jinak null.
+ * (Používá stejnou kontrolu jako skutečné nahrání včetně OpenSSL.)
+ */
+export function validateGoogleDriveEnvForUpload(): string | null {
+  if (!isGoogleDriveFolderIdSet()) return null;
+
   const keyRaw = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
-  const key = keyRaw ? resolvePrivateKeyFromEnv(keyRaw) : "";
-  return Boolean(
-    folderId && email && key.length >= 80 && looksLikePemKey(key),
-  );
+  if (!trimEnv(keyRaw)) {
+    return "Chybí nebo je prázdná GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY. Na Vercelu u každé proměnné zaškrtněte Production (a Preview pokud chcete) a po uložení proveďte Redeploy.";
+  }
+
+  const email = resolveServiceAccountEmail();
+  if (!email) {
+    return "Chybí GOOGLE_SERVICE_ACCOUNT_EMAIL. Doplňte e-mail service accountu (např. …@….iam.gserviceaccount.com), nebo vložte celý stažený JSON od Google jen do pole GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY (obsahuje i client_email).";
+  }
+
+  const key = resolvePrivateKeyFromEnv(keyRaw!);
+
+  if (!looksLikePemKey(key)) {
+    return "V GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY není platný klíč. Očekává se buď PEM od -----BEGIN …, nebo celý JSON od Google začínající {.";
+  }
+
+  try {
+    coercePrivateKeyPem(key);
+  } catch (e) {
+    return e instanceof Error ? e.message : String(e);
+  }
+
+  return null;
+}
+
+export function isGoogleDriveUploadConfigured(): boolean {
+  if (!isGoogleDriveFolderIdSet()) return false;
+  return validateGoogleDriveEnvForUpload() === null;
 }
 
 /**

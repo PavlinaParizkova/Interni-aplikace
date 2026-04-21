@@ -10,6 +10,7 @@ import {
   isGoogleDriveFolderIdSet,
   isGoogleDriveUploadConfigured,
   uploadImageToGoogleDrive,
+  validateGoogleDriveEnvForUpload,
 } from "@/app/lib/google-drive-upload";
 import { NextResponse } from "next/server";
 
@@ -28,6 +29,7 @@ export async function POST(request: Request) {
 
   const useDrive = isGoogleDriveUploadConfigured();
   const driveFolderSet = isGoogleDriveFolderIdSet();
+  const driveEnvError = validateGoogleDriveEnvForUpload();
   const useBlob = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 
   console.info(
@@ -39,11 +41,10 @@ export async function POST(request: Request) {
         : "Drive not configured, using Blob if token set",
   );
 
-  if (driveFolderSet && !useDrive) {
+  if (driveFolderSet && driveEnvError) {
     return NextResponse.json(
       {
-        error:
-          "Google Drive: GOOGLE_DRIVE_FOLDER_ID je nastavený, ale chybí nebo je neplatný e-mail/klíč (GOOGLE_SERVICE_ACCOUNT_EMAIL + GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY, nebo celý JSON od Google v PRIVATE_KEY). Na Vercelu zkontrolujte Production proměnné a redeploy. Blob se v tomto režimu nepoužije.",
+        error: `Google Drive: ${driveEnvError} Blob se v tomto režimu nepoužije.`,
       },
       { status: 500 },
     );
