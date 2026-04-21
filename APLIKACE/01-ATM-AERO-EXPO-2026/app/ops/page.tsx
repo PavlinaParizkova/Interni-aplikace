@@ -15,7 +15,7 @@ type Panel = "checklists" | "booth" | "notes" | "chat" | "vizitky" | "pilotstyle
 const PANEL_KEYS: Panel[] = ["checklists", "booth", "pilotstyle", "cube", "notes", "chat", "vizitky"];
 
 const PANELS: { key: Panel; label: string; icon: string; desc: string }[] = [
-  { key: "checklists", label: "Checklisty",     icon: "✓",  desc: "Doprava · Účast · Oblečení" },
+  { key: "checklists", label: "Checklisty",     icon: "✓",  desc: "Doprava · Účast · Oblečení · S sebou" },
   { key: "booth",      label: "Status stánku",  icon: "📍", desc: "Kdo je kde právě teď" },
   { key: "pilotstyle", label: "Stojan PilotStyle", icon: "🛩", desc: "Skládání stojanů, rozložení zboží, fotky" },
   { key: "cube",       label: "Systém CUBE",    icon: "⬜", desc: "EasyCube pod exponáty – půdorys, výška, montáž" },

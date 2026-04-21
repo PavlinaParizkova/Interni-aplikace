@@ -17,9 +17,23 @@ const withPWA = withPWAInit({
         handler: "NetworkOnly",
       },
       {
-        // Chunk stránky /ops nesmí brát CacheFirst z obecného pravidla – jinak chybí nové záložky po deployi
+        // Chunk stránky /ops – vždy síť (žádný starý shell)
         urlPattern: /\/_next\/static\/chunks\/app\/ops\//i,
         handler: "NetworkOnly",
+      },
+      {
+        // Všechny ostatní webpack/turbopack chunky – sdílené moduly (např. OpsChecklists) jinak
+        // padají pod CacheFirst 30 dní a po deployi chybí nové záložky / texty v UI.
+        urlPattern: /\/_next\/static\/chunks\//i,
+        handler: "NetworkFirst",
+        options: {
+          cacheName: "next-chunks-network-first",
+          expiration: {
+            maxEntries: 200,
+            maxAgeSeconds: 24 * 60 * 60,
+          },
+          networkTimeoutSeconds: 5,
+        },
       },
       {
         // Google OAuth – nikdy necachovat

@@ -5,6 +5,7 @@ import {
   CHECKLIST_TRANSPORT,
   CHECKLIST_ATTENDANCE,
   CHECKLIST_DRESSCODE,
+  CHECKLIST_PACKED,
 } from "../../data/slides-data";
 import { useIsOffline } from "../../hooks/useIsOffline";
 
@@ -31,6 +32,13 @@ const LISTS = [
     subtitle: "Objednávka, výroba a distribuce firemního oblečení",
     items: CHECKLIST_DRESSCODE,
     doneMsg: "Oblečení zajištěno. Tým AIR TEAM vyrazí na veletrh v perfektní formě.",
+  },
+  {
+    key: "packed",
+    label: "S sebou",
+    subtitle: "Dárky, samolepky, vzorníky, stojan, rozdávačky, balení zpět, elektronika",
+    items: CHECKLIST_PACKED,
+    doneMsg: "Kompletní výbava stánku je naložena. Nic nechybí.",
   },
 ] as const;
 

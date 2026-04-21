@@ -287,6 +287,115 @@ export const CHECKLIST_DRESSCODE: ChecklistItem[] = [
   },
 ];
 
+/** Věci expedované / vezené s sebou na stánek (AERO EXPO 2026). */
+export const CHECKLIST_PACKED: ChecklistItem[] = [
+  {
+    id: "packed-customer-gift",
+    label:
+      "Dárek pro zákazníky: 60 tašek s logem + 8 ks navíc, 60 keramických pohárů, 60 káv — u každého setu nezapomenout komplimentku",
+  },
+  {
+    id: "packed-small-gift-box",
+    label: "Malý dárek v krabičce: 1× propiska PilotStyle, 1× propiska ATM, komplimentka",
+  },
+  {
+    id: "packed-compliment-cards",
+    label: "Komplimentky (zásoba k rozdávání / doplňování dárků)",
+  },
+  {
+    id: "packed-stickers-small-atm",
+    label: "Samolepky: 1 arch malé logo ATM (bílé a modré)",
+  },
+  {
+    id: "packed-stickers-large-atm",
+    label: "Samolepky: 2 archy velké logo ATM (bílé a modré)",
+  },
+  {
+    id: "packed-stickers-booth-number",
+    label: "Samolepky s logem ATM a číslem stánku",
+  },
+  {
+    id: "packed-ps-wings-sheets",
+    label: "PilotStyle: 1 arch křídla bílá samolepka, 1 arch křídla modrá samolepka",
+  },
+  {
+    id: "packed-ps-wings-gold",
+    label: "PilotStyle: 1 arch křídla zlatá samolepka",
+  },
+  {
+    id: "packed-ps-price-set",
+    label: "PilotStyle: set samolepek s cenami na produkty",
+  },
+  {
+    id: "packed-ps-bags-small",
+    label: "PilotStyle: 10× malá taška PS",
+  },
+  {
+    id: "packed-ps-bags-large",
+    label: "PilotStyle: 15× velká taška PS",
+  },
+  {
+    id: "packed-swatches",
+    label: "Vzorníky: 2× Ambassador, 2× Mercury, 1× Alcantara",
+  },
+  {
+    id: "packed-stand-boards",
+    label: "Stojan: 3× stojan, 3× tabule se vzorky s logem ATM",
+  },
+  {
+    id: "packed-paintings",
+    label: "Obrazy: 5 ks",
+  },
+  {
+    id: "packed-markers",
+    label: "Popis obrazů: 2× fix černý, 2× fix bílý",
+  },
+  {
+    id: "packed-pens-atm",
+    label: "Rozdávačky: 100× propiska ATM",
+  },
+  {
+    id: "packed-pens-ps",
+    label: "Rozdávačky: 50× propiska PilotStyle",
+  },
+  {
+    id: "packed-candy",
+    label: "Rozdávačky: karamelky ATM a PilotStyle",
+  },
+  {
+    id: "packed-energy",
+    label: "Rozdávačky: energetické nápoje 48× PS, 100× ATM",
+  },
+  {
+    id: "packed-return-tape",
+    label: "Balení zpět: 2× páska ATM na oblepení",
+  },
+  {
+    id: "packed-return-wrap",
+    label: "Balení zpět: 1× role bublinkové fólie, strečová fólie",
+  },
+  {
+    id: "packed-flyers",
+    label: "Letáky — dle marketingového materiálu",
+  },
+  {
+    id: "packed-toolbox",
+    label: "Bedna s nářadím",
+  },
+  {
+    id: "packed-dji",
+    label: "Elektronika: DJI kamera",
+  },
+  {
+    id: "packed-ps-helmet",
+    label: "Elektronika: helma PilotStyle",
+  },
+  {
+    id: "packed-tablet-phone",
+    label: "Elektronika: tablet, telefon",
+  },
+];
+
 export const LINKS = [
   {
     label: "SOP – Eventy 2026",
