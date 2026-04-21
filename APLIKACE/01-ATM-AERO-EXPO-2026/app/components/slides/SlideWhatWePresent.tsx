@@ -81,8 +81,7 @@ const CONTACTS: { role: string; emphasize?: boolean; people: ContactPerson[] }[]
     people: [
       {
         name: "",
-        detail:
-          "Vystavovatelské průkazy jsou k vyzvednutí v hale B5 ve východním foyeru.",
+        detail: null,
         phone: null,
         links: [
           { href: EXHIBITOR_BADGE_DRIVE_URL, label: "Stáhnout badge" },
