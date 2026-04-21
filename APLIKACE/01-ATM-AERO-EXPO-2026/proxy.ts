@@ -20,6 +20,15 @@ export const proxy = auth((req) => {
     return NextResponse.redirect(new URL("/login", req.nextUrl.origin));
   }
 
+  if (pathname === "/ops" || pathname.startsWith("/ops/")) {
+    const res = NextResponse.next();
+    res.headers.set(
+      "Cache-Control",
+      "private, no-cache, no-store, max-age=0, must-revalidate",
+    );
+    return res;
+  }
+
   return NextResponse.next();
 });
 

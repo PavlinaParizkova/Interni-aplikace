@@ -1,5 +1,9 @@
 import type { ReactNode } from "react";
 
+/** Žádný statický prerender / dlouhé CDN cachování – vždy aktuální checklist po deployi. */
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 /**
  * Zobrazí zkrácený Git SHA z buildu na Vercelu → ověření, že produkce běží na očekávaném commitu.
  * (Na lokálu bez Vercel env proměnných se nevykreslí.)

@@ -4,8 +4,9 @@ import withPWAInit from "@ducanh2912/next-pwa";
 
 const withPWA = withPWAInit({
   dest: "public",
-  cacheOnFrontEndNav: true,
-  aggressiveFrontEndNavCaching: true,
+  // Bez agresivní cache při navigaci – jinak /ops může dlouho ukazovat staré RSC/UI po deployi.
+  cacheOnFrontEndNav: false,
+  aggressiveFrontEndNavCaching: false,
   reloadOnOnline: true,
   workboxOptions: {
     disableDevLogs: true,
@@ -22,18 +23,9 @@ const withPWA = withPWAInit({
         handler: "NetworkOnly",
       },
       {
-        // Všechny ostatní webpack/turbopack chunky – sdílené moduly (např. OpsChecklists) jinak
-        // padají pod CacheFirst 30 dní a po deployi chybí nové záložky / texty v UI.
+        // Všechny webpack/turbopack chunky – NetworkOnly (žádný starý OpsChecklists po deployi).
         urlPattern: /\/_next\/static\/chunks\//i,
-        handler: "NetworkFirst",
-        options: {
-          cacheName: "next-chunks-network-first",
-          expiration: {
-            maxEntries: 200,
-            maxAgeSeconds: 24 * 60 * 60,
-          },
-          networkTimeoutSeconds: 5,
-        },
+        handler: "NetworkOnly",
       },
       {
         // Google OAuth – nikdy necachovat
@@ -101,6 +93,18 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: projectRoot,
   turbopack: {
     root: projectRoot,
+  },
+  async headers() {
+    const opsCache = [
+      {
+        key: "Cache-Control",
+        value: "private, no-cache, no-store, max-age=0, must-revalidate",
+      },
+    ] as const;
+    return [
+      { source: "/ops", headers: [...opsCache] },
+      { source: "/ops/:path*", headers: [...opsCache] },
+    ];
   },
 };
 
