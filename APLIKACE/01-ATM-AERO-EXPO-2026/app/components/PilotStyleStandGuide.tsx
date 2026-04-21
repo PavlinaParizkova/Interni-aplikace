@@ -2,18 +2,21 @@
 
 import { useState, useEffect, useCallback } from "react";
 
+/** Pořadí: 1 sluchátka, 2–3 stojan na produkty (vedle sebe). ?v= obejde starou cache obrázků. */
+const V = "ps-layout-3";
+
 const PHOTOS = [
   {
-    src: "/Stojan_PilotStyle2.PNG",
-    label: "Stojan na sluchátka – PilotStyle headset",
+    src: `/Stojan_PilotStyle2.PNG?v=${V}`,
+    label: "Sluchátka – stojan na headset PilotStyle",
   },
   {
-    src: "/Stojan_PilotStyle3.PNG",
-    label: "Příklad rozložení (čelní pohled)",
+    src: `/Stojan_PilotStyle3.PNG?v=${V}`,
+    label: "Stojan na produkty – čelní pohled",
   },
   {
-    src: "/Stojan_PilotStyle.PNG",
-    label: "Logbook, organizér, velké formáty",
+    src: `/Stojan_PilotStyle.PNG?v=${V}`,
+    label: "Stojan na produkty – logbook, organizér, velké formáty",
   },
 ] as const;
 

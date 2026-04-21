@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { MARKETING_GALLERY_ITEMS, type MarketingGalleryItem } from "../../data/marketing-assets";
+import { PHONE_WALLPAPERS, wallpaperPublicPath, type PhoneWallpaper } from "../../data/wallpaper-assets";
 
 function btnLightbox(): React.CSSProperties {
   return {
@@ -20,13 +21,23 @@ function btnLightbox(): React.CSSProperties {
   };
 }
 
+type LightboxState =
+  | { kind: "marketing"; id: string }
+  | { kind: "wallpaper"; id: string }
+  | null;
+
 export default function SlideMarketingKit() {
-  const [lightboxId, setLightboxId] = useState<string | null>(null);
+  const [lightbox, setLightbox] = useState<LightboxState>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const active = lightboxId
-    ? MARKETING_GALLERY_ITEMS.find((x) => x.id === lightboxId) ?? null
-    : null;
+  const activeMkt =
+    lightbox?.kind === "marketing"
+      ? MARKETING_GALLERY_ITEMS.find((x) => x.id === lightbox.id) ?? null
+      : null;
+  const activeWp =
+    lightbox?.kind === "wallpaper"
+      ? PHONE_WALLPAPERS.find((x) => x.id === lightbox.id) ?? null
+      : null;
 
   const copyOrShare = useCallback(async (id: string, url: string, title: string) => {
     setCopiedId(null);
@@ -48,23 +59,27 @@ export default function SlideMarketingKit() {
     }
   }, []);
 
+  const closeLightbox = useCallback(() => setLightbox(null), []);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setLightboxId(null);
+      if (e.key === "Escape") closeLightbox();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [closeLightbox]);
 
   useEffect(() => {
-    if (lightboxId) {
+    if (lightbox) {
       const prev = document.body.style.overflow;
       document.body.style.overflow = "hidden";
       return () => {
         document.body.style.overflow = prev;
       };
     }
-  }, [lightboxId]);
+  }, [lightbox]);
+
+  const gridClass = "grid w-full grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4";
 
   return (
     <div className="flex flex-col flex-1 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8">
@@ -83,22 +98,43 @@ export default function SlideMarketingKit() {
         </p>
       </div>
 
-      {/* Kompaktní mřížka dlaždic */}
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-2.5">
+      <div className={gridClass}>
         {MARKETING_GALLERY_ITEMS.map((item) => (
-          <Tile key={item.id} item={item} onOpen={() => setLightboxId(item.id)} />
+          <Tile key={item.id} item={item} onOpen={() => setLightbox({ kind: "marketing", id: item.id })} />
         ))}
       </div>
 
-      {/* Lightbox */}
-      {active && (
+      {/* Tapety na telefon */}
+      <div className="mt-8 sm:mt-10">
+        <p
+          className="text-xs font-bold tracking-[0.2em] uppercase mb-3"
+          style={{ color: "var(--color-at-red)" }}
+        >
+          Tapety na telefon
+        </p>
+        <p className="text-xs sm:text-sm mb-4 max-w-2xl" style={{ color: "var(--color-at-blue-v5)" }}>
+          Brandovaná pozadí displeje s QR a jménem – 5 dlaždic na řádku, uložení dlouhým stiskem nebo tlačítkem v náhledu
+        </p>
+        <div className={gridClass}>
+          {PHONE_WALLPAPERS.map((wp) => (
+            <WallpaperTile
+              key={wp.id}
+              wp={wp}
+              onOpen={() => setLightbox({ kind: "wallpaper", id: wp.id })}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Lightbox – marketing */}
+      {activeMkt && (
         <div
           className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-6"
           style={{ background: "rgba(5, 12, 28, 0.88)" }}
           role="dialog"
           aria-modal="true"
           aria-labelledby="mkt-lightbox-title"
-          onClick={() => setLightboxId(null)}
+          onClick={closeLightbox}
         >
           <div
             className="relative w-full max-w-3xl max-h-[92vh] flex flex-col rounded-xl overflow-hidden shadow-2xl"
@@ -117,7 +153,7 @@ export default function SlideMarketingKit() {
                 border: "1px solid var(--color-at-blue-v4)",
               }}
               aria-label="Zavřít"
-              onClick={() => setLightboxId(null)}
+              onClick={closeLightbox}
             >
               ×
             </button>
@@ -126,7 +162,7 @@ export default function SlideMarketingKit() {
               className="flex-1 min-h-0 flex items-center justify-center overflow-auto p-4 pt-12"
               style={{ background: "var(--color-at-blue-v1)" }}
             >
-              <LightboxVisual item={active} />
+              <LightboxVisual item={activeMkt} />
             </div>
 
             <div
@@ -137,30 +173,30 @@ export default function SlideMarketingKit() {
               }}
             >
               <p className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: "var(--color-at-red)" }}>
-                {active.kind === "email" ? "E-mailový podpis" : active.kind === "linkedin" ? "LinkedIn" : "Leták PDF"}
+                {activeMkt.kind === "email" ? "E-mailový podpis" : activeMkt.kind === "linkedin" ? "LinkedIn" : "Leták PDF"}
               </p>
               <h3
                 id="mkt-lightbox-title"
                 className="text-sm sm:text-base font-bold leading-snug pr-8"
                 style={{ color: "var(--color-at-blue)" }}
               >
-                {active.title}
+                {activeMkt.title}
               </h3>
               <p className="text-xs mt-1" style={{ color: "var(--color-at-blue-v3)" }}>
-                {active.meta}
+                {activeMkt.meta}
               </p>
               <div className="flex flex-col sm:flex-row gap-2 mt-4">
                 <a
-                  href={active.fileUrl}
+                  href={activeMkt.fileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ ...btnLightbox(), background: "var(--color-at-red)", color: "var(--color-at-white)", flex: 1 }}
                 >
-                  {active.primaryLabel}
+                  {activeMkt.primaryLabel}
                 </a>
                 <button
                   type="button"
-                  onClick={() => copyOrShare(active.id, active.fileUrl, active.title)}
+                  onClick={() => copyOrShare(activeMkt.id, activeMkt.fileUrl, activeMkt.title)}
                   style={{
                     ...btnLightbox(),
                     background: "var(--color-at-blue-v2)",
@@ -169,7 +205,102 @@ export default function SlideMarketingKit() {
                     flex: 1,
                   }}
                 >
-                  {copiedId === active.id ? "Odkaz v schránce" : "Sdílet / zkopírovat odkaz"}
+                  {copiedId === activeMkt.id ? "Odkaz v schránce" : "Sdílet / zkopírovat odkaz"}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Lightbox – tapeta */}
+      {activeWp && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-6"
+          style={{ background: "rgba(5, 12, 28, 0.88)" }}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="wp-lightbox-title"
+          onClick={closeLightbox}
+        >
+          <div
+            className="relative w-full max-w-lg max-h-[92vh] flex flex-col rounded-xl overflow-hidden shadow-2xl"
+            style={{
+              background: "var(--color-at-blue-v1)",
+              border: "1px solid var(--color-at-blue-v4)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="absolute top-2 right-2 z-10 w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold"
+              style={{
+                background: "rgba(0,0,0,0.45)",
+                color: "var(--color-at-white)",
+                border: "1px solid var(--color-at-blue-v4)",
+              }}
+              aria-label="Zavřít"
+              onClick={closeLightbox}
+            >
+              ×
+            </button>
+
+            <div
+              className="flex-1 min-h-0 flex items-center justify-center overflow-auto p-4 pt-12"
+              style={{ background: "var(--color-at-blue-v1)" }}
+            >
+              <img
+                src={wallpaperPublicPath(activeWp.fileName)}
+                alt={activeWp.name}
+                className="max-w-full max-h-[min(72vh,720px)] w-auto h-auto object-contain rounded-md shadow-lg"
+              />
+            </div>
+
+            <div
+              className="p-4 sm:p-5 shrink-0"
+              style={{
+                background: "var(--color-at-blue-a5)",
+                borderTop: "1px solid var(--color-at-blue-v4)",
+              }}
+            >
+              <p className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: "var(--color-at-red)" }}>
+                Tapeta na telefon
+              </p>
+              <h3
+                id="wp-lightbox-title"
+                className="text-sm sm:text-base font-bold leading-snug pr-8"
+                style={{ color: "var(--color-at-blue)" }}
+              >
+                {activeWp.name}
+              </h3>
+              <p className="text-xs mt-1" style={{ color: "var(--color-at-blue-v3)" }}>
+                AERO EXPO 2026 · uložte obrázek do galerie
+              </p>
+              <div className="flex flex-col sm:flex-row gap-2 mt-4">
+                <a
+                  href={wallpaperPublicPath(activeWp.fileName)}
+                  download={activeWp.fileName}
+                  style={{ ...btnLightbox(), background: "var(--color-at-red)", color: "var(--color-at-white)", flex: 1 }}
+                >
+                  Stáhnout PNG
+                </a>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const path = wallpaperPublicPath(activeWp.fileName);
+                    const abs =
+                      typeof window !== "undefined" ? `${window.location.origin}${path}` : path;
+                    copyOrShare(`wp-${activeWp.id}`, abs, `Tapeta ${activeWp.name}`);
+                  }}
+                  style={{
+                    ...btnLightbox(),
+                    background: "var(--color-at-blue-v2)",
+                    color: "var(--color-at-white)",
+                    border: "1px solid var(--color-at-blue-v3)",
+                    flex: 1,
+                  }}
+                >
+                  {copiedId === `wp-${activeWp.id}` ? "Odkaz v schránce" : "Sdílet odkaz na soubor"}
                 </button>
               </div>
             </div>
@@ -201,7 +332,7 @@ function Tile({ item, onOpen }: { item: MarketingGalleryItem; onOpen: () => void
               background: "linear-gradient(145deg, #0a66c2 0%, #004182 55%, var(--color-at-blue) 100%)",
             }}
           >
-            <span className="text-3xl sm:text-4xl font-black text-white/95" style={{ fontFamily: "system-ui" }} aria-hidden>
+            <span className="text-2xl sm:text-3xl font-black text-white/95" style={{ fontFamily: "system-ui" }} aria-hidden>
               in
             </span>
           </div>
@@ -226,6 +357,47 @@ function Tile({ item, onOpen }: { item: MarketingGalleryItem; onOpen: () => void
             style={{ color: "var(--color-at-blue)" }}
           >
             {item.title}
+          </p>
+        </div>
+      </div>
+    </button>
+  );
+}
+
+function WallpaperTile({ wp, onOpen }: { wp: PhoneWallpaper; onOpen: () => void }) {
+  const src = wallpaperPublicPath(wp.fileName);
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      aria-label={`Náhled tapety: ${wp.name}`}
+      className="group relative w-full aspect-[9/16] max-h-[220px] sm:max-h-[260px] rounded-lg overflow-hidden text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-at-red)] mx-auto"
+      style={{
+        background: "var(--color-at-blue-a5)",
+        border: "1px solid var(--color-at-blue-v5)",
+        padding: 0,
+      }}
+    >
+      <div className="absolute inset-0">
+        <img
+          src={src}
+          alt=""
+          className="w-full h-full object-cover object-center transition duration-200 group-hover:brightness-110 group-hover:scale-[1.02]"
+          loading="lazy"
+          decoding="async"
+        />
+        <div
+          className="absolute inset-x-0 bottom-0 px-1.5 py-1 border-t"
+          style={{
+            background: "var(--color-at-blue-a5)",
+            borderColor: "var(--color-at-blue-v4)",
+          }}
+        >
+          <p
+            className="text-[9px] sm:text-[10px] font-bold leading-tight line-clamp-1"
+            style={{ color: "var(--color-at-blue)" }}
+          >
+            {wp.name}
           </p>
         </div>
       </div>

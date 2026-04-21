@@ -1,6 +1,7 @@
 /**
  * Kanonická adresa nasazené interní aplikace na Vercelu (prezentace + Operativa).
  * Produkc: https://interni-aplikace.vercel.app/
+ * Pro sdílení vždy jen tato doména – ne náhodné deployment aliasy (např. interni-aplikace-….vercel.app).
  *
  * Přepsat lze v .env:
  * - NEXT_PUBLIC_INTERNAL_APP_ORIGIN – např. https://interni-aplikace.vercel.app
