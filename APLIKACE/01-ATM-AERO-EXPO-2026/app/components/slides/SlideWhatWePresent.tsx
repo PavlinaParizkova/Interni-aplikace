@@ -1,7 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { AERO_APP_URL, EXHIBITOR_BADGE_DRIVE_URL, EXHIBITOR_BADGE_DRIVE_URL_2 } from "../../lib/site";
+import {
+  AERO_APP_URL,
+  AERO_FOOD_MAP_URL,
+  EXHIBITOR_BADGE_DRIVE_URL,
+  EXHIBITOR_BADGE_DRIVE_URL_2,
+} from "../../lib/site";
 
 /** Mapa parkovišť AERO (PDF ve veřejné složce – stejný obsah jako organizer podklad) */
 const PARKING_MAP_PDF = "/parkplatzuebersicht-aero-2026.pdf";
@@ -53,7 +58,15 @@ type ContactPerson = {
   links?: { href: string; label: string }[];
 };
 
-const CONTACTS: { role: string; emphasize?: boolean; people: ContactPerson[] }[] = [
+const CONTACTS: {
+  role: string;
+  emphasize?: boolean;
+  /** Emoji zobrazené v hlavičce „důrazněné" dlaždice (default 🪪). */
+  emphasizeIcon?: string;
+  /** Červený štítek v hlavičce „důrazněné" dlaždice (default „Důležité"). */
+  emphasizeLabel?: string;
+  people: ContactPerson[];
+}[] = [
   {
     role: "Organizátor eventu",
     people: [
@@ -105,6 +118,21 @@ const CONTACTS: { role: string; emphasize?: boolean; people: ContactPerson[] }[]
         phone: null,
         linkHref: AERO_APP_URL,
         linkLabel: "📱 Stáhnout aplikaci AERO",
+      },
+    ],
+  },
+  {
+    role: "Kde se najíst",
+    emphasize: true,
+    emphasizeIcon: "🍽️",
+    emphasizeLabel: "Food mapa",
+    people: [
+      {
+        name: "",
+        detail: "Mapa restaurací, bister a stánků s občerstvením přímo na výstavišti AERO Friedrichshafen.",
+        phone: null,
+        linkHref: AERO_FOOD_MAP_URL,
+        linkLabel: "Otevřít food mapu",
       },
     ],
   },
@@ -275,7 +303,7 @@ export default function SlideWhatWePresent() {
               {group.emphasize ? (
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-lg leading-none" aria-hidden>
-                    🪪
+                    {group.emphasizeIcon ?? "🪪"}
                   </span>
                   <span
                     className="text-[10px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded"
@@ -284,7 +312,7 @@ export default function SlideWhatWePresent() {
                       color: "var(--color-at-white)",
                     }}
                   >
-                    Důležité
+                    {group.emphasizeLabel ?? "Důležité"}
                   </span>
                 </div>
               ) : null}

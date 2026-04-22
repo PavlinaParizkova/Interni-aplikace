@@ -27,3 +27,7 @@ export const EXHIBITOR_BADGE_DRIVE_URL_2 =
 
 /** Oficiální mobilní aplikace AERO Friedrichshafen (program, mapa stánků, plánovač). */
 export const AERO_APP_URL = "https://www.aero-expo.com/visit/aero-app";
+
+/** Google Drive – food mapa výstaviště AERO (restaurace, bistra, stánky s občerstvením). */
+export const AERO_FOOD_MAP_URL =
+  "https://drive.google.com/file/d/1xIzqGq3OiKC2i1Y89VDhJOKtfXaVUD0u/view?usp=drive_link";
