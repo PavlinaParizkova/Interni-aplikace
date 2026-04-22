@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useSession } from "next-auth/react";
-import type { MeetingNote } from "@/app/api/meetingnotes/route";
+import type { MeetingNote, NotePhoto } from "@/app/api/meetingnotes/route";
 import { useIsOffline } from "../../hooks/useIsOffline";
 
 function formatTs(iso: string) {
@@ -60,6 +60,14 @@ function exportToMd(notes: MeetingNote[], filterLabel?: string) {
       for (const photo of note.photos) {
         const url = typeof photo === "string" ? photo : photo.full;
         lines.push(`![Příloha](${exportImageUrl(url)})`);
+        const ocr = typeof photo === "string" ? null : photo.ocrText?.trim();
+        if (ocr) {
+          lines.push("");
+          lines.push("> **Vyčtený text z fotky (Gemini Vision):**");
+          for (const ocrLine of ocr.split("\n")) {
+            lines.push(`> ${ocrLine}`);
+          }
+        }
       }
     }
     if (note.editedAt) {
@@ -114,7 +122,7 @@ function resizeImage(file: File, maxWidth: number, quality: number): Promise<Fil
   });
 }
 
-type PhotoPair = { full: string; thumb: string };
+type PhotoPair = NotePhoto;
 
 type UploadResult = { url: string; storage?: "gdrive" | "blob" };
 
@@ -147,6 +155,235 @@ async function uploadPhoto(file: File): Promise<{
   };
 }
 
+/** Zavolá server OCR přes Gemini. Vrací vyčtený text, nebo null (+ chybu) pokud selže. */
+async function ocrPhoto(imageUrl: string): Promise<{ text: string | null; error?: string }> {
+  try {
+    const res = await fetch("/api/ocr", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ imageUrl }),
+    });
+    const data = (await res.json()) as { text?: string; error?: string };
+    if (!res.ok) return { text: null, error: data.error ?? `HTTP ${res.status}` };
+    return { text: (data.text ?? "").trim() || null };
+  } catch (e) {
+    return { text: null, error: e instanceof Error ? e.message : "OCR selhalo" };
+  }
+}
+
+/**
+ * Sbalený informační panel „Jak funguje OCR vizitek".
+ * Default sbalený – zabírá minimum místa, ale dá se rozbalit kliknutím
+ * a prokoukat celý workflow i jak nastavit API klíč po veletrhu.
+ */
+function OcrInfoPanel() {
+  const [open, setOpen] = useState(false);
+  return (
+    <details
+      open={open}
+      onToggle={(e) => setOpen((e.target as HTMLDetailsElement).open)}
+      className="rounded-xl"
+      style={{
+        background: "rgba(147,179,207,0.08)",
+        border: "1px solid var(--color-at-blue-v3)",
+      }}
+    >
+      <summary
+        className="cursor-pointer px-4 py-2.5 flex items-center gap-2 select-none text-xs"
+        style={{ color: "var(--color-at-white)" }}
+      >
+        <span className="text-base" aria-hidden>ℹ️</span>
+        <span className="font-bold uppercase tracking-[0.12em]" style={{ color: "var(--color-at-blue-v5)" }}>
+          Jak fungují vizitky a OCR (klikněte pro rozbalení)
+        </span>
+      </summary>
+      <div className="px-4 pb-4 pt-1 flex flex-col gap-3 text-xs" style={{ color: "var(--color-at-white)", lineHeight: 1.55 }}>
+        <div>
+          <p className="font-bold mb-1" style={{ color: "var(--color-at-blue-v5)" }}>
+            📸 Během veletrhu – jen foťte, nic víc
+          </p>
+          <p style={{ color: "var(--color-at-blue-a5)" }}>
+            Fotku vizitky přiložte k zápisu (tlačítko <strong style={{ color: "var(--color-at-white)" }}>Foto</strong>). Uloží se do Google Drive v plném rozlišení.
+            Pokud má aplikace aktuálně nastavený <code style={{ background: "var(--color-at-blue-v2)", padding: "1px 4px", borderRadius: 3 }}>GEMINI_API_KEY</code>, text z vizitky se vyčte sám na pozadí.
+          </p>
+        </div>
+
+        <div>
+          <p className="font-bold mb-1" style={{ color: "var(--color-at-blue-v5)" }}>
+            🪄 Po veletrhu – Vyčíst text zpětně
+          </p>
+          <p style={{ color: "var(--color-at-blue-a5)" }}>
+            U každé fotky bez vyčteného textu uvidíte tlačítko <strong style={{ color: "var(--color-at-white)" }}>🪄 Vyčíst text z fotky</strong>.
+            Kliknutím se zavolá <strong>Gemini Vision</strong>, do ~5 s se pod fotkou objeví strukturovaný přepis (Jméno, Pozice, Telefon…) a uloží se do databáze pro celý tým.
+          </p>
+        </div>
+
+        <div>
+          <p className="font-bold mb-1" style={{ color: "var(--color-at-blue-v5)" }}>
+            📄 Export do Markdownu
+          </p>
+          <p style={{ color: "var(--color-at-blue-a5)" }}>
+            Tlačítkem <strong style={{ color: "var(--color-at-white)" }}>Exportovat .md</strong> nahoře vpravo stáhnete všechny zápisy včetně vyčtených textů pod každou fotkou (jako citované bloky).
+            Soubor se dá otevřít v Obsidianu, Notionu, Wordu, nebo jen v textovém editoru – kontakty jsou hned searchable (Ctrl+F).
+          </p>
+        </div>
+
+        <div>
+          <p className="font-bold mb-1" style={{ color: "var(--color-at-blue-v5)" }}>
+            ⚙️ Jak nastavit Gemini (jednorázově, zdarma)
+          </p>
+          <ol className="list-decimal pl-5 space-y-0.5" style={{ color: "var(--color-at-blue-a5)" }}>
+            <li>
+              Otevřít <a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer" style={{ color: "var(--color-at-red)", textDecoration: "underline" }}>aistudio.google.com</a> → <strong>Get API key</strong> → <strong>Create API key</strong>
+            </li>
+            <li>Zkopírovat klíč (začíná <code style={{ background: "var(--color-at-blue-v2)", padding: "1px 4px", borderRadius: 3 }}>AIza…</code>) – platební karta NENÍ třeba</li>
+            <li>
+              Na <a href="https://vercel.com/" target="_blank" rel="noopener noreferrer" style={{ color: "var(--color-at-red)", textDecoration: "underline" }}>vercelu.com</a> → projekt <strong>interni-aplikace</strong> → Settings → Environment Variables
+            </li>
+            <li>
+              Add New: <strong>Name</strong> = <code style={{ background: "var(--color-at-blue-v2)", padding: "1px 4px", borderRadius: 3 }}>GEMINI_API_KEY</code>, <strong>Value</strong> = klíč, všechny 3 Environments → Save
+            </li>
+            <li>Deployments → poslední → ⋯ → Redeploy (bez cache)</li>
+          </ol>
+          <p className="mt-1.5" style={{ color: "var(--color-at-blue-v5)" }}>
+            <strong style={{ color: "var(--color-at-white)" }}>Limit zdarma:</strong> 1 500 vizitek/den, 15/minutu. Na AERO EXPO vystačí s velkou rezervou.
+          </p>
+        </div>
+
+        <div
+          className="rounded-lg px-3 py-2"
+          style={{ background: "rgba(213,28,23,0.1)", border: "1px solid var(--color-at-red)" }}
+        >
+          <p className="font-bold mb-1" style={{ color: "var(--color-at-white)" }}>💡 Tip</p>
+          <p style={{ color: "var(--color-at-blue-a5)" }}>
+            Během eventu se OCR nemusíte bát – i když klíč není nastavený nebo Wi-Fi nefunguje, fotka se uloží normálně. Text můžete vyčíst později tlačítkem u každé fotky.
+          </p>
+        </div>
+      </div>
+    </details>
+  );
+}
+
+/**
+ * Sjednocené zobrazení fotky + vyčteného textu pod ní.
+ * - `preview` varianta má křížek pro smazání (v „nový zápis" / „editace").
+ * - `view` varianta má klikatelný náhled (otevře plnou velikost), OCR text v boxu
+ *   a (je-li zadán `onOcrRequest`) tlačítko „Vyčíst text" pro dodatečné spuštění OCR.
+ */
+function PhotoWithOcr({
+  photo,
+  ocrPending,
+  onRemove,
+  onOcrRequest,
+  variant,
+}: {
+  photo: NotePhoto;
+  ocrPending: boolean;
+  onRemove?: () => void;
+  onOcrRequest?: () => void;
+  variant: "preview" | "view";
+}) {
+  const isPreview = variant === "preview";
+  const imgClass = isPreview
+    ? "h-32 w-auto max-w-[240px] object-contain rounded-lg bg-black/20"
+    : "h-56 sm:h-64 w-auto max-w-[420px] object-contain rounded-lg bg-black/20 hover:opacity-85 hover:scale-[1.015] transition-all cursor-zoom-in";
+  const showOcrButton = !isPreview && !photo.ocrText && !!onOcrRequest;
+
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="relative group inline-block self-start">
+        {isPreview ? (
+          <img
+            src={blobImageSrc(photo.thumb)}
+            alt="Příloha"
+            className={imgClass}
+            style={{ border: "1px solid var(--color-at-blue-v3)" }}
+          />
+        ) : (
+          <a
+            href={blobImageSrc(photo.full)}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Otevřít plnou velikost v nové kartě"
+            className="block"
+          >
+            <img
+              src={blobImageSrc(photo.thumb)}
+              alt="Příloha"
+              loading="lazy"
+              className={imgClass}
+              style={{ border: "1px solid var(--color-at-blue-v3)" }}
+            />
+          </a>
+        )}
+        {ocrPending && (
+          <div
+            className="absolute bottom-1.5 left-1.5 flex items-center gap-1.5 rounded-md px-2 py-1 text-[10px] font-bold tracking-wide uppercase"
+            style={{
+              background: "rgba(16,37,62,0.88)",
+              color: "var(--color-at-white)",
+              backdropFilter: "blur(4px)",
+            }}
+          >
+            <span className="inline-block w-2.5 h-2.5 rounded-full animate-pulse" style={{ background: "var(--color-at-red)" }} />
+            ✨ Vyčítám text…
+          </div>
+        )}
+        {isPreview && onRemove && (
+          <button
+            onClick={onRemove}
+            className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity"
+            style={{
+              background: "var(--color-at-red)",
+              color: "var(--color-at-white)",
+              lineHeight: 1,
+            }}
+          >
+            ×
+          </button>
+        )}
+      </div>
+      {showOcrButton && !ocrPending && (
+        <button
+          type="button"
+          onClick={onOcrRequest}
+          className="self-start inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg transition-all hover:opacity-90"
+          style={{
+            background: "var(--color-at-blue-v3)",
+            color: "var(--color-at-white)",
+            border: "1px solid var(--color-at-blue-v4)",
+          }}
+          title="Zavolá Gemini Vision a doplní k této fotce vyčtený text."
+        >
+          🪄 Vyčíst text z fotky
+        </button>
+      )}
+      {photo.ocrText && (
+        <div
+          className="rounded-lg px-3 py-2 max-w-[420px]"
+          style={{
+            background: "rgba(16,37,62,0.55)",
+            border: "1px solid var(--color-at-blue-v3)",
+          }}
+        >
+          <p
+            className="text-[10px] font-bold tracking-[0.15em] uppercase mb-1.5"
+            style={{ color: "var(--color-at-blue-v5)" }}
+          >
+            ✨ Vyčtený text z fotky
+          </p>
+          <pre
+            className="text-xs whitespace-pre-wrap font-mono leading-relaxed"
+            style={{ color: "var(--color-at-white)", margin: 0 }}
+          >
+            {photo.ocrText}
+          </pre>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function OpsNotes() {
   const isOffline = useIsOffline();
   const { data: session } = useSession();
@@ -165,6 +402,10 @@ export default function OpsNotes() {
   const [photos, setPhotos] = useState<PhotoPair[]>([]);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  /** Thumb URL fotek, u kterých právě běží OCR přes Gemini. */
+  const [ocrPendingThumbs, setOcrPendingThumbs] = useState<Set<string>>(new Set());
+  /** Poslední chyba OCR (pokud nějaká nastala). */
+  const [ocrError, setOcrError] = useState<string | null>(null);
   /** Poslední typ úložiště z /api/upload (aby bylo vidět, jestli běží Disk). */
   const [lastUploadStorage, setLastUploadStorage] = useState<
     "gdrive" | "blob" | null
@@ -196,11 +437,125 @@ export default function OpsNotes() {
     return () => clearInterval(interval);
   }, [load]);
 
+  /**
+   * Spustí OCR pro danou fotku na pozadí a po dokončení aktualizuje stav (photos/editPhotos).
+   * Zobrazí spinner u fotky, dokud nedorazí odpověď.
+   */
+  const runOcrInBackground = useCallback(
+    (pair: PhotoPair, target: "new" | "edit") => {
+      setOcrPendingThumbs((prev) => new Set(prev).add(pair.thumb));
+      ocrPhoto(pair.full).then(({ text, error }) => {
+        setOcrPendingThumbs((prev) => {
+          const next = new Set(prev);
+          next.delete(pair.thumb);
+          return next;
+        });
+        if (error) {
+          setOcrError(error);
+          return;
+        }
+        if (!text) return;
+        const updater = (prev: PhotoPair[]) =>
+          prev.map((p) => (p.thumb === pair.thumb ? { ...p, ocrText: text } : p));
+        if (target === "new") setPhotos(updater);
+        else setEditPhotos(updater);
+      });
+    },
+    [],
+  );
+
+  /**
+   * Dodatečné OCR pro už uložený zápis (tlačítko „Vyčíst text" v publikovaném zápisu).
+   * Po úspěchu pošle PUT na /api/meetingnotes, aby se text uložil trvale pro všechny.
+   */
+  const runOcrForExistingNote = useCallback(
+    async (noteId: string, photoThumb: string) => {
+      setOcrError(null);
+      // Najdeme aktuální stav (z callback ref, ať nezmrazíme přes closure)
+      setOcrPendingThumbs((prev) => new Set(prev).add(photoThumb));
+      let latestNote: MeetingNote | undefined;
+      setNotes((current) => {
+        latestNote = current.find((n) => n.id === noteId);
+        return current;
+      });
+      if (!latestNote) {
+        setOcrPendingThumbs((prev) => {
+          const next = new Set(prev);
+          next.delete(photoThumb);
+          return next;
+        });
+        return;
+      }
+      const normalizedPhotos: NotePhoto[] = (latestNote.photos ?? []).map((p) =>
+        typeof p === "string" ? { full: p, thumb: p } : p,
+      );
+      const target = normalizedPhotos.find((p) => p.thumb === photoThumb);
+      if (!target) {
+        setOcrPendingThumbs((prev) => {
+          const next = new Set(prev);
+          next.delete(photoThumb);
+          return next;
+        });
+        return;
+      }
+      const { text, error } = await ocrPhoto(target.full);
+      if (error) {
+        setOcrError(error);
+        setOcrPendingThumbs((prev) => {
+          const next = new Set(prev);
+          next.delete(photoThumb);
+          return next;
+        });
+        return;
+      }
+      if (!text) {
+        setOcrError("Gemini nevrátil žádný text pro tuto fotku.");
+        setOcrPendingThumbs((prev) => {
+          const next = new Set(prev);
+          next.delete(photoThumb);
+          return next;
+        });
+        return;
+      }
+      const updatedPhotos = normalizedPhotos.map((p) =>
+        p.thumb === photoThumb ? { ...p, ocrText: text } : p,
+      );
+      try {
+        const res = await fetch("/api/meetingnotes", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id: noteId,
+            title: latestNote.title,
+            body: latestNote.body,
+            photos: updatedPhotos,
+          }),
+        });
+        if (!res.ok) throw new Error(`PUT vrátil ${res.status}`);
+        const data: MeetingNote[] = await res.json();
+        setNotes(data);
+      } catch (e) {
+        setOcrError(
+          "OCR proběhlo, ale nepodařilo se uložit výsledek. " +
+            (e instanceof Error ? e.message : ""),
+        );
+      } finally {
+        setOcrPendingThumbs((prev) => {
+          const next = new Set(prev);
+          next.delete(photoThumb);
+          return next;
+        });
+      }
+    },
+    [],
+  );
+
   const handleFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
     setUploading(true);
     setUploadError(null);
+    setOcrError(null);
     try {
       const pairs: PhotoPair[] = [];
       for (const file of Array.from(files)) {
@@ -209,6 +564,8 @@ export default function OpsNotes() {
         if (storage) setLastUploadStorage(storage);
       }
       setPhotos((prev) => [...prev, ...pairs]);
+      // OCR pustíme paralelně na pozadí – nečekáme na ně, uživatel může dál psát
+      for (const p of pairs) runOcrInBackground(p, "new");
     } catch (err) {
       setUploadError(err instanceof Error ? err.message : "Nahrávání selhalo");
     } finally {
@@ -276,6 +633,7 @@ export default function OpsNotes() {
         if (storage) setLastUploadStorage(storage);
       }
       setEditPhotos((prev) => [...prev, ...pairs]);
+      for (const p of pairs) runOcrInBackground(p, "edit");
     } catch {
       // ignore
     } finally {
@@ -432,6 +790,9 @@ export default function OpsNotes() {
         ) : null}
       </div>
 
+      {/* Info panel – jak funguje OCR / vizitky */}
+      <OcrInfoPanel />
+
       {/* New note form */}
       <div
         className="flex flex-col gap-2 rounded-xl px-4 py-3"
@@ -473,29 +834,25 @@ export default function OpsNotes() {
         />
         {/* Photo previews */}
         {photos.length > 0 && (
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex flex-col gap-3">
             {photos.map((p) => (
-              <div key={p.thumb} className="relative group">
-                <img
-                  src={blobImageSrc(p.thumb)}
-                  alt="Příloha"
-                  className="h-32 w-auto max-w-[240px] object-contain rounded-lg bg-black/20"
-                  style={{ border: "1px solid var(--color-at-blue-v3)" }}
-                />
-                <button
-                  onClick={() => removePhoto(p.thumb)}
-                  className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{
-                    background: "var(--color-at-red)",
-                    color: "var(--color-at-white)",
-                    lineHeight: 1,
-                  }}
-                >
-                  ×
-                </button>
-              </div>
+              <PhotoWithOcr
+                key={p.thumb}
+                photo={p}
+                ocrPending={ocrPendingThumbs.has(p.thumb)}
+                onRemove={() => removePhoto(p.thumb)}
+                variant="preview"
+              />
             ))}
           </div>
+        )}
+        {ocrError && (
+          <p
+            className="text-xs font-bold px-3 py-1.5 rounded-lg"
+            style={{ background: "rgba(213,28,23,0.12)", color: "var(--color-at-red)" }}
+          >
+            OCR: {ocrError}
+          </p>
         )}
 
         {uploading && (
@@ -653,27 +1010,22 @@ export default function OpsNotes() {
                     {note.body}
                   </p>
                   {note.photos && note.photos.length > 0 && (
-                    <div className="flex gap-3 flex-wrap mt-2">
+                    <div className="flex flex-col gap-4 mt-3">
                       {note.photos.map((photo) => {
-                        const thumbUrl = typeof photo === "string" ? photo : photo.thumb;
-                        const fullUrl = typeof photo === "string" ? photo : photo.full;
+                        const normalized: NotePhoto =
+                          typeof photo === "string"
+                            ? { full: photo, thumb: photo }
+                            : photo;
                         return (
-                          <a
-                            key={thumbUrl}
-                            href={blobImageSrc(fullUrl)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="Otevřít plnou velikost v nové kartě"
-                            className="block"
-                          >
-                            <img
-                              src={blobImageSrc(thumbUrl)}
-                              alt="Příloha"
-                              loading="lazy"
-                              className="h-56 sm:h-64 w-auto max-w-[420px] object-contain rounded-lg bg-black/20 hover:opacity-85 hover:scale-[1.015] transition-all cursor-zoom-in"
-                              style={{ border: "1px solid var(--color-at-blue-v3)" }}
-                            />
-                          </a>
+                          <PhotoWithOcr
+                            key={normalized.thumb}
+                            photo={normalized}
+                            ocrPending={ocrPendingThumbs.has(normalized.thumb)}
+                            onOcrRequest={() =>
+                              runOcrForExistingNote(note.id, normalized.thumb)
+                            }
+                            variant="view"
+                          />
                         );
                       })}
                     </div>
@@ -711,27 +1063,15 @@ export default function OpsNotes() {
 
                   {/* Edit photos */}
                   {editPhotos.length > 0 && (
-                    <div className="flex gap-2 flex-wrap">
+                    <div className="flex flex-col gap-3">
                       {editPhotos.map((p) => (
-                        <div key={p.thumb} className="relative group">
-                          <img
-                            src={blobImageSrc(p.thumb)}
-                            alt="Příloha"
-                            className="h-32 w-auto max-w-[240px] object-contain rounded-lg bg-black/20"
-                            style={{ border: "1px solid var(--color-at-blue-v3)" }}
-                          />
-                          <button
-                            onClick={() => removeEditPhoto(p.thumb)}
-                            className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity"
-                            style={{
-                              background: "var(--color-at-red)",
-                              color: "var(--color-at-white)",
-                              lineHeight: 1,
-                            }}
-                          >
-                            ×
-                          </button>
-                        </div>
+                        <PhotoWithOcr
+                          key={p.thumb}
+                          photo={p}
+                          ocrPending={ocrPendingThumbs.has(p.thumb)}
+                          onRemove={() => removeEditPhoto(p.thumb)}
+                          variant="preview"
+                        />
                       ))}
                     </div>
                   )}

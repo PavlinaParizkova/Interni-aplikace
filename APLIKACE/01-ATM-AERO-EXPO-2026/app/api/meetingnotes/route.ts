@@ -19,6 +19,13 @@ async function saveSnapshot(notes: MeetingNote[]): Promise<void> {
   }
 }
 
+export type NotePhoto = {
+  full: string;
+  thumb: string;
+  /** Text vyčtený z fotky přes Gemini Vision (OCR z vizitky, poznámky, letáku). */
+  ocrText?: string;
+};
+
 export type MeetingNote = {
   id: string;
   title: string;
@@ -26,7 +33,7 @@ export type MeetingNote = {
   author: string;
   createdAt: string;
   editedAt?: string;
-  photos?: { full: string; thumb: string }[];
+  photos?: NotePhoto[];
 };
 
 export async function GET() {
@@ -45,7 +52,7 @@ export async function POST(request: Request) {
       title?: string;
       body: string;
       author: string;
-      photos?: { full: string; thumb: string }[];
+      photos?: NotePhoto[];
     };
     if (!author || !body?.trim()) {
       return NextResponse.json({ error: "Chybí autor nebo obsah." }, { status: 400 });
@@ -74,7 +81,7 @@ export async function PUT(request: Request) {
       id: string;
       title?: string;
       body: string;
-      photos?: { full: string; thumb: string }[];
+      photos?: NotePhoto[];
     };
     if (!id || !body?.trim()) {
       return NextResponse.json({ error: "Chybí ID nebo obsah." }, { status: 400 });
