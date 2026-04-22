@@ -80,10 +80,10 @@ function exportToMd(notes: MeetingNote[], filterLabel?: string) {
 }
 
 /** Plná verze: dost rozlišení na čitelný text (vizitky); náhled: menší, ale ne „zněmizovaný“. */
-const PHOTO_FULL_MAX_WIDTH = 2200;
-const PHOTO_FULL_QUALITY = 0.9;
-const PHOTO_THUMB_MAX_WIDTH = 720;
-const PHOTO_THUMB_QUALITY = 0.82;
+const PHOTO_FULL_MAX_WIDTH = 4400;
+const PHOTO_FULL_QUALITY = 0.92;
+const PHOTO_THUMB_MAX_WIDTH = 1440;
+const PHOTO_THUMB_QUALITY = 0.88;
 
 function resizeImage(file: File, maxWidth: number, quality: number): Promise<File> {
   return new Promise((resolve) => {
@@ -479,12 +479,12 @@ export default function OpsNotes() {
                 <img
                   src={blobImageSrc(p.thumb)}
                   alt="Příloha"
-                  className="w-16 h-16 object-cover rounded-lg"
+                  className="h-32 w-auto max-w-[240px] object-contain rounded-lg bg-black/20"
                   style={{ border: "1px solid var(--color-at-blue-v3)" }}
                 />
                 <button
                   onClick={() => removePhoto(p.thumb)}
-                  className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity"
                   style={{
                     background: "var(--color-at-red)",
                     color: "var(--color-at-white)",
@@ -653,7 +653,7 @@ export default function OpsNotes() {
                     {note.body}
                   </p>
                   {note.photos && note.photos.length > 0 && (
-                    <div className="flex gap-2 flex-wrap mt-1">
+                    <div className="flex gap-3 flex-wrap mt-2">
                       {note.photos.map((photo) => {
                         const thumbUrl = typeof photo === "string" ? photo : photo.thumb;
                         const fullUrl = typeof photo === "string" ? photo : photo.full;
@@ -664,12 +664,13 @@ export default function OpsNotes() {
                             target="_blank"
                             rel="noopener noreferrer"
                             title="Otevřít plnou velikost v nové kartě"
+                            className="block"
                           >
                             <img
                               src={blobImageSrc(thumbUrl)}
                               alt="Příloha"
                               loading="lazy"
-                              className="w-24 h-24 object-cover rounded-lg hover:opacity-80 transition-opacity"
+                              className="h-56 sm:h-64 w-auto max-w-[420px] object-contain rounded-lg bg-black/20 hover:opacity-85 hover:scale-[1.015] transition-all cursor-zoom-in"
                               style={{ border: "1px solid var(--color-at-blue-v3)" }}
                             />
                           </a>
@@ -716,12 +717,12 @@ export default function OpsNotes() {
                           <img
                             src={blobImageSrc(p.thumb)}
                             alt="Příloha"
-                            className="w-16 h-16 object-cover rounded-lg"
+                            className="h-32 w-auto max-w-[240px] object-contain rounded-lg bg-black/20"
                             style={{ border: "1px solid var(--color-at-blue-v3)" }}
                           />
                           <button
                             onClick={() => removeEditPhoto(p.thumb)}
-                            className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity"
                             style={{
                               background: "var(--color-at-red)",
                               color: "var(--color-at-white)",
