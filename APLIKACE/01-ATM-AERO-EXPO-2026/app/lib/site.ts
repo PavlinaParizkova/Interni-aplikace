@@ -24,3 +24,6 @@ export const EXHIBITOR_BADGE_DRIVE_URL =
 /** Google Drive – druhý podklad ke stažení u vystavovatelských průkazů (slide Prezentace). */
 export const EXHIBITOR_BADGE_DRIVE_URL_2 =
   "https://drive.google.com/file/d/13S3u9DejlX8dPCr9wTlcvB3w-0htB8L_/view?usp=drive_link";
+
+/** Oficiální mobilní aplikace AERO Friedrichshafen (program, mapa stánků, plánovač). */
+export const AERO_APP_URL = "https://www.aero-expo.com/visit/aero-app";

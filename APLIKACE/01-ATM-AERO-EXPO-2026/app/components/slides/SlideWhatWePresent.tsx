@@ -1,4 +1,10 @@
-import { EXHIBITOR_BADGE_DRIVE_URL, EXHIBITOR_BADGE_DRIVE_URL_2 } from "../../lib/site";
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
+import { AERO_APP_URL, EXHIBITOR_BADGE_DRIVE_URL, EXHIBITOR_BADGE_DRIVE_URL_2 } from "../../lib/site";
+
+/** Mapa parkovišť AERO (PDF ve veřejné složce – stejný obsah jako organizer podklad) */
+const PARKING_MAP_PDF = "/parkplatzuebersicht-aero-2026.pdf";
 
 const PILLARS = [
   {
@@ -90,9 +96,34 @@ const CONTACTS: { role: string; emphasize?: boolean; people: ContactPerson[] }[]
       },
     ],
   },
+  {
+    role: "Aplikace do telefonu",
+    people: [
+      {
+        name: "",
+        detail: "Oficiální aplikace AERO – program, mapa stánků, plánovač návštěvy.",
+        phone: null,
+        linkHref: AERO_APP_URL,
+        linkLabel: "📱 Stáhnout aplikaci AERO",
+      },
+    ],
+  },
 ];
 
 export default function SlideWhatWePresent() {
+  const [parkingLightboxOpen, setParkingLightboxOpen] = useState(false);
+
+  const closeParkingLightbox = useCallback(() => setParkingLightboxOpen(false), []);
+
+  useEffect(() => {
+    if (!parkingLightboxOpen) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeParkingLightbox();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [parkingLightboxOpen, closeParkingLightbox]);
+
   return (
     <div className="flex flex-col flex-1 px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8 overflow-y-auto">
       {/* Slide header */}
@@ -160,6 +191,62 @@ export default function SlideWhatWePresent() {
             </ul>
           </div>
         ))}
+      </div>
+
+      {/* Mapa parkování */}
+      <div className="mb-6">
+        <p
+          className="text-xs font-bold tracking-[0.2em] uppercase mb-3"
+          style={{ color: "var(--color-at-white)" }}
+        >
+          Parkování u výstaviště
+        </p>
+        <div
+          className="rounded-lg p-4 flex flex-col sm:flex-row gap-4"
+          style={{ background: "var(--color-at-blue-a5)", border: "1px solid var(--color-at-blue-v5)" }}
+        >
+          <div className="flex-1 min-w-0">
+            <h3 className="text-sm font-bold leading-tight mb-1" style={{ color: "var(--color-at-blue)" }}>
+              Přehled parkovišť (Ost / West)
+            </h3>
+            <p className="text-xs leading-snug mb-3" style={{ color: "var(--color-at-blue-v2)" }}>
+              Oficiální mapa AERO Friedrichshafen – barevně rozlišená parkoviště a vchody. V náhledu klikněte na mapu
+              pro zobrazení na celou obrazovku; PDF si můžete stáhnout offline.
+            </p>
+            <a
+              href={PARKING_MAP_PDF}
+              download="Parkplatzuebersicht-AERO-Friedrichshafen.pdf"
+              className="inline-flex items-center justify-center rounded-lg py-2.5 px-4 text-xs font-bold no-underline transition-opacity hover:opacity-92 active:opacity-85"
+              style={{
+                background: "var(--color-at-red)",
+                color: "var(--color-at-white)",
+              }}
+            >
+              Stáhnout PDF mapy
+            </a>
+          </div>
+          <div className="w-full sm:w-[min(100%,420px)] flex-shrink-0">
+            <p className="text-[10px] font-bold uppercase tracking-wide mb-1.5" style={{ color: "var(--color-at-blue-v3)" }}>
+              Náhled · kliknutím zvětšit
+            </p>
+            <div
+              className="relative rounded-lg overflow-hidden"
+              style={{ border: "1px solid var(--color-at-blue-v4)", boxShadow: "0 4px 24px rgba(0,0,0,0.12)" }}
+            >
+              <iframe
+                title="Náhled mapy parkování AERO"
+                src={`${PARKING_MAP_PDF}#toolbar=0&navpanes=0&scrollbar=0`}
+                className="w-full h-44 sm:h-52 border-0 bg-white pointer-events-none"
+              />
+              <button
+                type="button"
+                onClick={() => setParkingLightboxOpen(true)}
+                className="absolute inset-0 w-full h-full cursor-zoom-in bg-transparent border-0 p-0"
+                aria-label="Zvětšit mapu parkování"
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Contacts */}
@@ -273,6 +360,76 @@ export default function SlideWhatWePresent() {
           ))}
         </div>
       </div>
+
+      {/* Lightbox – mapa parkování (PDF) */}
+      {parkingLightboxOpen ? (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="parking-lightbox-title"
+          onClick={closeParkingLightbox}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 9999,
+            background: "rgba(16,37,62,0.92)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 16,
+            backdropFilter: "blur(6px)",
+            animation: "parking-lb-fade-in 180ms ease",
+          }}
+        >
+          <button
+            type="button"
+            onClick={closeParkingLightbox}
+            aria-label="Zavřít náhled mapy"
+            className="btn-transparent"
+            style={{
+              position: "absolute",
+              top: 20,
+              right: 24,
+              borderRadius: "50%",
+              width: 40,
+              height: 40,
+              fontSize: 20,
+              lineHeight: 1,
+            }}
+          >
+            ×
+          </button>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="flex flex-col w-full max-w-[min(1200px,96vw)]"
+            style={{ maxHeight: "90vh", animation: "parking-lb-scale-in 200ms cubic-bezier(0.34,1.56,0.64,1)" }}
+          >
+            <p
+              id="parking-lightbox-title"
+              className="text-sm font-bold mb-2"
+              style={{ color: "var(--color-at-white)" }}
+            >
+              Mapa parkovišť – AERO Friedrichshafen
+            </p>
+            <iframe
+              title="Mapa parkování – plné zobrazení"
+              src={PARKING_MAP_PDF}
+              className="w-full flex-1 min-h-[70vh] rounded-xl border-0 bg-white"
+              style={{ boxShadow: "0 24px 80px rgba(0,0,0,0.7)" }}
+            />
+            <p
+              className="mt-3 text-center text-xs"
+              style={{ color: "rgba(147,179,207,0.85)" }}
+            >
+              Kliknutím mimo okno mapy nebo klávesou Esc zavřete náhled
+            </p>
+          </div>
+          <style>{`
+            @keyframes parking-lb-fade-in { from { opacity: 0 } to { opacity: 1 } }
+            @keyframes parking-lb-scale-in { from { transform: scale(0.96); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+          `}</style>
+        </div>
+      ) : null}
     </div>
   );
 }
