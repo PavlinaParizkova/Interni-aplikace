@@ -49,6 +49,11 @@ const NIGHTS = 2;
 const ADDRESS = "Altenbergstr. 2, 88090 Kippenhausen, Německo";
 const CONTACT_PHONE = "+4975456233";
 const CONTACT_EMAIL = "info@apfelhof-bodensee.de";
+const KEY_SAFE_CODE = "0202";
+const KEY_SAFE_NUMBER = "2";
+const ONSITE_CONTACT_NAME = "Lisa Röhrenbach";
+const ONSITE_CONTACT_PHONE = "+49 151 64935540";
+const APARTMENT_NUMBER = "6";
 
 export default function SlideAccommodation2() {
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
@@ -110,8 +115,13 @@ export default function SlideAccommodation2() {
           >
             <span className="text-lg">🔑</span>
             <div>
-              <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>Č. rezervace: <span className="font-black" style={{ color: "var(--color-at-white)" }}>6385143502</span></p>
-              <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>PIN: <span className="font-black" style={{ color: "var(--color-at-white)" }}>7736</span></p>
+              <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
+                Č. rezervace: <span className="font-black" style={{ color: "var(--color-at-white)" }}>6385143502</span>
+              </p>
+              <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
+                Safe č. <span className="font-black" style={{ color: "var(--color-at-white)" }}>{KEY_SAFE_NUMBER}</span>
+                {" · "}kód <span className="font-black" style={{ color: "var(--color-at-white)" }}>{KEY_SAFE_CODE}</span>
+              </p>
             </div>
           </div>
           <div
@@ -120,8 +130,94 @@ export default function SlideAccommodation2() {
           >
             <span className="text-lg">📞</span>
             <div>
-              <p className="text-xs font-bold" style={{ color: "var(--color-at-white)" }}>Ferienwohnungen Apfelhof-Bodensee Röhrenbach</p>
-              <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>{CONTACT_PHONE} · {CONTACT_EMAIL}</p>
+              <p className="text-xs font-bold" style={{ color: "var(--color-at-white)" }}>
+                Kontakt na místě: {ONSITE_CONTACT_NAME}
+              </p>
+              <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
+                {ONSITE_CONTACT_PHONE} · {CONTACT_EMAIL}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Check-in instrukce – klíče, vchod, kontakt */}
+        <div
+          className="mt-3 rounded-xl p-4 sm:p-5"
+          style={{ background: "var(--color-at-blue-v2)", border: "1px solid var(--color-at-blue-v3)" }}
+        >
+          <p className="text-xs font-bold tracking-[0.2em] uppercase mb-3" style={{ color: "var(--color-at-blue-v5)" }}>
+            Check-in instrukce · příjezd 20:00–21:00
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="flex flex-col gap-1.5">
+              <div className="flex items-center gap-2">
+                <span className="text-lg">🔐</span>
+                <p className="text-xs font-black uppercase tracking-wide" style={{ color: "var(--color-at-white)" }}>
+                  Klíčový safe
+                </p>
+              </div>
+              <p className="text-xs leading-snug" style={{ color: "var(--color-at-blue-v5)" }}>
+                Safe č. <span className="font-black" style={{ color: "var(--color-at-white)" }}>{KEY_SAFE_NUMBER}</span>
+                {" "}· kód{" "}
+                <span className="font-black px-1.5 py-0.5 rounded" style={{ background: "var(--color-at-red)", color: "var(--color-at-white)" }}>
+                  {KEY_SAFE_CODE}
+                </span>
+              </p>
+              <p className="text-xs leading-snug" style={{ color: "var(--color-at-blue-v5)" }}>
+                Po zadání kódu stlačit malou černou páčku vlevo dolů – safe se otevře.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <div className="flex items-center gap-2">
+                <span className="text-lg">📍</span>
+                <p className="text-xs font-black uppercase tracking-wide" style={{ color: "var(--color-at-white)" }}>
+                  Umístění safe
+                </p>
+              </div>
+              <p className="text-xs leading-snug" style={{ color: "var(--color-at-blue-v5)" }}>
+                Vchod <span className="font-black" style={{ color: "var(--color-at-white)" }}>soukromého domu</span>, vlevo od palírny.
+              </p>
+              <p className="text-xs leading-snug" style={{ color: "var(--color-at-blue-v5)" }}>
+                Stojí tam bílá dřevěná lavice – vpravo od ní, na bílém sloupku, visí dva klíčové safe.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <div className="flex items-center gap-2">
+                <span className="text-lg">🚪</span>
+                <p className="text-xs font-black uppercase tracking-wide" style={{ color: "var(--color-at-white)" }}>
+                  Vchod · apartmán č. {APARTMENT_NUMBER}
+                </p>
+              </div>
+              <p className="text-xs leading-snug" style={{ color: "var(--color-at-blue-v5)" }}>
+                Vchod do hostinského domu je <span className="font-black" style={{ color: "var(--color-at-white)" }}>vpravo od palírny</span>, kolem zelené lavice.
+              </p>
+              <p className="text-xs leading-snug" style={{ color: "var(--color-at-blue-v5)" }}>
+                Schody úplně nahoru – apartmán <span className="font-black" style={{ color: "var(--color-at-white)" }}>č. {APARTMENT_NUMBER}</span> v podkroví vpravo. Druhý klíč je na jídelním stole.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <div className="flex items-center gap-2">
+                <span className="text-lg">📞</span>
+                <p className="text-xs font-black uppercase tracking-wide" style={{ color: "var(--color-at-white)" }}>
+                  Kontakt na místě
+                </p>
+              </div>
+              <p className="text-xs leading-snug" style={{ color: "var(--color-at-blue-v5)" }}>
+                <span className="font-black" style={{ color: "var(--color-at-white)" }}>{ONSITE_CONTACT_NAME}</span> (dcera majitelů)
+              </p>
+              <a
+                href={`tel:${ONSITE_CONTACT_PHONE.replace(/\s/g, "")}`}
+                className="text-xs font-black px-2 py-1 rounded text-center"
+                style={{ background: "var(--color-at-red)", color: "var(--color-at-white)" }}
+              >
+                {ONSITE_CONTACT_PHONE}
+              </a>
+              <p className="text-xs leading-snug" style={{ color: "var(--color-at-blue-v5)" }}>
+                Při odjezdu (do 10:00) nechte oba klíče ležet na jídelním stole.
+              </p>
             </div>
           </div>
         </div>
