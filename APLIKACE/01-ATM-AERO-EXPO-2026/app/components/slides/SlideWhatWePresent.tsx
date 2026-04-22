@@ -60,7 +60,7 @@ type ContactPerson = {
   links?: { href: string; label: string }[];
 };
 
-const CONTACTS: {
+type ContactGroup = {
   role: string;
   emphasize?: boolean;
   /** Emoji zobrazené v hlavičce „důrazněné" dlaždice (default 🪪). */
@@ -68,7 +68,46 @@ const CONTACTS: {
   /** Červený štítek v hlavičce „důrazněné" dlaždice (default „Důležité"). */
   emphasizeLabel?: string;
   people: ContactPerson[];
-}[] = [
+};
+
+/** Sekce „APLIKACE A BADGE" – nástroje, které potřebuje každý před vstupem. */
+const APPS_AND_BADGES: ContactGroup[] = [
+  {
+    role: "Vystavovatelské průkazy",
+    emphasize: true,
+    emphasizeIcon: "🪪",
+    emphasizeLabel: "Badge",
+    people: [
+      {
+        name: "",
+        detail: null,
+        phone: null,
+        links: [
+          { href: EXHIBITOR_BADGE_DRIVE_URL, label: "Stáhnout badge" },
+          { href: EXHIBITOR_BADGE_DRIVE_URL_2, label: "Stáhnout druhý podklad" },
+        ],
+      },
+    ],
+  },
+  {
+    role: "Aplikace do telefonu",
+    emphasize: true,
+    emphasizeIcon: "📱",
+    emphasizeLabel: "Mobilní appka",
+    people: [
+      {
+        name: "",
+        detail: "Oficiální aplikace AERO – program, mapa stánků, plánovač návštěvy.",
+        phone: null,
+        linkHref: AERO_APP_URL,
+        linkLabel: "Stáhnout aplikaci AERO",
+      },
+    ],
+  },
+];
+
+/** Sekce „KLÍČOVÉ KONTAKTY" – lidé, na které se obrátit při eventu. */
+const CONTACTS: ContactGroup[] = [
   {
     role: "Organizátor eventu",
     people: [
@@ -96,34 +135,103 @@ const CONTACTS: {
       { name: "Jan Zerák", detail: null, phone: null },
     ],
   },
-  {
-    role: "Vystavovatelské průkazy",
-    emphasize: true,
-    people: [
-      {
-        name: "",
-        detail: null,
-        phone: null,
-        links: [
-          { href: EXHIBITOR_BADGE_DRIVE_URL, label: "Stáhnout badge" },
-          { href: EXHIBITOR_BADGE_DRIVE_URL_2, label: "Stáhnout druhý podklad" },
-        ],
-      },
-    ],
-  },
-  {
-    role: "Aplikace do telefonu",
-    people: [
-      {
-        name: "",
-        detail: "Oficiální aplikace AERO – program, mapa stánků, plánovač návštěvy.",
-        phone: null,
-        linkHref: AERO_APP_URL,
-        linkLabel: "📱 Stáhnout aplikaci AERO",
-      },
-    ],
-  },
 ];
+
+function ContactCard({ group }: { group: ContactGroup }) {
+  return (
+    <div
+      className={`rounded-xl min-w-0 ${group.emphasize ? "p-4" : "p-3"}`}
+      style={{
+        background: group.emphasize ? "var(--color-at-white)" : "var(--color-at-blue-a5)",
+        border: group.emphasize
+          ? "2px solid var(--color-at-red)"
+          : "1px solid var(--color-at-blue-v4)",
+        boxShadow: group.emphasize
+          ? "0 6px 20px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(220, 38, 38, 0.15)"
+          : undefined,
+      }}
+    >
+      {group.emphasize ? (
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-lg leading-none" aria-hidden>
+            {group.emphasizeIcon ?? "🪪"}
+          </span>
+          <span
+            className="text-[10px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded"
+            style={{ background: "var(--color-at-red)", color: "var(--color-at-white)" }}
+          >
+            {group.emphasizeLabel ?? "Důležité"}
+          </span>
+        </div>
+      ) : null}
+      <p
+        className={`font-bold uppercase tracking-wide mb-2 ${group.emphasize ? "text-sm" : "text-xs"}`}
+        style={{ color: group.emphasize ? "var(--color-at-blue)" : "var(--color-at-blue-v3)" }}
+      >
+        {group.role}
+      </p>
+      <div className="space-y-2">
+        {group.people.map((person, idx) => {
+          const linkItems =
+            person.links?.length ?
+              person.links
+            : person.linkHref ?
+              [{ href: person.linkHref, label: person.linkLabel ?? "Odkaz" }]
+            : [];
+
+          return (
+            <div key={`${group.role}-${idx}`}>
+              {person.name ? (
+                <p className="text-sm font-semibold" style={{ color: "var(--color-at-blue)" }}>
+                  {person.name}
+                </p>
+              ) : null}
+              {person.detail && (
+                <p
+                  className={
+                    person.name ? "text-xs" : group.emphasize ? "text-sm leading-relaxed font-medium" : "text-sm leading-snug"
+                  }
+                  style={{ color: "var(--color-at-blue)" }}
+                >
+                  {person.detail}
+                </p>
+              )}
+              {person.phone && (
+                <p className="text-xs font-medium" style={{ color: "var(--color-at-blue-v3)" }}>
+                  {person.phone}
+                </p>
+              )}
+              {linkItems.length > 0 ? (
+                <div className={`flex flex-col ${group.emphasize ? "gap-2.5 mt-3" : "gap-2 mt-2"}`}>
+                  {linkItems.map((link, li) => (
+                    <a
+                      key={`${link.href}-${li}`}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full text-center rounded-lg py-2.5 px-3 text-xs font-bold no-underline transition-opacity hover:opacity-92 active:opacity-85"
+                      style={
+                        li === 0 ?
+                          { background: "var(--color-at-red)", color: "var(--color-at-white)" }
+                        : {
+                            background: "transparent",
+                            color: "var(--color-at-red)",
+                            border: "2px solid var(--color-at-red)",
+                          }
+                      }
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 export default function SlideWhatWePresent() {
   const [parkingLightboxOpen, setParkingLightboxOpen] = useState(false);
@@ -315,7 +423,22 @@ export default function SlideWhatWePresent() {
         </div>
       </div>
 
-      {/* Contacts */}
+      {/* Aplikace a badge */}
+      <div className="mb-6">
+        <p
+          className="text-xs font-bold tracking-[0.2em] uppercase mb-3"
+          style={{ color: "var(--color-at-white)" }}
+        >
+          Aplikace a badge
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {APPS_AND_BADGES.map((group) => (
+            <ContactCard key={group.role} group={group} />
+          ))}
+        </div>
+      </div>
+
+      {/* Klíčové kontakty */}
       <div>
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-3"
@@ -323,106 +446,9 @@ export default function SlideWhatWePresent() {
         >
           Klíčové kontakty
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {CONTACTS.map((group) => (
-            <div
-              key={group.role}
-              className={`rounded-xl min-w-0 ${group.emphasize ? "p-4" : "p-3"}`}
-              style={{
-                background: group.emphasize ? "var(--color-at-white)" : "var(--color-at-blue-a5)",
-                border: group.emphasize
-                  ? "2px solid var(--color-at-red)"
-                  : "1px solid var(--color-at-blue-v4)",
-                boxShadow: group.emphasize
-                  ? "0 6px 20px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(220, 38, 38, 0.15)"
-                  : undefined,
-              }}
-            >
-              {group.emphasize ? (
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-lg leading-none" aria-hidden>
-                    {group.emphasizeIcon ?? "🪪"}
-                  </span>
-                  <span
-                    className="text-[10px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded"
-                    style={{
-                      background: "var(--color-at-red)",
-                      color: "var(--color-at-white)",
-                    }}
-                  >
-                    {group.emphasizeLabel ?? "Důležité"}
-                  </span>
-                </div>
-              ) : null}
-              <p
-                className={`font-bold uppercase tracking-wide mb-2 ${group.emphasize ? "text-sm" : "text-xs"}`}
-                style={{ color: group.emphasize ? "var(--color-at-blue)" : "var(--color-at-blue-v3)" }}
-              >
-                {group.role}
-              </p>
-              <div className="space-y-2">
-                {group.people.map((person, idx) => {
-                  const linkItems =
-                    person.links?.length ?
-                      person.links
-                    : person.linkHref ?
-                      [{ href: person.linkHref, label: person.linkLabel ?? "Odkaz" }]
-                    : [];
-
-                  return (
-                    <div key={`${group.role}-${idx}`}>
-                      {person.name ? (
-                        <p className="text-sm font-semibold" style={{ color: "var(--color-at-blue)" }}>
-                          {person.name}
-                        </p>
-                      ) : null}
-                      {person.detail && (
-                        <p
-                          className={
-                            person.name ? "text-xs" : group.emphasize ? "text-sm leading-relaxed font-medium" : "text-sm leading-snug"
-                          }
-                          style={{ color: "var(--color-at-blue)" }}
-                        >
-                          {person.detail}
-                        </p>
-                      )}
-                      {person.phone && (
-                        <p className="text-xs font-medium" style={{ color: "var(--color-at-blue-v3)" }}>
-                          {person.phone}
-                        </p>
-                      )}
-                      {linkItems.length > 0 ? (
-                        <div className={`flex flex-col ${group.emphasize ? "gap-2.5 mt-3" : "gap-2 mt-2"}`}>
-                          {linkItems.map((link, li) => (
-                            <a
-                              key={`${link.href}-${li}`}
-                              href={link.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block w-full text-center rounded-lg py-2.5 px-3 text-xs font-bold no-underline transition-opacity hover:opacity-92 active:opacity-85"
-                              style={
-                                li === 0 ?
-                                  {
-                                    background: "var(--color-at-red)",
-                                    color: "var(--color-at-white)",
-                                  }
-                                : {
-                                    background: "transparent",
-                                    color: "var(--color-at-red)",
-                                    border: "2px solid var(--color-at-red)",
-                                  }
-                              }
-                            >
-                              {link.label}
-                            </a>
-                          ))}
-                        </div>
-                      ) : null}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+            <ContactCard key={group.role} group={group} />
           ))}
         </div>
       </div>
