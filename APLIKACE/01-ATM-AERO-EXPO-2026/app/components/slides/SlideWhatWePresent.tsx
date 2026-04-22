@@ -10,6 +10,8 @@ import {
 
 /** Mapa parkovišť AERO (PDF ve veřejné složce – stejný obsah jako organizer podklad) */
 const PARKING_MAP_PDF = "/parkplatzuebersicht-aero-2026.pdf";
+/** PNG náhled mapy parkování (rychlejší a spolehlivější než iframe na PDF). */
+const PARKING_MAP_IMAGE = "/parkoviste-aero-2026.png";
 
 const PILLARS = [
   {
@@ -121,21 +123,6 @@ const CONTACTS: {
       },
     ],
   },
-  {
-    role: "Kde se najíst",
-    emphasize: true,
-    emphasizeIcon: "🍽️",
-    emphasizeLabel: "Food mapa",
-    people: [
-      {
-        name: "",
-        detail: "Mapa restaurací, bister a stánků s občerstvením přímo na výstavišti AERO Friedrichshafen.",
-        phone: null,
-        linkHref: AERO_FOOD_MAP_URL,
-        linkLabel: "Otevřít food mapu",
-      },
-    ],
-  },
 ];
 
 export default function SlideWhatWePresent() {
@@ -221,57 +208,108 @@ export default function SlideWhatWePresent() {
         ))}
       </div>
 
-      {/* Mapa parkování */}
+      {/* Mapy výstaviště – parkování + food */}
       <div className="mb-6">
         <p
           className="text-xs font-bold tracking-[0.2em] uppercase mb-3"
           style={{ color: "var(--color-at-white)" }}
         >
-          Parkování u výstaviště
+          Mapy výstaviště
         </p>
-        <div
-          className="rounded-lg p-4 flex flex-col sm:flex-row gap-4"
-          style={{ background: "var(--color-at-blue-a5)", border: "1px solid var(--color-at-blue-v5)" }}
-        >
-          <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-bold leading-tight mb-1" style={{ color: "var(--color-at-blue)" }}>
-              Přehled parkovišť (Ost / West)
-            </h3>
-            <p className="text-xs leading-snug mb-3" style={{ color: "var(--color-at-blue-v2)" }}>
-              Oficiální mapa AERO Friedrichshafen – barevně rozlišená parkoviště a vchody. V náhledu klikněte na mapu
-              pro zobrazení na celou obrazovku; PDF si můžete stáhnout offline.
-            </p>
-            <a
-              href={PARKING_MAP_PDF}
-              download="Parkplatzuebersicht-AERO-Friedrichshafen.pdf"
-              className="inline-flex items-center justify-center rounded-lg py-2.5 px-4 text-xs font-bold no-underline transition-opacity hover:opacity-92 active:opacity-85"
-              style={{
-                background: "var(--color-at-red)",
-                color: "var(--color-at-white)",
-              }}
-            >
-              Stáhnout PDF mapy
-            </a>
-          </div>
-          <div className="w-full sm:w-[min(100%,420px)] flex-shrink-0">
-            <p className="text-[10px] font-bold uppercase tracking-wide mb-1.5" style={{ color: "var(--color-at-blue-v3)" }}>
-              Náhled · kliknutím zvětšit
-            </p>
-            <div
-              className="relative rounded-lg overflow-hidden"
-              style={{ border: "1px solid var(--color-at-blue-v4)", boxShadow: "0 4px 24px rgba(0,0,0,0.12)" }}
-            >
-              <iframe
-                title="Náhled mapy parkování AERO"
-                src={`${PARKING_MAP_PDF}#toolbar=0&navpanes=0&scrollbar=0`}
-                className="w-full h-44 sm:h-52 border-0 bg-white pointer-events-none"
-              />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {/* Parkování */}
+          <div
+            className="rounded-lg p-4 flex flex-col sm:flex-row gap-4"
+            style={{ background: "var(--color-at-blue-a5)", border: "1px solid var(--color-at-blue-v5)" }}
+          >
+            <div className="flex-1 min-w-0 flex flex-col">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-lg leading-none" aria-hidden>🅿️</span>
+                <span
+                  className="text-[10px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded"
+                  style={{ background: "var(--color-at-red)", color: "var(--color-at-white)" }}
+                >
+                  Parkování
+                </span>
+              </div>
+              <h3 className="text-sm font-bold leading-tight mb-1" style={{ color: "var(--color-at-blue)" }}>
+                Přehled parkovišť (Ost / West)
+              </h3>
+              <p className="text-xs leading-snug mb-3 flex-1" style={{ color: "var(--color-at-blue-v2)" }}>
+                Oficiální mapa AERO Friedrichshafen – barevně rozlišená parkoviště a vchody. V náhledu klikněte na
+                obrázek pro zobrazení na celou obrazovku; PDF si můžete stáhnout offline.
+              </p>
+              <a
+                href={PARKING_MAP_PDF}
+                download="Parkplatzuebersicht-AERO-Friedrichshafen.pdf"
+                className="self-start inline-flex items-center justify-center rounded-lg py-2.5 px-4 text-xs font-bold no-underline transition-opacity hover:opacity-92 active:opacity-85"
+                style={{ background: "var(--color-at-red)", color: "var(--color-at-white)" }}
+              >
+                Stáhnout PDF mapy
+              </a>
+            </div>
+            <div className="w-full sm:w-[min(100%,260px)] flex-shrink-0">
+              <p className="text-[10px] font-bold uppercase tracking-wide mb-1.5" style={{ color: "var(--color-at-blue-v3)" }}>
+                Náhled · kliknutím zvětšit
+              </p>
               <button
                 type="button"
                 onClick={() => setParkingLightboxOpen(true)}
-                className="absolute inset-0 w-full h-full cursor-zoom-in bg-transparent border-0 p-0"
                 aria-label="Zvětšit mapu parkování"
-              />
+                className="block w-full rounded-lg overflow-hidden p-0 border-0 bg-white cursor-zoom-in transition-transform hover:scale-[1.02]"
+                style={{ border: "1px solid var(--color-at-blue-v4)", boxShadow: "0 4px 24px rgba(0,0,0,0.12)" }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={PARKING_MAP_IMAGE}
+                  alt="Mapa parkování AERO Friedrichshafen – parkoviště Ost a West"
+                  className="block w-full h-auto"
+                />
+              </button>
+            </div>
+          </div>
+
+          {/* Kde se najíst */}
+          <div
+            className="rounded-lg p-4 flex flex-col sm:flex-row gap-4"
+            style={{ background: "var(--color-at-blue-a5)", border: "1px solid var(--color-at-blue-v5)" }}
+          >
+            <div className="flex-1 min-w-0 flex flex-col">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-lg leading-none" aria-hidden>🍽️</span>
+                <span
+                  className="text-[10px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded"
+                  style={{ background: "var(--color-at-red)", color: "var(--color-at-white)" }}
+                >
+                  Food mapa
+                </span>
+              </div>
+              <h3 className="text-sm font-bold leading-tight mb-1" style={{ color: "var(--color-at-blue)" }}>
+                Kde se najíst
+              </h3>
+              <p className="text-xs leading-snug mb-3 flex-1" style={{ color: "var(--color-at-blue-v2)" }}>
+                Mapa restaurací, bister a stánků s občerstvením přímo na výstavišti AERO Friedrichshafen.
+              </p>
+              <a
+                href={AERO_FOOD_MAP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="self-start inline-flex items-center justify-center rounded-lg py-2.5 px-4 text-xs font-bold no-underline transition-opacity hover:opacity-92 active:opacity-85"
+                style={{ background: "var(--color-at-red)", color: "var(--color-at-white)" }}
+              >
+                Otevřít food mapu
+              </a>
+            </div>
+            <div
+              className="w-full sm:w-[min(100%,180px)] flex-shrink-0 rounded-lg flex items-center justify-center"
+              style={{
+                background: "linear-gradient(135deg, #ffe9d1 0%, #ffd0a0 40%, #ff9d5c 100%)",
+                minHeight: 120,
+                boxShadow: "0 4px 24px rgba(0,0,0,0.12)",
+              }}
+              aria-hidden
+            >
+              <span style={{ fontSize: "clamp(3rem, 8vw, 5rem)", lineHeight: 1 }}>🍽️</span>
             </div>
           </div>
         </div>
@@ -439,12 +477,17 @@ export default function SlideWhatWePresent() {
             >
               Mapa parkovišť – AERO Friedrichshafen
             </p>
-            <iframe
-              title="Mapa parkování – plné zobrazení"
-              src={PARKING_MAP_PDF}
-              className="w-full flex-1 min-h-[70vh] rounded-xl border-0 bg-white"
-              style={{ boxShadow: "0 24px 80px rgba(0,0,0,0.7)" }}
-            />
+            <div
+              className="w-full flex-1 rounded-xl overflow-auto bg-white flex items-center justify-center"
+              style={{ boxShadow: "0 24px 80px rgba(0,0,0,0.7)", maxHeight: "80vh" }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={PARKING_MAP_IMAGE}
+                alt="Mapa parkování AERO Friedrichshafen – plné zobrazení"
+                className="block max-w-full h-auto"
+              />
+            </div>
             <p
               className="mt-3 text-center text-xs"
               style={{ color: "rgba(147,179,207,0.85)" }}
