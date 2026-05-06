@@ -318,13 +318,27 @@ export default function Page() {
 
     const savedSlide = current;
 
+    // Elements to hide during capture (nav, arrows, progress bar)
+    const getUiEls = () => [
+      document.querySelector<HTMLElement>(".slide-nav"),
+      document.querySelector<HTMLElement>("nav[aria-label='Presentation sections']"),
+      document.querySelector<HTMLElement>(".arrow-btn.prev"),
+      document.querySelector<HTMLElement>(".arrow-btn.next"),
+    ];
+
     try {
       const [{ default: jsPDF }, { default: html2canvas }] = await Promise.all([
         import("jspdf"),
         import("html2canvas"),
       ]);
 
-      // A4 landscape in mm
+      // Wait for web fonts (Poppins) to be fully loaded
+      await document.fonts.ready;
+
+      // Hide UI chrome so it doesn't appear in PDF
+      getUiEls().forEach((el) => { if (el) el.style.visibility = "hidden"; });
+
+      // A4 landscape in mm — fills full page, no white borders
       const pdf = new (jsPDF as typeof jsPDFType)({ orientation: "landscape", unit: "mm", format: "a4" });
       const pdfW = pdf.internal.pageSize.getWidth();
       const pdfH = pdf.internal.pageSize.getHeight();
@@ -335,35 +349,37 @@ export default function Page() {
         setDirection("fwd");
         setAnimKey((k) => k + 1);
         setCurrent(i);
-        await sleep(500);
+        // Longer wait: slide animation (360ms) + font paint + image load
+        await sleep(700);
 
-        const mainEl = document.querySelector<HTMLElement>("main");
-        if (!mainEl) continue;
-
-        const canvas = await html2canvas(mainEl, {
-          scale: 1.5,
+        const canvas = await html2canvas(document.body, {
+          scale: 2,
           useCORS: true,
           allowTaint: true,
           backgroundColor: "#10253e",
           logging: false,
+          windowWidth: window.innerWidth,
+          windowHeight: window.innerHeight,
+          width: window.innerWidth,
+          height: window.innerHeight,
+          scrollX: 0,
+          scrollY: 0,
         });
 
-        const imgData = canvas.toDataURL("image/jpeg", 0.92);
-        const imgW = canvas.width;
-        const imgH = canvas.height;
-        const ratio = Math.min(pdfW / imgW, pdfH / imgH);
-        const x = (pdfW - imgW * ratio) / 2;
-        const y = (pdfH - imgH * ratio) / 2;
+        const imgData = canvas.toDataURL("image/jpeg", 0.90);
 
         if (i > 0) pdf.addPage();
-        pdf.addImage(imgData, "JPEG", x, y, imgW * ratio, imgH * ratio);
+        // Stretch to fill full A4 page — no letterbox margins
+        pdf.addImage(imgData, "JPEG", 0, 0, pdfW, pdfH);
       }
 
       pdf.save("Jet-Concept-Sales-2026.pdf");
     } catch (err) {
       console.error("PDF generation failed:", err);
     } finally {
-      // Restore original slide
+      // Restore UI chrome
+      getUiEls().forEach((el) => { if (el) el.style.visibility = ""; });
+      // Return to original slide
       setDirection("bwd");
       setAnimKey((k) => k + 1);
       setCurrent(savedSlide);
