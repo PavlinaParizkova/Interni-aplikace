@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import type jsPDFType from "jspdf";
 import LockScreen from "./components/LockScreen";
 import SlideTitle from "./components/SlideTitle";
 import SlideSection from "./components/SlideSection";
@@ -69,6 +70,25 @@ function IconExitFullscreen() {
       <polyline points="20 10 14 10 14 4" />
       <line x1="10" y1="14" x2="3" y2="21" />
       <line x1="21" y1="3" x2="14" y2="10" />
+    </svg>
+  );
+}
+
+function IconDownload() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7 10 12 15 17 10" />
+      <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  );
+}
+
+function IconSpinner() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+      style={{ animation: "spin 1s linear infinite" }}>
+      <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
     </svg>
   );
 }
@@ -215,6 +235,7 @@ export default function Page() {
   const lang: Lang = "en";
   const [current, setCurrent] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [direction, setDirection] = useState<"fwd" | "bwd">("fwd");
   const [animKey, setAnimKey] = useState(0);
   const touchStartX = useRef<number | null>(null);
@@ -289,6 +310,67 @@ export default function Page() {
     return () => document.removeEventListener("fullscreenchange", onFsChange);
   }, []);
 
+  /* ── PDF Download ────────────────────────────────────────────────────────── */
+
+  async function downloadPDF() {
+    if (isGeneratingPdf) return;
+    setIsGeneratingPdf(true);
+
+    const savedSlide = current;
+
+    try {
+      const [{ default: jsPDF }, { default: html2canvas }] = await Promise.all([
+        import("jspdf"),
+        import("html2canvas"),
+      ]);
+
+      // A4 landscape in mm
+      const pdf = new (jsPDF as typeof jsPDFType)({ orientation: "landscape", unit: "mm", format: "a4" });
+      const pdfW = pdf.internal.pageSize.getWidth();
+      const pdfH = pdf.internal.pageSize.getHeight();
+
+      const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+      for (let i = 0; i < total; i++) {
+        setDirection("fwd");
+        setAnimKey((k) => k + 1);
+        setCurrent(i);
+        await sleep(500);
+
+        const mainEl = document.querySelector<HTMLElement>("main");
+        if (!mainEl) continue;
+
+        const canvas = await html2canvas(mainEl, {
+          scale: 1.5,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: "#10253e",
+          logging: false,
+        });
+
+        const imgData = canvas.toDataURL("image/jpeg", 0.92);
+        const imgW = canvas.width;
+        const imgH = canvas.height;
+        const ratio = Math.min(pdfW / imgW, pdfH / imgH);
+        const x = (pdfW - imgW * ratio) / 2;
+        const y = (pdfH - imgH * ratio) / 2;
+
+        if (i > 0) pdf.addPage();
+        pdf.addImage(imgData, "JPEG", x, y, imgW * ratio, imgH * ratio);
+      }
+
+      pdf.save("Jet-Concept-Sales-2026.pdf");
+    } catch (err) {
+      console.error("PDF generation failed:", err);
+    } finally {
+      // Restore original slide
+      setDirection("bwd");
+      setAnimKey((k) => k + 1);
+      setCurrent(savedSlide);
+      setIsGeneratingPdf(false);
+    }
+  }
+
   /* ── Lock screen ─────────────────────────────────────────────────────────── */
 
   if (!unlocked) {
@@ -309,6 +391,10 @@ export default function Page() {
     @keyframes slideInLeft {
       from { opacity: 0; transform: translateX(-48px); }
       to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
     }
   `;
 
@@ -359,6 +445,39 @@ export default function Page() {
                 AIR&nbsp;TEAM · Jet&nbsp;Concept · 2026
               </span>
             </div>
+            {/* PDF Download */}
+            <button
+              onClick={downloadPDF}
+              disabled={isGeneratingPdf}
+              title={isGeneratingPdf ? "Generating PDF…" : "Download PDF"}
+              style={{
+                width: 32,
+                height: 32,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "transparent",
+                border: "1px solid var(--color-at-blue-v3)",
+                borderRadius: 4,
+                color: isGeneratingPdf ? "var(--color-at-blue-v4)" : "var(--color-at-blue-v5)",
+                cursor: isGeneratingPdf ? "default" : "pointer",
+                transition: "all 150ms",
+                fontFamily: "inherit",
+                opacity: isGeneratingPdf ? 0.6 : 1,
+              }}
+              onMouseEnter={(e) => {
+                if (isGeneratingPdf) return;
+                e.currentTarget.style.background = "var(--color-at-blue-v2)";
+                e.currentTarget.style.color = "var(--color-at-white)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = isGeneratingPdf ? "var(--color-at-blue-v4)" : "var(--color-at-blue-v5)";
+              }}
+            >
+              {isGeneratingPdf ? <IconSpinner /> : <IconDownload />}
+            </button>
+
             {/* Fullscreen toggle */}
             <button
               onClick={toggleFullscreen}
