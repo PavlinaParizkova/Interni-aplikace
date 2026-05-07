@@ -67,7 +67,7 @@ export function StackedBarChart() {
         <YAxis tick={axisStyle} axisLine={false} tickLine={false} unit=" tis." width={60} />
         <Tooltip
           contentStyle={tooltipStyle}
-          formatter={(v: number) => [`${v} tis. Kč`]}
+          formatter={(v: unknown) => [`${v} tis. Kč`]}
           cursor={{ fill: "rgba(255,255,255,0.04)" }}
         />
         <Legend wrapperStyle={{ fontSize: 11, color: "#93b3cf" }} />
@@ -89,7 +89,7 @@ export function YearBarChart() {
         <YAxis tick={axisStyle} axisLine={false} tickLine={false} unit=" tis." width={60} />
         <Tooltip
           contentStyle={tooltipStyle}
-          formatter={(v: number) => [`${v} tis. Kč`, "Způsobilé výdaje"]}
+          formatter={(v: unknown) => [`${v} tis. Kč`, "Způsobilé výdaje"]}
           cursor={{ fill: "rgba(255,255,255,0.04)" }}
         />
         <Bar dataKey="total" name="Způsobilé výdaje" fill="#507499" radius={[3, 3, 0, 0]} />
@@ -117,11 +117,11 @@ export function CategoryDonutChart() {
         </Pie>
         <Tooltip
           contentStyle={tooltipStyle}
-          formatter={(v: number) => [`${v} tis. Kč`]}
+          formatter={(v: unknown) => [`${v} tis. Kč`]}
         />
         <Legend
           wrapperStyle={{ fontSize: 11, color: "#93b3cf" }}
-          formatter={(value, entry: { payload?: { value?: number } }) =>
+          formatter={(value: string, entry: { payload?: { value?: number } }) =>
             `${value} (${entry?.payload?.value} tis.)`
           }
         />
