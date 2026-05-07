@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+@theme {
+  --color-at-red:      #d51c17;
+  --color-at-blue:     #153151;
+  --color-at-white:    #ffffff;
+  --color-at-black:    #1d1d1b;
+
+  --color-at-blue-v1:  #10253e;
+  --color-at-blue-v2:  #1b3f67;
+  --color-at-blue-v3:  #23517c;
+  --color-at-blue-v4:  #507499;
+  --color-at-blue-v5:  #93b3cf;
+
+  --color-at-blue-a1:  #302f2e;
+  --color-at-blue-a2:  #2b4156;
+  --color-at-blue-a3:  #323e49;
+  --color-at-blue-a4:  #4d606f;
+  --color-at-blue-a5:  #cddce8;
+
+  --color-at-black-v1: #4a4a49;
+  --color-at-black-v2: #878787;
+  --color-at-black-v3: #d0d0d0;
+  --color-at-black-v4: #e3e3e3;
+
+  --font-sans: var(--font-poppins), "Poppins", system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { font-size: clamp(13px, 1.2vw, 16px); scroll-behavior: smooth; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-at-blue-v1);
+  color: var(--color-at-white);
+  font-family: var(--font-poppins), "Poppins", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { font-weight: 700; margin: 0; }
+
+/* Badges */
+.badge { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.03em; white-space: nowrap; }
+.badge-green  { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+.badge-orange { background: rgba(251,146,60,0.15); color: #fb923c; border: 1px solid rgba(251,146,60,0.3); }
+.badge-muted  { background: rgba(255,255,255,0.08); color: var(--color-at-blue-v5); border: 1px solid rgba(255,255,255,0.12); }
+
+/* Tables */
+.at-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.at-table th {
+  text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-at-blue-v5);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+}
+.at-table td {
+  padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.06);
+  color: var(--color-at-white); vertical-align: top;
+}
+.at-table tr:last-child td { border-bottom: none; }
+.at-table tr:hover td { background: rgba(255,255,255,0.03); }
+.at-table .total-row td { font-weight: 700; background: rgba(255,255,255,0.06); border-top: 1px solid rgba(255,255,255,0.15); }
+.at-table .cond-row td { background: rgba(251,146,60,0.06); }
+
+/* Section label */
+.section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--color-at-red);
+  margin-bottom: 6px;
+}
+
+/* Stat card */
+.stat-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 20px 24px; }
+.stat-value { font-size: 1.75rem; font-weight: 800; color: var(--color-at-white); line-height: 1; }
+.stat-label { font-size: 12px; color: var(--color-at-blue-v5); margin-top: 4px; }
+.stat-card.accent { border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.07); }
+.stat-card.accent .stat-value { color: #4ade80; }
+
+/* Event card */
+.event-card {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 8px; padding: 12px 14px;
+}
+.event-card.optak { border-color: rgba(34,197,94,0.25); background: rgba(34,197,94,0.05); }
+.event-card.optak-cond { border-color: rgba(251,146,60,0.25); background: rgba(251,146,60,0.05); }
+
+/* Warning box */
+.warning-box {
+  border: 1px solid rgba(251,146,60,0.4); background: rgba(251,146,60,0.08);
+  border-radius: 10px; padding: 16px 20px;
+}
+
+/* Sticky nav */
+.sticky-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(16,37,62,0.95); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Section divider */
+.section-divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 0; }
+
+/* Milestone row */
+.milestone-urgent td { background: rgba(213,28,23,0.08) !important; }
+.milestone-urgent td:first-child { font-weight: 700; color: #f87171; }
+
+@media (max-width: 768px) {
+  .hide-mobile { display: none !important; }
+  .at-table th, .at-table td { padding: 8px 10px; font-size: 0.8rem; }
+}
