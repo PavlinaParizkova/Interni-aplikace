@@ -1,6 +1,7 @@
 import { auth } from "../auth";
 import { redirect } from "next/navigation";
 import { events2026, events2027, events2028, budgetOptak, milestones, type VeletrhEvent } from "./data/op-tak-data";
+import { StackedBarChart, YearBarChart, CategoryDonutChart } from "./components/BudgetCharts";
 
 // ── Badge ────────────────────────────────────────────────────────────────────
 function Badge({ status }: { status: VeletrhEvent["status"] }) {
@@ -143,6 +144,31 @@ export default async function Page() {
             <YearColumn year="2026" events={events2026} />
             <YearColumn year="2027" events={events2027} />
             <YearColumn year="2028" events={events2028} />
+          </div>
+        </section>
+
+        <hr className="section-divider" style={{ marginBottom: 40 }} />
+
+        {/* Budget charts */}
+        <section style={{ marginBottom: 56 }}>
+          <div className="section-label">Grant OP TAK</div>
+          <h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>Vizualizace rozpočtu</h2>
+          <p style={{ fontSize: "0.8rem", color: "var(--color-at-blue-v5)", marginBottom: 24 }}>
+            Orientační čísla v tis. Kč. Cenové nabídky max. 90 dnů staré při podání žádosti.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, marginBottom: 32 }}>
+            <div>
+              <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-at-blue-v5)", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.12em" }}>Náklady na veletrh (tis. Kč)</p>
+              <StackedBarChart />
+            </div>
+            <div>
+              <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-at-blue-v5)", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.12em" }}>Kategorie výdajů</p>
+              <CategoryDonutChart />
+            </div>
+          </div>
+          <div style={{ maxWidth: 480 }}>
+            <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-at-blue-v5)", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.12em" }}>Náklady po letech (tis. Kč)</p>
+            <YearBarChart />
           </div>
         </section>
 
