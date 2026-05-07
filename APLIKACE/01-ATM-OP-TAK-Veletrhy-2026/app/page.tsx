@@ -303,7 +303,6 @@ export default async function Page() {
           <h2 style={{ fontSize: "1.25rem", marginBottom: 16 }}>Pro Tomáše Musila (Profigrant)</h2>
           <ol style={{ paddingLeft: 20, display: "flex", flexDirection: "column", gap: 10 }}>
             {[
-              "Region pro bodování — sídlo Veverská Bítýška (JMK, přechodový) vs. provozovna Kunovice (ZLK, méně rozvinutý). Který doporučujete?",
               "EATS 2026 (4.–5. 11. 2026, Cascais) — konference s výstavní plochou. Způsobilá jako veletrh v rámci výzvy?",
               "FIA 2026 (Farnborough, 19. 7.) — žádost otevírá 18. 6. Pokud podáme ihned, je FIA 2026 způsobilá? Co nejpozději podat?",
               "Dva ročníky stejného veletrhu (AERO 2027 + 2028, AIX 2027 + 2028) — přípustné v jednom projektu?",
