@@ -664,6 +664,7 @@ p {
 
 /* === PDF / PRINT === */
 
+/* Hide print container on screen */
 #pdf-print-container {
   display: none;
   pointer-events: none;
@@ -675,55 +676,56 @@ p {
     margin: 0;
   }
 
-  /* Allow print layout to flow */
+  /* Unlock body scrolling so pages flow */
   html, body {
     overflow: visible !important;
     height: auto !important;
-    width: 100% !important;
+    width: auto !important;
   }
 
-  /* Hide the presentation UI */
-  body > *:not(#pdf-print-container) {
-    display: none !important;
+  /* Step 1 – hide EVERYTHING via visibility (keeps layout flow intact) */
+  body * {
+    visibility: hidden !important;
   }
 
-  /* Show the print container */
+  /* Step 2 – show print container (override display:none AND visibility) */
   #pdf-print-container {
     display: block !important;
+    visibility: visible !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 99999 !important;
+  }
+
+  /* Step 3 – show all children of print container */
+  #pdf-print-container * {
+    visibility: visible !important;
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
   }
 
   /* One slide = one printed page */
   .pdf-print-slide {
-    display: block !important;
     position: relative;
     width: 297mm;
     height: 210mm;
     overflow: hidden;
     page-break-after: always;
     break-after: page;
-    /* Force background graphics to print */
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
   }
 
-  /* Last slide — no extra blank page */
+  /* Last slide – no extra blank page */
   .pdf-print-slide:last-child {
     page-break-after: avoid;
     break-after: avoid;
   }
 
-  /* Ensure all slide children are visible */
-  .pdf-print-slide,
-  .pdf-print-slide * {
-    visibility: visible !important;
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
-  }
-
-  /* Remove nav top-padding — no header bar in print */
+  /* No nav bar in print – remove top padding that compensates for 68px header */
   .pdf-print-slide .slide-content {
-    padding-top: clamp(1.5rem, 4vw, 3rem) !important;
-    padding-bottom: clamp(1.5rem, 4vw, 3rem) !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
   }
 }
 

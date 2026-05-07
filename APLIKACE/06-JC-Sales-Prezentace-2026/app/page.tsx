@@ -312,18 +312,25 @@ export default function Page() {
 
   /* ── PDF Download ────────────────────────────────────────────────────────── */
 
-  async function downloadPDF() {
+  /* ── Print trigger via useEffect (more reliable than async setTimeout) ─── */
+
+  useEffect(() => {
+    if (!isPrintMode) return;
+    const timer = setTimeout(() => {
+      window.print();
+      // Give print dialog time to open before hiding the container
+      setTimeout(() => {
+        setIsPrintMode(false);
+        setIsGeneratingPdf(false);
+      }, 1000);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, [isPrintMode]);
+
+  function downloadPDF() {
     if (isGeneratingPdf) return;
     setIsGeneratingPdf(true);
     setIsPrintMode(true);
-    // Wait for all slides + images + fonts to render
-    await new Promise((r) => setTimeout(r, 2500));
-    window.print();
-    // Clean up after print dialog closes
-    setTimeout(() => {
-      setIsPrintMode(false);
-      setIsGeneratingPdf(false);
-    }, 800);
   }
 
   /* ── Lock screen ─────────────────────────────────────────────────────────── */
