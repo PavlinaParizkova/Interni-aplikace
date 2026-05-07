@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import type jsPDFType from "jspdf";
 import LockScreen from "./components/LockScreen";
 import SlideTitle from "./components/SlideTitle";
 import SlideSection from "./components/SlideSection";
@@ -236,6 +235,7 @@ export default function Page() {
   const [current, setCurrent] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [isPrintMode, setIsPrintMode] = useState(false);
   const [direction, setDirection] = useState<"fwd" | "bwd">("fwd");
   const [animKey, setAnimKey] = useState(0);
   const touchStartX = useRef<number | null>(null);
@@ -315,76 +315,15 @@ export default function Page() {
   async function downloadPDF() {
     if (isGeneratingPdf) return;
     setIsGeneratingPdf(true);
-
-    const savedSlide = current;
-
-    // Elements to hide during capture (nav, arrows, progress bar)
-    const getUiEls = () => [
-      document.querySelector<HTMLElement>(".slide-nav"),
-      document.querySelector<HTMLElement>("nav[aria-label='Presentation sections']"),
-      document.querySelector<HTMLElement>(".arrow-btn.prev"),
-      document.querySelector<HTMLElement>(".arrow-btn.next"),
-    ];
-
-    try {
-      const [{ default: jsPDF }, { default: html2canvas }] = await Promise.all([
-        import("jspdf"),
-        import("html2canvas"),
-      ]);
-
-      // Wait for web fonts (Poppins) to be fully loaded
-      await document.fonts.ready;
-
-      // Hide UI chrome so it doesn't appear in PDF
-      getUiEls().forEach((el) => { if (el) el.style.visibility = "hidden"; });
-
-      // A4 landscape in mm — fills full page, no white borders
-      const pdf = new (jsPDF as typeof jsPDFType)({ orientation: "landscape", unit: "mm", format: "a4" });
-      const pdfW = pdf.internal.pageSize.getWidth();
-      const pdfH = pdf.internal.pageSize.getHeight();
-
-      const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-      for (let i = 0; i < total; i++) {
-        setDirection("fwd");
-        setAnimKey((k) => k + 1);
-        setCurrent(i);
-        // Longer wait: slide animation (360ms) + font paint + image load
-        await sleep(700);
-
-        const canvas = await html2canvas(document.body, {
-          scale: 2,
-          useCORS: true,
-          allowTaint: true,
-          backgroundColor: "#10253e",
-          logging: false,
-          windowWidth: window.innerWidth,
-          windowHeight: window.innerHeight,
-          width: window.innerWidth,
-          height: window.innerHeight,
-          scrollX: 0,
-          scrollY: 0,
-        });
-
-        const imgData = canvas.toDataURL("image/jpeg", 0.90);
-
-        if (i > 0) pdf.addPage();
-        // Stretch to fill full A4 page — no letterbox margins
-        pdf.addImage(imgData, "JPEG", 0, 0, pdfW, pdfH);
-      }
-
-      pdf.save("Jet-Concept-Sales-2026.pdf");
-    } catch (err) {
-      console.error("PDF generation failed:", err);
-    } finally {
-      // Restore UI chrome
-      getUiEls().forEach((el) => { if (el) el.style.visibility = ""; });
-      // Return to original slide
-      setDirection("bwd");
-      setAnimKey((k) => k + 1);
-      setCurrent(savedSlide);
+    setIsPrintMode(true);
+    // Wait for all slides + images + fonts to render
+    await new Promise((r) => setTimeout(r, 2500));
+    window.print();
+    // Clean up after print dialog closes
+    setTimeout(() => {
+      setIsPrintMode(false);
       setIsGeneratingPdf(false);
-    }
+    }, 800);
   }
 
   /* ── Lock screen ─────────────────────────────────────────────────────────── */
@@ -465,7 +404,7 @@ export default function Page() {
             <button
               onClick={downloadPDF}
               disabled={isGeneratingPdf}
-              title={isGeneratingPdf ? "Generating PDF…" : "Download PDF"}
+              title={isGeneratingPdf ? "Preparing PDF…" : "Save as PDF"}
               style={{
                 width: 32,
                 height: 32,
@@ -555,6 +494,17 @@ export default function Page() {
         {/* ─── SECTION PROGRESS BAR ───────────────────────────────────────────── */}
         <SectionProgress current={current} total={total} goTo={goTo} />
       </div>
+
+      {/* ─── PRINT CONTAINER (all slides rendered for window.print()) ────────── */}
+      {isPrintMode && (
+        <div id="pdf-print-container">
+          {Array.from({ length: total }, (_, i) => (
+            <div key={i} className="pdf-print-slide">
+              {renderSlide(lang, i)}
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 }

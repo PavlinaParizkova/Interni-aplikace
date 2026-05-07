@@ -662,6 +662,71 @@ p {
 
 }
 
+/* === PDF / PRINT === */
+
+#pdf-print-container {
+  display: none;
+  pointer-events: none;
+}
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+
+  /* Allow print layout to flow */
+  html, body {
+    overflow: visible !important;
+    height: auto !important;
+    width: 100% !important;
+  }
+
+  /* Hide the presentation UI */
+  body > *:not(#pdf-print-container) {
+    display: none !important;
+  }
+
+  /* Show the print container */
+  #pdf-print-container {
+    display: block !important;
+  }
+
+  /* One slide = one printed page */
+  .pdf-print-slide {
+    display: block !important;
+    position: relative;
+    width: 297mm;
+    height: 210mm;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+    /* Force background graphics to print */
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Last slide — no extra blank page */
+  .pdf-print-slide:last-child {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  /* Ensure all slide children are visible */
+  .pdf-print-slide,
+  .pdf-print-slide * {
+    visibility: visible !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Remove nav top-padding — no header bar in print */
+  .pdf-print-slide .slide-content {
+    padding-top: clamp(1.5rem, 4vw, 3rem) !important;
+    padding-bottom: clamp(1.5rem, 4vw, 3rem) !important;
+  }
+}
+
 /* === UTILITIES === */
 
 .slide-content::-webkit-scrollbar,
