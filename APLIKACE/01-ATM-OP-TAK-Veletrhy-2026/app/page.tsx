@@ -57,8 +57,8 @@ export default async function Page() {
   const session = await auth();
   if (!session) redirect("/login");
 
-  const totalCelkem = 3310;
-  const dotace = 1655;
+  const totalCelkem = 3130;
+  const dotace = 1565;
   const prostor = 4900 - totalCelkem;
 
   return (
@@ -187,22 +187,22 @@ export default async function Page() {
                 ))}
                 <tr className="total-row">
                   <td colSpan={3}>Celkem projekt</td>
-                  <td className="hide-mobile">1 240</td>
-                  <td className="hide-mobile">1 680</td>
+                  <td className="hide-mobile">1 260</td>
+                  <td className="hide-mobile">1 480</td>
                   <td className="hide-mobile">190</td>
                   <td className="hide-mobile">200</td>
-                  <td style={{ textAlign: "right" }}>3 310 tis.</td>
+                  <td style={{ textAlign: "right" }}>3 130 tis.</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 12, marginTop: 20 }}>
             <div className="stat-card">
-              <div className="stat-value" style={{ fontSize: "1.3rem" }}>3 310 tis.</div>
+              <div className="stat-value" style={{ fontSize: "1.3rem" }}>3 130 tis.</div>
               <div className="stat-label">Celkem projekt (Kč)</div>
             </div>
             <div className="stat-card accent">
-              <div className="stat-value" style={{ fontSize: "1.3rem" }}>1 655 tis.</div>
+              <div className="stat-value" style={{ fontSize: "1.3rem" }}>1 565 tis.</div>
               <div className="stat-label">Dotace 50 %</div>
             </div>
             <div className="stat-card">
@@ -210,7 +210,7 @@ export default async function Page() {
               <div className="stat-label">Limit dotace</div>
             </div>
             <div className="stat-card">
-              <div className="stat-value" style={{ fontSize: "1.3rem" }}>1 590 tis.</div>
+              <div className="stat-value" style={{ fontSize: "1.3rem" }}>1 770 tis.</div>
               <div className="stat-label">Prostor do stropu 4 900 tis.</div>
             </div>
           </div>
@@ -244,10 +244,10 @@ export default async function Page() {
                 {[
                   { name: "Paris Air Show / Le Bourget (FR)", year: "2027", size: "6 m²", type: "český stánek", cost: "~120 tis. Kč" },
                   { name: "Dubai Airshow (UAE)", year: "2027", size: "6 m²", type: "český stánek", cost: "~130 tis. Kč" },
-                  { name: "Pilot Expo (BE)", year: "2027", size: "6 m²", type: "vlastní stánek", cost: "~145 tis. Kč" },
+                  { name: "Pilot Expo (BE)", year: "2027", size: "6 m²", type: "vlastní stánek", cost: "~110 tis. Kč" },
                   { name: "Rotax Fly In (AT)", year: "2027", size: "6–12 m²", type: "vlastní stánek", cost: "~150–250 tis. Kč" },
                   { name: "FIA 2028 — Farnborough (UK)", year: "2028", size: "6 m²", type: "český stánek", cost: "~120 tis. Kč" },
-                  { name: "Pilot Expo (BE)", year: "2028", size: "6 m²", type: "vlastní stánek", cost: "~145 tis. Kč" },
+                  { name: "Pilot Expo (BE)", year: "2028", size: "6 m²", type: "vlastní stánek", cost: "~110 tis. Kč" },
                   { name: "Rotax Fly In (AT)", year: "2028", size: "6–12 m²", type: "vlastní stánek", cost: "~150–250 tis. Kč" },
                 ].map((row, i) => (
                   <tr key={i}>

@@ -138,10 +138,10 @@ export type BudgetRow = {
 };
 
 export const budgetOptak: BudgetRow[] = [
-  { name: "AERO Friedrichshafen (DE)", year: "2027", size: "60 m²", pronajem: "450", stavba: "600", doprava: "35", propagace: "50", celkem: "1 135" },
-  { name: "AERO Friedrichshafen (DE)", year: "2028", size: "60 m²", pronajem: "450", stavba: "600", doprava: "35", propagace: "50", celkem: "1 135" },
-  { name: "AIX Hamburg (DE)", year: "2027", size: "12 m²", pronajem: "120", stavba: "200", doprava: "35", propagace: "30", celkem: "385" },
-  { name: "AIX Hamburg (DE)", year: "2028", size: "12 m²", pronajem: "120", stavba: "200", doprava: "35", propagace: "30", celkem: "385" },
+  { name: "AERO Friedrichshafen (DE)", year: "2027", size: "60 m²", pronajem: "300", stavba: "500", doprava: "35", propagace: "50", celkem: "885" },
+  { name: "AERO Friedrichshafen (DE)", year: "2028", size: "60 m²", pronajem: "300", stavba: "500", doprava: "35", propagace: "50", celkem: "885" },
+  { name: "AIX Hamburg (DE)", year: "2027", size: "12 m²", pronajem: "280", stavba: "200", doprava: "35", propagace: "30", celkem: "545" },
+  { name: "AIX Hamburg (DE)", year: "2028", size: "12 m²", pronajem: "280", stavba: "200", doprava: "35", propagace: "30", celkem: "545" },
   { name: "EATS 2026 — Cascais (PT)", year: "2026", size: "10 m²", pronajem: "100", stavba: "80", doprava: "50", propagace: "40", celkem: "270", cond: true },
 ];
 
