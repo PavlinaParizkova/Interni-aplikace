@@ -1,7 +1,7 @@
 const DAYS_STATS = [
   { day: "Den 1", date: "22. 4. 2026 (středa)", count: 14 },
-  { day: "Den 2", date: "23. 4. 2026 (čtvrtek)", count: 21 },
-  { day: "Den 3", date: "24. 4. 2026 (pátek)", count: 12 },
+  { day: "Den 2", date: "23. 4. 2026 (čtvrtek)", count: 28 },
+  { day: "Den 3", date: "24. 4. 2026 (pátek)", count: 21 },
   { day: "Den 4", date: "25. 4. 2026 (sobota)", count: 4 },
 ];
 
@@ -10,7 +10,7 @@ const SALESPEOPLE = [
   { name: "Jan Polák",           role: "Part 145 Manager",     d1: 4, d2: 5, d3: 4, d4: 3, total: 16 },
   { name: "Jakub Dryska",        role: "Key Account Manager",  d1: 0, d2: 3, d3: 2, d4: 0, total: 5 },
   { name: "Vratko Kapuš",        role: "Account Manager",      d1: 3, d2: 0, d3: 0, d4: 0, total: 3 },
-  { name: "Alex Mudrych",        role: "Business Development", d1: 0, d2: 2, d3: 0, d4: 0, total: 2 },
+  { name: "Alex Mudrych",        role: "Business Development", d1: 0, d2: 9, d3: 9, d4: 0, total: 18 },
   { name: "Petr Polák",          role: "CEO",                  d1: 1, d2: 0, d3: 0, d4: 1, total: 2 },
 ];
 
@@ -37,7 +37,7 @@ export default function SlidePostMeetings() {
           Statistika schůzek
         </h2>
         <p className="mt-1 text-sm" style={{ color: "var(--color-at-blue-v5)" }}>
-          43 unikátních schůzek (51 záznamů v Google Kalendáři) · AERO EXPO 2026
+          67 schůzek celkem (43 unikátních před veletrhem + doplnění) · AERO EXPO 2026
         </p>
       </div>
 
@@ -82,7 +82,7 @@ export default function SlidePostMeetings() {
               style={{ borderTop: "1px solid var(--color-at-blue-v3)" }}
             >
               <span className="text-sm font-bold" style={{ color: "var(--color-at-white)" }}>Celkem unikátních</span>
-              <span className="text-2xl font-black" style={{ color: "var(--color-at-red)" }}>43</span>
+              <span className="text-2xl font-black" style={{ color: "var(--color-at-red)" }}>67</span>
             </div>
             <p className="text-xs mt-1" style={{ color: "var(--color-at-blue-v5)" }}>
               U 11 schůzek není obchodník přiřazen – tým doplní dle vlastní evidence.
@@ -189,17 +189,17 @@ export default function SlidePostMeetings() {
             >
               <span className="font-black" style={{ color: "var(--color-at-white)" }}>CELKEM</span>
               <span className="hidden sm:block" />
-              {[12, 15, 10, 7].map((v, i) => (
+              {[12, 31, 28, 7].map((v, i) => (
                 <span key={i} className="text-center font-bold tabular-nums" style={{ color: "var(--color-at-blue-v5)" }}>{v}</span>
               ))}
               <span className="text-center font-black text-base tabular-nums" style={{ color: "var(--color-at-red)" }}>
-                44
+                60
               </span>
             </div>
           </div>
 
           <p className="text-xs" style={{ color: "var(--color-at-blue-v5)" }}>
-            * Součty v řádcích odpovídají přiřazeným schůzkám. U 11 záznamů chybí přiřazení obchodníka AIR TEAM.
+            * Součty v řádcích odpovídají přiřazeným schůzkám (60). Zbývajících 7 bez přiřazení obchodníka AIR TEAM.
           </p>
         </div>
       </div>

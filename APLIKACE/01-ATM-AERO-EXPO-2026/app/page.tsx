@@ -27,6 +27,7 @@ import SlideChecklistAttendance from "./components/slides/SlideChecklistAttendan
 import SlideChecklistDressCode from "./components/slides/SlideChecklistDressCode";
 import SlidePostSummary from "./components/slides/SlidePostSummary";
 import SlidePostMeetings from "./components/slides/SlidePostMeetings";
+import SlidePostDeals from "./components/slides/SlidePostDeals";
 import SlidePostFinance from "./components/slides/SlidePostFinance";
 import SlidePostKPI from "./components/slides/SlidePostKPI";
 import SlidePostLinkedIn from "./components/slides/SlidePostLinkedIn";
@@ -56,6 +57,7 @@ export const SLIDES = [
   { component: <SlideTotalCosts />,              label: "Celkové náklady",   section: "Souhrn" },
   { component: <SlidePostSummary />,             label: "Shrnutí účasti",    section: "Vyhodnocení",   updated: true },
   { component: <SlidePostMeetings />,            label: "Schůzky",           section: "Vyhodnocení",   updated: true },
+  { component: <SlidePostDeals />,               label: "Top 5 jednání",     section: "Vyhodnocení",   updated: true },
   { component: <SlidePostFinance />,             label: "Finance",           section: "Vyhodnocení",   updated: true },
   { component: <SlidePostKPI />,                 label: "KPI plán vs. realita", section: "Vyhodnocení", updated: true },
   { component: <SlidePostLinkedIn />,            label: "LinkedIn",          section: "Vyhodnocení",   updated: true },
