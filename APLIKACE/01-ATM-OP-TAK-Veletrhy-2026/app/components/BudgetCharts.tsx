@@ -50,9 +50,9 @@ const projectItemsData = [
 const PROJECT_ITEM_COLORS = ["#507499", "#2b4156", "#d51c17"];
 
 const STACKED_COLORS = {
-  pronajem:  "#507499",
-  stavba:    "#153151",
-  doprava:   "#93b3cf",
+  pronajem:  "#93b3cf",
+  stavba:    "#507499",
+  doprava:   "#4d606f",
   propagace: "#cddce8",
 };
 

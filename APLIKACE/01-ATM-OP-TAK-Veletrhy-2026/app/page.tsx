@@ -164,13 +164,17 @@ export default async function Page() {
             <div>
               <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-at-blue-v5)", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.12em" }}>Kategorie výdajů</p>
               <CategoryDonutChart />
-              <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-at-blue-v5)", marginTop: 24, marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.12em" }}>Projektové položky (tis. Kč)</p>
-              <ProjectItemsBarChart />
             </div>
           </div>
-          <div style={{ maxWidth: 480 }}>
-            <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-at-blue-v5)", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.12em" }}>Náklady po letech (tis. Kč)</p>
-            <YearBarChart />
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
+            <div>
+              <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-at-blue-v5)", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.12em" }}>Náklady po letech (tis. Kč)</p>
+              <YearBarChart />
+            </div>
+            <div>
+              <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-at-blue-v5)", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.12em" }}>Projektové položky (tis. Kč)</p>
+              <ProjectItemsBarChart />
+            </div>
           </div>
         </section>
 
