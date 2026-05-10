@@ -211,20 +211,20 @@ export default async function Page() {
                     <td style={{ textAlign: "right", fontWeight: 600 }}>{row.celkem} tis.</td>
                   </tr>
                 ))}
-                <tr style={{ borderTop: "1px solid rgba(255,255,255,0.08)", fontStyle: "italic" }}>
-                  <td colSpan={3} style={{ color: "var(--color-at-blue-v5)", fontSize: "0.82rem" }}>Videoprezentace (kat. E — ISR POD, Drone Hunter)</td>
-                  <td className="hide-mobile" colSpan={4} style={{ fontSize: "0.82rem", color: "var(--color-at-blue-v5)" }}>max. limit 300 tis. Kč / projekt</td>
-                  <td style={{ textAlign: "right", fontWeight: 600 }}>300 tis.</td>
+                <tr style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                  <td colSpan={3} style={{ fontSize: "0.82rem", fontStyle: "italic", color: "var(--color-at-white)" }}>Videoprezentace (kat. E — ISR POD, Drone Hunter)</td>
+                  <td className="hide-mobile" colSpan={4} style={{ fontSize: "0.78rem", color: "var(--color-at-blue-v5)", fontStyle: "italic" }}>max. limit 300 tis. Kč / projekt</td>
+                  <td style={{ textAlign: "right", fontWeight: 600, color: "var(--color-at-white)" }}>300 tis.</td>
                 </tr>
-                <tr style={{ borderTop: "1px solid rgba(255,255,255,0.06)", fontStyle: "italic" }}>
-                  <td colSpan={3} style={{ color: "var(--color-at-blue-v5)", fontSize: "0.82rem" }}>Grafické vizualizace, tisk, překlady (kat. D)</td>
-                  <td className="hide-mobile" colSpan={4} style={{ fontSize: "0.82rem", color: "var(--color-at-blue-v5)" }}>interiér, avionika, Jet Pod, Drone Hunter, PilotStyle — tisk DE/EN</td>
-                  <td style={{ textAlign: "right", fontWeight: 600 }}>830 tis.</td>
+                <tr style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                  <td colSpan={3} style={{ fontSize: "0.82rem", fontStyle: "italic", color: "var(--color-at-white)" }}>Grafické vizualizace, tisk, překlady (kat. D)</td>
+                  <td className="hide-mobile" colSpan={4} style={{ fontSize: "0.78rem", color: "var(--color-at-blue-v5)", fontStyle: "italic" }}>interiér, avionika, Jet Pod, Drone Hunter, PilotStyle — tisk DE/EN</td>
+                  <td style={{ textAlign: "right", fontWeight: 600, color: "var(--color-at-white)" }}>830 tis.</td>
                 </tr>
-                <tr style={{ borderTop: "1px solid rgba(255,255,255,0.06)", fontStyle: "italic" }}>
-                  <td colSpan={3} style={{ color: "var(--color-at-blue-v5)", fontSize: "0.82rem" }}>Inzerce v zahraničním tisku (kat. F)</td>
-                  <td className="hide-mobile" colSpan={4} style={{ fontSize: "0.82rem", color: "var(--color-at-blue-v5)" }}>max. limit 500 tis. Kč / projekt</td>
-                  <td style={{ textAlign: "right", fontWeight: 600 }}>500 tis.</td>
+                <tr style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                  <td colSpan={3} style={{ fontSize: "0.82rem", fontStyle: "italic", color: "var(--color-at-white)" }}>Inzerce v zahraničním tisku (kat. F)</td>
+                  <td className="hide-mobile" colSpan={4} style={{ fontSize: "0.78rem", color: "var(--color-at-blue-v5)", fontStyle: "italic" }}>max. limit 500 tis. Kč / projekt</td>
+                  <td style={{ textAlign: "right", fontWeight: 600, color: "var(--color-at-white)" }}>500 tis.</td>
                 </tr>
                 <tr className="total-row">
                   <td colSpan={3}>Celkem projekt</td>
