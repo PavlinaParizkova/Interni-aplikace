@@ -58,8 +58,8 @@ export default async function Page() {
   const session = await auth();
   if (!session) redirect("/login");
 
-  const totalCelkem = 3270;
-  const dotace = 1635;
+  const totalCelkem = 3570;
+  const dotace = 1785;
   const prostor = 4900 - totalCelkem;
 
   return (
@@ -211,24 +211,29 @@ export default async function Page() {
                     <td style={{ textAlign: "right", fontWeight: 600 }}>{row.celkem} tis.</td>
                   </tr>
                 ))}
+                <tr style={{ borderTop: "1px solid rgba(255,255,255,0.08)", fontStyle: "italic" }}>
+                  <td colSpan={3} style={{ color: "var(--color-at-blue-v5)", fontSize: "0.82rem" }}>Videoprezentace (kat. E — ISR POD, Drone Hunter)</td>
+                  <td className="hide-mobile" colSpan={4} style={{ fontSize: "0.82rem", color: "var(--color-at-blue-v5)" }}>max. limit 300 tis. Kč / projekt</td>
+                  <td style={{ textAlign: "right", fontWeight: 600 }}>300 tis.</td>
+                </tr>
                 <tr className="total-row">
                   <td colSpan={3}>Celkem projekt</td>
                   <td className="hide-mobile">1 230</td>
                   <td className="hide-mobile">1 650</td>
                   <td className="hide-mobile">190</td>
                   <td className="hide-mobile">200</td>
-                  <td style={{ textAlign: "right" }}>3 270 tis.</td>
+                  <td style={{ textAlign: "right" }}>3 570 tis.</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 12, marginTop: 20 }}>
             <div className="stat-card">
-              <div className="stat-value" style={{ fontSize: "1.3rem" }}>3 270 tis.</div>
+              <div className="stat-value" style={{ fontSize: "1.3rem" }}>3 570 tis.</div>
               <div className="stat-label">Celkem projekt (Kč)</div>
             </div>
             <div className="stat-card accent">
-              <div className="stat-value" style={{ fontSize: "1.3rem" }}>1 635 tis.</div>
+              <div className="stat-value" style={{ fontSize: "1.3rem" }}>1 785 tis.</div>
               <div className="stat-label">Dotace 50 %</div>
             </div>
             <div className="stat-card">
@@ -236,7 +241,7 @@ export default async function Page() {
               <div className="stat-label">Limit dotace</div>
             </div>
             <div className="stat-card">
-              <div className="stat-value" style={{ fontSize: "1.3rem" }}>1 630 tis.</div>
+              <div className="stat-value" style={{ fontSize: "1.3rem" }}>1 330 tis.</div>
               <div className="stat-label">Prostor do stropu 4 900 tis.</div>
             </div>
           </div>

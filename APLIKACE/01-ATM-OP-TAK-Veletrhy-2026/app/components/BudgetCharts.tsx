@@ -25,19 +25,20 @@ const fairData = [
 ];
 
 const yearData = [
-  { year: "2026", total: 270 },
+  { year: "2026", total: 570 },
   { year: "2027", total: 1420 },
   { year: "2028", total: 1580 },
 ];
 
 const categoryData = [
-  { name: "Stavba stánku",   value: 1650 },
-  { name: "Pronájem plochy", value: 1230 },
-  { name: "Propagace",       value: 200  },
-  { name: "Doprava",         value: 190  },
+  { name: "Stavba stánku",    value: 1650 },
+  { name: "Pronájem plochy",  value: 1230 },
+  { name: "Videoprezentace",  value: 300  },
+  { name: "Propagace",        value: 200  },
+  { name: "Doprava",          value: 190  },
 ];
 
-const COLORS = ["#507499", "#93b3cf", "#cddce8", "#4d606f"];
+const COLORS = ["#507499", "#93b3cf", "#d51c17", "#cddce8", "#4d606f"];
 
 const STACKED_COLORS = {
   pronajem:  "#507499",
