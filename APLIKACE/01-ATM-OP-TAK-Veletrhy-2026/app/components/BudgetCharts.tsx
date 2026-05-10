@@ -17,22 +17,22 @@ import {
 // ── Data ─────────────────────────────────────────────────────────────────────
 
 const fairData = [
-  { name: "AERO 2027", pronajem: 300, stavba: 500, doprava: 35, propagace: 50 },
-  { name: "AERO 2028", pronajem: 300, stavba: 500, doprava: 35, propagace: 50 },
-  { name: "AIX 2027",  pronajem: 280, stavba: 200, doprava: 35, propagace: 30 },
+  { name: "AERO 2027", pronajem: 270, stavba: 550, doprava: 35, propagace: 50 },
+  { name: "AERO 2028", pronajem: 300, stavba: 650, doprava: 35, propagace: 50 },
+  { name: "AIX 2027",  pronajem: 280, stavba: 170, doprava: 35, propagace: 30 },
   { name: "AIX 2028",  pronajem: 280, stavba: 200, doprava: 35, propagace: 30 },
   { name: "EATS 2026", pronajem: 100, stavba:  80, doprava: 50, propagace: 40 },
 ];
 
 const yearData = [
   { year: "2026", total: 270 },
-  { year: "2027", total: 1430 },
-  { year: "2028", total: 1430 },
+  { year: "2027", total: 1420 },
+  { year: "2028", total: 1580 },
 ];
 
 const categoryData = [
-  { name: "Stavba stánku",   value: 1480 },
-  { name: "Pronájem plochy", value: 1260 },
+  { name: "Stavba stánku",   value: 1650 },
+  { name: "Pronájem plochy", value: 1230 },
   { name: "Propagace",       value: 200  },
   { name: "Doprava",         value: 190  },
 ];

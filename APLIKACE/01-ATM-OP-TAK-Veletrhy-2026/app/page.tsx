@@ -58,8 +58,8 @@ export default async function Page() {
   const session = await auth();
   if (!session) redirect("/login");
 
-  const totalCelkem = 3130;
-  const dotace = 1565;
+  const totalCelkem = 3270;
+  const dotace = 1635;
   const prostor = 4900 - totalCelkem;
 
   return (
@@ -213,22 +213,22 @@ export default async function Page() {
                 ))}
                 <tr className="total-row">
                   <td colSpan={3}>Celkem projekt</td>
-                  <td className="hide-mobile">1 260</td>
-                  <td className="hide-mobile">1 480</td>
+                  <td className="hide-mobile">1 230</td>
+                  <td className="hide-mobile">1 650</td>
                   <td className="hide-mobile">190</td>
                   <td className="hide-mobile">200</td>
-                  <td style={{ textAlign: "right" }}>3 130 tis.</td>
+                  <td style={{ textAlign: "right" }}>3 270 tis.</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 12, marginTop: 20 }}>
             <div className="stat-card">
-              <div className="stat-value" style={{ fontSize: "1.3rem" }}>3 130 tis.</div>
+              <div className="stat-value" style={{ fontSize: "1.3rem" }}>3 270 tis.</div>
               <div className="stat-label">Celkem projekt (Kč)</div>
             </div>
             <div className="stat-card accent">
-              <div className="stat-value" style={{ fontSize: "1.3rem" }}>1 565 tis.</div>
+              <div className="stat-value" style={{ fontSize: "1.3rem" }}>1 635 tis.</div>
               <div className="stat-label">Dotace 50 %</div>
             </div>
             <div className="stat-card">
@@ -236,7 +236,7 @@ export default async function Page() {
               <div className="stat-label">Limit dotace</div>
             </div>
             <div className="stat-card">
-              <div className="stat-value" style={{ fontSize: "1.3rem" }}>1 770 tis.</div>
+              <div className="stat-value" style={{ fontSize: "1.3rem" }}>1 630 tis.</div>
               <div className="stat-label">Prostor do stropu 4 900 tis.</div>
             </div>
           </div>
