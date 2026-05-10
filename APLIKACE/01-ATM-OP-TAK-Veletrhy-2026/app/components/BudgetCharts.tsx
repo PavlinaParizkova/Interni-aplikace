@@ -99,7 +99,7 @@ export function YearBarChart() {
         <YAxis tick={axisStyle} axisLine={false} tickLine={false} unit=" tis." width={60} />
         <Tooltip
           contentStyle={tooltipStyle}
-          formatter={(v: unknown, name: string) => [`${v} tis. Kč`, name]}
+          formatter={(v: unknown) => [`${v} tis. Kč`]}
           cursor={{ fill: "rgba(255,255,255,0.04)" }}
         />
         <Legend wrapperStyle={{ fontSize: 11, color: "#93b3cf", paddingTop: 12 }} />
@@ -151,7 +151,7 @@ export function ProjectItemsBarChart() {
     <ResponsiveContainer width="100%" height={160}>
       <BarChart data={projectItemsData} margin={{ top: 4, right: 8, left: 0, bottom: 4 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-        <XAxis dataKey="name" tick={{ ...axisStyle, whiteSpace: "pre" }} axisLine={false} tickLine={false} />
+        <XAxis dataKey="name" tick={axisStyle} axisLine={false} tickLine={false} />
         <YAxis tick={axisStyle} axisLine={false} tickLine={false} unit=" tis." width={60} />
         <Tooltip
           contentStyle={tooltipStyle}
