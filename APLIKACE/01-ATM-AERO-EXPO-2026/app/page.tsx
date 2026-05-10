@@ -25,6 +25,12 @@ import SlideSales from "./components/slides/SlideSales";
 import SlideChecklistTransport from "./components/slides/SlideChecklistTransport";
 import SlideChecklistAttendance from "./components/slides/SlideChecklistAttendance";
 import SlideChecklistDressCode from "./components/slides/SlideChecklistDressCode";
+import SlidePostSummary from "./components/slides/SlidePostSummary";
+import SlidePostMeetings from "./components/slides/SlidePostMeetings";
+import SlidePostFinance from "./components/slides/SlidePostFinance";
+import SlidePostKPI from "./components/slides/SlidePostKPI";
+import SlidePostLinkedIn from "./components/slides/SlidePostLinkedIn";
+import SlidePostActionItems from "./components/slides/SlidePostActionItems";
 
 export const SLIDES = [
   { component: <SlideCover />,                  label: "Úvod",              section: "Úvod" },
@@ -48,6 +54,12 @@ export const SLIDES = [
   { component: <SlidePilotStyleStand />,         label: "Stojan PilotStyle", section: "Stánek",        updated: true },
   { component: <SlideBoothBudget />,             label: "Stánek MLT",        section: "Stánek" },
   { component: <SlideTotalCosts />,              label: "Celkové náklady",   section: "Souhrn" },
+  { component: <SlidePostSummary />,             label: "Shrnutí účasti",    section: "Vyhodnocení",   updated: true },
+  { component: <SlidePostMeetings />,            label: "Schůzky",           section: "Vyhodnocení",   updated: true },
+  { component: <SlidePostFinance />,             label: "Finance",           section: "Vyhodnocení",   updated: true },
+  { component: <SlidePostKPI />,                 label: "KPI plán vs. realita", section: "Vyhodnocení", updated: true },
+  { component: <SlidePostLinkedIn />,            label: "LinkedIn",          section: "Vyhodnocení",   updated: true },
+  { component: <SlidePostActionItems />,         label: "Action Items & 2027", section: "Vyhodnocení", updated: true },
 ];
 
 export const SECTIONS = [
@@ -61,6 +73,7 @@ export const SECTIONS = [
   { label: "Dárky",         slideIndex: 15 },
   { label: "Stánek",        slideIndex: 17 },
   { label: "Souhrn",        slideIndex: 20 },
+  { label: "Vyhodnocení",   slideIndex: 21 },
 ].map((sec, i, arr) => {
   const end = arr[i + 1]?.slideIndex ?? SLIDES.length;
   const hasUpdate = SLIDES.slice(sec.slideIndex, end).some((s) => s.updated);
