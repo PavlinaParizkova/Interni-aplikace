@@ -1,6 +1,6 @@
 import { auth } from "../auth";
 import { redirect } from "next/navigation";
-import { events2026, events2027, events2028, budgetOptak, milestones, type VeletrhEvent } from "./data/op-tak-data";
+import { events2026, events2027, events2028, budgetOptak, milestones, eligibleExpenses, mimoOptak, type VeletrhEvent } from "./data/op-tak-data";
 import { StackedBarChart, YearBarChart, CategoryDonutChart } from "./components/BudgetCharts";
 
 // ── Badge ────────────────────────────────────────────────────────────────────
@@ -248,48 +248,147 @@ export default async function Page() {
 
         <hr className="section-divider" style={{ marginBottom: 40 }} />
 
+        {/* Oprávněné výdaje */}
+        <section style={{ marginBottom: 56 }}>
+          <div className="section-label">Pravidla výzvy</div>
+          <h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>Oprávněné výdaje (50 % proplaceno)</h2>
+          <p style={{ fontSize: "0.8rem", color: "var(--color-at-blue-v5)", marginBottom: 8 }}>
+            Výdaje musí být uhrazeny na základě faktury od externího dodavatele. Vlastní práce, interní náklady a cestovné osob nejsou způsobilé.
+          </p>
+          <p style={{ fontSize: "0.75rem", color: "var(--color-at-blue-v4)", marginBottom: 24, fontStyle: "italic" }}>
+            ⚠️ Výzva ještě nebyla vyhlášena (15. 5. 2026). Níže vychází z výzev Marketing I. a II. — ověřit po zveřejnění na optak.gov.cz.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 16, marginBottom: 28 }}>
+            {eligibleExpenses.map((cat) => (
+              <div key={cat.letter} style={{
+                background: "rgba(255,255,255,0.04)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                borderRadius: 8,
+                padding: "16px 18px",
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                  <span style={{
+                    width: 26, height: 26, borderRadius: 6,
+                    background: "var(--color-at-red)",
+                    color: "#fff", fontWeight: 800, fontSize: "0.8rem",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    flexShrink: 0,
+                  }}>{cat.letter}</span>
+                  <span style={{ fontWeight: 700, fontSize: "0.875rem" }}>{cat.name}</span>
+                  <span style={{
+                    marginLeft: "auto", fontSize: "0.7rem", fontWeight: 700,
+                    color: cat.limit.startsWith("max") ? "#fb923c" : "var(--color-at-blue-v5)",
+                    whiteSpace: "nowrap",
+                  }}>{cat.limit}</span>
+                </div>
+                <ul style={{ margin: 0, paddingLeft: 16, display: "flex", flexDirection: "column", gap: 3 }}>
+                  {cat.items.map((item, i) => (
+                    <li key={i} style={{ fontSize: "0.78rem", color: "var(--color-at-blue-a5)", lineHeight: 1.5 }}>{item}</li>
+                  ))}
+                </ul>
+                {cat.notItems && cat.notItems.length > 0 && (
+                  <ul style={{ margin: "8px 0 0", paddingLeft: 16, display: "flex", flexDirection: "column", gap: 3 }}>
+                    {cat.notItems.map((item, i) => (
+                      <li key={i} style={{ fontSize: "0.75rem", color: "var(--color-at-blue-v4)", lineHeight: 1.5 }}>
+                        <span style={{ color: "#ef4444" }}>✕</span> {item}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {cat.note && (
+                  <div style={{ marginTop: 8, fontSize: "0.72rem", color: "var(--color-at-blue-v4)", fontStyle: "italic", lineHeight: 1.5 }}>
+                    {cat.note}
+                  </div>
+                )}
+                {cat.share && (
+                  <div style={{ marginTop: 6, fontSize: "0.72rem", color: "var(--color-at-blue-v5)" }}>
+                    Typicky {cat.share}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          {/* Neoprávněné výdaje */}
+          <div style={{
+            background: "rgba(239,68,68,0.06)",
+            border: "1px solid rgba(239,68,68,0.2)",
+            borderRadius: 8,
+            padding: "14px 18px",
+          }}>
+            <div style={{ fontWeight: 700, fontSize: "0.875rem", color: "#f87171", marginBottom: 8 }}>
+              Neoprávněné výdaje — dle výzev Marketing I. a II.
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 4 }}>
+              {[
+                "Cestovné osob (letenky, vlak, taxi, km)",
+                "Ubytování a stravné zaměstnanců",
+                "Mzdy a osobní náklady zaměstnanců",
+                "Doprava vlastními prostředky firmy",
+                "Reprezentační výdaje, alkohol, pohoštění",
+              ].map((item, i) => (
+                <div key={i} style={{ fontSize: "0.78rem", color: "var(--color-at-blue-a5)", display: "flex", gap: 6, alignItems: "flex-start" }}>
+                  <span style={{ color: "#ef4444", flexShrink: 0 }}>✕</span> {item}
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: 10, fontSize: "0.75rem", color: "var(--color-at-blue-v4)", fontStyle: "italic" }}>
+              Cestovné a ubytování posádky plánovat mimo OP TAK — odhad 600–800 tis. Kč cestovné + 400–500 tis. Kč ubytování pro 5 veletrhů.
+            </div>
+          </div>
+        </section>
+
+        <hr className="section-divider" style={{ marginBottom: 40 }} />
+
         {/* Mimo OP TAK */}
         <section style={{ marginBottom: 56 }}>
           <div className="section-label">Marketingový rozpočet</div>
           <h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>Veletrhy mimo OP TAK</h2>
           <p style={{ fontSize: "0.8rem", color: "var(--color-at-blue-v5)", marginBottom: 20 }}>
-            Financováno z marketingového rozpočtu AIR TEAM. Způsobilé výdaje bez dotace.
+            Financováno z marketingového rozpočtu AIR TEAM. U každé akce jsou uvedeny konkrétní důvody vyloučení z grantu.
           </p>
-          <div style={{ overflowX: "auto" }}>
-            <table className="at-table">
-              <thead>
-                <tr>
-                  <th>Veletrh</th>
-                  <th>Rok</th>
-                  <th>Plocha</th>
-                  <th>Typ</th>
-                  <th style={{ textAlign: "right" }}>Odhadovaný náklad</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { name: "Paris Air Show / Le Bourget (FR)", year: "2027", size: "6 m²", type: "český stánek", cost: "~120 tis. Kč" },
-                  { name: "Dubai Airshow (UAE)", year: "2027", size: "6 m²", type: "český stánek", cost: "~130 tis. Kč" },
-                  { name: "Pilot Expo (BE)", year: "2027", size: "6 m²", type: "vlastní stánek", cost: "~110 tis. Kč" },
-                  { name: "Rotax Fly In (AT)", year: "2027", size: "6–12 m²", type: "vlastní stánek", cost: "~150–250 tis. Kč" },
-                  { name: "FIA 2028 — Farnborough (UK)", year: "2028", size: "6 m²", type: "český stánek", cost: "~120 tis. Kč" },
-                  { name: "Pilot Expo (BE)", year: "2028", size: "6 m²", type: "vlastní stánek", cost: "~110 tis. Kč" },
-                  { name: "Rotax Fly In (AT)", year: "2028", size: "6–12 m²", type: "vlastní stánek", cost: "~150–250 tis. Kč" },
-                ].map((row, i) => (
-                  <tr key={i}>
-                    <td>{row.name}</td>
-                    <td>{row.year}</td>
-                    <td>{row.size}</td>
-                    <td>{row.type}</td>
-                    <td style={{ textAlign: "right" }}>{row.cost}</td>
-                  </tr>
-                ))}
-                <tr className="total-row">
-                  <td colSpan={4}>Celkem způsobilé výdaje mimo OP TAK</td>
-                  <td style={{ textAlign: "right" }}>~980–1 160 tis. Kč</td>
-                </tr>
-              </tbody>
-            </table>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
+            {mimoOptak.map((row, i) => (
+              <div key={i} style={{
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.07)",
+                borderRadius: 8,
+                padding: "14px 18px",
+                display: "grid",
+                gridTemplateColumns: "1fr auto",
+                gap: "8px 24px",
+                alignItems: "start",
+              }}>
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6, flexWrap: "wrap" }}>
+                    <span style={{ fontWeight: 700, fontSize: "0.875rem" }}>{row.name}</span>
+                    <span style={{ fontSize: "0.72rem", color: "var(--color-at-blue-v5)" }}>{row.year} · {row.size} · {row.type}</span>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                    {row.reasons.map((r, j) => (
+                      <div key={j} style={{ fontSize: "0.775rem", color: "var(--color-at-blue-a5)", display: "flex", gap: 6, alignItems: "flex-start" }}>
+                        <span style={{ color: "var(--color-at-blue-v4)", flexShrink: 0, marginTop: 1 }}>→</span>
+                        {r}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div style={{ textAlign: "right", fontWeight: 600, fontSize: "0.875rem", whiteSpace: "nowrap" }}>
+                  {row.cost}
+                </div>
+              </div>
+            ))}
+            <div style={{
+              background: "rgba(255,255,255,0.06)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              borderRadius: 8,
+              padding: "12px 18px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}>
+              <span style={{ fontWeight: 700, fontSize: "0.875rem" }}>Celkem způsobilé výdaje mimo OP TAK</span>
+              <span style={{ fontWeight: 700, fontSize: "0.875rem" }}>~980–1 160 tis. Kč</span>
+            </div>
           </div>
         </section>
 

@@ -145,6 +145,190 @@ export const budgetOptak: BudgetRow[] = [
   { name: "EATS 2026 — Cascais (PT)", year: "2026", size: "10 m²", pronajem: "100", stavba: "80", doprava: "50", propagace: "40", celkem: "270", cond: true },
 ];
 
+export type EligibleExpenseCategory = {
+  letter: string;
+  name: string;
+  items: string[];
+  notItems?: string[];
+  limit: string;
+  note?: string;
+  share?: string;
+};
+
+export const eligibleExpenses: EligibleExpenseCategory[] = [
+  {
+    letter: "A",
+    name: "Pronájem výstavní plochy",
+    items: [
+      "Plocha podle m², registrační poplatek pořadateli",
+      "Vystavovatelský průkaz, přihlašovací poplatky",
+      "Povinné pojištění výstavní plochy",
+    ],
+    limit: "bez limitu",
+    share: "40–50 % způsobilých výdajů",
+    note: "Faktura pořadatele nebo CzechTrade + smlouva",
+  },
+  {
+    letter: "B",
+    name: "Stavba a vybavení stánku",
+    items: [
+      "Grafický návrh a výkresová dokumentace",
+      "Výroba / pronájem stánkové konstrukce",
+      "Nábytek, AV technika (monitory, plátna, tablety)",
+      "Připojení k sítím (elektřina, voda, internet od pořadatele)",
+      "Montáž, demontáž, úklid — práce dodavatelské firmy",
+    ],
+    notItems: [
+      "Interní grafická práce zaměstnance",
+      "Vlastní vybavení firmy přivezené na stánek",
+      "Práce vlastních zaměstnanců",
+    ],
+    limit: "bez limitu",
+    share: "30–45 % způsobilých výdajů",
+  },
+  {
+    letter: "C",
+    name: "Doprava exponátů (externím dopravcem)",
+    items: [
+      "Přeprava exponátů a stánkových prvků tam i zpět",
+      "Celní poplatky (UK po Brexitu, UAE)",
+      "Balné a manipulace — součást faktury dopravce",
+    ],
+    notItems: [
+      "Vlastní doprava firemním vozidlem — způsobilá NENÍ",
+      "Cestovné osob (letenky, vlak, taxi)",
+    ],
+    limit: "bez limitu",
+    note: "Nutná faktura od externího přepravce",
+  },
+  {
+    letter: "D",
+    name: "Propagační materiály + překlady",
+    items: [
+      "Letáky, brožury, katalogy, plakáty, bannery, rollup",
+      "Digitální prezentace (tvorba dodavatelem)",
+      "Překlady tiskových materiálů do cizích jazyků",
+      "Reklamní předměty s logem pro návštěvníky",
+    ],
+    notItems: ["Česká média a inzerce v ČR nejsou způsobilá"],
+    limit: "bez limitu",
+    note: "Materiály musí prokazatelně sloužit propagaci na způsobilém veletrhu",
+  },
+  {
+    letter: "E",
+    name: "Videoprezentace",
+    items: [
+      "Produkce videa pro prezentaci na veletrhu",
+      "Postprodukce: střih, grafika, titulky, lokalizace",
+    ],
+    limit: "max. 300 tis. Kč / projekt",
+    note: "Video může být sdíleno na více veletrzích — způsobilé jednou",
+  },
+  {
+    letter: "F",
+    name: "Inzerce v zahraničním tisku",
+    items: [
+      "Placená inzerce v zahraničních mediálních titulech",
+      "PR placement v zahraničních médiích",
+      "Katalogová inzerce ve veletržním průvodci pořadatele",
+    ],
+    notItems: ["Česká média nejsou způsobilá"],
+    limit: "max. 500 tis. Kč / projekt",
+  },
+];
+
+export type MimoRow = {
+  name: string;
+  year: string;
+  size: string;
+  type: string;
+  cost: string;
+  reasons: string[];
+};
+
+export const mimoOptak: MimoRow[] = [
+  {
+    name: "Paris Air Show / Le Bourget (FR)",
+    year: "2027",
+    size: "6 m²",
+    type: "český stánek",
+    cost: "~120 tis. Kč",
+    reasons: [
+      "Limit 5 akcí vyčerpán (AERO ×2, AIX ×2, EATS 2026)",
+      "Faktura CzechTrade — způsobilost nepotvrzena (otázka č. 5)",
+    ],
+  },
+  {
+    name: "Dubai Airshow (UAE)",
+    year: "2027",
+    size: "6 m²",
+    type: "český stánek",
+    cost: "~130 tis. Kč",
+    reasons: [
+      "Limit 5 akcí vyčerpán",
+      "Faktura CzechTrade — způsobilost nepotvrzena",
+      "Mimo EU/EHP — vyšší cestovné (neoprávněný výdaj), nižší efektivita dotace",
+    ],
+  },
+  {
+    name: "Pilot Expo (BE)",
+    year: "2027",
+    size: "6 m²",
+    type: "vlastní stánek",
+    cost: "~110 tis. Kč",
+    reasons: [
+      "Limit 5 akcí vyčerpán",
+      "Nízké způsobilé výdaje (~110 tis.) → dotace ~55 tis. Kč — neúměrné administrativní zátěži",
+    ],
+  },
+  {
+    name: "Rotax Fly In (AT)",
+    year: "2027",
+    size: "6–12 m²",
+    type: "vlastní stánek",
+    cost: "~150–250 tis. Kč",
+    reasons: [
+      "Limit 5 akcí vyčerpán",
+      "Charakter akce: fly-in shromáždění, nikoli obchodní veletrh — eligibilita nejistá",
+      "Variabilní plocha komplikuje cenové nabídky pro žádost",
+    ],
+  },
+  {
+    name: "FIA 2028 — Farnborough (UK)",
+    year: "2028",
+    size: "6 m²",
+    type: "český stánek",
+    cost: "~120 tis. Kč",
+    reasons: [
+      "Limit 5 akcí vyčerpán",
+      "Faktura CzechTrade — způsobilost nepotvrzena",
+      "UK mimo EU po Brexitu — celní odbavení + vyšší logistická náročnost",
+    ],
+  },
+  {
+    name: "Pilot Expo (BE)",
+    year: "2028",
+    size: "6 m²",
+    type: "vlastní stánek",
+    cost: "~110 tis. Kč",
+    reasons: [
+      "Limit 5 akcí vyčerpán",
+      "Nízké způsobilé výdaje — slot v grantu vyhrazen pro AERO 60 m²",
+    ],
+  },
+  {
+    name: "Rotax Fly In (AT)",
+    year: "2028",
+    size: "6–12 m²",
+    type: "vlastní stánek",
+    cost: "~150–250 tis. Kč",
+    reasons: [
+      "Limit 5 akcí vyčerpán",
+      "Charakter akce: fly-in, nikoli formální obchodní veletrh — eligibilita nejistá",
+    ],
+  },
+];
+
 export type MilestoneRow = {
   date: string;
   milestone: string;
