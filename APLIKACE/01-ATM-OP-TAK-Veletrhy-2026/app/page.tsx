@@ -168,7 +168,7 @@ export default async function Page() {
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32 }}>
             <div>
-              <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-at-blue-v5)", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.12em" }}>Náklady po letech (tis. Kč)</p>
+              <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-at-blue-v5)", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.12em" }}>Náklady po letech — kategorie výdajů (tis. Kč)</p>
               <YearBarChart />
             </div>
             <div>

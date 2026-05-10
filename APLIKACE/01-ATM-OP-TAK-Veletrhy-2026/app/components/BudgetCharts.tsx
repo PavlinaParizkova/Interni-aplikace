@@ -24,10 +24,10 @@ const fairData = [
   { name: "EATS 2026", pronajem: 100, stavba:  80, doprava: 50, propagace: 40 },
 ];
 
-const yearData = [
-  { year: "2026", total: 670 },
-  { year: "2027", total: 2050 },
-  { year: "2028", total: 2180 },
+const yearCategoryData = [
+  { year: "2026", pronajem: 100, stavba: 80,  doprava: 50, propagace: 140, video: 300, inzerce: 0   },
+  { year: "2027", pronajem: 550, stavba: 720, doprava: 70, propagace: 460, video: 0,   inzerce: 250 },
+  { year: "2028", pronajem: 580, stavba: 850, doprava: 70, propagace: 430, video: 0,   inzerce: 250 },
 ];
 
 const categoryData = [
@@ -92,17 +92,23 @@ export function StackedBarChart() {
 
 export function YearBarChart() {
   return (
-    <ResponsiveContainer width="100%" height={160}>
-      <BarChart data={yearData} margin={{ top: 4, right: 8, left: 0, bottom: 4 }}>
+    <ResponsiveContainer width="100%" height={220}>
+      <BarChart data={yearCategoryData} margin={{ top: 4, right: 8, left: 0, bottom: 4 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
         <XAxis dataKey="year" tick={axisStyle} axisLine={false} tickLine={false} />
         <YAxis tick={axisStyle} axisLine={false} tickLine={false} unit=" tis." width={60} />
         <Tooltip
           contentStyle={tooltipStyle}
-          formatter={(v: unknown) => [`${v} tis. Kč`, "Způsobilé výdaje"]}
+          formatter={(v: unknown, name: string) => [`${v} tis. Kč`, name]}
           cursor={{ fill: "rgba(255,255,255,0.04)" }}
         />
-        <Bar dataKey="total" name="Způsobilé výdaje" fill="#507499" radius={[3, 3, 0, 0]} />
+        <Legend wrapperStyle={{ fontSize: 11, color: "#93b3cf", paddingTop: 12 }} />
+        <Bar dataKey="stavba"    name="Stavba stánku"      stackId="a" fill="#507499" />
+        <Bar dataKey="pronajem"  name="Pronájem plochy"    stackId="a" fill="#93b3cf" />
+        <Bar dataKey="propagace" name="Propagace + tisk"   stackId="a" fill="#4d606f" />
+        <Bar dataKey="inzerce"   name="Inzerce zahraničí"  stackId="a" fill="#2b4156" />
+        <Bar dataKey="video"     name="Videoprezentace"    stackId="a" fill="#d51c17" />
+        <Bar dataKey="doprava"   name="Doprava"            stackId="a" fill="#cddce8" radius={[3, 3, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   );
