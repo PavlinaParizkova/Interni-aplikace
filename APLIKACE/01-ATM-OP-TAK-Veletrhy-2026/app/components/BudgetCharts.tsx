@@ -102,7 +102,7 @@ export function YearBarChart() {
 
 export function CategoryDonutChart() {
   return (
-    <ResponsiveContainer width="100%" height={220}>
+    <ResponsiveContainer width="100%" height={260}>
       <PieChart>
         <Pie
           data={categoryData}
@@ -122,7 +122,7 @@ export function CategoryDonutChart() {
           formatter={(v: unknown) => [`${v} tis. Kč`]}
         />
         <Legend
-          wrapperStyle={{ fontSize: 11, color: "#93b3cf" }}
+          wrapperStyle={{ fontSize: 11, color: "#93b3cf", paddingTop: 16, lineHeight: "1.8" }}
           formatter={(value: string, entry: { payload?: { value?: number } }) =>
             `${value} (${entry?.payload?.value} tis.)`
           }
