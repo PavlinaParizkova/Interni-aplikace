@@ -58,8 +58,8 @@ export default async function Page() {
   const session = await auth();
   if (!session) redirect("/login");
 
-  const totalCelkem = 3570;
-  const dotace = 1785;
+  const totalCelkem = 4900;
+  const dotace = 2450;
   const prostor = 4900 - totalCelkem;
 
   return (
@@ -216,33 +216,43 @@ export default async function Page() {
                   <td className="hide-mobile" colSpan={4} style={{ fontSize: "0.82rem", color: "var(--color-at-blue-v5)" }}>max. limit 300 tis. Kč / projekt</td>
                   <td style={{ textAlign: "right", fontWeight: 600 }}>300 tis.</td>
                 </tr>
+                <tr style={{ borderTop: "1px solid rgba(255,255,255,0.06)", fontStyle: "italic" }}>
+                  <td colSpan={3} style={{ color: "var(--color-at-blue-v5)", fontSize: "0.82rem" }}>Grafické vizualizace, tisk, překlady (kat. D)</td>
+                  <td className="hide-mobile" colSpan={4} style={{ fontSize: "0.82rem", color: "var(--color-at-blue-v5)" }}>interiér, avionika, Jet Pod, Drone Hunter, PilotStyle — tisk DE/EN</td>
+                  <td style={{ textAlign: "right", fontWeight: 600 }}>830 tis.</td>
+                </tr>
+                <tr style={{ borderTop: "1px solid rgba(255,255,255,0.06)", fontStyle: "italic" }}>
+                  <td colSpan={3} style={{ color: "var(--color-at-blue-v5)", fontSize: "0.82rem" }}>Inzerce v zahraničním tisku (kat. F)</td>
+                  <td className="hide-mobile" colSpan={4} style={{ fontSize: "0.82rem", color: "var(--color-at-blue-v5)" }}>max. limit 500 tis. Kč / projekt</td>
+                  <td style={{ textAlign: "right", fontWeight: 600 }}>500 tis.</td>
+                </tr>
                 <tr className="total-row">
                   <td colSpan={3}>Celkem projekt</td>
                   <td className="hide-mobile">1 230</td>
                   <td className="hide-mobile">1 650</td>
                   <td className="hide-mobile">190</td>
-                  <td className="hide-mobile">200</td>
-                  <td style={{ textAlign: "right" }}>3 570 tis.</td>
+                  <td className="hide-mobile">1 030</td>
+                  <td style={{ textAlign: "right" }}>4 900 tis.</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 12, marginTop: 20 }}>
             <div className="stat-card">
-              <div className="stat-value" style={{ fontSize: "1.3rem" }}>3 570 tis.</div>
+              <div className="stat-value" style={{ fontSize: "1.3rem" }}>4 900 tis.</div>
               <div className="stat-label">Celkem projekt (Kč)</div>
             </div>
             <div className="stat-card accent">
-              <div className="stat-value" style={{ fontSize: "1.3rem" }}>1 785 tis.</div>
+              <div className="stat-value" style={{ fontSize: "1.3rem" }}>2 450 tis.</div>
               <div className="stat-label">Dotace 50 %</div>
             </div>
             <div className="stat-card">
               <div className="stat-value" style={{ fontSize: "1.3rem" }}>2 450 tis.</div>
               <div className="stat-label">Limit dotace</div>
             </div>
-            <div className="stat-card">
-              <div className="stat-value" style={{ fontSize: "1.3rem" }}>1 330 tis.</div>
-              <div className="stat-label">Prostor do stropu 4 900 tis.</div>
+            <div className="stat-card accent">
+              <div className="stat-value" style={{ fontSize: "1.3rem" }}>100 %</div>
+              <div className="stat-label">Využití stropu 4 900 tis.</div>
             </div>
           </div>
           <p style={{ fontSize: "0.75rem", color: "var(--color-at-blue-v4)", marginTop: 12 }}>
