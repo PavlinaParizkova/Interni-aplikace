@@ -41,6 +41,14 @@ const categoryData = [
 
 const COLORS = ["#507499", "#93b3cf", "#4d606f", "#2b4156", "#d51c17", "#cddce8"];
 
+const projectItemsData = [
+  { name: "Vizualizace\n+ tisk", value: 830 },
+  { name: "Inzerce\nzahraničí", value: 500 },
+  { name: "Video-\nprezentace", value: 300 },
+];
+
+const PROJECT_ITEM_COLORS = ["#507499", "#2b4156", "#d51c17"];
+
 const STACKED_COLORS = {
   pronajem:  "#507499",
   stavba:    "#153151",
@@ -128,6 +136,28 @@ export function CategoryDonutChart() {
           }
         />
       </PieChart>
+    </ResponsiveContainer>
+  );
+}
+
+export function ProjectItemsBarChart() {
+  return (
+    <ResponsiveContainer width="100%" height={160}>
+      <BarChart data={projectItemsData} margin={{ top: 4, right: 8, left: 0, bottom: 4 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+        <XAxis dataKey="name" tick={{ ...axisStyle, whiteSpace: "pre" }} axisLine={false} tickLine={false} />
+        <YAxis tick={axisStyle} axisLine={false} tickLine={false} unit=" tis." width={60} />
+        <Tooltip
+          contentStyle={tooltipStyle}
+          formatter={(v: unknown) => [`${v} tis. Kč`]}
+          cursor={{ fill: "rgba(255,255,255,0.04)" }}
+        />
+        <Bar dataKey="value" name="Výdaje" radius={[3, 3, 0, 0]}>
+          {projectItemsData.map((_, i) => (
+            <Cell key={i} fill={PROJECT_ITEM_COLORS[i]} />
+          ))}
+        </Bar>
+      </BarChart>
     </ResponsiveContainer>
   );
 }

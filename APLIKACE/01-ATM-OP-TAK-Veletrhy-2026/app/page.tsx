@@ -1,7 +1,7 @@
 import { auth } from "../auth";
 import { redirect } from "next/navigation";
 import { events2026, events2027, events2028, budgetOptak, milestones, eligibleExpenses, mimoOptak, type VeletrhEvent } from "./data/op-tak-data";
-import { StackedBarChart, YearBarChart, CategoryDonutChart } from "./components/BudgetCharts";
+import { StackedBarChart, YearBarChart, CategoryDonutChart, ProjectItemsBarChart } from "./components/BudgetCharts";
 
 // ── Badge ────────────────────────────────────────────────────────────────────
 function Badge({ status }: { status: VeletrhEvent["status"] }) {
@@ -164,6 +164,8 @@ export default async function Page() {
             <div>
               <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-at-blue-v5)", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.12em" }}>Kategorie výdajů</p>
               <CategoryDonutChart />
+              <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-at-blue-v5)", marginTop: 24, marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.12em" }}>Projektové položky (tis. Kč)</p>
+              <ProjectItemsBarChart />
             </div>
           </div>
           <div style={{ maxWidth: 480 }}>
