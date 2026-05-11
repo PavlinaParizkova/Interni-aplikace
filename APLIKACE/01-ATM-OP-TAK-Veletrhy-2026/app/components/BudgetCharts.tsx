@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  LabelList,
   ResponsiveContainer,
   PieChart,
   Pie,
@@ -25,9 +26,9 @@ const fairData = [
 ];
 
 const yearCategoryData = [
-  { year: "2026", pronajem: 100, stavba: 80,  doprava: 50, propagace: 140, video: 300, inzerce: 0   },
-  { year: "2027", pronajem: 550, stavba: 720, doprava: 70, propagace: 460, video: 0,   inzerce: 250 },
-  { year: "2028", pronajem: 580, stavba: 850, doprava: 70, propagace: 430, video: 0,   inzerce: 250 },
+  { year: "2026", pronajem: 100, stavba: 80,  doprava: 50, propagace: 140, video: 300, inzerce: 0,   total: 670  },
+  { year: "2027", pronajem: 550, stavba: 720, doprava: 70, propagace: 460, video: 0,   inzerce: 250, total: 2050 },
+  { year: "2028", pronajem: 580, stavba: 850, doprava: 70, propagace: 430, video: 0,   inzerce: 250, total: 2180 },
 ];
 
 const categoryData = [
@@ -64,6 +65,9 @@ const tooltipStyle = {
   fontSize: 12,
 };
 
+const tooltipLabelStyle = { color: "#ffffff", fontWeight: 600 };
+const tooltipItemStyle  = { color: "#cddce8" };
+
 const axisStyle = { fill: "#93b3cf", fontSize: 11 };
 
 // ── Components ────────────────────────────────────────────────────────────────
@@ -77,10 +81,12 @@ export function StackedBarChart() {
         <YAxis tick={axisStyle} axisLine={false} tickLine={false} unit=" tis." width={60} />
         <Tooltip
           contentStyle={tooltipStyle}
+          labelStyle={tooltipLabelStyle}
+          itemStyle={tooltipItemStyle}
           formatter={(v: unknown) => [`${v} tis. Kč`]}
           cursor={{ fill: "rgba(255,255,255,0.04)" }}
         />
-        <Legend wrapperStyle={{ fontSize: 11, color: "#93b3cf" }} />
+        <Legend wrapperStyle={{ fontSize: 11, color: "#cddce8" }} />
         <Bar dataKey="pronajem"  name="Pronájem plochy" stackId="a" fill={STACKED_COLORS.pronajem}  />
         <Bar dataKey="stavba"    name="Stavba stánku"   stackId="a" fill={STACKED_COLORS.stavba}    />
         <Bar dataKey="doprava"   name="Doprava"         stackId="a" fill={STACKED_COLORS.doprava}   />
@@ -92,23 +98,32 @@ export function StackedBarChart() {
 
 export function YearBarChart() {
   return (
-    <ResponsiveContainer width="100%" height={220}>
-      <BarChart data={yearCategoryData} margin={{ top: 4, right: 8, left: 0, bottom: 4 }}>
+    <ResponsiveContainer width="100%" height={260}>
+      <BarChart data={yearCategoryData} margin={{ top: 24, right: 8, left: 0, bottom: 4 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
         <XAxis dataKey="year" tick={axisStyle} axisLine={false} tickLine={false} />
-        <YAxis tick={axisStyle} axisLine={false} tickLine={false} unit=" tis." width={60} />
+        <YAxis tick={axisStyle} axisLine={false} tickLine={false} unit=" tis." width={80} />
         <Tooltip
           contentStyle={tooltipStyle}
+          labelStyle={tooltipLabelStyle}
+          itemStyle={tooltipItemStyle}
           formatter={(v: unknown) => [`${v} tis. Kč`]}
           cursor={{ fill: "rgba(255,255,255,0.04)" }}
         />
-        <Legend wrapperStyle={{ fontSize: 11, color: "#93b3cf", paddingTop: 12 }} />
+        <Legend wrapperStyle={{ fontSize: 11, color: "#cddce8", paddingTop: 12 }} />
         <Bar dataKey="stavba"    name="Stavba stánku"      stackId="a" fill="#507499" />
         <Bar dataKey="pronajem"  name="Pronájem plochy"    stackId="a" fill="#93b3cf" />
         <Bar dataKey="propagace" name="Propagace + tisk"   stackId="a" fill="#4d606f" />
         <Bar dataKey="inzerce"   name="Inzerce zahraničí"  stackId="a" fill="#2b4156" />
         <Bar dataKey="video"     name="Videoprezentace"    stackId="a" fill="#d51c17" />
-        <Bar dataKey="doprava"   name="Doprava"            stackId="a" fill="#cddce8" radius={[3, 3, 0, 0]} />
+        <Bar dataKey="doprava"   name="Doprava"            stackId="a" fill="#cddce8" radius={[3, 3, 0, 0]}>
+          <LabelList
+            dataKey="total"
+            position="top"
+            formatter={(v: number) => `${v} tis.`}
+            style={{ fill: "#cddce8", fontSize: 11, fontWeight: 600 }}
+          />
+        </Bar>
       </BarChart>
     </ResponsiveContainer>
   );
@@ -133,13 +148,15 @@ export function CategoryDonutChart() {
         </Pie>
         <Tooltip
           contentStyle={tooltipStyle}
+          labelStyle={tooltipLabelStyle}
+          itemStyle={tooltipItemStyle}
           formatter={(v: unknown) => [`${v} tis. Kč`]}
         />
         <Legend
-          wrapperStyle={{ fontSize: 11, color: "#93b3cf", paddingTop: 16, lineHeight: "1.8" }}
-          formatter={(value: string, entry: { payload?: { value?: number } }) =>
-            `${value} (${entry?.payload?.value} tis.)`
-          }
+          wrapperStyle={{ fontSize: 11, color: "#cddce8", paddingTop: 16, lineHeight: "1.8" }}
+          formatter={(value: string, entry: { payload?: { value?: number } }) => (
+            <span style={{ color: "#cddce8" }}>{value} ({entry?.payload?.value} tis.)</span>
+          )}
         />
       </PieChart>
     </ResponsiveContainer>
@@ -155,6 +172,8 @@ export function ProjectItemsBarChart() {
         <YAxis tick={axisStyle} axisLine={false} tickLine={false} unit=" tis." width={60} />
         <Tooltip
           contentStyle={tooltipStyle}
+          labelStyle={tooltipLabelStyle}
+          itemStyle={tooltipItemStyle}
           formatter={(v: unknown) => [`${v} tis. Kč`]}
           cursor={{ fill: "rgba(255,255,255,0.04)" }}
         />
