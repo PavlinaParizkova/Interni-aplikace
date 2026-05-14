@@ -399,7 +399,7 @@ function renderSlide(slide: SlideData, onStart?: () => void) {
     case "quad-detail":
       return (
         <SlideFrame slide={slide}>
-          <div className="section-title">
+          <div className="quad-header">
             <Eyebrow>{slide.eyebrow}</Eyebrow>
             <h2>{slide.headline}</h2>
           </div>

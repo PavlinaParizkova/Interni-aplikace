@@ -127,6 +127,11 @@ button {
   background-size: cover;
 }
 
+.quad-header {
+  align-self: flex-start;
+  margin-bottom: 20px;
+}
+
 .quad-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -134,7 +139,7 @@ button {
   gap: 14px;
   width: 100%;
   max-width: 960px;
-  margin-top: 20px;
+  margin: 0 auto;
 }
 
 .quad-card {
