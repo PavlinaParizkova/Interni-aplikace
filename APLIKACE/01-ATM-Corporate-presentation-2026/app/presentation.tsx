@@ -144,9 +144,9 @@ function CardGrid({ cards, compact = false }: { cards?: LabeledText[]; compact?:
     <div className={`card-grid ${compact ? "card-grid--compact" : ""}`}>
       {cards.map((card, index) => (
         <article className="info-card" key={card.title} style={{ animationDelay: `${index * 120}ms` }}>
-          {card.meta && <span className="info-card__meta">{card.meta}</span>}
           <h3>{card.title}</h3>
           <p>{card.body}</p>
+          {card.meta && <span className="info-card__meta">{card.meta}</span>}
         </article>
       ))}
     </div>

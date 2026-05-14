@@ -886,6 +886,8 @@ h3 {
 .hover-card,
 .location-card {
   position: relative;
+  display: flex;
+  flex-direction: column;
   min-height: 172px;
   padding: 24px;
   overflow: hidden;
@@ -939,7 +941,8 @@ h3 {
 .info-card__meta,
 .location-card small {
   display: block;
-  margin-bottom: 12px;
+  margin-top: auto;
+  padding-top: 12px;
   color: var(--atm-red);
   font-size: 0.65rem;
   font-weight: 800;
