@@ -38,7 +38,7 @@ export async function PUT(request: NextRequest) {
   }
 
   const content = JSON.stringify(body, null, 2);
-  const filePath = "APLIKACE/01-ATM-Corporate-presenation-2026/data/slides.json";
+  const filePath = "APLIKACE/01-ATM-Corporate-presentation-2026/data/slides.json";
 
   const getRes = await fetch(
     `${GITHUB_API}/repos/${githubRepo}/contents/${filePath}?ref=${githubBranch}`,
