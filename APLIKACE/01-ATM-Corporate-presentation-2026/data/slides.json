@@ -179,6 +179,48 @@
     ]
   },
   {
+    "id": "oem-divider",
+    "type": "divider",
+    "section": "Portfolio",
+    "eyebrow": "Smart Supply OEM Program",
+    "headline": "Built for manufacturers. Delivered with precision.",
+    "subheadline": "Six reasons OEM partners choose AIR\u00a0TEAM as their single avionics supplier.",
+    "cards": []
+  },
+  {
+    "id": "oem-benefits",
+    "type": "whyProof",
+    "section": "Portfolio",
+    "eyebrow": "OEM Program",
+    "headline": "What this means for your production line.",
+    "cards": [
+      {
+        "title": "Single-Source Supply",
+        "body": "Everything your aircraft needs — from circuit breakers and lighting to full avionics suites — from one stable supplier. Less admin, simpler logistics, better pricing."
+      },
+      {
+        "title": "Deferred Payment Model",
+        "body": "Pay 100% only when your order is packed and ready to ship. No capital tied up during preparation. We carry the inventory while your production schedule runs."
+      },
+      {
+        "title": "OEM Pricing Structure",
+        "body": "E-shop prices are standard retail. OEM partners receive a dedicated discount structure. Send us your installation BOM and we will return a firm quote — so you see the difference directly."
+      },
+      {
+        "title": "Delivery Planning & AOG Response",
+        "body": "Plan orders against your production calendar with no upfront capital commitment. With ~90% of our portfolio in stock, we reallocate and dispatch same-day when your line cannot wait."
+      },
+      {
+        "title": "Custom Harnesses & Panels",
+        "body": "Wiring harnesses and fully populated instrument panels built to your exact specification. A plug-and-play solution that cuts final assembly time significantly."
+      },
+      {
+        "title": "Technical Support",
+        "body": "We install what we sell. Our hangar specializes in glass cockpit installations across general aviation. Direct access to our avionics engineers — on-site support available when needed."
+      }
+    ]
+  },
+  {
     "id": "key-figures",
     "type": "figures",
     "section": "Certification",

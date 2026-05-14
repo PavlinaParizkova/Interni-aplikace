@@ -392,7 +392,7 @@ function renderSlide(slide: SlideData, onStart?: () => void) {
         <SlideFrame slide={slide}>
           <Eyebrow>{slide.eyebrow}</Eyebrow>
           <h2>{slide.headline}</h2>
-          <CardGrid cards={slide.cards} />
+          <CardGrid cards={slide.cards} compact={(slide.cards?.length ?? 0) >= 5} />
         </SlideFrame>
       );
 
