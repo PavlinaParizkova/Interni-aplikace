@@ -864,6 +864,11 @@ h3 {
   margin-bottom: 12px;
 }
 
+.card-grid .info-card h3 {
+  font-size: clamp(13px, 1.3vw, 17px);
+  line-height: 1.25;
+}
+
 .info-card p,
 .location-card p {
   color: var(--atm-shell-muted);
