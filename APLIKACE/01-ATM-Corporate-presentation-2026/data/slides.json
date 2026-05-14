@@ -185,7 +185,7 @@
     "headline": "Certified capability, proven scale.",
     "cards": [
       { "title": "50+", "body": "Skilled professionals" },
-      { "title": "Approx. 750M CZK", "body": "Annual turnover, pending final confirmation" }
+      { "title": "750M CZK", "meta": "Approx.", "body": "Annual turnover, pending final confirmation" }
     ],
     "bullets": [
       "EASA Part 145",
