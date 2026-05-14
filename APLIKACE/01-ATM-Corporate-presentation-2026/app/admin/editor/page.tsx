@@ -75,8 +75,7 @@ export default function EditorPage() {
   }
 
   async function logout() {
-    await fetch("/api/auth", { method: "DELETE" });
-    window.location.href = "/admin/login";
+    window.location.href = "/api/auth/signout";
   }
 
   if (loading) {
@@ -96,7 +95,10 @@ export default function EditorPage() {
         </div>
         <div className="admin-header__actions">
           <Link href="/" className="admin-btn admin-btn--ghost" target="_blank">
-            Zobrazit prezentaci ↗
+            Prezentace ↗
+          </Link>
+          <Link href="/admin/logs" className="admin-btn admin-btn--ghost">
+            Historie
           </Link>
           <button className="admin-btn admin-btn--ghost" onClick={logout}>
             Odhlásit
