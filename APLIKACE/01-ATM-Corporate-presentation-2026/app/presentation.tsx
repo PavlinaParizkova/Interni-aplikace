@@ -307,6 +307,18 @@ function renderSlide(slide: SlideData, onStart?: () => void) {
           <Eyebrow>{slide.eyebrow}</Eyebrow>
           <h2>{slide.headline}</h2>
           <DivisionGrid cards={slide.cards} />
+          {slide.locations && slide.locations.length > 0 && (
+            <div className="location-pins">
+              {slide.locations.map((loc) => (
+                <span key={loc.place} className="location-pin">
+                  <svg width="10" height="13" viewBox="0 0 10 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 0C2.24 0 0 2.24 0 5c0 3.75 5 8 5 8s5-4.25 5-8c0-2.76-2.24-5-5-5zm0 6.75A1.75 1.75 0 1 1 5 3.25a1.75 1.75 0 0 1 0 3.5z" fill="currentColor"/>
+                  </svg>
+                  {loc.place}
+                </span>
+              ))}
+            </div>
+          )}
         </SlideFrame>
       );
 

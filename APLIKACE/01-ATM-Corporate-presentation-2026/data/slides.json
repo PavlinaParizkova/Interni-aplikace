@@ -83,14 +83,7 @@
         "title": "AIR\u00a0TEAM Intel (ATI)",
         "body": "Defense and ISR integration. EO/IR, mission systems, C-UAS, and airborne SIGINT."
       }
-    ]
-  },
-  {
-    "id": "locations",
-    "type": "locations",
-    "section": "AIR\u00a0TEAM",
-    "eyebrow": "Locations",
-    "headline": "Where we are located.",
+    ],
     "locations": [
       { "place": "Kunovice", "body": "Aviation operations, hangar, service, and integration." },
       { "place": "Veverska Bityska", "body": "Business, supply, support, and coordination." },
