@@ -133,62 +133,48 @@
     ]
   },
   {
-    "id": "intel",
-    "type": "detail",
+    "id": "portfolio-detail",
+    "type": "quad-detail",
     "section": "Portfolio",
-    "eyebrow": "AIR\u00a0TEAM Intel",
-    "headline": "Government & ISR Programs.",
-    "body": "AIR\u00a0TEAM Intel specializes in ISR and technology integrations for the defense and security sector, acting as a partner to government and military customers.",
-    "bullets": [
-      "Government Programs Prime Contractor: acts as the leading entity for government aviation programs, responsible for compliance, program structure, and lifecycle delivery.",
-      "ISR Integration Project Management: manages full integration projects for ISR systems, from requirements definition through integration, testing, and final handover, using Advanced System Integration capability as its technical base.",
-      "R&D Program Management: leads R&D initiatives related to ISR, mission systems, avionics modernization, and tactical communication technologies, contributing to the holding's long-term R&D and certification capacity."
-    ]
-  },
-  {
-    "id": "engineering",
-    "type": "detail",
-    "section": "Portfolio",
-    "eyebrow": "Engineering",
-    "headline": "Engineering & Certification.",
-    "body": "The engineering division is the design and certification center behind advanced system integration.",
-    "bullets": [
-      "Organization & Role: DOA-based engineering and certification center. Core of the Advanced System Integration pillar.",
-      "Aircraft & Systems Engineering: avionics architecture, electrical systems, rewiring, integration brackets, racks, supports, panels, monuments, and cabin equipment.",
-      "Certification Engineering: compliance demonstration under CS-23, CS-25, CS-27, and CS-29. STC development, major/minor change classification and approval, weight and balance, electrical safety, and aviation authority liaison.",
-      "Integration & Project Management: avionics upgrades, ISR payload integration, mission-system architecture, milestone/risk management, coordination across DOA-POA-145-Intel-Interiors, and technical configuration management."
-    ]
-  },
-  {
-    "id": "service",
-    "type": "detail",
-    "section": "Portfolio",
-    "eyebrow": "AIR\u00a0TEAM service",
-    "headline": "MRO + POA + CRO.",
-    "body": "AIR\u00a0TEAM service is the operational execution arm of the holding, combining certified maintenance, approved design procedures, production capability, and component repair.",
-    "bullets": [
-      "MRO Part 145: mechanical and electrical maintenance and modifications, with hangar capacity and specialist shops.",
-      "DOA Part 21J: alternative procedures (AP) for approved design and modifications.",
-      "POA Part 21G: production of specific parts, harnesses, and assemblies.",
-      "Component Repair and Overhaul (CRO): integrated component repair and overhaul capability.",
-      "Core Services: avionics upgrades (Garmin and others), electrical troubleshooting, wiring repairs, and modifications.",
-      "ISR Installations: installation and integration of ISR mission systems on aircraft and helicopters, based on engineering packages from AIR\u00a0TEAM Engineering and program management from AIR\u00a0TEAM Intel.",
-      "E-Commerce & Logistics Backbone: modern logistics, tailored ERP, advanced CRM, and a multilingual e-commerce portal ensure tight integration between parts, repairs, and installations."
-    ]
-  },
-  {
-    "id": "smart-supply",
-    "type": "detail",
-    "section": "Portfolio",
-    "eyebrow": "Smart Supply",
-    "headline": "Parts Supply.",
-    "body": "The AIR\u00a0TEAM Smart Supply division operates a comprehensive B2B/B2C platform serving as a strategic supplier of pilot supplies, avionics, and aircraft parts.",
-    "bullets": [
-      "Business Model & Infrastructure: B2B and B2C e-commerce platform with integrated ERP, CRM, modern logistics, multilanguage, and multicurrency support.",
-      "Product Portfolio: pilot supplies, avionics, instruments, aircraft/engine parts, and consumables.",
-      "Private Labels: PilotStyle and AEROSPEC, launching 2025–2026.",
-      "Logistics & Performance: 90% of EU orders delivered within 48 hours.",
-      "Target Demographics: B2C hobby/student pilots and enthusiasts ages 20–50; B2B purchasing and fleet managers in aviation companies."
+    "eyebrow": "Portfolio",
+    "headline": "Four divisions. One integrated capability.",
+    "quadCards": [
+      {
+        "eyebrow": "AIR\u00a0TEAM Intel",
+        "headline": "Government & ISR Programs.",
+        "bullets": [
+          "Government Programs Prime Contractor: leading entity for government aviation programs, handling compliance, structure, and lifecycle delivery.",
+          "ISR Integration: full project management from requirements through integration, testing, and final handover.",
+          "R&D: ISR, mission systems, and avionics modernization — contributing to long-term certification capacity."
+        ]
+      },
+      {
+        "eyebrow": "Engineering",
+        "headline": "Engineering & Certification.",
+        "bullets": [
+          "Aircraft & Systems Engineering: avionics architecture, electrical systems, rewiring, integration, and cabin equipment.",
+          "Certification Engineering: CS-23/25/27/29 compliance, STC development, and aviation authority liaison.",
+          "Integration & PM: avionics upgrades, ISR payload integration, and coordination across DOA-POA-145."
+        ]
+      },
+      {
+        "eyebrow": "AIR\u00a0TEAM Service",
+        "headline": "MRO + POA + CRO.",
+        "bullets": [
+          "MRO Part 145: mechanical and electrical maintenance with hangar capacity and specialist shops.",
+          "Component Repair and Overhaul (CRO): integrated repair capability across components.",
+          "ISR Installations: installation and integration of ISR mission systems on aircraft and helicopters."
+        ]
+      },
+      {
+        "eyebrow": "Smart Supply",
+        "headline": "Parts Supply.",
+        "bullets": [
+          "Product Portfolio: pilot supplies, avionics, instruments, aircraft/engine parts, and consumables.",
+          "Logistics & Performance: 90% of EU orders delivered within 48 hours.",
+          "Private Labels: PilotStyle and AEROSPEC, launching 2025–2026."
+        ]
+      }
     ]
   },
   {

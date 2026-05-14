@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { HoverCard, LabeledText, SlideData } from "./slides";
+import type { HoverCard, LabeledText, QuadCard, SlideData } from "./slides";
 
 type Direction = "fwd" | "bwd";
 
@@ -391,6 +391,27 @@ function renderSlide(slide: SlideData, onStart?: () => void) {
 
     case "photo":
       return <SlideFrame slide={slide}><div /></SlideFrame>;
+
+    case "quad-detail":
+      return (
+        <SlideFrame slide={slide}>
+          <div className="section-title">
+            <Eyebrow>{slide.eyebrow}</Eyebrow>
+            <h2>{slide.headline}</h2>
+          </div>
+          <div className="quad-grid">
+            {slide.quadCards?.map((card: QuadCard, i: number) => (
+              <div key={i} className="quad-card">
+                <p className="quad-card__eyebrow">{card.eyebrow}</p>
+                <h3 className="quad-card__headline">{card.headline}</h3>
+                <ul className="quad-card__bullets">
+                  {card.bullets.map((b, j) => <li key={j}>{b}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </SlideFrame>
+      );
 
     case "mission":
     case "thanks":

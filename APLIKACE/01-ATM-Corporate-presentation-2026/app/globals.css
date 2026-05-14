@@ -127,6 +127,71 @@ button {
   background-size: cover;
 }
 
+.quad-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  max-width: 960px;
+  margin-top: 20px;
+}
+
+.quad-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quad-card__eyebrow {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--atm-red);
+  margin: 0;
+}
+
+.quad-card__headline {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--atm-white);
+  margin: 0 0 6px;
+  line-height: 1.3;
+}
+
+.quad-card__bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.quad-card__bullets li {
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.78);
+  padding-left: 14px;
+  position: relative;
+}
+
+.quad-card__bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--atm-red);
+}
+
 .slide__overlay {
   position: absolute;
   inset: 0;
