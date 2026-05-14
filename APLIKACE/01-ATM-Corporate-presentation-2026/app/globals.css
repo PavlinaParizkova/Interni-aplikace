@@ -635,7 +635,10 @@ h3 {
 .metric-strip .info-card {
   display: grid;
   grid-template-columns: 170px minmax(0, 1fr);
-  align-items: center;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "meta body"
+    "number body";
   column-gap: 30px;
   min-height: auto;
   padding: 24px 0;
@@ -644,6 +647,23 @@ h3 {
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+}
+
+.metric-strip .info-card__meta {
+  grid-area: meta;
+  align-self: end;
+  text-align: right;
+  margin-bottom: 2px;
+}
+
+.metric-strip .info-card h3 {
+  grid-area: number !important;
+  align-self: start;
+}
+
+.metric-strip .info-card p {
+  grid-area: body;
+  align-self: center;
 }
 
 .metric-strip .info-card:last-child {

@@ -9,6 +9,13 @@
     "cta": "AIR\u00a0TEAM\u00a0\u2013\u00a0YOUR\u00a0MISSION.\u00a0OUR\u00a0TECHNOLOGY."
   },
   {
+    "id": "why-air-team-photo",
+    "type": "photo",
+    "section": "AIR\u00a0TEAM",
+    "headline": "",
+    "image": "Slide_02.jpg"
+  },
+  {
     "id": "who-we-are",
     "type": "intro",
     "section": "AIR\u00a0TEAM",
@@ -75,7 +82,7 @@
         "meta": "2,000+ units repaired per year"
       },
       {
-        "title": "AIR\u00a0TEAM Jet Concept (JC)",
+        "title": "AIR\u00a0TEAM Jet Concept",
         "body": "Supplemental Type Certificate (STC) development for military and complex modifications."
       },
       {
@@ -233,13 +240,6 @@
       { "label": "LIMIT", "hoverTitle": "A higher standard", "body": "Every new solution must be safer, faster, or more precise." },
       { "label": "FREQUENCY", "hoverTitle": "Right timing", "body": "The right information, at the right time, on the right channel." }
     ]
-  },
-  {
-    "id": "why-air-team-photo",
-    "type": "photo",
-    "section": "Why Us",
-    "headline": "",
-    "image": "Slide_02.jpg"
   },
   {
     "id": "closing",
