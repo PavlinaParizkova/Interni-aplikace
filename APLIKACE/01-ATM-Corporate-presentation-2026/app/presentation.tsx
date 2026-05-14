@@ -111,7 +111,7 @@ function SectionProgress({
 }
 
 function SlideFrame({ slide, children, tone = "dark" }: { slide: SlideData; children: React.ReactNode; tone?: "dark" | "light" }) {
-  const style = slide.image && slide.type !== "intro-photo" ? { backgroundImage: `url(/photos/${encodeURIComponent(slide.image)})` } : undefined;
+  const style = slide.image ? { backgroundImage: `url(/photos/${encodeURIComponent(slide.image)})` } : undefined;
   const isPhoto = slide.type === "photo";
   return (
     <section className={`slide slide--${tone}${isPhoto ? " slide--photo" : ""}`}>
@@ -267,18 +267,12 @@ function renderSlide(slide: SlideData, onStart?: () => void) {
     case "intro-photo":
       return (
         <SlideFrame slide={slide}>
-          <div className="intro-photo-layout">
-            <div className="intro-photo-layout__text">
+          <div className="intro-block">
+            <div className="intro-block__copy">
               <Eyebrow>{slide.eyebrow}</Eyebrow>
               <h2>{slide.headline}</h2>
               <p className="lead">{slide.body}</p>
             </div>
-            {slide.image && (
-              <div
-                className="intro-photo-layout__image"
-                style={{ backgroundImage: `url(/photos/${encodeURIComponent(slide.image)})` }}
-              />
-            )}
           </div>
         </SlideFrame>
       );
