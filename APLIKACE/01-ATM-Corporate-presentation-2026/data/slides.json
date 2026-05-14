@@ -14,7 +14,7 @@
     "section": "AIR\u00a0TEAM",
     "eyebrow": "Who We Are",
     "headline": "We are AIR\u00a0TEAM.",
-    "body": "AIR\u00a0TEAM holding is a leading European specialist in avionics, ISR (Intelligence, Surveillance & Reconnaissance), and mission systems integration. Our core business in aero upgrades and cabin solutions is complemented by full-service support for key accounts, authorized maintenance, and global parts supply via our e-shop.\n\nOperating under EASA Part 145 & Part 21J / 21G & FAA Repair Station with integrated ITAR compliance, AIR\u00a0TEAM combines engineering excellence with a strong European logistics and distribution network."
+    "body": "AIR\u00a0TEAM holding is a leading European specialist in avionics, ISR (Intelligence, Surveillance & Reconnaissance), and mission systems integration. Our core business in aero upgrades and cabin solutions is complemented by full-service support for key accounts, authorized maintenance, and global parts supply via our e-shop.\n\nOperating under EASA Part 145 & Part 21J / 21G & FAA Repair Station with integrated International Traffic in Arms Regulations (ITAR) compliance, AIR\u00a0TEAM combines engineering excellence with a strong European logistics and distribution network."
   },
   {
     "id": "meet-us",
@@ -39,22 +39,22 @@
       {
         "label": "Mission",
         "hoverTitle": "Special Mission & Airborne Intelligence",
-        "body": "ISR systems, mission architecture, tactical communication, and airborne intelligence programs for government and defense customers."
+        "body": "ISR systems, mission architecture, and airborne intelligence programs for government and defense customers."
       },
       {
         "label": "Engineering",
         "hoverTitle": "Design, Certification & Manufacturing",
-        "body": "Customizable upgrade solutions for the whole aircraft. We replace outdated components with modern systems that improve form, function, and operational capability."
+        "body": "Full-aircraft upgrade solutions. Outdated components replaced with modern systems that improve form, function, and operational capability."
       },
       {
         "label": "MRO",
         "hoverTitle": "Aircraft Service, Maintenance & Upgrades",
-        "body": "Aircraft maintenance, repairs, component work, installations, and hangar execution."
+        "body": "Aircraft maintenance, repairs, component overhauls, and hangar installations."
       },
       {
         "label": "Supply",
         "hoverTitle": "Aviation Support & Logistics",
-        "body": "Aviation support and logistics for OEMs, government clients, defense primes, and B2B/B2C customers. We supply pilot equipment, avionics, aircraft parts, and consumables through long-term partnerships built on quality and reliability."
+        "body": "Aviation support and logistics for OEMs, government clients, defense primes, and B2B/B2C customers — pilot equipment, avionics, parts, and consumables through partnerships built on quality."
       }
     ]
   },
@@ -76,7 +76,7 @@
       },
       {
         "title": "AIR\u00a0TEAM Jet Concept",
-        "body": "STC certification for military and complex modifications."
+        "body": "Supplemental Type Certificate (STC) development for military and complex modifications."
       },
       {
         "title": "AIR\u00a0TEAM Intel (ATI)",
@@ -121,7 +121,7 @@
       { "label": "Emergency Services", "hoverTitle": "Mission support", "body": "Aviation support for rescue, emergency response, medical, and special-mission operations.", "image": "service-emergency-services.jpg", "size": "tall" },
       { "label": "Aerial Surveying & Mapping", "hoverTitle": "Sensor integration", "body": "Aircraft support for mapping, monitoring, geodata collection, and aerial survey missions.", "image": "service-aerial-surveying-mapping.jpg" },
       { "label": "Counter-UAV Systems", "hoverTitle": "C-UAS", "body": "Capability for detecting, tracking, and responding to unmanned aerial threats.", "image": "service-counter-uav-systems.jpg", "size": "tall" },
-      { "label": "Maintenance & Repair", "hoverTitle": "Part 145", "body": "EASA Part 145 maintenance, troubleshooting, repairs, avionics work, and hangar execution.", "image": "service-maintenance-repair.jpg", "size": "tall" },
+      { "label": "Maintenance & Repair", "hoverTitle": "Part 145", "body": "EASA Part 145 maintenance, troubleshooting, repairs, avionics work, and hangar installations.", "image": "service-maintenance-repair.jpg", "size": "tall" },
       { "label": "Avionics Solutions", "hoverTitle": "Cockpit upgrades", "body": "Navigation, communication, displays, wiring, installation, and certified avionics modernization.", "image": "service-avionics-solutions.jpg" },
       { "label": "Jet Solutions & Refurbishment", "hoverTitle": "Jet Concept", "body": "Complex modifications, cabin refurbishments, interiors, and special aircraft projects.", "image": "service-jet-solutions-refurbishment.jpg" },
       { "label": "Aircraft Aesthetics & Comfort", "hoverTitle": "Interior upgrades", "body": "Cabin details and passenger-facing upgrades backed by engineering discipline.", "image": "service-aircraft-aesthetics-comfort.jpg", "size": "tall" },
@@ -168,9 +168,9 @@
     "body": "AIR\u00a0TEAM service is the operational execution arm of the holding, combining certified maintenance, approved design procedures, production capability, and component repair.",
     "bullets": [
       "MRO Part 145: mechanical and electrical maintenance and modifications, with hangar capacity and specialist shops.",
-      "DOA Part 21J: AP, alternative procedures for approved design and modifications.",
+      "DOA Part 21J: alternative procedures (AP) for approved design and modifications.",
       "POA Part 21G: production of specific parts, harnesses, and assemblies.",
-      "CRO, Component Repairs & Overhauls: integrated component repair and overhaul capability.",
+      "Component Repair and Overhaul (CRO): integrated component repair and overhaul capability.",
       "Core Services: avionics upgrades (Garmin and others), electrical troubleshooting, wiring repairs, and modifications.",
       "ISR Installations: installation and integration of ISR mission systems on aircraft and helicopters, based on engineering packages from AIR\u00a0TEAM Engineering and program management from AIR\u00a0TEAM Intel.",
       "E-Commerce & Logistics Backbone: modern logistics, tailored ERP, advanced CRM, and a multilingual e-commerce portal ensure tight integration between parts, repairs, and installations."
@@ -186,9 +186,9 @@
     "bullets": [
       "Business Model & Infrastructure: B2B and B2C e-commerce platform with integrated ERP, CRM, modern logistics, multilanguage, and multicurrency support.",
       "Product Portfolio: pilot supplies, avionics, instruments, aircraft/engine parts, and consumables.",
-      "Private Labels: PilotStyle and AEROSPEC, launching 2025-2026.",
+      "Private Labels: PilotStyle and AEROSPEC, launching 2025–2026.",
       "Logistics & Performance: 90% of EU orders delivered within 48 hours.",
-      "Target Demographics: B2C hobby/student pilots and enthusiasts ages 20-50; B2B purchasing and fleet managers in aviation companies."
+      "Target Demographics: B2C hobby/student pilots and enthusiasts ages 20–50; B2B purchasing and fleet managers in aviation companies."
     ]
   },
   {
@@ -224,20 +224,7 @@
       { "title": "Full Lifecycle Capability", "body": "From Smart Supply through Service & CRO, Engineering, Intel, and Interiors, covering the entire aircraft upgrade and support lifecycle." },
       { "title": "Fast & Reliable Supply Chain", "body": "90% of EU orders delivered within 48 hours, backed by modern ERP, CRM, and logistics." },
       { "title": "Government-Grade Compliance & Security", "body": "ITAR, military trade certificates, and security clearances enabling secure handling of sensitive projects." },
-      { "title": "Export-Driven Growth & Strategic Focus", "body": "Clear path to more than 80% export revenue and more than 70M EUR turnover by 2030, with EMEA, selected Asian regions, and NATO/EU defence programs." }
-    ]
-  },
-  {
-    "id": "vision",
-    "type": "strategy",
-    "section": "Why Us",
-    "eyebrow": "Vision & Strategy",
-    "headline": "Where AIR\u00a0TEAM is heading.",
-    "bullets": [
-      "Expand certified avionics, ISR, and mission-system integration across EMEA.",
-      "Strengthen mission systems, engineering, MRO, and supply under one holding.",
-      "Build export-driven growth with selected regional hubs and long-term key accounts.",
-      "Use data, logistics, and certified execution to shorten aircraft downtime and keep projects moving."
+      { "title": "Export-Driven Growth & Strategic Focus", "body": "Clear path to more than 80% export revenue and more than 70M EUR turnover by 2030, with EMEA, selected Asian regions, and NATO/EU defense programs." }
     ]
   },
   {
@@ -246,7 +233,7 @@
     "section": "Why Us",
     "eyebrow": "Company Values",
     "headline": "Proof in the work. Discipline in the\u00a0crew.",
-    "body": "We are the AIR\u00a0TEAM crew. Pilots, technicians, avionics specialists, and people from the field. We know what it feels like when the hangar is waiting on the final measurement, the customer needs a clear status, and the decision cannot wait until tomorrow.\n\nIn aviation, impressions do not hold. Preparation does. Precision does. So does the person who understands why the procedure exists. AIR\u00a0TEAM is a holding built on field experience. We integrate avionics, certify upgrades, service aircraft, supply cockpit equipment, and build solutions for operations, oversight, and special missions.",
+    "body": "We are the AIR\u00a0TEAM crew — pilots, technicians, avionics specialists, and people from the field. In aviation, impressions do not hold. Preparation does. Precision does. AIR\u00a0TEAM is a holding built on field experience: avionics integration, certified upgrades, aircraft service, and solutions for operations and special missions.",
     "cards": [
       { "title": "Certified capability", "body": "Part 145, Part 21J DOA, Part 21G POA, FAA Repair Station, NATO AQAP 2110, MAA CZ." },
       { "title": "Full lifecycle coverage", "body": "Mission integration, engineering, certification, MRO, component repair, and supply." },
@@ -261,20 +248,20 @@
     ]
   },
   {
-    "id": "mission",
-    "type": "mission",
+    "id": "why-air-team-photo",
+    "type": "photo",
     "section": "Why Us",
-    "eyebrow": "Mission",
-    "headline": "YOUR\u00a0MISSION. OUR\u00a0TECHNOLOGY.",
-    "body": "Our mission is to empower pilots, operators, and governments to fly safer, smarter, and further - combining data, engineering excellence, and reliable logistics.",
-    "cta": "AIR\u00a0TEAM\u00a0\u2013\u00a0YOUR\u00a0MISSION.\u00a0OUR\u00a0TECHNOLOGY."
+    "headline": "",
+    "image": "Slide_02.jpg"
   },
   {
-    "id": "thank-you",
+    "id": "closing",
     "type": "thanks",
     "section": "Why Us",
     "eyebrow": "Thank You",
     "headline": "Thank you for your attention.",
-    "cta": "live.airteam.eu"
+    "body": "Our mission is to empower pilots, operators, and governments to fly safer, smarter, and further – combining data, engineering excellence, and reliable logistics.",
+    "cta": "AIR\u00a0TEAM\u00a0\u2013\u00a0YOUR\u00a0MISSION.\u00a0OUR\u00a0TECHNOLOGY.",
+    "subheadline": "live.airteam.eu"
   }
 ]

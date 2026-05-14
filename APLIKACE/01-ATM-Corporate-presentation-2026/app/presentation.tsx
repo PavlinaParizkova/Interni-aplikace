@@ -112,8 +112,9 @@ function SectionProgress({
 
 function SlideFrame({ slide, children, tone = "dark" }: { slide: SlideData; children: React.ReactNode; tone?: "dark" | "light" }) {
   const style = slide.image ? { backgroundImage: `url(/photos/${encodeURIComponent(slide.image)})` } : undefined;
+  const isPhoto = slide.type === "photo";
   return (
-    <section className={`slide slide--${tone}`}>
+    <section className={`slide slide--${tone}${isPhoto ? " slide--photo" : ""}`}>
       <div className="slide__photo" style={style} />
       <div className="slide__overlay" />
       <div className="slide__content">{children}</div>
@@ -388,6 +389,9 @@ function renderSlide(slide: SlideData, onStart?: () => void) {
         </SlideFrame>
       );
 
+    case "photo":
+      return <SlideFrame slide={slide}><div /></SlideFrame>;
+
     case "mission":
     case "thanks":
       return (
@@ -397,6 +401,16 @@ function renderSlide(slide: SlideData, onStart?: () => void) {
             <h2>{slide.headline}</h2>
             <p>{slide.body}</p>
             {slide.cta && <strong>{slide.cta}</strong>}
+            {slide.subheadline && (
+              <a
+                href={`https://${slide.subheadline}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="closing-url"
+              >
+                {slide.subheadline}
+              </a>
+            )}
           </div>
         </SlideFrame>
       );

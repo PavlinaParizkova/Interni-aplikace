@@ -122,6 +122,11 @@ button {
   opacity: 0.08;
 }
 
+.slide--photo .slide__photo {
+  background: linear-gradient(135deg, rgba(16, 37, 62, 0.32), rgba(16, 37, 62, 0.12));
+  background-size: cover;
+}
+
 .slide__overlay {
   position: absolute;
   inset: 0;
