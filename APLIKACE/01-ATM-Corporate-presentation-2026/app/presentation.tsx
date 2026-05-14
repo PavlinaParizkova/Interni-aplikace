@@ -264,6 +264,25 @@ function renderSlide(slide: SlideData, onStart?: () => void) {
         </SlideFrame>
       );
 
+    case "intro-photo":
+      return (
+        <SlideFrame slide={slide}>
+          <div className="intro-photo-layout">
+            <div className="intro-photo-layout__text">
+              <Eyebrow>{slide.eyebrow}</Eyebrow>
+              <h2>{slide.headline}</h2>
+              <p className="lead">{slide.body}</p>
+            </div>
+            {slide.image && (
+              <div
+                className="intro-photo-layout__image"
+                style={{ backgroundImage: `url(/photos/${encodeURIComponent(slide.image)})` }}
+              />
+            )}
+          </div>
+        </SlideFrame>
+      );
+
     case "divider":
       return (
         <SlideFrame slide={slide}>

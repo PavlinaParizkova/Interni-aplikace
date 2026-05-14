@@ -15,7 +15,8 @@ export type SlideType =
   | "mission"
   | "thanks"
   | "photo"
-  | "quad-detail";
+  | "quad-detail"
+  | "intro-photo";
 
 export interface LabeledText {
   title: string;
@@ -66,5 +67,5 @@ export type SlideSection = typeof SLIDE_SECTIONS[number];
 export const SLIDE_TYPES: SlideType[] = [
   "cover", "intro", "divider", "pillars", "holding", "figures",
   "locations", "areas", "services", "detail", "strategy",
-  "whyProof", "why", "mission", "thanks", "photo", "quad-detail",
+  "whyProof", "why", "mission", "thanks", "photo", "quad-detail", "intro-photo",
 ];

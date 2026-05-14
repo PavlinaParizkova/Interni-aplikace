@@ -24,6 +24,7 @@ const TYPE_LABELS: Record<SlideType, string> = {
   thanks: "Poděkování",
   photo: "Fotka (photo)",
   "quad-detail": "2×2 grid (quad-detail)",
+  "intro-photo": "Intro + fotka dole (intro-photo)",
 };
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {

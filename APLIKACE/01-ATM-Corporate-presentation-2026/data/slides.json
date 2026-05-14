@@ -9,19 +9,13 @@
     "cta": "AIR\u00a0TEAM\u00a0\u2013\u00a0YOUR\u00a0MISSION.\u00a0OUR\u00a0TECHNOLOGY."
   },
   {
-    "id": "why-air-team-photo",
-    "type": "photo",
-    "section": "AIR\u00a0TEAM",
-    "headline": "",
-    "image": "Slide_02.jpg"
-  },
-  {
     "id": "who-we-are",
-    "type": "intro",
+    "type": "intro-photo",
     "section": "AIR\u00a0TEAM",
     "eyebrow": "Who We Are",
     "headline": "We are AIR\u00a0TEAM.",
-    "body": "AIR\u00a0TEAM holding is a leading European specialist in avionics, ISR (Intelligence, Surveillance & Reconnaissance), and mission systems integration. Our core business in aero upgrades and cabin solutions is complemented by full-service support for key accounts, authorized maintenance, and global parts supply via our e-shop.\n\nOperating under EASA Part 145 & Part 21J / 21G & FAA Repair Station with integrated International Traffic in Arms Regulations (ITAR) compliance, AIR\u00a0TEAM combines engineering excellence with a strong European logistics and distribution network."
+    "body": "AIR\u00a0TEAM holding is a leading European specialist in avionics, ISR (Intelligence, Surveillance & Reconnaissance), and mission systems integration. Our core business in aero upgrades and cabin solutions is complemented by full-service support for key accounts, authorized maintenance, and global parts supply via our e-shop.\n\nOperating under EASA Part 145 & Part 21J / 21G & FAA Repair Station with integrated International Traffic in Arms Regulations (ITAR) compliance, AIR\u00a0TEAM combines engineering excellence with a strong European logistics and distribution network.",
+    "image": "Slide_02.jpg"
   },
   {
     "id": "meet-us",
