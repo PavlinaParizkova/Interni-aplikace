@@ -309,8 +309,12 @@ function renderSlide(slide: SlideData, onStart?: () => void) {
               </div>
             </div>
             <div>
-              <h3 className="block-title">Certified capabilities</h3>
-              <TextList items={slide.bullets} />
+              <h3 className="block-title">Certifications &amp; Credentials</h3>
+              <div className="cert-badge-grid">
+                {slide.bullets?.map((item) => (
+                  <span key={item} className="cert-badge">{item}</span>
+                ))}
+              </div>
             </div>
           </div>
         </SlideFrame>
