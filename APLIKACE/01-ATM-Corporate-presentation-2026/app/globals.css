@@ -1310,7 +1310,7 @@ h3 {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: rgba(16, 37, 62, 0.2);
+  background: linear-gradient(180deg, rgba(16, 37, 62, 0.3) 0%, rgba(16, 37, 62, 0.65) 100%);
   content: "";
   transition: background 180ms ease;
 }
@@ -1328,6 +1328,8 @@ h3 {
   justify-content: center;
   max-width: none;
   padding: 16px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+  font-size: clamp(0.65rem, 1.1vw, 0.82rem);
   color: var(--atm-shell-text);
   font-size: clamp(0.68rem, 0.86vw, 0.82rem);
   font-weight: 800;
@@ -1367,7 +1369,7 @@ h3 {
 }
 
 .slide--light .hover-grid--mosaic .hover-card:hover::before {
-  background: rgba(16, 37, 62, 0.58);
+  background: linear-gradient(180deg, rgba(16, 37, 62, 0.55) 0%, rgba(16, 37, 62, 0.82) 100%);
 }
 
 .location-grid {
