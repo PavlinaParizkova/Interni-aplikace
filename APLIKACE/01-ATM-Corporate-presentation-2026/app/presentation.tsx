@@ -399,20 +399,22 @@ function renderSlide(slide: SlideData, onStart?: () => void) {
     case "quad-detail":
       return (
         <SlideFrame slide={slide}>
-          <div className="quad-header">
-            <Eyebrow>{slide.eyebrow}</Eyebrow>
-            <h2>{slide.headline}</h2>
-          </div>
-          <div className="quad-grid">
-            {slide.quadCards?.map((card: QuadCard, i: number) => (
-              <div key={i} className="quad-card">
-                <p className="quad-card__eyebrow">{card.eyebrow}</p>
-                <h3 className="quad-card__headline">{card.headline}</h3>
-                <ul className="quad-card__bullets">
-                  {card.bullets.map((b, j) => <li key={j}>{b}</li>)}
-                </ul>
-              </div>
-            ))}
+          <div className="quad-layout">
+            <div className="quad-layout__header">
+              <Eyebrow>{slide.eyebrow}</Eyebrow>
+              <h2>{slide.headline}</h2>
+            </div>
+            <div className="quad-grid">
+              {slide.quadCards?.map((card: QuadCard, i: number) => (
+                <div key={i} className="quad-card">
+                  <p className="quad-card__eyebrow">{card.eyebrow}</p>
+                  <h3 className="quad-card__headline">{card.headline}</h3>
+                  <ul className="quad-card__bullets">
+                    {card.bullets.map((b, j) => <li key={j}>{b}</li>)}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
         </SlideFrame>
       );
