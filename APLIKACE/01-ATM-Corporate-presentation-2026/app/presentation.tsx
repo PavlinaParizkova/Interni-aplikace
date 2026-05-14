@@ -111,7 +111,7 @@ function SectionProgress({
 }
 
 function SlideFrame({ slide, children, tone = "dark" }: { slide: SlideData; children: React.ReactNode; tone?: "dark" | "light" }) {
-  const style = slide.image ? { backgroundImage: `url(/photos/${encodeURIComponent(slide.image)})` } : undefined;
+  const style = slide.image && slide.type !== "intro-photo" ? { backgroundImage: `url(/photos/${encodeURIComponent(slide.image)})` } : undefined;
   const isPhoto = slide.type === "photo";
   return (
     <section className={`slide slide--${tone}${isPhoto ? " slide--photo" : ""}`}>
