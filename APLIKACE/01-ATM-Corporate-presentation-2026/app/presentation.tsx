@@ -8,6 +8,8 @@ type Direction = "fwd" | "bwd";
 
 const SECTION_ORDER = ["AIR\u00a0TEAM", "Portfolio", "Certification", "Why Us"] as const;
 
+const PDF_URL = "https://live.airteam.eu/hubfs/MKT-Leaflet/AIR%20TEAM%20Company%20Presentation%202026.pdf";
+
 function IconArrowLeft() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -30,6 +32,18 @@ function IconDownload() {
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
       <polyline points="7 10 12 15 17 10" />
       <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  );
+}
+
+function IconShare() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="18" cy="5" r="3" />
+      <circle cx="6" cy="12" r="3" />
+      <circle cx="18" cy="19" r="3" />
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
     </svg>
   );
 }
@@ -475,6 +489,7 @@ export default function Presentation({ slides }: { slides: SlideData[] }) {
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isPrintMode, setIsPrintMode] = useState(false);
+  const [shareStatus, setShareStatus] = useState<"idle" | "copied">("idle");
 
   const goTo = useCallback((index: number, nextDirection: Direction) => {
     const bounded = Math.max(0, Math.min(slides.length - 1, index));
@@ -530,6 +545,29 @@ export default function Presentation({ slides }: { slides: SlideData[] }) {
     document.exitFullscreen?.().catch(() => {});
   }
 
+  async function shareLink() {
+    const shareData = {
+      title: "AIR\u00a0TEAM \u2013 Company Presentation 2026",
+      text: "AIR\u00a0TEAM Corporate Presentation 2026",
+      url: PDF_URL,
+    };
+    if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch {
+        // user cancelled or share failed — fall through to clipboard
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(PDF_URL);
+      setShareStatus("copied");
+      window.setTimeout(() => setShareStatus("idle"), 2000);
+    } catch {
+      // clipboard not available — nothing we can do silently
+    }
+  }
+
   function onTouchEnd(value: number) {
     if (touchStart === null) return;
     const delta = touchStart - value;
@@ -555,8 +593,22 @@ export default function Presentation({ slides }: { slides: SlideData[] }) {
             <small>Corporate Presentation 2026</small>
           </div>
           <div className="nav-actions">
-            <button type="button" onClick={() => setIsPrintMode(true)} title="Save as PDF">
+            <a
+              href={PDF_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Download PDF"
+              aria-label="Download PDF"
+            >
               <IconDownload />
+            </a>
+            <button
+              type="button"
+              onClick={shareLink}
+              title={shareStatus === "copied" ? "Link copied" : "Share presentation"}
+              aria-label="Share presentation"
+            >
+              <IconShare />
             </button>
             <button type="button" onClick={toggleFullscreen} title="Fullscreen">
               <IconFullscreen active={isFullscreen} />
