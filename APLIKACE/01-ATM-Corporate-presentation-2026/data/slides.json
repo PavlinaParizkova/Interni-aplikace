@@ -25,7 +25,7 @@
     "headline": "A holding built around aircraft that have to fly.",
     "subheadline": "Mission systems, engineering, MRO, and supply under one roof.",
     "cards": [
-      { "title": "17", "body": "Years in aviation" },
+      { "title": "18", "body": "Years in aviation" },
       { "title": "250+", "body": "Certified projects" },
       { "title": "25+", "body": "Countries served" }
     ]
@@ -177,8 +177,26 @@
     "section": "Portfolio",
     "eyebrow": "Smart Supply OEM Program",
     "headline": "Built for manufacturers. Delivered with precision.",
-    "subheadline": "Six reasons OEM partners choose AIR\u00a0TEAM as their single avionics supplier.",
-    "cards": []
+    "subheadline": "OEM partners who choose AIR\u00a0TEAM as their single avionics supplier.",
+    "cards": [],
+    "logos": [
+      { "file": "scalewings.png",               "name": "ScaleWings",               "theme": "dark" },
+      { "file": "blackwing.png",                "name": "Blackwing",                "theme": "dark" },
+      { "file": "bristell.png",                 "name": "Bristell" },
+      { "file": "tarragon-aircraft.svg",        "name": "Tarragon Aircraft",        "theme": "dark" },
+      { "file": "ellipse.svg",                  "name": "ellipse aero" },
+      { "file": "aerospool.png",                "name": "Aerospool",                "theme": "dark" },
+      { "file": "aeropro.png",                  "name": "Aeropro / EuroFOX",        "theme": "dark" },
+      { "file": "shark-aero.png",               "name": "Shark Aero",               "theme": "dark" },
+      { "file": "directfly.png",                "name": "DirectFly" },
+      { "file": "icp-aviazione.png",            "name": "ICP Aviazione" },
+      { "file": "tomark-aero.svg",              "name": "Tomark Aero",              "theme": "dark" },
+      { "file": "sd-planes.png",                "name": "SD Planes" },
+      { "file": "aircraft-builders-europe.png", "name": "Aircraft Builders Europe", "theme": "dark" },
+      { "file": "orlican.png",                  "name": "Orličan" },
+      { "file": "argo.png",                     "name": "Argo" },
+      { "file": "tl-ultralight.png",            "name": "TL Ultralight",            "theme": "dark" }
+    ]
   },
   {
     "id": "oem-benefits",

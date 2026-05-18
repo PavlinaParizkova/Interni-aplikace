@@ -44,6 +44,12 @@ export interface LocationItem {
   note?: string;
 }
 
+export interface OemLogo {
+  file: string;
+  name: string;
+  theme?: "dark" | "light";
+}
+
 export interface SlideData {
   id: string;
   type: SlideType;
@@ -59,6 +65,7 @@ export interface SlideData {
   locations?: LocationItem[];
   bullets?: string[];
   quadCards?: QuadCard[];
+  logos?: OemLogo[];
 }
 
 export const SLIDE_SECTIONS = ["AIR\u00a0TEAM", "Portfolio", "Certification", "Why Us"] as const;

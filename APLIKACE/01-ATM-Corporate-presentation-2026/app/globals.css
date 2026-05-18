@@ -1,3 +1,17 @@
+/* ============================================================
+   AIR TEAM Corporate Presentation — Unified Typography Scale
+   ------------------------------------------------------------
+   Slide eyebrow  ........... 0.72rem / 0.18em letter-spacing
+   Card eyebrow / number /
+   sub-label / meta ......... 0.72rem / 0.18em letter-spacing
+   Slide headline (h2) ...... clamp(22px, 3.5vw, 44px)
+   Card headline (h3) ....... clamp(20px, 2.3vw, 26px) / line 1.18
+   Stat number .............. per-context (34–58px, big numbers)
+   Hero / lead / slide body . clamp(17px, 2vw, 20px) / line 1.6
+   Card body / bullet ....... clamp(0.98rem, 1.3vw, 1.15rem) / line 1.5
+   Image-overlay caption .... clamp(0.68rem, 0.86vw, 0.82rem) (mosaic only)
+   ============================================================ */
+
 :root {
   --atm-font-sans: "Poppins", "Segoe UI", Arial, sans-serif;
   --atm-blue: #153151;
@@ -186,7 +200,7 @@ button {
 }
 
 .quad-card__eyebrow {
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -195,11 +209,11 @@ button {
 }
 
 .quad-card__headline {
-  font-size: 1rem;
+  font-size: clamp(20px, 2.3vw, 26px);
   font-weight: 700;
   color: var(--atm-white);
   margin: 0 0 6px;
-  line-height: 1.3;
+  line-height: 1.18;
 }
 
 .quad-card__bullets {
@@ -212,9 +226,9 @@ button {
 }
 
 .quad-card__bullets li {
-  font-size: 0.72rem;
+  font-size: clamp(0.98rem, 1.3vw, 1.15rem);
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--atm-shell-muted);
   padding-left: 14px;
   position: relative;
 }
@@ -709,8 +723,8 @@ h3 {
 .metric-strip .info-card p {
   margin: 0;
   color: var(--atm-shell-muted);
-  font-size: 1rem;
-  line-height: 1.35;
+  font-size: clamp(0.98rem, 1.3vw, 1.15rem);
+  line-height: 1.5;
 }
 
 .intro-block {
@@ -732,6 +746,7 @@ h3 {
   max-width: 78ch;
   margin-top: 22px;
   font-size: clamp(0.98rem, 1.3vw, 1.15rem);
+  line-height: 1.5;
   text-align: justify;
   text-wrap: pretty;
 }
@@ -806,7 +821,8 @@ h3 {
 
 .section-title .info-card p {
   color: var(--atm-shell-muted);
-  font-size: 0.92rem;
+  font-size: clamp(0.98rem, 1.3vw, 1.15rem);
+  line-height: 1.5;
 }
 
 .meet-slide {
@@ -825,8 +841,8 @@ h3 {
   max-width: 48ch;
   margin-top: 20px;
   color: var(--atm-shell-muted);
-  font-size: clamp(17px, 2vw, 20px);
-  line-height: 1.6;
+  font-size: clamp(0.98rem, 1.3vw, 1.15rem);
+  line-height: 1.5;
 }
 
 .meet-slide .card-grid {
@@ -866,8 +882,8 @@ h3 {
 .meet-slide .info-card p {
   margin: 0;
   color: var(--atm-shell-muted);
-  font-size: 1rem;
-  line-height: 1.35;
+  font-size: clamp(0.98rem, 1.3vw, 1.15rem);
+  line-height: 1.5;
 }
 
 .card-grid,
@@ -934,7 +950,8 @@ h3 {
 .info-card p,
 .location-card p {
   color: var(--atm-shell-muted);
-  line-height: 1.48;
+  font-size: clamp(0.98rem, 1.3vw, 1.15rem);
+  line-height: 1.5;
 }
 
 .slide--light .info-card p,
@@ -948,9 +965,9 @@ h3 {
   margin-top: auto;
   padding-top: 12px;
   color: var(--atm-red);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -1028,7 +1045,7 @@ h3 {
   display: block;
   margin-bottom: 24px;
   color: var(--atm-red);
-  font-size: 0.64rem;
+  font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.18em;
 }
@@ -1043,24 +1060,24 @@ h3 {
 .pillar-card h3 {
   margin-bottom: 8px;
   color: var(--atm-shell-text);
-  font-size: clamp(18px, 1.8vw, 23px);
-  line-height: 1.08;
+  font-size: clamp(20px, 2.3vw, 26px);
+  line-height: 1.18;
 }
 
 .pillar-card strong {
   display: block;
   margin-bottom: 12px;
   color: var(--atm-blue-sky);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
 .pillar-card p {
   color: var(--atm-shell-muted);
-  font-size: clamp(0.9rem, 1vw, 1rem);
-  line-height: 1.55;
+  font-size: clamp(0.98rem, 1.3vw, 1.15rem);
+  line-height: 1.5;
 }
 
 .pillar-footnote {
@@ -1068,8 +1085,8 @@ h3 {
   margin-top: 28px;
   margin-left: auto;
   color: var(--atm-shell-muted);
-  font-size: clamp(1rem, 1.25vw, 1.12rem);
-  line-height: 1.55;
+  font-size: clamp(0.98rem, 1.3vw, 1.15rem);
+  line-height: 1.5;
 }
 
 .value-grid {
@@ -1083,8 +1100,8 @@ h3 {
   max-width: 980px;
   margin-top: 24px;
   color: var(--atm-shell-muted);
-  font-size: clamp(0.9rem, 1.08vw, 1rem);
-  line-height: 1.58;
+  font-size: clamp(0.98rem, 1.3vw, 1.15rem);
+  line-height: 1.5;
   white-space: pre-line;
 }
 
@@ -1106,7 +1123,7 @@ h3 {
   display: block;
   margin-bottom: 24px;
   color: var(--atm-blue-sky);
-  font-size: 0.64rem;
+  font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.18em;
 }
@@ -1114,24 +1131,24 @@ h3 {
 .value-card h3 {
   margin-bottom: 10px;
   color: var(--atm-shell-text);
-  font-size: clamp(18px, 1.8vw, 23px);
-  line-height: 1.08;
+  font-size: clamp(20px, 2.3vw, 26px);
+  line-height: 1.18;
 }
 
 .value-card strong {
   display: block;
   margin-bottom: 12px;
   color: var(--atm-blue-sky);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
 .value-card p {
   color: var(--atm-shell-muted);
-  font-size: clamp(0.9rem, 1vw, 1rem);
-  line-height: 1.55;
+  font-size: clamp(0.98rem, 1.3vw, 1.15rem);
+  line-height: 1.5;
 }
 
 @keyframes pillar-card-in {
@@ -1201,15 +1218,16 @@ h3 {
   top: 18px;
   left: 20px;
   color: rgba(255, 255, 255, 0.45);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
 }
 
 .hover-card h3 {
   position: relative;
   z-index: 2;
-  font-size: clamp(0.95rem, 1.35vw, 1.28rem);
+  font-size: clamp(20px, 2.3vw, 26px);
+  line-height: 1.18;
   text-transform: uppercase;
 }
 
@@ -1229,7 +1247,8 @@ h3 {
   margin-top: 12px;
   color: var(--atm-blue-v5);
   font-size: 0.72rem;
-  letter-spacing: 0.1em;
+  font-weight: 800;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -1716,3 +1735,109 @@ h3 {
 .admin-login h1 { font-size: 1.3rem; font-weight: 700; margin: 0; }
 .admin-login p { color: #93b3cf; font-size: 0.875rem; margin: 0; }
 .admin-login form { display: flex; flex-direction: column; gap: 1rem; }
+
+/* ─── OEM Logo slide (slide 09) ──────────────────────────────── */
+
+.oem-slide {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vh, 2.5rem);
+  width: 100%;
+}
+
+.oem-slide__header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+.oem-slide__header h2 {
+  max-width: 22ch;
+  white-space: normal;
+}
+
+.oem-slide__sub {
+  max-width: 32ch;
+  margin: 0;
+  color: var(--atm-shell-muted);
+  font-size: clamp(0.98rem, 1.3vw, 1.15rem);
+  line-height: 1.65;
+}
+
+.oem-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: clamp(8px, 0.9vw, 14px);
+}
+
+@keyframes logo-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.oem-logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(44px, 5.5vh, 58px);
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 5px;
+  animation: logo-item-in 0.32s ease both;
+  transition: background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.oem-logo-item:hover {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+}
+
+/* Bílá loga — tmavá dlaždice */
+.oem-logo-item--dark {
+  background: rgba(16, 37, 62, 0.72);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.oem-logo-item--dark:hover {
+  background: rgba(16, 37, 62, 0.92);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.32);
+}
+
+.oem-logo-item img {
+  max-height: 36px;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.88;
+  transition: opacity 0.18s ease;
+}
+
+.oem-logo-item:hover img,
+.oem-logo-item--dark:hover img {
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  .oem-logo-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .oem-slide__header {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .oem-logo-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

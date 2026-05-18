@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { HoverCard, LabeledText, QuadCard, SlideData } from "./slides";
+import type { HoverCard, LabeledText, OemLogo, QuadCard, SlideData } from "./slides";
 
 type Direction = "fwd" | "bwd";
 
@@ -226,6 +226,29 @@ function ValueGrid({ cards }: { cards?: HoverCard[] }) {
   );
 }
 
+function OemLogoGrid({ logos }: { logos: OemLogo[] }) {
+  return (
+    <div className="oem-logo-grid">
+      {logos.map((logo, i) => (
+        <div
+          key={logo.file}
+          className={`oem-logo-item${logo.theme === "dark" ? " oem-logo-item--dark" : ""}`}
+          style={{ animationDelay: `${i * 40}ms` }}
+          title={logo.name}
+        >
+          <Image
+            src={`/logos/oem/${logo.file}`}
+            alt={logo.name}
+            width={120}
+            height={38}
+            style={{ objectFit: "contain", width: "100%", height: "100%" }}
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function DivisionGrid({ cards }: { cards?: LabeledText[] }) {
   if (!cards?.length) return null;
   return (
@@ -233,9 +256,9 @@ function DivisionGrid({ cards }: { cards?: LabeledText[] }) {
       {cards.map((card, index) => (
         <article className="pillar-card" key={card.title} style={{ animationDelay: `${index * 120}ms` }}>
           <span className="pillar-card__number">{String(index + 1).padStart(2, "0")}</span>
-          {card.meta && <strong>{card.meta}</strong>}
           <h3>{card.title}</h3>
           <p>{card.body}</p>
+          {card.meta && <strong>{card.meta}</strong>}
         </article>
       ))}
     </div>
@@ -292,6 +315,24 @@ function renderSlide(slide: SlideData, onStart?: () => void) {
       );
 
     case "divider":
+      if (slide.logos?.length) {
+        return (
+          <SlideFrame slide={slide}>
+            <div className="oem-slide">
+              <div className="oem-slide__header">
+                <div>
+                  <Eyebrow>{slide.eyebrow}</Eyebrow>
+                  <h2>{slide.headline}</h2>
+                </div>
+                {slide.subheadline && (
+                  <p className="oem-slide__sub">{slide.subheadline}</p>
+                )}
+              </div>
+              <OemLogoGrid logos={slide.logos} />
+            </div>
+          </SlideFrame>
+        );
+      }
       return (
         <SlideFrame slide={slide}>
           <div className="meet-slide">
@@ -348,7 +389,6 @@ function renderSlide(slide: SlideData, onStart?: () => void) {
               </div>
             </div>
             <div>
-              <h3 className="block-title">Certifications &amp; Credentials</h3>
               <div className="cert-badge-grid">
                 {slide.bullets?.map((item) => (
                   <span key={item} className="cert-badge">{item}</span>
